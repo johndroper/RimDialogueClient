@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.RegularExpressions;
 using LudeonTK;
 using UnityEngine;
@@ -7,15 +8,15 @@ namespace Bubbles.Core
 {
   public class Bubble
   {
-    private static readonly Regex RemoveColorTag = new("<\\/?color[^>]*>");
+
     private static readonly GUIContent Content = new();
 
     public LogEntry Entry { get; }
 
     private readonly Pawn _pawn;
 
-    private string? _text;
-    private string Text => _text ??= GetText();
+    private string _text;
+    private string Text => _text;
 
     private GUIStyle? _style;
     private GUIStyle Style => _style ??= new GUIStyle(Verse.Text.CurFontStyle)
@@ -27,10 +28,11 @@ namespace Bubbles.Core
     public int Height { get; private set; }
     public int Width { get; private set; }
 
-    public Bubble(Pawn pawn, LogEntry entry)
+    public Bubble(Pawn pawn, LogEntry entry, string text)
     {
       Entry = entry;
       _pawn = pawn;
+      _text = text;
     }
 
     private static Color GetBackground(bool isSelected) => isSelected ? Settings.SelectedBackground.Value : Settings.Background.Value;
@@ -116,12 +118,6 @@ namespace Bubbles.Core
       Height = Mathf.RoundToInt(Style.CalcHeight(Content, Width));
     }
 
-    private string GetText()
-    {
-      var text = Entry.ToGameStringFromPOV(_pawn);
-      return Settings.DoTextColors.Value ? text : RemoveColorTag.Replace(text, string.Empty);
-    }
-
     private float GetFade()
     {
       var elasped = Find.TickManager!.TicksAbs - Entry.Tick - Settings.FadeStart.Value;
@@ -133,6 +129,6 @@ namespace Bubbles.Core
       return fade;
     }
 
-    public void Rebuild() => _text = null;
+    public void Rebuild() {}
   }
 }

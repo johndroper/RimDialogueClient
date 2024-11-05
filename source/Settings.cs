@@ -46,7 +46,7 @@ namespace Bubbles
     public static readonly Setting<float> OpacityStart = new(nameof(OpacityStart), 0.9f);
     public static readonly Setting<float> OpacityHover = new(nameof(OpacityHover), 0.2f);
 
-    public static readonly Setting<int> FadeStart = new(nameof(FadeStart), 500);
+    public static readonly Setting<int> FadeStart = new(nameof(FadeStart), 1000);
     public static readonly Setting<int> FadeLength = new(nameof(FadeLength), 100);
 
     public static readonly Setting<Color> Background = new(nameof(Background), Color.white);

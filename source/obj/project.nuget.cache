@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "NOm/IXVczEw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\Bubbles.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\madja\\.nuget\\packages\\lib.harmony\\2.3.3\\lib.harmony.2.3.3.nupkg.sha512"
+  ],
+  "logs": []
+}
