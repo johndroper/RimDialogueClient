@@ -24,8 +24,8 @@ namespace Bubbles.Core
     private const float LabelPositionOffset = -0.6f;
 
     private static readonly Dictionary<Pawn, List<Bubble>> Dictionary = new();
-    private static readonly Regex RemoveColorTag = new("<\\/?color[^>]*>");
-
+    private static readonly Regex ColorTag = new("<\\/?color[^>]*>");
+    private static readonly Regex WhiteSpace = new("\\s+");
     private static bool ShouldShow() => Settings.Activated && !WorldRendererUtility.WorldRenderedNow && (Settings.AutoHideSpeed.Value is Settings.AutoHideSpeedDisabled || (int)Find.TickManager!.CurTimeSpeed < Settings.AutoHideSpeed.Value);
 
     public static void Add(LogEntry entry)
@@ -50,7 +50,7 @@ namespace Bubbles.Core
         default:
           return;
       }
-      
+
       if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
 
       if (!Settings.DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
@@ -64,54 +64,70 @@ namespace Bubbles.Core
       GetDialogue(initiator, recipient, entry);
     }
 
+    private static string FormatOffset(float? offset) {
+      if (offset == null)
+          return string.Empty;
+      return offset > 0 ? "+" + (int)offset : ((int)offset).ToString();
+    }
+
+    private static string RemoveWhiteSpace(string? input)
+    {
+      if (input == null) return string.Empty;
+      return WhiteSpace.Replace(input, " ");
+    }
+
+    private static string RemoveWhiteSpaceAndColor(string? input)
+    {
+      if (input == null) return string.Empty;
+      input = ColorTag.Replace(input, string.Empty);
+      return RemoveWhiteSpace(input);
+    }
+
     private static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
     {
       try
       {
-        var logEntryText = RemoveColorTag.Replace(
+        var logEntryText = ColorTag.Replace(
           entry.ToGameStringFromPOV(initiator),
           string.Empty);
         Mod.Log(logEntryText);
 
-        List<ISocialThought> initiatorThoughtsAboutRecipient = [];
-        if (recipient != null)
-          initiator.needs.mood.thoughts.GetSocialThoughts(recipient, initiatorThoughtsAboutRecipient);
-
-        List<ISocialThought> recipientThoughtsAboutInitiator = [];
-        if (recipient != null)
-          recipient.needs.mood.thoughts.GetSocialThoughts(initiator, recipientThoughtsAboutInitiator);
-
-        Mod.Log($"initiator is spawned: {initiator.Spawned}");
-        Mod.Log($"initiator is destroyed: {initiator.Destroyed}");
-        Mod.Log($"initiator kind: {initiator.KindLabel}");
-        Mod.Log($"initiator age: {initiator.ageTracker.AgeBiologicalYears}");
-
-        Mod.Log($"Has skills: {initiator.skills.skills != null}");
-        Mod.Log($"Has traits: {initiator.story.traits.allTraits != null}");
-        Mod.Log($"Has relations: {initiator.relations.DirectRelations != null}");
-        Mod.Log($"Has health: {initiator.health.hediffSet != null}");
-        Mod.Log($"Has mood: {initiator.needs?.mood != null}");
+        List<Thought_Memory> initiatorThoughtsAboutRecipient = initiator.needs?.mood?.thoughts?.memories?.Memories
+          .Where(thoughtMemory => thoughtMemory is ISocialThought && thoughtMemory.otherPawn == recipient)
+          .ToList() ?? [];
+        List<Thought_Memory> recipientThoughtsAboutInitiator = recipient?.needs?.mood?.thoughts?.memories?.Memories
+          .Where(thoughtMemory => thoughtMemory is ISocialThought && thoughtMemory.otherPawn == initiator)
+          .ToList() ?? [];
+        List<Thought_Memory> initiatorMoodThoughts = initiator.needs?.mood?.thoughts?.memories?.Memories
+          .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
+          .ToList() ?? [];
+        List<Thought_Memory> recipientMoodThoughts = recipient?.needs?.mood?.thoughts?.memories?.Memories
+          .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
+          .ToList() ?? [];
 
         var dialogueData = new DialogueData
         {
           interaction = logEntryText,
+          scenario = RemoveWhiteSpace(Find.Scenario?.description),
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
           initiatorFactionName = initiator.Faction?.Name ?? String.Empty,
           initiatorDescription = initiator.DescriptionDetailed ?? String.Empty,
           initiatorRace = initiator.def?.defName ?? String.Empty,
           initiatorIsColonist = initiator.IsColonist,
           initiatorIsPrisoner = initiator.IsPrisoner,
+          initiatorIdeology = initiator.Ideo?.description ?? string.Empty,
           initiatorAge = initiator.ageTracker.AgeBiologicalYears,
-          initiatorSkills = initiator.skills?.skills.Select(skill => new SkillData(skill.def?.description ?? string.Empty, skill.Level)).ToArray() ?? [],
-          initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label).ToArray() ?? [],
-          initiatorChildhood = initiator.story?.Childhood?.FullDescriptionFor(initiator) ?? String.Empty,
-          initiatorAdulthood = initiator.story?.Adulthood?.FullDescriptionFor(initiator) ?? String.Empty,
-          initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => new RelationshipData(relation.def.description, relation.otherPawn?.Name?.ToStringFull ?? string.Empty)).ToArray() ?? [],
-          initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => apparel.DescriptionDetailed).ToArray() ?? [],
-          initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.DescriptionDetailed).ToArray() ?? [],
-          initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => hediff.Description).ToArray() ?? [],
-          initiatorMemories = initiator.needs?.mood?.thoughts?.memories?.Memories?.Select(memory => memory.Description).ToArray() ?? [],
-          initiatorOpinionOfRecipient = initiatorThoughtsAboutRecipient.Select(thought => thought.OpinionOffset()).ToArray() ?? [],
+          initiatorSkills = initiator.skills?.skills.Select(skill => $"Level {skill.Level} {skill.def.label} ({skill.LevelDescriptor}) - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(initiator))).ToArray() ?? [],
+          initiatorChildhood = RemoveWhiteSpace(initiator.story?.Childhood?.FullDescriptionFor(initiator)),
+          initiatorAdulthood = RemoveWhiteSpace(initiator.story?.Adulthood?.FullDescriptionFor(initiator)),
+          initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def.label})").ToArray() ?? [],
+          initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
+          initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => RemoveWhiteSpace(equipment.DescriptionDetailed)).ToArray() ?? [],
+          initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => hediff.Label  + " in their " + hediff.Part.Label).ToArray() ?? [],
+          initiatorOpinionOfRecipient = initiatorThoughtsAboutRecipient.Select(moodThought => moodThought.LabelCapSocial + " (opinion " + FormatOffset((moodThought as ISocialThought)?.OpinionOffset()) + ")").ToArray() ?? [],
+          initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " (mood " + FormatOffset(moodThought.MoodOffset()) + ")"  ).ToArray(),
+          initiatorMoodString = initiator.needs?.mood?.MoodString ?? string.Empty,
           initiatorMoodPercentage = initiator.needs?.mood?.CurLevelPercentage ?? -1f,
           initiatorComfortPercentage = initiator.needs?.comfort?.CurLevelPercentage ?? -1f,
           initiatorFoodPercentage = initiator.needs?.food?.CurLevelPercentage ?? -1f,
@@ -124,19 +140,21 @@ namespace Bubbles.Core
           recipientFactionName = recipient?.Faction?.Name ?? String.Empty,
           recipientDescription = recipient?.DescriptionDetailed ?? String.Empty,
           recipientRace = recipient?.def.defName ?? String.Empty,
+          recipientIdeology = recipient?.Ideo?.description ?? string.Empty,
           recipientAge = recipient?.ageTracker.AgeBiologicalYears ?? -1,
           recipientIsColonist = recipient?.IsColonist ?? false,
           recipientIsPrisoner = recipient?.IsPrisoner ?? false,
-          recipientSkills = recipient?.skills?.skills?.Select(skill => new SkillData(skill.def?.defName ?? string.Empty, skill.Level)).ToArray() ?? [],
-          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label).ToArray() ?? [],
-          recipientChildhood = recipient?.story?.Childhood?.FullDescriptionFor(recipient) ?? String.Empty,
-          recipientAdulthood = recipient?.story?.Adulthood?.FullDescriptionFor(recipient) ?? String.Empty,
-          recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => new RelationshipData(relation.def.description, relation.otherPawn?.Name?.ToStringFull)).ToArray() ?? [],
-          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.DescriptionDetailed).ToArray() ?? [],
-          recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.DescriptionDetailed).ToArray() ?? [],
-          recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => hediff.Description).ToArray() ?? [],
-          recipientMemories = recipient?.needs.mood.thoughts.memories.Memories.Select(memory => memory.Description).ToArray() ?? [],
-          recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(thought => thought.OpinionOffset()).ToArray() ?? [],
+          recipientSkills = recipient?.skills?.skills?.Select(skill => $"Level {skill.Level} {skill.def.label} ({skill.LevelDescriptor}) - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(initiator))).ToArray() ?? [],
+          recipientChildhood = RemoveWhiteSpace(recipient?.story?.Childhood?.FullDescriptionFor(recipient)),
+          recipientAdulthood = RemoveWhiteSpace(recipient?.story?.Adulthood?.FullDescriptionFor(recipient)),
+          recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def.label})").ToArray() ?? [],
+          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
+          recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => RemoveWhiteSpace(equipment.DescriptionDetailed)).ToArray() ?? [],
+          recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => hediff.Label + " in their " + hediff.Part.Label).ToArray() ?? [],
+          recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(moodThought => moodThought.LabelCapSocial + " (opinion " + FormatOffset((moodThought as ISocialThought)?.OpinionOffset()) + ")").ToArray(),
+          recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " (mood " + FormatOffset(moodThought.MoodOffset()) + ")").ToArray(),
+          recipientMoodString = recipient?.needs?.mood?.MoodString ?? string.Empty,
           recipientMoodPercentage = recipient?.needs?.mood?.CurLevelPercentage ?? -1f,
           recipientComfortPercentage = recipient?.needs?.comfort?.CurLevelPercentage ?? -1f,
           recipientFoodPercentage = recipient?.needs?.food?.CurLevelPercentage ?? -1f,
@@ -149,14 +167,11 @@ namespace Bubbles.Core
 
         string dialogueDataJson = JsonUtility.ToJson(dialogueData);
 
-        //Mod.Log($"JSON: {dialogueDataJson}");
-
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", dialogueDataJson);
 
         using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:7293/home/GetDialogue", form))
         {
-          //request.SetRequestHeader("Content-Type", "application/json");
           var asyncOperation =  request.SendWebRequest();
 
           while (!asyncOperation.isDone)
@@ -173,8 +188,6 @@ namespace Bubbles.Core
             while(!request.downloadHandler.isDone) { await Task.Yield(); }
 
             var body = request.downloadHandler.text;
-
-            //Mod.Log($"BODY: {body}");
 
             var dialogueResponse = JsonUtility.FromJson<DialogueResponse>(body);
 

@@ -11,23 +11,26 @@ namespace Bubbles.Core
   public class DialogueData
   {
     public string interaction = String.Empty;
+    public string scenario = string.Empty;
     public string initiatorFullName = String.Empty;
     public string initiatorFactionName = String.Empty;
     public string initiatorDescription = String.Empty;
     public string initiatorRace = String.Empty;
     public int initiatorAge = -1;
+    public string initiatorIdeology = String.Empty;
     public bool initiatorIsColonist = false;
     public bool initiatorIsPrisoner = false;
-    public SkillData[] initiatorSkills = [];
+    public string[] initiatorSkills = [];
     public string[] initiatorTraits = [];
     public string initiatorChildhood = String.Empty;
     public string initiatorAdulthood = String.Empty;
-    public RelationshipData[] initiatorRelations = [];
+    public string[] initiatorRelations = [];
     public string[] initiatorApparel = [];
     public string[] initiatorWeapons = [];
     public string[] initiatorHediffs = [];
-    public string[] initiatorMemories = [];
-    public float[] initiatorOpinionOfRecipient = [];
+    public string[] initiatorOpinionOfRecipient = [];
+    public string[] initiatorMoodThoughts = [];
+    public string initiatorMoodString = string.Empty;
     public float initiatorMoodPercentage = -1f;
     public float initiatorComfortPercentage = -1f;
     public float initiatorFoodPercentage = -1f;
@@ -41,18 +44,20 @@ namespace Bubbles.Core
     public string recipientDescription = String.Empty;
     public string recipientRace = String.Empty;
     public int recipientAge = -1;
+    public string recipientIdeology = String.Empty;
     public bool recipientIsColonist = false;
     public bool recipientIsPrisoner = false;
-    public SkillData[] recipientSkills = [];
+    public string[] recipientSkills = [];
     public string[] recipientTraits = [];
     public string recipientChildhood = String.Empty;
     public string recipientAdulthood = String.Empty;
-    public RelationshipData[] recipientRelations = [];
+    public string[] recipientRelations = [];
     public string[] recipientApparel = [];
     public string[] recipientWeapons = [];
     public string[] recipientHediffs = [];
-    public string[] recipientMemories = [];
-    public float[] recipientOpinionOfInitiator = [];
+    public string[] recipientOpinionOfInitiator = [];
+    public string[] recipientMoodThoughts = [];
+    public string recipientMoodString = string.Empty;
     public float recipientMoodPercentage;
     public float recipientComfortPercentage;
     public float recipientFoodPercentage;
@@ -63,37 +68,5 @@ namespace Bubbles.Core
     public float recipientEnergyPercentage;
   }
 
-  [Serializable]
-  public class SkillData
-  {
-    public SkillData()
-    {
-    }
 
-    public SkillData(string name, int level)
-    {
-      Name = name;
-      Level = level;
-    }
-
-    public string Name;
-    public int Level;
-  }
-
-  [Serializable]
-  public class RelationshipData
-  {
-    public RelationshipData()
-    {
-
-    }
-
-    public RelationshipData(string kind, string otherPawn)
-    {
-      Kind = kind;
-      OtherPawn = otherPawn;
-    }
-    public string Kind;
-    public string OtherPawn;
-  }
 }
