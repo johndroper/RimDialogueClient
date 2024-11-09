@@ -12,6 +12,7 @@ using Bubbles.Access;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
+using RimWorld.QuestGen;
 using UnityEngine;
 using UnityEngine.Networking;
 using Verse;
@@ -56,9 +57,7 @@ namespace Bubbles.Core
       if (!Settings.DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
       if (!Settings.DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
       if (!Settings.DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
-
-      if (!Dictionary.ContainsKey(initiator)) { Dictionary[initiator] = new List<Bubble>(); }
-
+      
       //Mod.Log($"initiator name: {initiator.Name}");
 
       GetDialogue(initiator, recipient, entry);
@@ -83,6 +82,24 @@ namespace Bubbles.Core
       return RemoveWhiteSpace(input);
     }
 
+    private static string GetHediffString(Hediff hediff)
+    {
+      string text = hediff.Label;
+      if (hediff.Part != null)
+        text = text + " in their " + hediff.Part.Label;
+      return text;
+    }
+
+
+    public static string GetBackstory(Pawn? pawn, BackstoryDef? backstory)
+    {
+      if (pawn == null || backstory == null)
+        return string.Empty;
+
+      return backstory.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve();
+    }
+
+
     private static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
     {
       try
@@ -105,28 +122,79 @@ namespace Bubbles.Core
           .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
           .ToList() ?? [];
 
+        var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
+        
+
+        Room room = initiator.GetRoom();
+
+        //Find.CurrentMap.StoryState?.RecentRandomQuests
+
+        //Find.CurrentMap.StoryState?.RecentRandomDecrees;
+
+        //initiator.BodySize
+
+        //initiator.GetBeauty
+
+        //initiator.GetTerrorLevel
+
+        //initiator.interactions
+
+        //initiator.inventory
+
+        //initiator.IsGestating
+
+        //initiator.IsWildMan
+
+        //initiator.style.HasUnwantedBeard
+        
+        //Find.CurrentMap.listerThings.
+
+        //Find.CurrentMap.listerThings.
+
+        //var blahhh = Find.CurrentMap.thingGrid.ThingsAt(initiator.Position);
+
         var dialogueData = new DialogueData
         {
           interaction = logEntryText,
-          scenario = RemoveWhiteSpace(Find.Scenario?.description),
+          scenario = Find.Scenario?.name + " - " + RemoveWhiteSpace(Find.Scenario?.description),
+          daysPassedSinceSettle = GenDate.DaysPassedSinceSettle,
+          currentWeather = currentWeather.LabelCap + " - " + currentWeather.description,
+          outdoorTemp = Find.CurrentMap.mapTemperature.OutdoorTemp,
+          biome = Find.CurrentMap.Biome.label + " - " + RemoveWhiteSpace(Find.CurrentMap.Biome.description),
+          recentIncidents = Find.CurrentMap.StoryState?.RecentRandomIncidents.Where(incident => incident.label != null).Select(incident => incident.label + " - " + incident.letterText).ToArray() ?? [],
+          isOutside = initiator.IsOutside(),
+          room = room?.GetRoomRoleLabel() ?? String.Empty,
+          wealthTotal = Find.CurrentMap.wealthWatcher.WealthTotal,
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
+          initiatorNickName = initiator.Name?.ToStringShort ?? String.Empty,
+          initiatorGender = initiator.GetGenderLabel(),
           initiatorFactionName = initiator.Faction?.Name ?? String.Empty,
-          initiatorDescription = initiator.DescriptionDetailed ?? String.Empty,
+          initiatorDescription = RemoveWhiteSpace(initiator.DescriptionDetailed),
           initiatorRace = initiator.def?.defName ?? String.Empty,
           initiatorIsColonist = initiator.IsColonist,
           initiatorIsPrisoner = initiator.IsPrisoner,
+          initiatorRoyaltyTitle = initiator.royalty?.MostSeniorTitle?.Label ?? string.Empty,
+          initiatorIsCreepJoiner = initiator.IsCreepJoiner,
+          initiatorIsGhoul = initiator.IsGhoul,
+          initiatorIsBloodFeeder = initiator.IsBloodfeeder(),
+          initiatorIsSlave = initiator.IsSlave,
+          initiatorIsAnimal = initiator.IsNonMutantAnimal,
           initiatorIdeology = initiator.Ideo?.description ?? string.Empty,
           initiatorAge = initiator.ageTracker.AgeBiologicalYears,
-          initiatorSkills = initiator.skills?.skills.Select(skill => $"Level {skill.Level} {skill.def.label} ({skill.LevelDescriptor}) - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          initiatorHair = initiator.style?.nextHairDef?.label ?? string.Empty,
+          initiatorFaceTattoo = initiator.style?.FaceTattoo?.label ?? string.Empty,
+          initiatorBodyTattoo = initiator.style?.BodyTattoo?.label ?? string.Empty,
+          initiatorBeard = initiator.style?.beardDef?.label ?? string.Empty,
+          initiatorSkills = initiator.skills?.skills.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
           initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(initiator))).ToArray() ?? [],
-          initiatorChildhood = RemoveWhiteSpace(initiator.story?.Childhood?.FullDescriptionFor(initiator)),
-          initiatorAdulthood = RemoveWhiteSpace(initiator.story?.Adulthood?.FullDescriptionFor(initiator)),
+          initiatorChildhood = initiator.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Childhood)),
+          initiatorAdulthood = initiator.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Adulthood)),
           initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def.label})").ToArray() ?? [],
-          initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
-          initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => RemoveWhiteSpace(equipment.DescriptionDetailed)).ToArray() ?? [],
-          initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => hediff.Label  + " in their " + hediff.Part.Label).ToArray() ?? [],
-          initiatorOpinionOfRecipient = initiatorThoughtsAboutRecipient.Select(moodThought => moodThought.LabelCapSocial + " (opinion " + FormatOffset((moodThought as ISocialThought)?.OpinionOffset()) + ")").ToArray() ?? [],
-          initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " (mood " + FormatOffset(moodThought.MoodOffset()) + ")"  ).ToArray(),
+          initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => apparel.def.label + " - " + RemoveWhiteSpace(apparel.def.description)).ToArray() ?? [],
+          initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
+          initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
+          initiatorOpinionOfRecipient = initiatorThoughtsAboutRecipient.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray() ?? [],
+          initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset() + "]"  ).ToArray(),
           initiatorMoodString = initiator.needs?.mood?.MoodString ?? string.Empty,
           initiatorMoodPercentage = initiator.needs?.mood?.CurLevelPercentage ?? -1f,
           initiatorComfortPercentage = initiator.needs?.comfort?.CurLevelPercentage ?? -1f,
@@ -137,23 +205,35 @@ namespace Bubbles.Core
           initiatorDrugsDesirePercentage = initiator.needs?.drugsDesire?.CurLevelPercentage ?? -1f,
           initiatorEnergyPercentage = initiator.needs?.energy?.CurLevelPercentage ?? -1f,
           recipientFullName = recipient?.Name?.ToStringFull ?? String.Empty,
+          recipientNickName = recipient?.Name?.ToStringShort ?? String.Empty,
+          recipientRoyaltyTitle = recipient?.royalty?.MostSeniorTitle?.Label ?? String.Empty,
+          recipientGender = recipient?.GetGenderLabel() ?? string.Empty,
           recipientFactionName = recipient?.Faction?.Name ?? String.Empty,
-          recipientDescription = recipient?.DescriptionDetailed ?? String.Empty,
+          recipientDescription = RemoveWhiteSpace(recipient?.DescriptionDetailed),
           recipientRace = recipient?.def.defName ?? String.Empty,
           recipientIdeology = recipient?.Ideo?.description ?? string.Empty,
           recipientAge = recipient?.ageTracker.AgeBiologicalYears ?? -1,
+          recipientHair = recipient?.style?.nextHairDef?.label ?? string.Empty,
+          recipientFaceTattoo = recipient?.style?.FaceTattoo?.label ?? string.Empty,
+          recipientBodyTattoo = recipient?.style?.BodyTattoo?.label ?? string.Empty,
+          recipientBeard = recipient?.style?.beardDef?.label ?? string.Empty,
           recipientIsColonist = recipient?.IsColonist ?? false,
           recipientIsPrisoner = recipient?.IsPrisoner ?? false,
-          recipientSkills = recipient?.skills?.skills?.Select(skill => $"Level {skill.Level} {skill.def.label} ({skill.LevelDescriptor}) - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
-          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(initiator))).ToArray() ?? [],
-          recipientChildhood = RemoveWhiteSpace(recipient?.story?.Childhood?.FullDescriptionFor(recipient)),
-          recipientAdulthood = RemoveWhiteSpace(recipient?.story?.Adulthood?.FullDescriptionFor(recipient)),
+          recipientIsCreepJoiner = recipient?.IsCreepJoiner ?? false,
+          recipientIsGhoul = recipient?.IsGhoul ?? false,
+          recipientIsBloodfeeder = recipient?.IsBloodfeeder() ?? false,
+          recipientIsSlave = recipient?.IsSlave ?? false,
+          recipientIsAnimal = recipient?.IsNonMutantAnimal ?? false,
+          recipientSkills = recipient?.skills?.skills?.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(recipient))).ToArray() ?? [],
+          recipientChildhood = recipient?.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Childhood)),
+          recipientAdulthood = recipient?.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Adulthood)),
           recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def.label})").ToArray() ?? [],
-          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
+          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.def.label + " - " + RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
           recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => RemoveWhiteSpace(equipment.DescriptionDetailed)).ToArray() ?? [],
-          recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => hediff.Label + " in their " + hediff.Part.Label).ToArray() ?? [],
-          recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(moodThought => moodThought.LabelCapSocial + " (opinion " + FormatOffset((moodThought as ISocialThought)?.OpinionOffset()) + ")").ToArray(),
-          recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " (mood " + FormatOffset(moodThought.MoodOffset()) + ")").ToArray(),
+          recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
+          recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray(),
+          recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset() + "]").ToArray(),
           recipientMoodString = recipient?.needs?.mood?.MoodString ?? string.Empty,
           recipientMoodPercentage = recipient?.needs?.mood?.CurLevelPercentage ?? -1f,
           recipientComfortPercentage = recipient?.needs?.comfort?.CurLevelPercentage ?? -1f,
@@ -193,21 +273,24 @@ namespace Bubbles.Core
 
             Mod.Log(dialogueResponse.text ?? "NULL");
 
-            Dictionary[initiator]!.Add(new Bubble(initiator, entry, dialogueResponse.text ?? "NULL"));
+            if (!Dictionary.ContainsKey(initiator))
+              Dictionary[initiator] = new List<Bubble>();
+
+            Dictionary[initiator].Add(new Bubble(initiator, entry, dialogueResponse.text ?? "NULL"));
           }
         }
       }
       catch (Exception ex)
       {
-        Mod.Error($"Deactivated because http post failed with error: [{ex.Source}: {ex.Message}]\n\nTrace:\n{ex.StackTrace}");
-        Settings.Activated = false;
+        Mod.Error($"A http post failed with error: [{ex.Source}: {ex.Message}]\n\nTrace:\n{ex.StackTrace}");
       }
     }
 
     private static void Remove(Pawn pawn, Bubble bubble)
     {
-      Dictionary[pawn]!.Remove(bubble);
-      if (Dictionary[pawn]!.Count is 0) { Dictionary.Remove(pawn); }
+      if (Dictionary.ContainsKey(pawn) && Dictionary[pawn] != null)
+        Dictionary[pawn].Remove(bubble);
+      //if (Dictionary[pawn]!.Count is 0) { Dictionary.Remove(pawn); }
     }
 
     public static void Draw()
