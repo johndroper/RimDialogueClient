@@ -54,6 +54,9 @@ namespace Bubbles
     public static readonly Setting<Color> SelectedBackground = new(nameof(SelectedBackground), new Color(1f, 1f, 0.75f));
     public static readonly Setting<Color> SelectedForeground = new(nameof(SelectedForeground), Color.black);
 
+    public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 25);
+    public static string SpecialInstructions = "";
+
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 
     public static void Reset() => AllSettings.Do(static setting => setting.ToDefault());

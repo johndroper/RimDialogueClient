@@ -11,6 +11,8 @@ namespace Bubbles.Core
   [Serializable]
   public class DialogueData
   {
+    public string specialInstructions = String.Empty;
+    public int maxWords = -1;
     public string interaction = String.Empty;
     public string scenario = string.Empty;
     public int daysPassedSinceSettle = -1;

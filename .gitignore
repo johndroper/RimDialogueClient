@@ -9,3 +9,6 @@ _*
 !/*.md
 !/*.sln
 !/source/
+!/build/
+/source/bin
+/build/Bubbles/Assemblies

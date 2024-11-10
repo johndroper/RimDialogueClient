@@ -146,25 +146,31 @@ namespace Bubbles.Core
         //initiator.IsWildMan
 
         //initiator.style.HasUnwantedBeard
-        
-        //Find.CurrentMap.listerThings.
 
         //Find.CurrentMap.listerThings.
+
+        //recipient?.story.headType
+
+        //recipient?.story.bodyType
+
+        //recipient?.story.CaresAboutOthersAppearance
 
         //var blahhh = Find.CurrentMap.thingGrid.ThingsAt(initiator.Position);
 
         var dialogueData = new DialogueData
         {
+          maxWords = Settings.MaxWords.Value,
+          specialInstructions = Settings.SpecialInstructions,
           interaction = logEntryText,
           scenario = Find.Scenario?.name + " - " + RemoveWhiteSpace(Find.Scenario?.description),
           daysPassedSinceSettle = GenDate.DaysPassedSinceSettle,
           currentWeather = currentWeather.LabelCap + " - " + currentWeather.description,
           outdoorTemp = Find.CurrentMap.mapTemperature.OutdoorTemp,
           biome = Find.CurrentMap.Biome.label + " - " + RemoveWhiteSpace(Find.CurrentMap.Biome.description),
-          recentIncidents = Find.CurrentMap.StoryState?.RecentRandomIncidents.Where(incident => incident.label != null).Select(incident => incident.label + " - " + incident.letterText).ToArray() ?? [],
+          recentIncidents = Find.CurrentMap.StoryState?.RecentRandomIncidents.Where(incident => incident?.label != null).Select(incident => incident.label).ToArray() ?? [],
           isOutside = initiator.IsOutside(),
           room = room?.GetRoomRoleLabel() ?? String.Empty,
-          wealthTotal = Find.CurrentMap.wealthWatcher.WealthTotal,
+          wealthTotal = Find.CurrentMap.wealthWatcher?.WealthTotal ?? -1f,
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
           initiatorNickName = initiator.Name?.ToStringShort ?? String.Empty,
           initiatorGender = initiator.GetGenderLabel(),
@@ -180,21 +186,21 @@ namespace Bubbles.Core
           initiatorIsSlave = initiator.IsSlave,
           initiatorIsAnimal = initiator.IsNonMutantAnimal,
           initiatorIdeology = initiator.Ideo?.description ?? string.Empty,
-          initiatorAge = initiator.ageTracker.AgeBiologicalYears,
-          initiatorHair = initiator.style?.nextHairDef?.label ?? string.Empty,
+          initiatorAge = initiator.ageTracker?.AgeBiologicalYears ?? -1,
+          initiatorHair = initiator.story?.hairDef?.label ?? string.Empty,
           initiatorFaceTattoo = initiator.style?.FaceTattoo?.label ?? string.Empty,
           initiatorBodyTattoo = initiator.style?.BodyTattoo?.label ?? string.Empty,
           initiatorBeard = initiator.style?.beardDef?.label ?? string.Empty,
-          initiatorSkills = initiator.skills?.skills.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          initiatorSkills = initiator.skills?.skills.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
           initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(initiator))).ToArray() ?? [],
           initiatorChildhood = initiator.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Childhood)),
           initiatorAdulthood = initiator.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Adulthood)),
-          initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def.label})").ToArray() ?? [],
-          initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => apparel.def.label + " - " + RemoveWhiteSpace(apparel.def.description)).ToArray() ?? [],
+          initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def?.label})").ToArray() ?? [],
+          initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.def?.description)).ToArray() ?? [],
           initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
           initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
           initiatorOpinionOfRecipient = initiatorThoughtsAboutRecipient.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray() ?? [],
-          initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset() + "]"  ).ToArray(),
+          initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset().ToString("F") + "]"  ).ToArray(),
           initiatorMoodString = initiator.needs?.mood?.MoodString ?? string.Empty,
           initiatorMoodPercentage = initiator.needs?.mood?.CurLevelPercentage ?? -1f,
           initiatorComfortPercentage = initiator.needs?.comfort?.CurLevelPercentage ?? -1f,
@@ -212,8 +218,8 @@ namespace Bubbles.Core
           recipientDescription = RemoveWhiteSpace(recipient?.DescriptionDetailed),
           recipientRace = recipient?.def.defName ?? String.Empty,
           recipientIdeology = recipient?.Ideo?.description ?? string.Empty,
-          recipientAge = recipient?.ageTracker.AgeBiologicalYears ?? -1,
-          recipientHair = recipient?.style?.nextHairDef?.label ?? string.Empty,
+          recipientAge = recipient?.ageTracker?.AgeBiologicalYears ?? -1,
+          recipientHair = recipient?.story?.hairDef?.label ?? string.Empty,
           recipientFaceTattoo = recipient?.style?.FaceTattoo?.label ?? string.Empty,
           recipientBodyTattoo = recipient?.style?.BodyTattoo?.label ?? string.Empty,
           recipientBeard = recipient?.style?.beardDef?.label ?? string.Empty,
@@ -224,16 +230,16 @@ namespace Bubbles.Core
           recipientIsBloodfeeder = recipient?.IsBloodfeeder() ?? false,
           recipientIsSlave = recipient?.IsSlave ?? false,
           recipientIsAnimal = recipient?.IsNonMutantAnimal ?? false,
-          recipientSkills = recipient?.skills?.skills?.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          recipientSkills = recipient?.skills?.skills?.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
           recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(recipient))).ToArray() ?? [],
           recipientChildhood = recipient?.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Childhood)),
           recipientAdulthood = recipient?.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Adulthood)),
-          recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def.label})").ToArray() ?? [],
-          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.def.label + " - " + RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
+          recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def?.label})").ToArray() ?? [],
+          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
           recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => RemoveWhiteSpace(equipment.DescriptionDetailed)).ToArray() ?? [],
           recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
           recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray(),
-          recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset() + "]").ToArray(),
+          recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset().ToString("F") + "]").ToArray(),
           recipientMoodString = recipient?.needs?.mood?.MoodString ?? string.Empty,
           recipientMoodPercentage = recipient?.needs?.mood?.CurLevelPercentage ?? -1f,
           recipientComfortPercentage = recipient?.needs?.comfort?.CurLevelPercentage ?? -1f,

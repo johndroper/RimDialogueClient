@@ -60,6 +60,10 @@ namespace Bubbles.Configuration
       l.ColorEntry("Bubbles.BackgroundSelected".Translate(), ref _colorBuffer[2], ref Settings.SelectedBackground.Value);
       l.ColorEntry("Bubbles.ForegroundSelected".Translate(), ref _colorBuffer[3], ref Settings.SelectedForeground.Value);
 
+      l.SliderLabeled("Bubbles.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
+
+      l.TextEntryLabeled("Bubbles.SpecialInstructions".Translate(), Settings.SpecialInstructions, 10);
+
       l.EndScrollView(ref _viewRect);
     }
 
