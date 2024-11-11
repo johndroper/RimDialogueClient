@@ -62,7 +62,8 @@ namespace Bubbles.Configuration
 
       l.SliderLabeled("Bubbles.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
 
-      l.TextEntryLabeled("Bubbles.SpecialInstructions".Translate(), Settings.SpecialInstructions, 10);
+      l.Label("Bubbles.SpecialInstructions".Translate());
+      Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 1);
 
       l.EndScrollView(ref _viewRect);
     }

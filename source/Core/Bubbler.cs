@@ -160,7 +160,7 @@ namespace Bubbles.Core
         var dialogueData = new DialogueData
         {
           maxWords = Settings.MaxWords.Value,
-          specialInstructions = Settings.SpecialInstructions,
+          specialInstructions = Settings.SpecialInstructions.Value,
           interaction = logEntryText,
           scenario = Find.Scenario?.name + " - " + RemoveWhiteSpace(Find.Scenario?.description),
           daysPassedSinceSettle = GenDate.DaysPassedSinceSettle,

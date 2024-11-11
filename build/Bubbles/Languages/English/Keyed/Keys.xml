@@ -28,7 +28,7 @@
   <Bubbles.Background>Background color</Bubbles.Background>
   <Bubbles.Foreground>Foreground color</Bubbles.Foreground>
   <Bubbles.BackgroundSelected>Background color (when selected)</Bubbles.BackgroundSelected>
-  
+  <Bubbles.ForegroundSelected>Foreground color (when selected)</Bubbles.ForegroundSelected>
   <Bubbles.MaxWords>Maximum dialogue length (approximate)</Bubbles.MaxWords>
   <Bubbles.SpecialInstructions>Prompt instructions</Bubbles.SpecialInstructions>
 </LanguageData>
