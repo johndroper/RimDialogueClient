@@ -1,5 +1,7 @@
 # RimDialogueClient 
 
+This project is a fork of https://github.com/Jaxe-Dev/Bubbles
+
 The following base methods are patched with Harmony:
 ```
 Postfix : RimWorld.PlaySettings.DoPlaySettingsGlobalControls
