@@ -1,0 +1,110 @@
+﻿poker
+chess
+cards
+backgammon
+dice
+craps
+roulette
+blackjack
+
+The Elder Scrolls V: Skyrim  
+Red Dead Redemption 2  
+Grand Theft Auto V  
+The Witcher 3: Wild Hunt  
+Dark Souls  
+Bloodborne  
+Sekiro: Shadows Die Twice  
+Cyberpunk 2077  
+Fallout: New Vegas  
+Horizon Zero Dawn  
+Assassin's Creed Odyssey  
+Assassin's Creed Valhalla  
+Ghost of Tsushima  
+Mass Effect 2  
+Mass Effect: Andromeda  
+Dragon Age: Inquisition  
+Dragon Age: Origins  
+Borderlands 3  
+Divinity: Original Sin 2  
+Baldur's Gate 3  
+Pillars of Eternity  
+Pillars of Eternity II: Deadfire  
+Wasteland 3  
+Pathfinder: Kingmaker  
+Pathfinder: Wrath of the Righteous  
+Mount & Blade II: Bannerlord  
+Stardew Valley  
+Terraria  
+Minecraft  
+Factorio  
+Kerbal Space Program  
+Civilization VI  
+Age of Empires II  
+Total War: Shogun 2  
+Total War: Warhammer II  
+Crusader Kings III  
+Europa Universalis IV  
+Hearts of Iron IV  
+Cities: Skylines  
+SimCity  
+Frostpunk  
+Planet Zoo  
+Zoo Tycoon  
+RollerCoaster Tycoon  
+Banished  
+Anno 1800  
+Pharaoh  
+Stronghold  
+The Sims 4  
+Don't Starve  
+Don't Starve Together  
+ARK: Survival Evolved  
+Rust  
+Conan Exiles  
+Valheim  
+The Forest  
+Green Hell  
+Project Zomboid  
+No Man's Sky  
+Subnautica  
+Elite Dangerous  
+EVE Online  
+Star Citizen  
+XCOM 2  
+Phoenix Point  
+Doom Eternal  
+Quake  
+Counter-Strike: Global Offensive  
+Overwatch  
+Valorant  
+Rainbow Six Siege  
+Call of Duty: Warzone  
+Apex Legends  
+Fortnite  
+PUBG  
+League of Legends  
+Dota 2  
+Heroes of the Storm  
+StarCraft II  
+Warcraft III  
+Diablo III  
+Diablo IV  
+Torchlight II  
+Path of Exile  
+Grim Dawn  
+Titan Quest  
+Risk of Rain 2  
+Darkest Dungeon  
+Hades  
+Slay the Spire  
+Binding of Isaac  
+Hollow Knight  
+Celeste  
+Cuphead  
+Ori and the Blind Forest  
+Ori and the Will of the Wisps  
+Dead Cells  
+Enter the Gungeon  
+Spelunky 2  
+Hyper Light Drifter  
+Disco Elysium

@@ -1,7 +1,8 @@
-﻿using System.Reflection;
+using System.Reflection;
 using RimDialogue;
 
 [assembly: AssemblyTitle(Mod.Name)]
-[assembly: AssemblyProduct("RimWorld Mods by Jaxe")]
-[assembly: AssemblyCopyright("© Jaxe")]
+[assembly: AssemblyProduct("Rimworld AI Interactions")]
+[assembly: AssemblyCopyright("© Jaxe, © John Roper")]
+
 [assembly: AssemblyVersion(Mod.Version)]
