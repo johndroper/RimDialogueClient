@@ -256,7 +256,7 @@ namespace Bubbles.Core
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", dialogueDataJson);
 
-        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:7293/home/GetDialogue", form))
+        using (UnityWebRequest request = UnityWebRequest.Post("http://44.202.96.70/home/GetDialogue", form))
         {
           var asyncOperation =  request.SendWebRequest();
 

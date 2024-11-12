@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\Bubbles.csproj": {}
+    "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\RimDialogueClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\Bubbles.csproj": {
+    "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\RimDialogueClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\Bubbles.csproj",
+        "projectUniqueName": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\RimDialogueClient.csproj",
         "projectName": "Bubbles",
-        "projectPath": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\Bubbles.csproj",
+        "projectPath": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\RimDialogueClient.csproj",
         "packagesPath": "C:\\Users\\madja\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\obj\\",
         "projectStyle": "PackageReference",
@@ -52,7 +52,16 @@
         }
       },
       "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
         "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
           "#import": []
         }
       }

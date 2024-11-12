@@ -29,6 +29,6 @@
   <Bubbles.Foreground>Foreground color</Bubbles.Foreground>
   <Bubbles.BackgroundSelected>Background color (when selected)</Bubbles.BackgroundSelected>
   <Bubbles.ForegroundSelected>Foreground color (when selected)</Bubbles.ForegroundSelected>
-  <Bubbles.MaxWords>Maximum dialogue length (approximate)</Bubbles.MaxWords>
-  <Bubbles.SpecialInstructions>Prompt instructions</Bubbles.SpecialInstructions>
+  <Bubbles.MaxWords>Approximate maximum dialogue length</Bubbles.MaxWords>
+  <Bubbles.SpecialInstructions>Additional Instructions - Want your colony to speak differently?  Put it here! e.g. "Everyone in the colony obsessed with David Hasselhoff", "Bob speaks like Albert Einstein", "All the men in the colony speak French"</Bubbles.SpecialInstructions>
 </LanguageData>
