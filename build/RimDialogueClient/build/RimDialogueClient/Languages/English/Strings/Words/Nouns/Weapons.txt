@@ -1,0 +1,159 @@
+﻿dagger
+blade
+shiv
+razor
+scythe
+sickle
+
+sword
+sabre
+rapier
+claymore
+scimitar
+
+spear
+pike
+ikwa
+lance
+bayonet
+javelin
+
+axe
+tomahawk
+hatchet
+
+whip
+
+saw
+
+club
+hammer
+sledgehammer
+mace
+
+knuckleduster
+gauntlet
+
+dart
+arrow
+
+crossbow
+bow
+
+gun
+pistol
+rifle
+shotgun
+revolver
+
+cannon
+mortar
+howitzer
+
+bomb
+nuke
+landmine
+grenade
+
+missile
+rocket
+
+longsword  
+katana  
+broadsword  
+falchion  
+cutlass  
+flamberge  
+zweihander  
+gladius  
+dao  
+wakizashi  
+nodachi  
+kukri  
+bolo  
+bolo machete  
+cleaver  
+kris  
+stiletto  
+dirk  
+karambit  
+yataghan  
+halberd  
+glaive  
+naginata  
+trident  
+harpoon  
+boar spear  
+partisan  
+war pick  
+battleaxe  
+bearded axe  
+bardiche  
+labrys  
+morning star  
+flail  
+warhammer  
+pickaxe  
+mallet  
+cudgel  
+sap  
+billy club  
+quarterstaff  
+bo staff  
+tonfa  
+nunchaku  
+chakram  
+bola  
+throwing knife  
+throwing star  
+slingshot  
+atlatl  
+blowgun  
+whaling harpoon  
+taser  
+crossbow pistol  
+arbalest  
+compound bow  
+recurve bow  
+musket  
+flintlock pistol  
+arquebus  
+blunderbuss  
+assault rifle  
+sniper rifle  
+submachine gun  
+machine gun  
+gatling gun  
+flare gun  
+antique cannon  
+field gun  
+railgun  
+flamethrower  
+napalm bomb  
+thermobaric bomb  
+depth charge  
+cluster bomb  
+incendiary grenade  
+flashbang  
+tear gas  
+molotov cocktail  
+homemade pipe bomb  
+rocket launcher  
+bazooka  
+RPG 
+torpedo  
+ballista  
+scorpion  
+catapult  
+trebuchet  
+siege tower  
+mortar shell  
+battering ram  
+laser gun  
+plasma rifle  
+gravity hammer  
+energy sword  
+force field generator  
+shock glove  
+photon blaster  
+EMP grenade

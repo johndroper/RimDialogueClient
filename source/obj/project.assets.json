@@ -137,7 +137,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\madja\\source\\repos\\RimDialogueClient\\source\\RimDialogueClient.csproj",
-      "projectName": "Bubbles",
+      "projectName": "RimDialogue",
       "projectPath": "C:\\Users\\madja\\source\\repos\\RimDialogueClient\\source\\RimDialogueClient.csproj",
       "packagesPath": "C:\\Users\\madja\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\madja\\source\\repos\\RimDialogueClient\\source\\obj\\",
