@@ -113,4 +113,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)release.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /E /I /Y "$(ProjectDir)-" "..\build\RimDialogueClient\"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
