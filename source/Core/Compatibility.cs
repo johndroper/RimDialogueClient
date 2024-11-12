@@ -3,7 +3,7 @@ using HarmonyLib;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles.Core
+namespace RimDialogue.Core
 {
   internal static class Compatibility
   {

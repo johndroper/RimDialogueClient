@@ -1,8 +1,8 @@
-﻿using Bubbles.Core;
+﻿using RimDialogue.Core;
 using HarmonyLib;
 using Verse.Profile;
 
-namespace Bubbles.Access
+namespace RimDialogue.Access
 {
   [HarmonyPatch(typeof(MemoryUtility), nameof(MemoryUtility.ClearAllMapsAndWorld))]
   public static class Verse_Profile_MemoryUtility_ClearAllMapsAndWorld

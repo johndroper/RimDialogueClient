@@ -1,7 +1,7 @@
 using UnityEngine;
 using Verse;
 
-namespace Bubbles.Configuration
+namespace RimDialogue.Configuration
 {
   public abstract class Setting
   {

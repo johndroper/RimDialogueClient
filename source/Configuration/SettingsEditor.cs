@@ -1,9 +1,9 @@
 using System.Linq;
-using Bubbles.Core;
+using RimDialogue.Core;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles.Configuration
+namespace RimDialogue.Configuration
 {
   public static class SettingsEditor
   {

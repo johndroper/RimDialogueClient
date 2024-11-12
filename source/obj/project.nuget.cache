@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YDNzBwwXO4o=",
+  "dgSpecHash": "JnZwn9pegKs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\madja\\source\\repos\\Bubbles\\source\\RimDialogueClient.csproj",
+  "projectFilePath": "C:\\Users\\madja\\source\\repos\\RimDialogueClient\\source\\RimDialogueClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\madja\\.nuget\\packages\\lib.harmony\\2.3.3\\lib.harmony.2.3.3.nupkg.sha512"
   ],

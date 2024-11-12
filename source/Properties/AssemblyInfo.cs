@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Bubbles;
+using RimDialogue;
 
 [assembly: AssemblyTitle(Mod.Name)]
 [assembly: AssemblyProduct("RimWorld Mods by Jaxe")]

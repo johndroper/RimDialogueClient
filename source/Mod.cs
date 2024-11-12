@@ -1,15 +1,15 @@
-using Bubbles.Configuration;
+using RimDialogue.Configuration;
 using HarmonyLib;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles
+namespace RimDialogue
 {
   public sealed class Mod : Verse.Mod
   {
-    public const string Id = "Bubbles";
-    public const string Name = "Interaction Bubbles";
-    public const string Version = "3.1";
+    public const string Id = "RimDialogue";
+    public const string Name = "RimDialogue";
+    public const string Version = "0.5";
 
     public static Mod Instance = null!;
 

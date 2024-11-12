@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <Bubbles.Toggle>Show Bubbles</Bubbles.Toggle>
   <Bubbles.ResetToDefault>Reset to default</Bubbles.ResetToDefault>
@@ -29,4 +29,6 @@
   <Bubbles.Foreground>Foreground color</Bubbles.Foreground>
   <Bubbles.BackgroundSelected>Background color (when selected)</Bubbles.BackgroundSelected>
   <Bubbles.ForegroundSelected>Foreground color (when selected)</Bubbles.ForegroundSelected>
+  <Bubbles.MaxWords>Approximate maximum dialogue length</Bubbles.MaxWords>
+  <Bubbles.SpecialInstructions>Additional Instructions - Want your colony to speak differently?  Put it here! e.g. "Everyone in the colony obsessed with David Hasselhoff", "Bob speaks like Albert Einstein", "All the men in the colony speak French"</Bubbles.SpecialInstructions>
 </LanguageData>

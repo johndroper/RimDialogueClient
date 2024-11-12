@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 
-namespace Bubbles.Core
+namespace RimDialogue.Core
 {
   public class PawnBubbles
   {

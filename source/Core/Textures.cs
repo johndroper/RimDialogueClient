@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Verse;
 
-namespace Bubbles.Core
+namespace RimDialogue.Core
 {
   [StaticConstructorOnStartup]
   public static class Textures

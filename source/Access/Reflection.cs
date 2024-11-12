@@ -2,7 +2,7 @@ using System.Reflection;
 using HarmonyLib;
 using Verse;
 
-namespace Bubbles.Access
+namespace RimDialogue.Access
 {
   public static class Reflection
   {

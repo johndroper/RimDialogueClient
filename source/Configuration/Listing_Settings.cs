@@ -2,7 +2,7 @@ using System.Globalization;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles.Configuration
+namespace RimDialogue.Configuration
 {
   public class Listing_Settings : Listing_Standard
   {

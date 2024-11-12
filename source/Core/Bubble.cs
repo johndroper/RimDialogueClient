@@ -4,7 +4,7 @@ using LudeonTK;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles.Core
+namespace RimDialogue.Core
 {
   public class Bubble
   {

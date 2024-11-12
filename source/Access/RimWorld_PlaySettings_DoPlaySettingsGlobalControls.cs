@@ -1,11 +1,11 @@
-using Bubbles.Configuration;
-using Bubbles.Core;
+using RimDialogue.Configuration;
+using RimDialogue.Core;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles.Access
+namespace RimDialogue.Access
 {
   [HarmonyPatch(typeof(PlaySettings), nameof(PlaySettings.DoPlaySettingsGlobalControls))]
   public static class RimWorld_PlaySettings_DoPlaySettingsGlobalControls

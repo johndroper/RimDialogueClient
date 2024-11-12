@@ -1,9 +1,9 @@
-using Bubbles.Core;
+using RimDialogue.Core;
 using HarmonyLib;
 using System;
 using Verse;
 
-namespace Bubbles.Access
+namespace RimDialogue.Access
 {
   [HarmonyPatch(typeof(PlayLog), nameof(PlayLog.Add))]
   public static class Verse_PlayLog_Add

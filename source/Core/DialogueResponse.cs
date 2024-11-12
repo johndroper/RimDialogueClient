@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Bubbles.Core
+namespace RimDialogue.Core
 {
   [Serializable]
   public class DialogueResponse

@@ -8,7 +8,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Bubbles.Access;
+using RimDialogue.Access;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
@@ -18,7 +18,7 @@ using UnityEngine.Networking;
 using Verse;
 using static RimWorld.ColonistBar;
 
-namespace Bubbles.Core
+namespace RimDialogue.Core
 {
   public static class Bubbler
   {

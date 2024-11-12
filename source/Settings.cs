@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Bubbles.Configuration;
+using RimDialogue.Configuration;
 using HarmonyLib;
 using UnityEngine;
 using Verse;
 
-namespace Bubbles
+namespace RimDialogue
 {
   public class Settings : ModSettings
   {
@@ -68,16 +68,16 @@ namespace Bubbles
 
       Write();
 
-      Bubbles.Mod.Warning("Settings were reset with new update");
+      RimDialogue.Mod.Warning("Settings were reset with new update");
     }
 
     public override void ExposeData()
     {
       if (_resetRequired) { return; }
 
-      var version = Scribe.mode is LoadSaveMode.Saving ? Bubbles.Mod.Version : null;
+      var version = Scribe.mode is LoadSaveMode.Saving ? RimDialogue.Mod.Version : null;
       Scribe_Values.Look(ref version, "Version");
-      if (Scribe.mode is LoadSaveMode.LoadingVars && (version is null || (version is not Bubbles.Mod.Version && !SameConfigVersions.Contains(Regex.Match(version, "^\\d+\\.\\d+").Value))))
+      if (Scribe.mode is LoadSaveMode.LoadingVars && (version is null || (version is not RimDialogue.Mod.Version && !SameConfigVersions.Contains(Regex.Match(version, "^\\d+\\.\\d+").Value))))
       {
         _resetRequired = true;
         return;
