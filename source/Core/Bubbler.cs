@@ -256,7 +256,7 @@ namespace RimDialogue.Core
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", dialogueDataJson);
 
-        using (UnityWebRequest request = UnityWebRequest.Post("http://44.202.96.70/home/GetDialogue", form))
+        using (UnityWebRequest request = UnityWebRequest.Post("http://rimdialogue.proceduralproducts.com/home/GetDialogue", form))
         {
           var asyncOperation =  request.SendWebRequest();
 
