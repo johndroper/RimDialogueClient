@@ -7,7 +7,7 @@ namespace RimDialogue
 {
   public sealed class Mod : Verse.Mod
   {
-    public const string Id = "RimDialogue";
+    public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
     public const string Version = "0.5";
 
@@ -31,7 +31,7 @@ namespace RimDialogue
 
     public override void DoSettingsWindowContents(Rect inRect)
     {
-      Widgets.Label(inRect, $"<b>{"Bubbles.NonWindow".Translate()}</b>".Colorize(Color.yellow));
+      Widgets.Label(inRect, $"<b>{"RimDialogue.NonWindow".Translate()}</b>".Colorize(Color.yellow));
       inRect.yMin += 40f;
       SettingsEditor.DrawSettings(inRect);
       base.DoSettingsWindowContents(inRect);

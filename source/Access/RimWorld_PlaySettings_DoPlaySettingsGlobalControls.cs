@@ -15,7 +15,7 @@ namespace RimDialogue.Access
       if (worldView || row is null) { return; }
 
       var activated = Settings.Activated;
-      row.ToggleableIcon(ref activated, Textures.Icon, "Bubbles.Toggle".Translate(), SoundDefOf.Mouseover_ButtonToggle);
+      row.ToggleableIcon(ref activated, Textures.Icon, "RimDialogue.Toggle".Translate(), SoundDefOf.Mouseover_ButtonToggle);
 
       if (activated != Settings.Activated && Event.current!.shift) { SettingsEditor.ShowWindow(); }
       else { Settings.Activated = activated; }

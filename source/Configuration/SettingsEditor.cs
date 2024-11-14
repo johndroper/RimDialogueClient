@@ -18,51 +18,51 @@ namespace RimDialogue.Configuration
       var l = new Listing_Settings();
       l.Begin(rect);
 
-      if (l.ButtonText("Bubbles.ResetToDefault".Translate())) { Reset(); }
+      if (l.ButtonText("RimDialogue.ResetToDefault".Translate())) { Reset(); }
 
       l.End();
       l.BeginScrollView(listingRect, ref _scrollPosition, ref _viewRect);
 
-      l.CheckboxLabeled("Bubbles.DoNonPlayer".Translate(), ref Settings.DoNonPlayer.Value);
-      l.CheckboxLabeled("Bubbles.DoAnimals".Translate(), ref Settings.DoAnimals.Value);
-      l.CheckboxLabeled("Bubbles.DoDrafted".Translate(), ref Settings.DoDrafted.Value);
+      l.CheckboxLabeled("RimDialogue.DoNonPlayer".Translate(), ref Settings.DoNonPlayer.Value);
+      l.CheckboxLabeled("RimDialogue.DoAnimals".Translate(), ref Settings.DoAnimals.Value);
+      l.CheckboxLabeled("RimDialogue.DoDrafted".Translate(), ref Settings.DoDrafted.Value);
       var doTextColors = Settings.DoTextColors.Value;
-      l.CheckboxLabeled("Bubbles.DoTextColors".Translate(), ref Settings.DoTextColors.Value);
+      l.CheckboxLabeled("RimDialogue.DoTextColors".Translate(), ref Settings.DoTextColors.Value);
       if (doTextColors != Settings.DoTextColors.Value) { Bubbler.Rebuild(); }
       l.Gap();
 
-      l.SliderLabeled("Bubbles.AutoHideSpeed".Translate(), ref Settings.AutoHideSpeed.Value, 1, 4, display: Settings.AutoHideSpeed.Value == Settings.AutoHideSpeedDisabled ? "Bubbles.AutoHideSpeedOff".Translate().ToString() : Settings.AutoHideSpeed.Value.ToString());
+      l.SliderLabeled("RimDialogue.AutoHideSpeed".Translate(), ref Settings.AutoHideSpeed.Value, 1, 4, display: Settings.AutoHideSpeed.Value == Settings.AutoHideSpeedDisabled ? "RimDialogue.AutoHideSpeedOff".Translate().ToString() : Settings.AutoHideSpeed.Value.ToString());
 
-      l.SliderLabeled("Bubbles.AltitudeBase".Translate(), ref Settings.AltitudeBase.Value, 3, 44);
-      l.SliderLabeled("Bubbles.AltitudeMax".Translate(), ref Settings.AltitudeMax.Value, 20, 60);
-      l.SliderLabeled("Bubbles.ScaleMax".Translate(), ref Settings.ScaleMax.Value, 1f, 5f, 0.05f, Settings.ScaleMax.Value.ToStringPercent());
-      l.SliderLabeled("Bubbles.PawnMax".Translate(), ref Settings.PawnMax.Value, 1, 15);
+      l.SliderLabeled("RimDialogue.AltitudeBase".Translate(), ref Settings.AltitudeBase.Value, 3, 44);
+      l.SliderLabeled("RimDialogue.AltitudeMax".Translate(), ref Settings.AltitudeMax.Value, 20, 60);
+      l.SliderLabeled("RimDialogue.ScaleMax".Translate(), ref Settings.ScaleMax.Value, 1f, 5f, 0.05f, Settings.ScaleMax.Value.ToStringPercent());
+      l.SliderLabeled("RimDialogue.PawnMax".Translate(), ref Settings.PawnMax.Value, 1, 15);
 
-      l.SliderLabeled("Bubbles.FontSize".Translate(), ref Settings.FontSize.Value, 5, 30);
-      l.SliderLabeled("Bubbles.PaddingX".Translate(), ref Settings.PaddingX.Value, 1, 40);
-      l.SliderLabeled("Bubbles.PaddingY".Translate(), ref Settings.PaddingY.Value, 1, 40);
-      l.SliderLabeled("Bubbles.WidthMax".Translate(), ref Settings.WidthMax.Value, 100, 500, 4);
+      l.SliderLabeled("RimDialogue.FontSize".Translate(), ref Settings.FontSize.Value, 5, 30);
+      l.SliderLabeled("RimDialogue.PaddingX".Translate(), ref Settings.PaddingX.Value, 1, 40);
+      l.SliderLabeled("RimDialogue.PaddingY".Translate(), ref Settings.PaddingY.Value, 1, 40);
+      l.SliderLabeled("RimDialogue.WidthMax".Translate(), ref Settings.WidthMax.Value, 100, 500, 4);
 
-      l.SliderLabeled("Bubbles.OffsetSpacing".Translate(), ref Settings.OffsetSpacing.Value, 2, 12);
-      l.SliderLabeled("Bubbles.OffsetStart".Translate(), ref Settings.OffsetStart.Value, 0, 400, 2);
+      l.SliderLabeled("RimDialogue.OffsetSpacing".Translate(), ref Settings.OffsetSpacing.Value, 2, 12);
+      l.SliderLabeled("RimDialogue.OffsetStart".Translate(), ref Settings.OffsetStart.Value, 0, 400, 2);
 
       var offsetDirection = Settings.OffsetDirection.Value.AsInt;
-      l.SliderLabeled("Bubbles.OffsetDirection".Translate(), ref offsetDirection, 0, 3, display: "Bubbles.OffsetDirections".Translate().ToString().Split('|').ElementAtOrDefault(offsetDirection));
+      l.SliderLabeled("RimDialogue.OffsetDirection".Translate(), ref offsetDirection, 0, 3, display: "RimDialogue.OffsetDirections".Translate().ToString().Split('|').ElementAtOrDefault(offsetDirection));
       Settings.OffsetDirection.Value = new Rot4(offsetDirection);
 
-      l.SliderLabeled("Bubbles.OpacityStart".Translate(), ref Settings.OpacityStart.Value, 0.3f, 1f, 0.05f, Settings.OpacityStart.Value.ToStringPercent());
-      l.SliderLabeled("Bubbles.OpacityHover".Translate(), ref Settings.OpacityHover.Value, 0.05f, 1f, 0.05f, Settings.OpacityHover.Value.ToStringPercent());
-      l.SliderLabeled("Bubbles.FadeStart".Translate(), ref Settings.FadeStart.Value, 100, 5000, 50);
-      l.SliderLabeled("Bubbles.FadeLength".Translate(), ref Settings.FadeLength.Value, 50, 2500, 50);
+      l.SliderLabeled("RimDialogue.OpacityStart".Translate(), ref Settings.OpacityStart.Value, 0.3f, 1f, 0.05f, Settings.OpacityStart.Value.ToStringPercent());
+      l.SliderLabeled("RimDialogue.OpacityHover".Translate(), ref Settings.OpacityHover.Value, 0.05f, 1f, 0.05f, Settings.OpacityHover.Value.ToStringPercent());
+      l.SliderLabeled("RimDialogue.FadeStart".Translate(), ref Settings.FadeStart.Value, 100, 5000, 50);
+      l.SliderLabeled("RimDialogue.FadeLength".Translate(), ref Settings.FadeLength.Value, 50, 2500, 50);
 
-      l.ColorEntry("Bubbles.Background".Translate(), ref _colorBuffer[0], ref Settings.Background.Value);
-      l.ColorEntry("Bubbles.Foreground".Translate(), ref _colorBuffer[1], ref Settings.Foreground.Value);
-      l.ColorEntry("Bubbles.BackgroundSelected".Translate(), ref _colorBuffer[2], ref Settings.SelectedBackground.Value);
-      l.ColorEntry("Bubbles.ForegroundSelected".Translate(), ref _colorBuffer[3], ref Settings.SelectedForeground.Value);
+      l.ColorEntry("RimDialogue.Background".Translate(), ref _colorBuffer[0], ref Settings.Background.Value);
+      l.ColorEntry("RimDialogue.Foreground".Translate(), ref _colorBuffer[1], ref Settings.Foreground.Value);
+      l.ColorEntry("RimDialogue.BackgroundSelected".Translate(), ref _colorBuffer[2], ref Settings.SelectedBackground.Value);
+      l.ColorEntry("RimDialogue.ForegroundSelected".Translate(), ref _colorBuffer[3], ref Settings.SelectedForeground.Value);
 
-      l.SliderLabeled("Bubbles.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
+      l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
 
-      l.Label("Bubbles.SpecialInstructions".Translate());
+      l.Label("RimDialogue.SpecialInstructions".Translate());
       Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
 
       l.EndScrollView(ref _viewRect);
