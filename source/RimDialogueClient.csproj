@@ -96,7 +96,6 @@
     <Content Include="-\README.md" />
     <Content Include="-\About\About.xml" />
     <Content Include="-\About\Preview.png" />
-    <Content Include="-\About\PublishedFileId.txt" />
     <Content Include="-\Languages\English\Keyed\Keys.xml" />
     <Content Include="-\Textures\RimDialogue\Icon.png" />
     <Content Include="-\Textures\RimDialogue\Inner.png" />

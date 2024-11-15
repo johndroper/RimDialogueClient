@@ -31,9 +31,6 @@ namespace RimDialogue.Core
 
     public static void Add(LogEntry entry)
     {
-
-      //Mod.Log($"Adding log entry: {entry.LogID}");
-
       if (!ShouldShow()) { return; }
 
       Pawn? initiator, recipient;
@@ -58,8 +55,6 @@ namespace RimDialogue.Core
       if (!Settings.DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
       if (!Settings.DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
       
-      //Mod.Log($"initiator name: {initiator.Name}");
-
       GetDialogue(initiator, recipient, entry);
     }
 
@@ -90,7 +85,6 @@ namespace RimDialogue.Core
       return text;
     }
 
-
     public static string GetBackstory(Pawn? pawn, BackstoryDef? backstory)
     {
       if (pawn == null || backstory == null)
@@ -99,7 +93,6 @@ namespace RimDialogue.Core
       return backstory.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve();
     }
 
-
     private static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
     {
       try
@@ -107,7 +100,7 @@ namespace RimDialogue.Core
         var logEntryText = ColorTag.Replace(
           entry.ToGameStringFromPOV(initiator),
           string.Empty);
-        Mod.Log(logEntryText);
+        //Mod.Log(logEntryText);
 
         List<Thought_Memory> initiatorThoughtsAboutRecipient = initiator.needs?.mood?.thoughts?.memories?.Memories
           .Where(thoughtMemory => thoughtMemory is ISocialThought && thoughtMemory.otherPawn == recipient)
@@ -261,8 +254,8 @@ namespace RimDialogue.Core
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", dialogueDataJson);
 
-        using (UnityWebRequest request = UnityWebRequest.Post("http://rimdialogue.proceduralproducts.com/home/GetDialogue", form))
-        //using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:7293/home/GetDialogue", form))
+        //using (UnityWebRequest request = UnityWebRequest.Post("http://rimdialogue.proceduralproducts.com/home/GetDialogue", form))
+        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:7293/home/GetDialogue", form))
         {
           var asyncOperation =  request.SendWebRequest();
 
@@ -283,7 +276,7 @@ namespace RimDialogue.Core
 
             var dialogueResponse = JsonUtility.FromJson<DialogueResponse>(body);
 
-            Mod.Log(dialogueResponse.text ?? "NULL");
+            //Mod.Log(dialogueResponse.text ?? "NULL");
 
             if (!Dictionary.ContainsKey(initiator))
               Dictionary[initiator] = new List<Bubble>();
