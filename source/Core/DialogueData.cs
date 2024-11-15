@@ -11,6 +11,7 @@ namespace RimDialogue.Core
   [Serializable]
   public class DialogueData
   {
+    public string clientId = String.Empty;
     public string specialInstructions = String.Empty;
     public int maxWords = -1;
     public string interaction = String.Empty;
@@ -23,6 +24,7 @@ namespace RimDialogue.Core
     public float outdoorTemp = -1f;
     public float wealthTotal = -1f;
     public string[] recentIncidents = [];
+    public string initiatorThingID = String.Empty;
     public string initiatorFullName = String.Empty;
     public string initiatorNickName = String.Empty;
     public string initiatorRoyaltyTitle = string.Empty;
@@ -36,6 +38,7 @@ namespace RimDialogue.Core
     public string initiatorFaceTattoo = string.Empty;
     public string initiatorBodyTattoo = string.Empty;
     public string initiatorIdeology = String.Empty;
+    public string[] initiatorIdeologyPrecepts = [];
     public bool initiatorIsColonist = false;
     public bool initiatorIsPrisoner = false;
     public bool initiatorIsCreepJoiner = false;
@@ -62,6 +65,7 @@ namespace RimDialogue.Core
     public float initiatorBeautyPercentage = -1f;
     public float initiatorDrugsDesirePercentage = -1f;
     public float initiatorEnergyPercentage = -1f;
+    public string recipientThingID = String.Empty;
     public string recipientFullName = String.Empty;
     public string recipientNickName = String.Empty;
     public string recipientRoyaltyTitle = string.Empty;
@@ -75,6 +79,7 @@ namespace RimDialogue.Core
     public string recipientBodyTattoo = string.Empty;
     public string recipientBeard = string.Empty;
     public string recipientIdeology = String.Empty;
+    public string[] recipientIdeologyPrecepts = [];
     public bool recipientIsColonist = false;
     public bool recipientIsPrisoner = false;
     public bool recipientIsCreepJoiner = false;

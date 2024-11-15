@@ -65,6 +65,9 @@ namespace RimDialogue.Configuration
       l.Label("RimDialogue.SpecialInstructions".Translate());
       Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
 
+      l.Label("RimDialogue.ClientId".Translate());
+      Settings.ClientId.Value = l.TextEntry(Settings.ClientId.Value, 1);
+
       l.EndScrollView(ref _viewRect);
     }
 

@@ -159,6 +159,7 @@ namespace RimDialogue.Core
 
         var dialogueData = new DialogueData
         {
+          clientId = Settings.ClientId.Value,
           maxWords = Settings.MaxWords.Value,
           specialInstructions = Settings.SpecialInstructions.Value,
           interaction = logEntryText,
@@ -171,6 +172,7 @@ namespace RimDialogue.Core
           isOutside = initiator.IsOutside(),
           room = room?.GetRoomRoleLabel() ?? String.Empty,
           wealthTotal = Find.CurrentMap.wealthWatcher?.WealthTotal ?? -1f,
+          initiatorThingID = initiator.ThingID,
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
           initiatorNickName = initiator.Name?.ToStringShort ?? String.Empty,
           initiatorGender = initiator.GetGenderLabel(),
@@ -186,6 +188,7 @@ namespace RimDialogue.Core
           initiatorIsSlave = initiator.IsSlave,
           initiatorIsAnimal = initiator.IsNonMutantAnimal,
           initiatorIdeology = initiator.Ideo?.description ?? string.Empty,
+          initiatorIdeologyPrecepts = initiator.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray(),
           initiatorAge = initiator.ageTracker?.AgeBiologicalYears ?? -1,
           initiatorHair = initiator.story?.hairDef?.label ?? string.Empty,
           initiatorFaceTattoo = initiator.style?.FaceTattoo?.label ?? string.Empty,
@@ -210,6 +213,7 @@ namespace RimDialogue.Core
           initiatorBeautyPercentage = initiator.needs?.beauty?.CurLevelPercentage ?? -1f,
           initiatorDrugsDesirePercentage = initiator.needs?.drugsDesire?.CurLevelPercentage ?? -1f,
           initiatorEnergyPercentage = initiator.needs?.energy?.CurLevelPercentage ?? -1f,
+          recipientThingID = recipient?.ThingID ?? string.Empty,
           recipientFullName = recipient?.Name?.ToStringFull ?? String.Empty,
           recipientNickName = recipient?.Name?.ToStringShort ?? String.Empty,
           recipientRoyaltyTitle = recipient?.royalty?.MostSeniorTitle?.Label ?? String.Empty,
@@ -218,6 +222,7 @@ namespace RimDialogue.Core
           recipientDescription = RemoveWhiteSpace(recipient?.DescriptionDetailed),
           recipientRace = recipient?.def.defName ?? String.Empty,
           recipientIdeology = recipient?.Ideo?.description ?? string.Empty,
+          recipientIdeologyPrecepts = recipient?.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray(),
           recipientAge = recipient?.ageTracker?.AgeBiologicalYears ?? -1,
           recipientHair = recipient?.story?.hairDef?.label ?? string.Empty,
           recipientFaceTattoo = recipient?.style?.FaceTattoo?.label ?? string.Empty,
@@ -257,6 +262,7 @@ namespace RimDialogue.Core
         form.AddField("dialogueDataJSON", dialogueDataJson);
 
         using (UnityWebRequest request = UnityWebRequest.Post("http://rimdialogue.proceduralproducts.com/home/GetDialogue", form))
+        //using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:7293/home/GetDialogue", form))
         {
           var asyncOperation =  request.SendWebRequest();
 

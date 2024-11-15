@@ -31,4 +31,5 @@
   <RimDialogue.ForegroundSelected>Foreground color (when selected)</RimDialogue.ForegroundSelected>
   <RimDialogue.MaxWords>Approximate maximum dialogue length</RimDialogue.MaxWords>
   <RimDialogue.SpecialInstructions>Additional instructions</RimDialogue.SpecialInstructions>
+  <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>
 </LanguageData>

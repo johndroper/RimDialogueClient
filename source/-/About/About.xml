@@ -4,7 +4,10 @@
   <name>RimDialogue</name>
   <author>John Roper</author>
   <description>
-    Mod Version: {ReleaseVersion}
+    Mod Version: {ReleaseVersion} BETA
+
+    **** BETA MOD ****
+    **** USE AT YOUR OWN RISK ****
 
     RimDialogue is a fork of Jaxe’s excellent Interaction Bubbles mod, but instead of simply displaying the system-generated interaction text, it takes these interactions and uses a language model to transform them into real dialogue. This dialogue is then displayed in-game above each character’s head in a speech bubble.
 
@@ -23,6 +26,8 @@
     "All the men in the colony speak French." Now, only the male pawns will speak exclusively in French.
 
     Want to recreate the entire cast of Friends? Go for it. The possibilities are endless.
+
+    Have bugs, questions, or feedback? Join the RimDialogue Discord server: https://discord.gg/J79HSyWR
   </description>
   <supportedVersions>
     <li>1.5</li>
