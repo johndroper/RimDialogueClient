@@ -17,7 +17,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\RimDialogueClient\Assemblies\</OutputPath>
+    <OutputPath>..\..\RimDialogue\build\RimDialogueClient\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -93,6 +93,7 @@
     <Compile Include="Access\Verse_Profile_MemoryUtility_ClearAllMapsAndWorld.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="-\About\PublishedFileId.txt" />
     <Content Include="-\README.md" />
     <Content Include="-\About\About.xml" />
     <Content Include="-\About\Preview.png" />
@@ -113,7 +114,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)release.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy  "C:\Users\madja\source\repos\RimDialogue\build\RimDialogueClient" "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient" /y /s /e</PostBuildEvent>
   </PropertyGroup>
 </Project>

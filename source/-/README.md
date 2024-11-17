@@ -23,7 +23,7 @@ This project is a fork of https://github.com/Jaxe-Dev/Bubbles
 This mod also expands the range of conversation topics, adding a few hundred new ones to the interaction system.
 This mod uses server resources and needs an internet connection.
 
-The following base methods are patched with Harmony:
+The following base methods are patched with Harmony {HarmonyVersion}:
 ```
 Postfix : RimWorld.PlaySettings.DoPlaySettingsGlobalControls
 Postfix : RimWorld.MapInterface.MapInterfaceOnGUI_BeforeMainTabs

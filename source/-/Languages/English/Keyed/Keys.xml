@@ -32,4 +32,5 @@
   <RimDialogue.MaxWords>Approximate maximum dialogue length</RimDialogue.MaxWords>
   <RimDialogue.SpecialInstructions>Additional instructions</RimDialogue.SpecialInstructions>
   <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>
+  <RimDialogue.ServerUrl>Server URL</RimDialogue.ServerUrl>
 </LanguageData>

@@ -68,6 +68,9 @@ namespace RimDialogue.Configuration
       l.Label("RimDialogue.ClientId".Translate());
       Settings.ClientId.Value = l.TextEntry(Settings.ClientId.Value, 1);
 
+      l.Label("RimDialogue.ServerUrl".Translate());
+      Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
+
       l.EndScrollView(ref _viewRect);
     }
 

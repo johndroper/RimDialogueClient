@@ -95,12 +95,14 @@ namespace RimDialogue.Core
 
     private static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
     {
+      if (Find.TickManager.CurTimeSpeed != TimeSpeed.Normal)
+        return;
+
       try
       {
         var logEntryText = ColorTag.Replace(
           entry.ToGameStringFromPOV(initiator),
           string.Empty);
-        //Mod.Log(logEntryText);
 
         List<Thought_Memory> initiatorThoughtsAboutRecipient = initiator.needs?.mood?.thoughts?.memories?.Memories
           .Where(thoughtMemory => thoughtMemory is ISocialThought && thoughtMemory.otherPawn == recipient)
@@ -181,7 +183,7 @@ namespace RimDialogue.Core
           initiatorIsSlave = initiator.IsSlave,
           initiatorIsAnimal = initiator.IsNonMutantAnimal,
           initiatorIdeology = initiator.Ideo?.description ?? string.Empty,
-          initiatorIdeologyPrecepts = initiator.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray(),
+          initiatorIdeologyPrecepts = initiator.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray() ?? [],
           initiatorAge = initiator.ageTracker?.AgeBiologicalYears ?? -1,
           initiatorHair = initiator.story?.hairDef?.label ?? string.Empty,
           initiatorFaceTattoo = initiator.style?.FaceTattoo?.label ?? string.Empty,
@@ -215,7 +217,7 @@ namespace RimDialogue.Core
           recipientDescription = RemoveWhiteSpace(recipient?.DescriptionDetailed),
           recipientRace = recipient?.def.defName ?? String.Empty,
           recipientIdeology = recipient?.Ideo?.description ?? string.Empty,
-          recipientIdeologyPrecepts = recipient?.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray(),
+          recipientIdeologyPrecepts = recipient?.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray() ?? [],
           recipientAge = recipient?.ageTracker?.AgeBiologicalYears ?? -1,
           recipientHair = recipient?.story?.hairDef?.label ?? string.Empty,
           recipientFaceTattoo = recipient?.style?.FaceTattoo?.label ?? string.Empty,
@@ -250,20 +252,15 @@ namespace RimDialogue.Core
         };
 
         string dialogueDataJson = JsonUtility.ToJson(dialogueData);
-
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", dialogueDataJson);
-
-        //using (UnityWebRequest request = UnityWebRequest.Post("http://rimdialogue.proceduralproducts.com/home/GetDialogue", form))
-        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:7293/home/GetDialogue", form))
+        using (UnityWebRequest request = UnityWebRequest.Post(Settings.ServerUrl.Value, form))
         {
           var asyncOperation =  request.SendWebRequest();
-
           while (!asyncOperation.isDone)
           {
-            await Task.Yield(); // Yield control back to the main thread
+            await Task.Yield(); 
           }
-
           if (request.isNetworkError || request.isHttpError)
           {
             throw new Exception($"Network error: {request.error}");
@@ -271,16 +268,15 @@ namespace RimDialogue.Core
           else
           {
             while(!request.downloadHandler.isDone) { await Task.Yield(); }
-
             var body = request.downloadHandler.text;
-
             var dialogueResponse = JsonUtility.FromJson<DialogueResponse>(body);
-
-            //Mod.Log(dialogueResponse.text ?? "NULL");
-
+            if (dialogueResponse.rateLimited)
+            {
+              Mod.Log("Rate limited.");
+              return;
+            }
             if (!Dictionary.ContainsKey(initiator))
               Dictionary[initiator] = new List<Bubble>();
-
             Dictionary[initiator].Add(new Bubble(initiator, entry, dialogueResponse.text ?? "NULL"));
           }
         }
