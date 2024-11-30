@@ -1,4 +1,4 @@
-﻿dagger
+dagger
 blade
 shiv
 razor
@@ -153,7 +153,6 @@ laser gun
 plasma rifle  
 gravity hammer  
 energy sword  
-force field generator  
 shock glove  
 photon blaster  
 EMP grenade

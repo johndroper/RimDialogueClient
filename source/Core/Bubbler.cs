@@ -17,6 +17,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Verse;
 using static RimWorld.ColonistBar;
+using Verse.Noise;
 
 namespace RimDialogue.Core
 {
@@ -152,6 +153,41 @@ namespace RimDialogue.Core
 
         //var blahhh = Find.CurrentMap.thingGrid.ThingsAt(initiator.Position);
 
+        //initiator.Faction.GetReportText
+
+        //initiator.Faction.HostileTo
+
+        //initiator.Faction.PlayerRelationKind
+
+        //initiator.Faction.def.Description
+
+        //initiator.Faction.def.LabelCap
+
+        //
+
+        //
+
+        //initiator.mechanitor
+
+        //initiator.IsPrisonerOfColony
+
+        //initiator.IsMutant
+
+        //initiator.Inspired
+
+        //initiator.TraderKind.description
+        //initiatorTraderKind = initiator.TraderKind?.label ?? string.Empty,
+
+        //Find.CurrentMap.StoryState.lastRaidFaction
+
+        //Faction.OfPirates;
+
+        //Find.CurrentMap.resourceCounter?.AllCountedAmounts
+
+        //Find.StoryWatcher.statsRecord.colonistsKilled
+
+        //Find.CurrentMap.resourceCounter?.AllCountedAmounts.Where(thing => thing.Key.IsMedicine).Sum(thing => thing.Value);
+
         var dialogueData = new DialogueData
         {
           clientId = Settings.ClientId.Value,
@@ -167,32 +203,41 @@ namespace RimDialogue.Core
           isOutside = initiator.IsOutside(),
           room = room?.GetRoomRoleLabel() ?? String.Empty,
           wealthTotal = Find.CurrentMap.wealthWatcher?.WealthTotal ?? -1f,
+          foodTotal = Find.CurrentMap.resourceCounter?.TotalHumanEdibleNutrition ?? -1f,
+          colonistsCount = Find.CurrentMap.mapPawns?.FreeColonistsSpawnedCount ?? -1,
+          prisonersCount = Find.CurrentMap.mapPawns?.PrisonersOfColonyCount ?? -1,
           initiatorThingID = initiator.ThingID,
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
+          initiatorJobReport = initiator.GetJobReport(),
+          initiatorCarrying = RemoveWhiteSpaceAndColor(initiator.carryTracker?.CarriedThing?.LabelCap),
           initiatorNickName = initiator.Name?.ToStringShort ?? String.Empty,
           initiatorGender = initiator.GetGenderLabel(),
           initiatorFactionName = initiator.Faction?.Name ?? String.Empty,
+          initiatorFactionLabel = RemoveWhiteSpace(initiator.Faction?.def?.LabelCap),
+          initiatorFactionDescription = RemoveWhiteSpace(initiator.Faction?.def?.description),
           initiatorDescription = RemoveWhiteSpace(initiator.DescriptionDetailed),
           initiatorRace = initiator.def?.defName ?? String.Empty,
           initiatorIsColonist = initiator.IsColonist,
           initiatorIsPrisoner = initiator.IsPrisoner,
+          initiatorIsHostile = initiator.HostileTo(Faction.OfPlayer),
           initiatorRoyaltyTitle = initiator.royalty?.MostSeniorTitle?.Label ?? string.Empty,
           initiatorIsCreepJoiner = initiator.IsCreepJoiner,
           initiatorIsGhoul = initiator.IsGhoul,
           initiatorIsBloodFeeder = initiator.IsBloodfeeder(),
           initiatorIsSlave = initiator.IsSlave,
           initiatorIsAnimal = initiator.IsNonMutantAnimal,
-          initiatorIdeology = initiator.Ideo?.description ?? string.Empty,
-          initiatorIdeologyPrecepts = initiator.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray() ?? [],
+          initiatorIdeologyName = initiator.Ideo?.name ?? string.Empty,
+          initiatorIdeologyDescription = RemoveWhiteSpaceAndColor(initiator.Ideo?.description),
+          initiatorIdeologyPrecepts = initiator.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
           initiatorAge = initiator.ageTracker?.AgeBiologicalYears ?? -1,
           initiatorHair = initiator.story?.hairDef?.label ?? string.Empty,
           initiatorFaceTattoo = initiator.style?.FaceTattoo?.label ?? string.Empty,
           initiatorBodyTattoo = initiator.style?.BodyTattoo?.label ?? string.Empty,
           initiatorBeard = initiator.style?.beardDef?.label ?? string.Empty,
           initiatorSkills = initiator.skills?.skills.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
-          initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(initiator))).ToArray() ?? [],
-          initiatorChildhood = initiator.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Childhood)),
-          initiatorAdulthood = initiator.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Adulthood)),
+          initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(initiator.Named("PAWN")))).ToArray() ?? [],
+          initiatorChildhood = initiator.story?.Childhood?.title != null ? initiator.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Childhood)) : string.Empty,
+          initiatorAdulthood = initiator.story?.Adulthood?.title != null ? initiator.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Adulthood)) : string.Empty,
           initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def?.label})").ToArray() ?? [],
           initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.def?.description)).ToArray() ?? [],
           initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
@@ -210,14 +255,19 @@ namespace RimDialogue.Core
           initiatorEnergyPercentage = initiator.needs?.energy?.CurLevelPercentage ?? -1f,
           recipientThingID = recipient?.ThingID ?? string.Empty,
           recipientFullName = recipient?.Name?.ToStringFull ?? String.Empty,
+          recipientJobReport = recipient?.GetJobReport() ?? string.Empty,
+          recipientCarrying = RemoveWhiteSpaceAndColor(recipient?.carryTracker?.CarriedThing?.LabelCap),
           recipientNickName = recipient?.Name?.ToStringShort ?? String.Empty,
           recipientRoyaltyTitle = recipient?.royalty?.MostSeniorTitle?.Label ?? String.Empty,
           recipientGender = recipient?.GetGenderLabel() ?? string.Empty,
           recipientFactionName = recipient?.Faction?.Name ?? String.Empty,
+          recipientFactionLabel = RemoveWhiteSpace(recipient?.Faction?.def?.LabelCap),
+          recipientFactionDescription = RemoveWhiteSpace(recipient?.Faction?.def?.description),
           recipientDescription = RemoveWhiteSpace(recipient?.DescriptionDetailed),
           recipientRace = recipient?.def.defName ?? String.Empty,
-          recipientIdeology = recipient?.Ideo?.description ?? string.Empty,
-          recipientIdeologyPrecepts = recipient?.Ideo?.PreceptsListForReading?.Select(precept => precept.Label + " - " + precept.Description).ToArray() ?? [],
+          recipientIdeologyName = recipient?.Ideo?.name ?? string.Empty,
+          recipientIdeologyDescription = RemoveWhiteSpaceAndColor(recipient?.Ideo?.description),
+          recipientIdeologyPrecepts = recipient?.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
           recipientAge = recipient?.ageTracker?.AgeBiologicalYears ?? -1,
           recipientHair = recipient?.story?.hairDef?.label ?? string.Empty,
           recipientFaceTattoo = recipient?.style?.FaceTattoo?.label ?? string.Empty,
@@ -225,18 +275,19 @@ namespace RimDialogue.Core
           recipientBeard = recipient?.style?.beardDef?.label ?? string.Empty,
           recipientIsColonist = recipient?.IsColonist ?? false,
           recipientIsPrisoner = recipient?.IsPrisoner ?? false,
+          recipientIsHostile = recipient?.HostileTo(Faction.OfPlayer) ?? false,
           recipientIsCreepJoiner = recipient?.IsCreepJoiner ?? false,
           recipientIsGhoul = recipient?.IsGhoul ?? false,
           recipientIsBloodfeeder = recipient?.IsBloodfeeder() ?? false,
           recipientIsSlave = recipient?.IsSlave ?? false,
           recipientIsAnimal = recipient?.IsNonMutantAnimal ?? false,
           recipientSkills = recipient?.skills?.skills?.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
-          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.TipString(recipient))).ToArray() ?? [],
-          recipientChildhood = recipient?.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Childhood)),
-          recipientAdulthood = recipient?.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Adulthood)),
+          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(recipient.Named("PAWN")))).ToArray() ?? [],
+          recipientChildhood = recipient?.story?.Childhood?.title != null ? recipient?.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Childhood)) : string.Empty,
+          recipientAdulthood = recipient?.story?.Adulthood?.title != null ? recipient?.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Adulthood)) : string.Empty,
           recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def?.label})").ToArray() ?? [],
-          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.DescriptionDetailed)).ToArray() ?? [],
-          recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => RemoveWhiteSpace(equipment.DescriptionDetailed)).ToArray() ?? [],
+          recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.def?.description)).ToArray() ?? [],
+          recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
           recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
           recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray(),
           recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset().ToString("F") + "]").ToArray(),

@@ -1,274 +1,45 @@
-the weather
+what's up with them
+how they have been
+what's new with them
+how their day has been
+what they are up to
+how is their health
+how they am feeling
+how their work is going
+what’s been keeping them busy
+how their family is
+how well they have eaten
+how they slept
+how much rest they’ve gotten
+what’s been on their mind
+how life is treating them
+where they am from
+their full name
+how old they are
+the narrative of their ideology
+what they like about their ideology
+favorite precept of their ideology
+their adulthood
+their childhood
+their current activity
+their hair style
+their tattoos
+their family relations
+what their traits are
+their best trait
+their health conditions
+their apparel
+their weapons and equipment
+how comfortable they are
+how they have been eating
+how they have been sleeping
+how engaged they are with what they are doing
+how they feel thier environment looks
+their mood
+how long the colony has been going
+how many resources the colony has
+the biome
+the current weather
+the temperature outdoors
 
-breakfast cereal
-breakfast
-dinner
-food
-lunchtime
-eating habits
-salty foods
-sweet foods
-savory foods
-bitter foods
 
-favorite haircuts
-favorite clothes
-hairstyles
-fashion
-makeup
-beards
-facial hair
-
-odd jobs
-kids' games
-entertainment
-games
-birthdays
-balloons
-drunkenness
-getting drunk
-parties
-vacations
-beautiful people
-fat people
-tall people
-short people
-guilty pleasures
-vomiting
-eating
-swimming
-sports
-beaches
-
-animals
-cute animals
-fat animals
-pets
-
-pet peeves
-life's annoyances
-laundry
-sweating
-
-hauling
-cleaning
-eating without tables
-comfortable furniture
-fine meals
-lavish meals
-pemmican
-horseshoes
-recreation
-lovers
-lovin'
-healroot
-botched surgeries
-vomiting
-board games
-computer games
-television
-poker
-billiards
-spaceships
-xenohumans
-
-food rationing
-eating raw food
-nutrient paste meals
-cooking over an open fire
-growing rice vs. potatoes
-how to grow crops indoors
-hydroponics
-farming in poor soil
-building defenses
-relying on turrets
-setting traps
-melee vs. ranged combat
-throwing grenades
-improvised weapons
-surviving a raid
-dealing with infestations
-fighting off mechanoids
-avoiding predators
-taming wild animals
-feeding animals
-milking vs. shearing
-pack animals
-the best animals for hauling
-herding muffalo
-training guard animals
-thrumbos
-hunting techniques
-butchering
-making pemmican
-smoking meat
-finding fresh water
-dealing with toxic fallout
-cold snaps
-avoiding heatstroke
-surviving in the desert
-polar bears vs. wolves
-dealing with blight
-extreme weather
-long nights in the winter
-eclipses
-solar flares
-manhunters
-mutual enemies
-chasing raiders
-sneaking around
-choosing sleeping spots
-sleeping outside
-room quality
-using bedrolls
-building with stone
-wood vs. steel
-resource shortages
-digging tunnels
-falling rocks
-cleaning up blood
-keeping floors clean
-prisoner escapes
-selling prisoners
-healing prisoners
-capturing raiders
-convincing prisoners
-slave traders
-rare traders
-trading caravans
-best things to trade
-strange items
-broken-down machinery
-rebuilding turrets
-carving sculptures
-making clothes
-dying clothes
-repairing worn-out clothes
-favorite weapons
-bonding with animals
-taking prisoners for ransom
-loneliness
-falling in love
-relationships falling apart
-rivalries
-dealing with jealousy
-friends getting hurt
-talking to visitors
-first contact with a faction
-going feral
-getting stranded
-not trusting strangers
-cursed relics
-ancient artifacts
-opening cryosleep pods
-exploring ruins
-finding ancient tech
-weird psychic events
-healing scars
-scar stories
-missing limbs
-losing fingers or toes
-working with prosthetics
-trading stories about scars
-
-favorite movie quotes  
-best pizza toppings  
-morning routines  
-best vacation spots  
-favorite flowers  
-favorite scents  
-sunrises vs. sunsets  
-telling ghost stories  
-funny nicknames  
-dancing  
-karaoke songs  
-singing in the shower  
-making wishes  
-star signs  
-horoscopes  
-taking photos  
-family traditions  
-holiday decorations  
-favorite childhood memory  
-favorite bedtime stories  
-sibling rivalries  
-first pets  
-stuffed animals  
-favorite teachers  
-school field trips  
-riding bikes  
-learning to swim  
-first jobs  
-favorite superpowers  
-superhero movies  
-funny accents  
-foreign languages  
-embarrassing moments  
-childhood dreams  
-getting lost  
-collecting things  
-hobbies  
-simple pleasures  
-quiet moments  
-sunny days  
-snow days  
-getting rained on  
-fuzzy socks  
-board games  
-card games  
-dominoes  
-trivia  
-doodles  
-drawing silly pictures  
-puzzles  
-crafts  
-candles  
-camping  
-the smell of fresh laundry  
-snowball fights  
-getting tan  
-big cities vs. small towns  
-road trips  
-staying up late  
-roller coasters  
-water parks  
-zoos  
-aquariums  
-reading the news  
-current trends  
-fashion trends  
-hair dye  
-backyard barbecues  
-picnics  
-first crushes  
-secret talents  
-dream houses  
-DIY projects  
-organizing things  
-favorite holidays  
-costumes  
-comics  
-sci-fi movies  
-old photos  
-finding treasures  
-yard sales  
-spending sprees  
-thrift shopping  
-gift giving  
-getting presents  
-writing letters  
-favorite poems  
-favorite recipes  
-family recipes  
-secret ingredients  
-chili vs. soup  
-movie marathons  
-binge-watching shows  
-telling stories  
-counting stars  
-watching lightning  
-making up songs  
-old cartoons  
-watching sports  
-cheering for a team  
-keeping secrets  

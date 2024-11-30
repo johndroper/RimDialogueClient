@@ -1,0 +1,42 @@
+[h1]RimDialogue - AI powered conversations for Rimworld[/h1]
+
+[i]Mod Version: v0.61.0 BETA[/i]
+
+RimDialogue is a fork of Jaxe’s excellent [i]Interaction Bubbles[/i] mod, but instead of simply displaying the system-generated interaction text, it takes these interactions and uses a language model to transform them into real dialogue. This dialogue is then displayed in-game above each character’s head in a speech bubble.
+
+For example, an interaction like, [i]"Huynh and Nila chatted about crazy eels,"[/i] could turn into something like:
+
+[b]Huynh:[/b] "I've heard the crazy eels in this jungle are as unpredictable as Bowman's sense of humor, Nila."
+[b]Nila:[/b] "Tell me about it, Huynh. I've seen them leap out of the water and attack anyone who gets too close."
+
+This mod can do even more! By adding [b]“Additional Instructions”[/b] in the mod settings, you can influence the entire culture of your colony. For instance, try adding instructions like:
+
+[list]
+[*][i]"Everyone in the colony is obsessed with David Hasselhoff."[/i]
+Now, many conversations will include references to “the Hoff” and [i]Baywatch[/i].
+[*][i]"Bob speaks like Albert Einstein."[/i]
+This will cause only the pawn named “Bob” to talk about astrophysics.
+[*][i]"All the men in the colony speak French."[/i]
+Now, only the male pawns will speak exclusively in French.
+[/list]
+
+This mod also expands the range of conversation topics, adding a few hundred new ones to the interaction system.
+
+This mod uses server resources and [b]requires an internet connection[/b].
+
+[hr][/hr]
+
+[h2]RimDialogue Local Server[/h2]
+
+Want an even more in-depth RimDialogue experience? Run the [b]RimDialogue Local Server[/b], and the language model can receive nearly 100 different data points about each interaction—from the weather and each pawn's health status to the history between the two pawns, and much more. The model uses this data to influence the tone, word choice, and references in each piece of dialogue, creating a dynamic, personalized conversational experience.
+
+[b]RimDialogue Local Server[/b] is a free, open-source version of the server that you can use with a local LLM or with an API key to a cloud provider.
+With the local server, you can set the throttle and pawn data to whatever you want.
+You an also use whatever AI model you would like, including uncensored models.
+
+[h3]Download RimDialogue Local Server[/h3]
+
+You can get the RimDialogue Local Server here:
+[u]https://github.com/johndroper/RimDialogueServer[/u]
+
+Have bugs, questions, or feedback? Join the RimDialogue Discord server: https://discord.gg/J79HSyWR

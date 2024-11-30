@@ -61,7 +61,7 @@
     <FileRegexReplace Filename="$(BuildDir)README.md" Match="{HarmonyVersion}" Replace="$(HarmonyVersion)" />
     <FileRegexReplace Filename="$(BuildDir)About\About.xml" Match="{ReleaseVersion}" Replace="$(ModVersion)" />
 
-    <Copy SourceFiles="$(BuildDir)README.md" DestinationFolder="$(SolutionDir)" />
+    <Copy SourceFiles="$(BuildDir)README.md" DestinationFolder="$(ProjectDir)\.." />
 
     <MakeDir Directories="$(SolutionDir)releases" />
     <ZipDirectory SourceDirectory="$(BuildDir)" DestinationFile="$(ReleasesDir)$(AssemblyName)-v$(ModVersion).zip" Overwrite="true" />

@@ -17,7 +17,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\RimDialogue\build\RimDialogueClient\Assemblies\</OutputPath>
+    <OutputPath>..\..\RimDialogueServer\build\RimDialogueClient\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -94,6 +94,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="-\About\PublishedFileId.txt" />
+    <Content Include="-\About\steam_workshop.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\Animals.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\Apparel.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\Games.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\NaturalObject.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\TalkTopics_Heavy.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\TalkTopics_Light.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\Weapons.txt" />
     <Content Include="-\README.md" />
     <Content Include="-\About\About.xml" />
     <Content Include="-\About\Preview.png" />
@@ -114,6 +122,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)release.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy  "C:\Users\madja\source\repos\RimDialogue\build\RimDialogueClient" "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient" /y /s /e</PostBuildEvent>
+    <PostBuildEvent>xcopy  "C:\Users\madja\source\repos\RimDialogueServer\build\RimDialogueClient" "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient" /y /s /e</PostBuildEvent>
   </PropertyGroup>
 </Project>
