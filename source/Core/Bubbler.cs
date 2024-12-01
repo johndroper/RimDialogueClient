@@ -119,9 +119,10 @@ namespace RimDialogue.Core
           .ToList() ?? [];
 
         var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
-        
 
         Room room = initiator.GetRoom();
+
+        
 
         //Find.CurrentMap.StoryState?.RecentRandomQuests
 
@@ -186,7 +187,11 @@ namespace RimDialogue.Core
 
         //Find.StoryWatcher.statsRecord.colonistsKilled
 
-        //Find.CurrentMap.resourceCounter?.AllCountedAmounts.Where(thing => thing.Key.IsMedicine).Sum(thing => thing.Value);
+        //Find.CurrentMap.resourceCounter?.AllCountedAmounts.Where(thing => thing.Key.IsApparel).Sum(thing => thing.Value);
+
+        //var thigncount = Find.CurrentMap.resourceCounter.GetCountIn(ThingRequestGroup.);
+
+        
 
         var dialogueData = new DialogueData
         {
@@ -202,8 +207,13 @@ namespace RimDialogue.Core
           recentIncidents = Find.CurrentMap.StoryState?.RecentRandomIncidents.Where(incident => incident?.label != null).Select(incident => incident.label).ToArray() ?? [],
           isOutside = initiator.IsOutside(),
           room = room?.GetRoomRoleLabel() ?? String.Empty,
+          roomImpressiveness = room?.GetStat(RoomStatDefOf.Impressiveness) ?? -1f,
+          roomCleanliness = room?.GetStat(RoomStatDefOf.Cleanliness) ?? -1f,
           wealthTotal = Find.CurrentMap.wealthWatcher?.WealthTotal ?? -1f,
           foodTotal = Find.CurrentMap.resourceCounter?.TotalHumanEdibleNutrition ?? -1f,
+          defensesTotal = Find.CurrentMap.listerBuildings.allBuildingsColonist.Where(building => building.def.building != null && (building.def.building.IsTurret || building.def.building.isTrap) || building.def == ThingDefOf.Sandbags || building.def == ThingDefOf.Barricade).Count(),
+          medicineTotal = Find.CurrentMap.resourceCounter?.GetCountIn(ThingRequestGroup.Medicine) ?? -1,
+          drugsTotal = Find.CurrentMap.resourceCounter?.GetCountIn(ThingRequestGroup.Drug) ?? -1,
           colonistsCount = Find.CurrentMap.mapPawns?.FreeColonistsSpawnedCount ?? -1,
           prisonersCount = Find.CurrentMap.mapPawns?.PrisonersOfColonyCount ?? -1,
           initiatorThingID = initiator.ThingID,
@@ -242,7 +252,8 @@ namespace RimDialogue.Core
           initiatorApparel = initiator.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.def?.description)).ToArray() ?? [],
           initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
           initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
-          initiatorOpinionOfRecipient = initiatorThoughtsAboutRecipient.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray() ?? [],
+          initiatorOpinionOfRecipient = initiator.relations?.OpinionOf(recipient) ?? 0,
+          //initiatorThoughtsAboutRecipient.Sum(moodThought => (moodThought as ISocialThought)?.OpinionOffset()) ?? -1f,
           initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset().ToString("F") + "]"  ).ToArray(),
           initiatorMoodString = initiator.needs?.mood?.MoodString ?? string.Empty,
           initiatorMoodPercentage = initiator.needs?.mood?.CurLevelPercentage ?? -1f,
@@ -289,7 +300,7 @@ namespace RimDialogue.Core
           recipientApparel = recipient?.apparel?.WornApparel?.Select(apparel => apparel.def?.label + " - " + RemoveWhiteSpace(apparel.def?.description)).ToArray() ?? [],
           recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
           recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
-          recipientOpinionOfInitiator = recipientThoughtsAboutInitiator.Select(moodThought => moodThought.LabelCapSocial + " [" + (moodThought as ISocialThought)?.OpinionOffset() + "]").ToArray(),
+          recipientOpinionOfInitiator = recipient?.relations?.OpinionOf(initiator) ?? 0,
           recipientMoodThoughts = recipientMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset().ToString("F") + "]").ToArray(),
           recipientMoodString = recipient?.needs?.mood?.MoodString ?? string.Empty,
           recipientMoodPercentage = recipient?.needs?.mood?.CurLevelPercentage ?? -1f,

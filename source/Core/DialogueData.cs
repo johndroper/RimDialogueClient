@@ -20,10 +20,15 @@ namespace RimDialogue.Core
     public string biome = String.Empty;
     public bool isOutside = false;
     public string room = String.Empty;
+    public float roomCleanliness = -1f;
+    public float roomImpressiveness = -1f;
     public string currentWeather = String.Empty;
     public float outdoorTemp = -1f;
     public float wealthTotal = -1f;
     public float foodTotal = -1f;
+    public int defensesTotal = -1;
+    public int medicineTotal = -1;
+    public int drugsTotal = -1;
     public int colonistsCount = -1;
     public int prisonersCount = -1;
     public string[] recentIncidents = [];
@@ -63,7 +68,7 @@ namespace RimDialogue.Core
     public string[] initiatorApparel = [];
     public string[] initiatorWeapons = [];
     public string[] initiatorHediffs = [];
-    public string[] initiatorOpinionOfRecipient = [];
+    public int initiatorOpinionOfRecipient = 0;
     public string[] initiatorMoodThoughts = [];
     public string initiatorMoodString = string.Empty;
     public float initiatorMoodPercentage = -1f;
@@ -110,7 +115,7 @@ namespace RimDialogue.Core
     public string[] recipientApparel = [];
     public string[] recipientWeapons = [];
     public string[] recipientHediffs = [];
-    public string[] recipientOpinionOfInitiator = [];
+    public int recipientOpinionOfInitiator = 0;
     public string[] recipientMoodThoughts = [];
     public string recipientMoodString = string.Empty;
     public float recipientMoodPercentage;

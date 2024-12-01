@@ -101,6 +101,7 @@
     <Content Include="-\Languages\English\Strings\Words\Nouns\NaturalObject.txt" />
     <Content Include="-\Languages\English\Strings\Words\Nouns\TalkTopics_Heavy.txt" />
     <Content Include="-\Languages\English\Strings\Words\Nouns\TalkTopics_Light.txt" />
+    <Content Include="-\Languages\English\Strings\Words\Nouns\Vegetables.txt" />
     <Content Include="-\Languages\English\Strings\Words\Nouns\Weapons.txt" />
     <Content Include="-\README.md" />
     <Content Include="-\About\About.xml" />
