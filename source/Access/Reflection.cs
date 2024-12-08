@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Verse;
@@ -12,5 +15,59 @@ namespace RimDialogue.Access
 
     public static readonly FieldInfo Verse_CameraDriver_RootSize = AccessTools.Field(typeof(CameraDriver), "rootSize");
 
+    private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
+    public static bool IsAssemblyLoaded(string assemblyName)
+    {
+      if (_isAssemblyLoaded.ContainsKey(assemblyName))
+        return _isAssemblyLoaded[assemblyName];
+      _isAssemblyLoaded[assemblyName] = AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == assemblyName);
+      return _isAssemblyLoaded[assemblyName];
+    }
+
+    private static MethodInfo tryGetEnneagramCompMethod;
+    private static MethodInfo getDescriptionMethodInfo;
+    private static PropertyInfo enneagramProperty;
+    private static MethodInfo toStringMethod;
+
+    static Reflection()
+    {
+      var spm1Assembly = AppDomain.CurrentDomain.GetAssemblies()
+        .FirstOrDefault(a => a.GetName().Name == "SP_Module1");
+      if (spm1Assembly == null)
+        return;
+      var spm1ExtensionsType = spm1Assembly.GetType("SPM1.Extensions");
+      if (spm1ExtensionsType == null)
+        return;
+      tryGetEnneagramCompMethod = spm1ExtensionsType.GetMethod("TryGetEnneagramComp", [typeof(ThingWithComps)]);
+      if (tryGetEnneagramCompMethod == null)
+        return;
+      var enneagramCompType = spm1Assembly.GetType("SPM1.Comps.CompEnneagram");
+      if (enneagramCompType == null)
+        return;
+      getDescriptionMethodInfo = enneagramCompType.GetMethod("GetDescription");
+      if (getDescriptionMethodInfo == null)
+        return;
+      enneagramProperty = enneagramCompType.GetProperty("Enneagram");
+      if (enneagramProperty == null)
+        return;
+      var enneagramObjectType = spm1Assembly.GetType("SPM1.Enneagram");
+      toStringMethod = enneagramObjectType.GetMethod("ToString");
+      if (toStringMethod == null)
+        return;
+    }
+
+    public static void GetPersonality(Pawn pawn, out string label, out string description)
+    {
+      label = null;
+      description = null;
+      if (tryGetEnneagramCompMethod == null)
+        return;
+      object enneagramCompObject = tryGetEnneagramCompMethod.Invoke(null, [pawn]);
+      if (enneagramCompObject == null)
+        return;
+      description = (string)getDescriptionMethodInfo.Invoke(enneagramCompObject, null);
+      var enneagramObject = enneagramProperty.GetValue(enneagramCompObject);
+      label = (string)toStringMethod.Invoke(enneagramObject, null);
+    }
   }
 }

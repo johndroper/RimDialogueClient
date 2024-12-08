@@ -2,6 +2,7 @@ using RimDialogue.Configuration;
 using HarmonyLib;
 using UnityEngine;
 using Verse;
+using System.Linq;
 
 namespace RimDialogue
 {
@@ -38,5 +39,6 @@ namespace RimDialogue
     }
 
     public override string SettingsCategory() => Name;
+
   }
 }

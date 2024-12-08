@@ -30,6 +30,34 @@ namespace RimDialogue.Core
     private static readonly Regex WhiteSpace = new("\\s+");
     private static bool ShouldShow() => Settings.Activated && !WorldRendererUtility.WorldRenderedNow && (Settings.AutoHideSpeed.Value is Settings.AutoHideSpeedDisabled || (int)Find.TickManager!.CurTimeSpeed < Settings.AutoHideSpeed.Value);
 
+
+    public static Battle? GetMostRecentBattle(Pawn? pawn)
+    {
+      if (pawn == null)
+        return null;
+
+      return Find.BattleLog.Battles
+        .Where(battle => battle.Concerns(pawn))
+        .OrderByDescending(battle => battle.CreationTimestamp)
+        .FirstOrDefault();
+    }
+
+    public static LogEntry[] GetCombatLogEntries(Pawn? pawn, int count)
+    {
+      if (pawn == null) { return Array.Empty<LogEntry>(); }
+
+      var battle = GetMostRecentBattle(pawn);
+      if (battle == null)
+        return [];
+
+      return battle.Entries
+          .Where(entry => entry.Concerns(pawn))
+          .OrderByDescending(entry => entry.Timestamp)
+          .Take(count)
+          .OrderBy(entry => entry.Timestamp)
+          .ToArray();
+    }
+
     public static void Add(LogEntry entry)
     {
       if (!ShouldShow()) { return; }
@@ -57,12 +85,6 @@ namespace RimDialogue.Core
       if (!Settings.DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
       
       GetDialogue(initiator, recipient, entry);
-    }
-
-    private static string FormatOffset(float? offset) {
-      if (offset == null)
-          return string.Empty;
-      return offset > 0 ? "+" + (int)offset : ((int)offset).ToString();
     }
 
     private static string RemoveWhiteSpace(string? input)
@@ -94,9 +116,51 @@ namespace RimDialogue.Core
       return backstory.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve();
     }
 
+    public static bool IsAssemblyLoaded(string assemblyName)
+    {
+      return AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == assemblyName);
+    }
+
     private static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
     {
-      if (Find.TickManager.CurTimeSpeed != TimeSpeed.Normal)
+      //Find.CurrentMap.StoryState?.RecentRandomQuests
+      //Find.CurrentMap.StoryState?.RecentRandomDecrees;
+      //initiator.BodySize
+      //initiator.GetBeauty
+      //initiator.GetTerrorLevel
+      //initiator.interactions
+      //initiator.inventory
+      //initiator.IsGestating
+      //initiator.IsWildMan
+      //initiator.style.HasUnwantedBeard
+      //Find.CurrentMap.listerThings.
+      //recipient?.story.headType
+      //recipient?.story.bodyType
+      //recipient?.story.CaresAboutOthersAppearance
+      //var blahhh = Find.CurrentMap.thingGrid.ThingsAt(initiator.Position);
+      //initiator.Faction.GetReportText
+      //initiator.Faction.HostileTo
+      //initiator.Faction.PlayerRelationKind
+      //initiator.Faction.def.Description
+      //initiator.Faction.def.LabelCap
+      //initiator.mechanitor
+      //initiator.IsPrisonerOfColony
+      //initiator.IsMutant
+      //initiator.Inspired
+      //initiator.AmbientTemperature
+      //initiator.genes
+      //pawn.ageTracker.CurKindLifeStage.label;
+      //Find.FactionManager.AllFactionsVisible.Select(faction => faction.def.LabelCap).ToArray();
+      //initiator.TraderKind.description
+      //initiatorTraderKind = initiator.TraderKind?.label ?? string.Empty,
+      //Find.CurrentMap.StoryState.lastRaidFaction
+      //Faction.OfPirates;
+      //Find.CurrentMap.resourceCounter?.AllCountedAmounts
+      //Find.StoryWatcher.statsRecord.colonistsKilled
+      //Find.CurrentMap.resourceCounter?.AllCountedAmounts.Where(thing => thing.Key.IsApparel).Sum(thing => thing.Value);
+      //var thigncount = Find.CurrentMap.resourceCounter.GetCountIn(ThingRequestGroup.);
+
+      if (Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value)
         return;
 
       try
@@ -105,12 +169,6 @@ namespace RimDialogue.Core
           entry.ToGameStringFromPOV(initiator),
           string.Empty);
 
-        List<Thought_Memory> initiatorThoughtsAboutRecipient = initiator.needs?.mood?.thoughts?.memories?.Memories
-          .Where(thoughtMemory => thoughtMemory is ISocialThought && thoughtMemory.otherPawn == recipient)
-          .ToList() ?? [];
-        List<Thought_Memory> recipientThoughtsAboutInitiator = recipient?.needs?.mood?.thoughts?.memories?.Memories
-          .Where(thoughtMemory => thoughtMemory is ISocialThought && thoughtMemory.otherPawn == initiator)
-          .ToList() ?? [];
         List<Thought_Memory> initiatorMoodThoughts = initiator.needs?.mood?.thoughts?.memories?.Memories
           .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
           .ToList() ?? [];
@@ -119,85 +177,33 @@ namespace RimDialogue.Core
           .ToList() ?? [];
 
         var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
-
         Room room = initiator.GetRoom();
 
-        
+        string? initiatorPersonality = null;
+        string? recipientPersonality = null;
+        string? initiatorPersonalityDescription = null;
+        string? recipientPersonalityDescription = null;
+        if (Reflection.IsAssemblyLoaded("SP_Module1"))
+        {
+          try
+          {
+            Reflection.GetPersonality(initiator, out initiatorPersonality, out initiatorPersonalityDescription);
+            Reflection.GetPersonality(recipient, out recipientPersonality, out recipientPersonalityDescription);
+          }
+          catch (Exception ex)
+          {
+            Mod.Warning($"Failed to get personality: {ex.Message}");
+          }
+        }
 
-        //Find.CurrentMap.StoryState?.RecentRandomQuests
-
-        //Find.CurrentMap.StoryState?.RecentRandomDecrees;
-
-        //initiator.BodySize
-
-        //initiator.GetBeauty
-
-        //initiator.GetTerrorLevel
-
-        //initiator.interactions
-
-        //initiator.inventory
-
-        //initiator.IsGestating
-
-        //initiator.IsWildMan
-
-        //initiator.style.HasUnwantedBeard
-
-        //Find.CurrentMap.listerThings.
-
-        //recipient?.story.headType
-
-        //recipient?.story.bodyType
-
-        //recipient?.story.CaresAboutOthersAppearance
-
-        //var blahhh = Find.CurrentMap.thingGrid.ThingsAt(initiator.Position);
-
-        //initiator.Faction.GetReportText
-
-        //initiator.Faction.HostileTo
-
-        //initiator.Faction.PlayerRelationKind
-
-        //initiator.Faction.def.Description
-
-        //initiator.Faction.def.LabelCap
-
-        //
-
-        //
-
-        //initiator.mechanitor
-
-        //initiator.IsPrisonerOfColony
-
-        //initiator.IsMutant
-
-        //initiator.Inspired
-
-        //initiator.TraderKind.description
-        //initiatorTraderKind = initiator.TraderKind?.label ?? string.Empty,
-
-        //Find.CurrentMap.StoryState.lastRaidFaction
-
-        //Faction.OfPirates;
-
-        //Find.CurrentMap.resourceCounter?.AllCountedAmounts
-
-        //Find.StoryWatcher.statsRecord.colonistsKilled
-
-        //Find.CurrentMap.resourceCounter?.AllCountedAmounts.Where(thing => thing.Key.IsApparel).Sum(thing => thing.Value);
-
-        //var thigncount = Find.CurrentMap.resourceCounter.GetCountIn(ThingRequestGroup.);
-
-        
+        var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
+        var additionalInstructions = tracker.GetAdditionalInstructions(null);
 
         var dialogueData = new DialogueData
         {
           clientId = Settings.ClientId.Value,
           maxWords = Settings.MaxWords.Value,
-          specialInstructions = Settings.SpecialInstructions.Value,
+          specialInstructions = Settings.SpecialInstructions.Value + " " + additionalInstructions,
           interaction = logEntryText,
           scenario = Find.Scenario?.name + " - " + RemoveWhiteSpace(Find.Scenario?.description),
           daysPassedSinceSettle = GenDate.DaysPassedSinceSettle,
@@ -216,8 +222,12 @@ namespace RimDialogue.Core
           drugsTotal = Find.CurrentMap.resourceCounter?.GetCountIn(ThingRequestGroup.Drug) ?? -1,
           colonistsCount = Find.CurrentMap.mapPawns?.FreeColonistsSpawnedCount ?? -1,
           prisonersCount = Find.CurrentMap.mapPawns?.PrisonersOfColonyCount ?? -1,
+          otherFactions = Find.FactionManager.AllFactionsVisible.Where(faction => faction != Faction.OfPlayer).Select(faction => $"{faction.def.LabelCap.RawText} ({faction.RelationKindWith(Faction.OfPlayer)})").ToArray(),
           initiatorThingID = initiator.ThingID,
+          initiatorInstructions = tracker.GetAdditionalInstructions(initiator),
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
+          initiatorPersonality = initiatorPersonality ?? string.Empty,
+          initiatorPersonalityDescription =  RemoveWhiteSpaceAndColor(initiatorPersonalityDescription),
           initiatorJobReport = initiator.GetJobReport(),
           initiatorCarrying = RemoveWhiteSpaceAndColor(initiator.carryTracker?.CarriedThing?.LabelCap),
           initiatorNickName = initiator.Name?.ToStringShort ?? String.Empty,
@@ -245,7 +255,7 @@ namespace RimDialogue.Core
           initiatorBodyTattoo = initiator.style?.BodyTattoo?.label ?? string.Empty,
           initiatorBeard = initiator.style?.beardDef?.label ?? string.Empty,
           initiatorSkills = initiator.skills?.skills.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
-          initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(initiator.Named("PAWN")))).ToArray() ?? [],
+          initiatorTraits = initiator.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(initiator.Named("PAWN")).AdjustedFor(initiator).Resolve())).ToArray() ?? [],
           initiatorChildhood = initiator.story?.Childhood?.title != null ? initiator.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Childhood)) : string.Empty,
           initiatorAdulthood = initiator.story?.Adulthood?.title != null ? initiator.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(initiator, initiator.story?.Adulthood)) : string.Empty,
           initiatorRelations = initiator.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def?.label})").ToArray() ?? [],
@@ -253,7 +263,6 @@ namespace RimDialogue.Core
           initiatorWeapons = initiator.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
           initiatorHediffs = initiator.health.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
           initiatorOpinionOfRecipient = initiator.relations?.OpinionOf(recipient) ?? 0,
-          //initiatorThoughtsAboutRecipient.Sum(moodThought => (moodThought as ISocialThought)?.OpinionOffset()) ?? -1f,
           initiatorMoodThoughts = initiatorMoodThoughts.Select(moodThought => moodThought.Description + " [" + moodThought.MoodOffset().ToString("F") + "]"  ).ToArray(),
           initiatorMoodString = initiator.needs?.mood?.MoodString ?? string.Empty,
           initiatorMoodPercentage = initiator.needs?.mood?.CurLevelPercentage ?? -1f,
@@ -264,8 +273,13 @@ namespace RimDialogue.Core
           initiatorBeautyPercentage = initiator.needs?.beauty?.CurLevelPercentage ?? -1f,
           initiatorDrugsDesirePercentage = initiator.needs?.drugsDesire?.CurLevelPercentage ?? -1f,
           initiatorEnergyPercentage = initiator.needs?.energy?.CurLevelPercentage ?? -1f,
+          initiatorLastBattle = RemoveWhiteSpaceAndColor(GetMostRecentBattle(initiator)?.GetName()),
+          initiatorCombatLog = GetCombatLogEntries(initiator, 10).Select(entry => RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator))).ToArray(),
           recipientThingID = recipient?.ThingID ?? string.Empty,
+          recipientInstructions = tracker.GetAdditionalInstructions(recipient),
           recipientFullName = recipient?.Name?.ToStringFull ?? String.Empty,
+          recipientPersonality = recipientPersonality ?? string.Empty,
+          recipientPersonalityDescription = RemoveWhiteSpaceAndColor(recipientPersonalityDescription),
           recipientJobReport = recipient?.GetJobReport() ?? string.Empty,
           recipientCarrying = RemoveWhiteSpaceAndColor(recipient?.carryTracker?.CarriedThing?.LabelCap),
           recipientNickName = recipient?.Name?.ToStringShort ?? String.Empty,
@@ -293,7 +307,7 @@ namespace RimDialogue.Core
           recipientIsSlave = recipient?.IsSlave ?? false,
           recipientIsAnimal = recipient?.IsNonMutantAnimal ?? false,
           recipientSkills = recipient?.skills?.skills?.Where(skill => skill.Level >= 5).Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
-          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(recipient.Named("PAWN")))).ToArray() ?? [],
+          recipientTraits = recipient?.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(recipient.Named("PAWN")).AdjustedFor(recipient).Resolve())).ToArray() ?? [],
           recipientChildhood = recipient?.story?.Childhood?.title != null ? recipient?.story?.Childhood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Childhood)) : string.Empty,
           recipientAdulthood = recipient?.story?.Adulthood?.title != null ? recipient?.story?.Adulthood?.title + " - " + RemoveWhiteSpaceAndColor(GetBackstory(recipient, recipient?.story?.Adulthood)) : string.Empty,
           recipientRelations = recipient?.relations?.DirectRelations?.Select(relation => $"{relation.otherPawn?.Name?.ToStringFull} ({relation.def?.label})").ToArray() ?? [],
@@ -310,7 +324,9 @@ namespace RimDialogue.Core
           recipientJoyPercentage = recipient?.needs?.joy?.CurLevelPercentage ?? -1f,
           recipientBeautyPercentage = recipient?.needs?.beauty?.CurLevelPercentage ?? -1f,
           recipientDrugsDesirePercentage = recipient?.needs?.drugsDesire?.CurLevelPercentage ?? -1f,
-          recipientEnergyPercentage = recipient?.needs?.energy?.CurLevelPercentage ?? -1f
+          recipientEnergyPercentage = recipient?.needs?.energy?.CurLevelPercentage ?? -1f,
+          recipientLastBattle = RemoveWhiteSpaceAndColor(GetMostRecentBattle(recipient)?.GetName()),
+          recipientCombatLog = GetCombatLogEntries(recipient, 10).Select(entry => RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(recipient))).ToArray(),
         };
 
         string dialogueDataJson = JsonUtility.ToJson(dialogueData);
@@ -337,6 +353,7 @@ namespace RimDialogue.Core
               Mod.Log("Rate limited.");
               return;
             }
+            tracker.AddConversation(initiator, recipient, dialogueResponse.text);
             if (!Dictionary.ContainsKey(initiator))
               Dictionary[initiator] = new List<Bubble>();
             Dictionary[initiator].Add(new Bubble(initiator, entry, dialogueResponse.text ?? "NULL"));

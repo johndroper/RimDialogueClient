@@ -33,4 +33,6 @@
   <RimDialogue.SpecialInstructions>Additional instructions</RimDialogue.SpecialInstructions>
   <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>
   <RimDialogue.ServerUrl>Server URL</RimDialogue.ServerUrl>
+  <RimDialogue.MaxSpeed>Maximum game speed for dialoge generation</RimDialogue.MaxSpeed>
+  <RimDialogue.MaxConversationsStored>Maximum number of conversations stored</RimDialogue.MaxConversationsStored>
 </LanguageData>

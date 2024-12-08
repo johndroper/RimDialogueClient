@@ -5,7 +5,6 @@ how their day has been
 what they are up to
 how is their health
 how they am feeling
-how their work is going
 what’s been keeping them busy
 how their family is
 how well they have eaten
@@ -13,7 +12,7 @@ how they slept
 how much rest they’ve gotten
 what’s been on their mind
 how life is treating them
-where they am from
+where they are from
 their full name
 how old they are
 the narrative of their ideology
@@ -38,6 +37,8 @@ skullspikes
 organ use
 women's spouses
 men's spouses
+thier best skill
+their worst skill
 their shooting skills
 their construction skills
 their animal handling skills
@@ -57,32 +58,52 @@ their childhood
 the good things about thier childhood
 the bad things about their childhood
 their current activity
+how their current activity is going
 their hair style
 their tattoos
 their family relations
-what their traits are
+their traits
 their best trait
 their worst trait
 their health conditions
 their apparel
 their weapons and equipment
+thier favorite weapon
+thier favorite apparel
+thier favorite food
+thier favorite drug
+thier favorite animal
+thier favorite plant
 how comfortable they are
 how they have been eating
 how they have been sleeping
-how engaged they are with what they are doing
+how engaged they are
 how they feel thier environment looks
 their mood
-how big their settlement is
-how many prisoners they have
-if they have enough medicine
-if they have enough food
-if they have enough drugs
-how impresive the room they are in is
-how clean the room they are in is
-how much wealth they have
+the size of their settlement
+the number of prisoners
+the supply of medicine
+the supply of food
+the supply of drugs
+the impressiveness of room they are in
+the cleanliness room they are in
+the amount of wealth they have
 how long their settlement has been going
 how many resources their settlement has
 the biome
+what they like about the biome
+what they hate about the biome
 the current weather
 the temperature outdoors
 how many defenses the settlement has
+that recent battle we were in
+what happened in the recent battle
+what they did in the recent battle
+thier faction
+what they like about their faction
+what they hate about their faction
+how they feel about their faction
+other factions
+hostile factions
+neutral factions
+allied factions

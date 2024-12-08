@@ -32,6 +32,7 @@ namespace RimDialogue.Core
     public int colonistsCount = -1;
     public int prisonersCount = -1;
     public string[] recentIncidents = [];
+    public string[] otherFactions;
     public string initiatorThingID = String.Empty;
     public string initiatorFullName = String.Empty;
     public string initiatorCarrying = String.Empty;
@@ -79,6 +80,8 @@ namespace RimDialogue.Core
     public float initiatorBeautyPercentage = -1f;
     public float initiatorDrugsDesirePercentage = -1f;
     public float initiatorEnergyPercentage = -1f;
+    public string initiatorLastBattle= string.Empty;
+    public string[] initiatorCombatLog = [];
     public string recipientThingID = String.Empty;
     public string recipientFullName = String.Empty;
     public string recipientJobReport = String.Empty;
@@ -126,7 +129,13 @@ namespace RimDialogue.Core
     public float recipientBeautyPercentage;
     public float recipientDrugsDesirePercentage;
     public float recipientEnergyPercentage;
+    public string[] recipientCombatLog = [];
+    public string recipientLastBattle = string.Empty;
+    public string initiatorPersonality;
+    public string recipientPersonality;
+    public string initiatorPersonalityDescription;
+    public string recipientPersonalityDescription;
+    public string initiatorInstructions;
+    public string recipientInstructions;
   }
-
-
 }
