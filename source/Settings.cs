@@ -60,7 +60,7 @@ namespace RimDialogue
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());
     public static readonly SettingString ServerUrl = new(nameof(ServerUrl), "http://rimdialogue.proceduralproducts.com/home/getdialogue");
     public static readonly Setting<int> MaxSpeed = new(nameof(MaxSpeed), 1);
-    public static readonly Setting<int> MaxConversationsStored = new(nameof(MaxConversationsStored), 100);
+    public static readonly Setting<int> MaxConversationsStored = new(nameof(MaxConversationsStored), 25);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

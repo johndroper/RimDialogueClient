@@ -5,6 +5,6 @@
     <order>75</order>
     <tabWindowClass>RimDialogue.MainTabWindow_RimDialogue</tabWindowClass>
     <label>RimDialogue</label>
-    <description>View and filter conversations between your pawns.</description>
+    <description>View conversations between your pawns and set additional instructions.</description>
   </MainButtonDef>
 </Defs>

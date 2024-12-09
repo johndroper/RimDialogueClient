@@ -60,7 +60,7 @@ namespace RimDialogue.Access
     {
       label = null;
       description = null;
-      if (tryGetEnneagramCompMethod == null)
+      if (pawn == null || tryGetEnneagramCompMethod == null)
         return;
       object enneagramCompObject = tryGetEnneagramCompMethod.Invoke(null, [pawn]);
       if (enneagramCompObject == null)

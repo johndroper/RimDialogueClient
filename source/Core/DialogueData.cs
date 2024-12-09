@@ -137,5 +137,7 @@ namespace RimDialogue.Core
     public string recipientPersonalityDescription;
     public string initiatorInstructions;
     public string recipientInstructions;
+    public int hourOfDay;
+    public string season;
   }
 }
