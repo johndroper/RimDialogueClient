@@ -23,38 +23,6 @@ namespace RimDialogue
 
     public static bool Activated = true;
 
-    public static readonly Setting<int> AutoHideSpeed = new(nameof(AutoHideSpeed), AutoHideSpeedDisabled);
-
-    public static readonly Setting<bool> DoNonPlayer = new(nameof(DoNonPlayer), true);
-    public static readonly Setting<bool> DoAnimals = new(nameof(DoAnimals), true);
-    public static readonly Setting<bool> DoDrafted = new(nameof(DoDrafted), false);
-    public static readonly Setting<bool> DoTextColors = new(nameof(DoTextColors), false);
-
-    public static readonly Setting<int> AltitudeBase = new(nameof(AltitudeBase), 11);
-    public static readonly Setting<int> AltitudeMax = new(nameof(AltitudeMax), 40);
-    public static readonly Setting<float> ScaleMax = new(nameof(ScaleMax), 1.25f);
-    public static readonly Setting<int> PawnMax = new(nameof(PawnMax), 3);
-
-    public static readonly Setting<int> FontSize = new(nameof(FontSize), 12);
-    public static readonly Setting<int> PaddingX = new(nameof(PaddingX), 7);
-    public static readonly Setting<int> PaddingY = new(nameof(PaddingY), 5);
-    public static readonly Setting<int> WidthMax = new(nameof(WidthMax), 256);
-
-    public static readonly Setting<int> OffsetSpacing = new(nameof(OffsetSpacing), 2);
-    public static readonly Setting<int> OffsetStart = new(nameof(OffsetStart), 14);
-    public static readonly Setting<Rot4> OffsetDirection = new(nameof(OffsetDirection), Rot4.North);
-
-    public static readonly Setting<float> OpacityStart = new(nameof(OpacityStart), 0.9f);
-    public static readonly Setting<float> OpacityHover = new(nameof(OpacityHover), 0.2f);
-
-    public static readonly Setting<int> FadeStart = new(nameof(FadeStart), 1000);
-    public static readonly Setting<int> FadeLength = new(nameof(FadeLength), 100);
-
-    public static readonly Setting<Color> Background = new(nameof(Background), Color.white);
-    public static readonly Setting<Color> Foreground = new(nameof(Foreground), Color.black);
-    public static readonly Setting<Color> SelectedBackground = new(nameof(SelectedBackground), new Color(1f, 1f, 0.75f));
-    public static readonly Setting<Color> SelectedForeground = new(nameof(SelectedForeground), Color.black);
-
     public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 25);
     public static readonly SettingString SpecialInstructions = new(nameof(SpecialInstructions), string.Empty);
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());

@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <RimDialogue.Toggle>Show Bubbles</RimDialogue.Toggle>
   <RimDialogue.ResetToDefault>Reset to default</RimDialogue.ResetToDefault>
-  <RimDialogue.NonWindow>Hold shift and click on the Bubble toggle icon to access these settings in-game.</RimDialogue.NonWindow>
-  <RimDialogue.DoNonPlayer>Show for other factions</RimDialogue.DoNonPlayer>
-  <RimDialogue.DoAnimals>Show animal interactions</RimDialogue.DoAnimals>
-  <RimDialogue.DoDrafted>Show when drafted</RimDialogue.DoDrafted>
-  <RimDialogue.DoTextColors>Show text colors</RimDialogue.DoTextColors>
-  <RimDialogue.AutoHideSpeed>Auto hide at speed</RimDialogue.AutoHideSpeed>
-  <RimDialogue.AutoHideSpeedOff>Off</RimDialogue.AutoHideSpeedOff>
-  <RimDialogue.AltitudeBase>Base altitude</RimDialogue.AltitudeBase>
-  <RimDialogue.AltitudeMax>Maximum visible altitude</RimDialogue.AltitudeMax>
-  <RimDialogue.ScaleMax>Maximum scale</RimDialogue.ScaleMax>
-  <RimDialogue.PawnMax>Maximum per pawn</RimDialogue.PawnMax>
-  <RimDialogue.OffsetSpacing>Spacing</RimDialogue.OffsetSpacing>
-  <RimDialogue.OffsetStart>Offset from label</RimDialogue.OffsetStart>
-  <RimDialogue.OffsetDirection>Offset direction</RimDialogue.OffsetDirection>
-  <RimDialogue.OffsetDirections>Down|Left|Up|Right</RimDialogue.OffsetDirections>
-  <RimDialogue.OpacityStart>Starting opacity</RimDialogue.OpacityStart>
-  <RimDialogue.OpacityHover>Mouseover opacity</RimDialogue.OpacityHover>
-  <RimDialogue.FadeStart>Ticks to start fade</RimDialogue.FadeStart>
-  <RimDialogue.FadeLength>Ticks to fade</RimDialogue.FadeLength>
-  <RimDialogue.FontSize>Font size</RimDialogue.FontSize>
-  <RimDialogue.PaddingX>Text padding X</RimDialogue.PaddingX>
-  <RimDialogue.PaddingY>Text padding Y</RimDialogue.PaddingY>
-  <RimDialogue.WidthMax>Maximum width</RimDialogue.WidthMax>
-  <RimDialogue.Background>Background color</RimDialogue.Background>
-  <RimDialogue.Foreground>Foreground color</RimDialogue.Foreground>
-  <RimDialogue.BackgroundSelected>Background color (when selected)</RimDialogue.BackgroundSelected>
-  <RimDialogue.ForegroundSelected>Foreground color (when selected)</RimDialogue.ForegroundSelected>
   <RimDialogue.MaxWords>Approximate maximum dialogue length</RimDialogue.MaxWords>
   <RimDialogue.SpecialInstructions>Additional instructions</RimDialogue.SpecialInstructions>
   <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>

@@ -47,6 +47,12 @@ Have bugs, questions, or feedback? Join the RimDialogue Discord server: https://
       <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
       <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
     </li>
+    <li>
+      <packageId>Jaxe.Bubbles</packageId>
+      <displayName>Interaction Bubbles</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1516158345</steamWorkshopUrl>
+      <downloadUrl>https://github.com/Jaxe-Dev/Bubbles/releases/tag/v3.1</downloadUrl>
+    </li>
   </modDependencies>
   <loadAfter>
     <li>brrainz.harmony</li>

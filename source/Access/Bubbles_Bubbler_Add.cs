@@ -1,35 +1,73 @@
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Policy;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using RimDialogue.Access;
+using Bubbles.Core;
 using HarmonyLib;
+using RimDialogue.Core;
 using RimWorld;
 using RimWorld.Planet;
-using RimWorld.QuestGen;
-using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine.Networking;
+using UnityEngine;
 using Verse;
-using static RimWorld.ColonistBar;
-using Verse.Noise;
+using System.Text.RegularExpressions;
 
-namespace RimDialogue.Core
+namespace RimDialogue.Access
 {
-  public static class Bubbler
+  [HarmonyPatch(typeof(Bubbler), nameof(Bubbler.Add))]
+  public static class Bubbles_Bubbler_Add
   {
-    private const float LabelPositionOffset = -0.6f;
-
-    private static readonly Dictionary<Pawn, List<Bubble>> Dictionary = new();
     private static readonly Regex ColorTag = new("<\\/?color[^>]*>");
     private static readonly Regex WhiteSpace = new("\\s+");
-    private static bool ShouldShow() => Settings.Activated && !WorldRendererUtility.WorldRenderedNow && (Settings.AutoHideSpeed.Value is Settings.AutoHideSpeedDisabled || (int)Find.TickManager!.CurTimeSpeed < Settings.AutoHideSpeed.Value);
 
+    public static bool Prefix(LogEntry entry)
+    {
+      Add(entry);
+      return false;
+    }
+    public static void Add(LogEntry entry)
+    {
+      var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
+
+      if (!shouldShow) { return; }
+
+      Pawn? initiator, recipient;
+
+      switch (entry)
+      {
+        case PlayLogEntry_Interaction interaction:
+          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
+          recipient = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(interaction);
+          break;
+        case PlayLogEntry_InteractionSinglePawn interaction:
+          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
+          recipient = null;
+          break;
+        default:
+          return;
+      }
+
+      if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
+
+      var settings_DoNonPlayer = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoNonPlayer.GetValue(null);
+      var settings_DoAnimals = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoAnimals.GetValue(null);
+      var settings_DoDrafted = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoDrafted.GetValue(null);
+
+      if (!settings_DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
+      if (!settings_DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
+      if (!settings_DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
+
+      GetDialogue(initiator, recipient, entry);
+    }
+
+    public static void Clear()
+    {
+      dialogueDictionary.Clear();
+    }
 
     public static Battle? GetMostRecentBattle(Pawn? pawn)
     {
@@ -58,49 +96,20 @@ namespace RimDialogue.Core
           .ToArray();
     }
 
-    public static void Add(LogEntry entry)
-    {
-      if (!ShouldShow()) { return; }
-
-      Pawn? initiator, recipient;
-
-      switch (entry)
-      {
-        case PlayLogEntry_Interaction interaction:
-          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
-          recipient = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(interaction);
-          break;
-        case PlayLogEntry_InteractionSinglePawn interaction:
-          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
-          recipient = null;
-          break;
-        default:
-          return;
-      }
-
-      if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
-
-      if (!Settings.DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
-      if (!Settings.DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
-      if (!Settings.DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
-      
-      GetDialogue(initiator, recipient, entry);
-    }
-
-    private static string RemoveWhiteSpace(string? input)
+    public static string RemoveWhiteSpace(string? input)
     {
       if (input == null) return string.Empty;
       return WhiteSpace.Replace(input, " ");
     }
 
-    private static string RemoveWhiteSpaceAndColor(string? input)
+    public static string RemoveWhiteSpaceAndColor(string? input)
     {
       if (input == null) return string.Empty;
       input = ColorTag.Replace(input, string.Empty);
       return RemoveWhiteSpace(input);
     }
 
-    private static string GetHediffString(Hediff hediff)
+    public static string GetHediffString(Hediff hediff)
     {
       string text = hediff.Label;
       if (hediff.Part != null)
@@ -116,12 +125,19 @@ namespace RimDialogue.Core
       return backstory.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve();
     }
 
-    public static bool IsAssemblyLoaded(string assemblyName)
+    public static Dictionary<Bubble, string> dialogueDictionary = [];
+
+    public static string? GetDialogueText(Bubble bubble)
     {
-      return AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == assemblyName);
+      if (dialogueDictionary.TryGetValue(bubble, out string text))
+      {
+        dialogueDictionary.Remove(bubble);
+        return text;
+      }
+      return null;
     }
 
-    private static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
+    public static async void GetDialogue(Pawn initiator, Pawn? recipient, LogEntry entry)
     {
       //Find.CurrentMap.StoryState?.RecentRandomQuests
       //Find.CurrentMap.StoryState?.RecentRandomDecrees;
@@ -229,7 +245,7 @@ namespace RimDialogue.Core
           initiatorInstructions = tracker.GetAdditionalInstructions(initiator),
           initiatorFullName = initiator.Name?.ToStringFull ?? String.Empty,
           initiatorPersonality = initiatorPersonality ?? string.Empty,
-          initiatorPersonalityDescription =  RemoveWhiteSpaceAndColor(initiatorPersonalityDescription),
+          initiatorPersonalityDescription = RemoveWhiteSpaceAndColor(initiatorPersonalityDescription),
           initiatorJobReport = initiator.GetJobReport(),
           initiatorCarrying = RemoveWhiteSpaceAndColor(initiator.carryTracker?.CarriedThing?.LabelCap),
           initiatorNickName = initiator.Name?.ToStringShort ?? initiator.Label ?? String.Empty,
@@ -317,7 +333,7 @@ namespace RimDialogue.Core
           recipientWeapons = recipient?.equipment?.AllEquipmentListForReading?.Select(equipment => equipment.def.label + " - " + RemoveWhiteSpace(equipment.def.description)).ToArray() ?? [],
           recipientHediffs = recipient?.health?.hediffSet?.hediffs?.Select(hediff => GetHediffString(hediff)).ToArray() ?? [],
           recipientOpinionOfInitiator = recipient?.relations?.OpinionOf(initiator) ?? 0,
-          recipientMoodThoughts = recipientMoodThoughts?.Select(moodThought =>  RemoveWhiteSpace(moodThought.Description)).ToArray() ?? [],
+          recipientMoodThoughts = recipientMoodThoughts?.Select(moodThought => RemoveWhiteSpace(moodThought.Description)).ToArray() ?? [],
           recipientMoodString = recipient?.needs?.mood?.MoodString ?? string.Empty,
           recipientMoodPercentage = recipient?.needs?.mood?.CurLevelPercentage ?? -1f,
           recipientComfortPercentage = recipient?.needs?.comfort?.CurLevelPercentage ?? -1f,
@@ -336,10 +352,10 @@ namespace RimDialogue.Core
         form.AddField("dialogueDataJSON", dialogueDataJson);
         using (UnityWebRequest request = UnityWebRequest.Post(Settings.ServerUrl.Value, form))
         {
-          var asyncOperation =  request.SendWebRequest();
+          var asyncOperation = request.SendWebRequest();
           while (!asyncOperation.isDone)
           {
-            await Task.Yield(); 
+            await Task.Yield();
           }
           if (request.isNetworkError || request.isHttpError)
           {
@@ -347,7 +363,7 @@ namespace RimDialogue.Core
           }
           else
           {
-            while(!request.downloadHandler.isDone) { await Task.Yield(); }
+            while (!request.downloadHandler.isDone) { await Task.Yield(); }
             var body = request.downloadHandler.text;
             var dialogueResponse = JsonUtility.FromJson<DialogueResponse>(body);
             if (dialogueResponse.rateLimited)
@@ -356,9 +372,18 @@ namespace RimDialogue.Core
               return;
             }
             tracker.AddConversation(initiator, recipient, dialogueResponse.text);
-            if (!Dictionary.ContainsKey(initiator))
-              Dictionary[initiator] = new List<Bubble>();
-            Dictionary[initiator].Add(new Bubble(initiator, entry, dialogueResponse.text ?? "NULL"));
+
+            var bubbleDictionary = Reflection.Bubbles_Bubbler_Dictionary.GetValue(null) as Dictionary<Pawn, List<Bubble>>;
+            if (bubbleDictionary == null)
+              return;
+
+            var bubble = new Bubble(initiator, entry);
+            dialogueDictionary.Add(bubble, dialogueResponse.text ?? "NULL");
+
+            if (!bubbleDictionary.ContainsKey(initiator))
+              bubbleDictionary[initiator] = new List<Bubble>();
+
+            bubbleDictionary[initiator].Add(bubble);
           }
         }
       }
@@ -367,63 +392,5 @@ namespace RimDialogue.Core
         Mod.Error($"A http post failed with error: [{ex.Source}: {ex.Message}]\n\nTrace:\n{ex.StackTrace}");
       }
     }
-
-    private static void Remove(Pawn pawn, Bubble bubble)
-    {
-      if (Dictionary.ContainsKey(pawn) && Dictionary[pawn] != null)
-        Dictionary[pawn].Remove(bubble);
-      //if (Dictionary[pawn]!.Count is 0) { Dictionary.Remove(pawn); }
-    }
-
-    public static void Draw()
-    {
-      var altitude = GetAltitude();
-      if (altitude <= 0 || altitude > Settings.AltitudeMax.Value) { return; }
-
-      var scale = Settings.AltitudeBase.Value / altitude;
-      if (scale > Settings.ScaleMax.Value) { scale = Settings.ScaleMax.Value; }
-
-      var selected = Find.Selector!.SingleSelectedObject as Pawn;
-
-      foreach (var pawn in Dictionary.Keys.OrderBy(pawn => pawn == selected).ThenBy(static pawn => pawn.Position.y).ToArray()) { DrawBubble(pawn, pawn == selected, scale); }
-    }
-
-    private static void DrawBubble(Pawn pawn, bool isSelected, float scale)
-    {
-      if (WorldRendererUtility.WorldRenderedNow || !pawn.Spawned || pawn.Map != Find.CurrentMap || pawn.Map!.fogGrid!.IsFogged(pawn.Position)) { return; }
-
-      var pos = GenMapUI.LabelDrawPosFor(pawn, LabelPositionOffset);
-
-      var offset = Settings.OffsetStart.Value;
-      var count = 0;
-
-      foreach (var bubble in Dictionary[pawn].OrderByDescending(static bubble => bubble.Entry.Tick).ToArray())
-      {
-        if (count > Settings.PawnMax.Value) { return; }
-        if (!bubble.Draw(pos + GetOffset(offset), isSelected, scale)) { Remove(pawn, bubble); }
-        offset += (Settings.OffsetDirection.Value.IsHorizontal ? bubble.Width : bubble.Height) + Settings.OffsetSpacing.Value;
-        count++;
-      }
-    }
-
-    private static float GetAltitude()
-    {
-      var altitude = Mathf.Max(1f, (float)Reflection.Verse_CameraDriver_RootSize.GetValue(Find.CameraDriver));
-      Compatibility.Apply(ref altitude);
-
-      return altitude;
-    }
-
-    private static Vector2 GetOffset(float offset)
-    {
-      var direction = Settings.OffsetDirection.Value.AsVector2;
-      return new Vector2(offset * direction.x, offset * direction.y);
-    }
-
-    public static void Rebuild() => Dictionary.Values.Do(static list => list.Do(static bubble => bubble.Rebuild()));
-
-    public static void Clear() => Dictionary.Clear();
   }
-
-
 }
