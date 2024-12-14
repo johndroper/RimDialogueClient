@@ -69,7 +69,7 @@ namespace RimDialogue.Core
     public string[] initiatorApparel = [];
     public string[] initiatorWeapons = [];
     public string[] initiatorHediffs = [];
-    public int initiatorOpinionOfRecipient = 0;
+    public int initiatorOpinionOfRecipient2 = 0;
     public string[] initiatorMoodThoughts = [];
     public string initiatorMoodString = string.Empty;
     public float initiatorMoodPercentage = -1f;
@@ -118,7 +118,7 @@ namespace RimDialogue.Core
     public string[] recipientApparel = [];
     public string[] recipientWeapons = [];
     public string[] recipientHediffs = [];
-    public int recipientOpinionOfInitiator = 0;
+    public int recipientOpinionOfInitiator2 = 0;
     public string[] recipientMoodThoughts = [];
     public string recipientMoodString = string.Empty;
     public float recipientMoodPercentage;
