@@ -36,10 +36,13 @@
       <AssetsDir>$(ProjectDir)-\</AssetsDir>
       <BuildDir>$(SolutionDir)build\$(AssemblyName)\</BuildDir>
       <ReleasesDir>$(SolutionDir)releases\</ReleasesDir>
+      <DestinationDirectory>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient\</DestinationDirectory>
+      <OutputTargetFolder>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient\Assemblies\</OutputTargetFolder>
     </PropertyGroup>
 
     <ItemGroup>
       <AssetsIncluded Include="$(AssetsDir)**" />
+      <BuiltBinaries Include="$(OutputPath)**\*.dll;$(OutputPath)**\*.exe;$(OutputPath)**\*.pdb" />
     </ItemGroup>
 
     <FileRegexCapture Filename="$(ProjectDir)$(ProjectFileName)" Match="&lt;Reference Include=&quot;Assembly-CSharp, Version=(\d+.\d+)">
@@ -61,8 +64,15 @@
     <FileRegexReplace Filename="$(BuildDir)README.md" Match="{HarmonyVersion}" Replace="$(HarmonyVersion)" />
     <FileRegexReplace Filename="$(BuildDir)About\About.xml" Match="{ReleaseVersion}" Replace="$(ModVersion)" />
 
-    <Copy SourceFiles="$(BuildDir)README.md" DestinationFolder="$(ProjectDir)\.." />
+    <ItemGroup>
+      <FilesToCopy Include="$(BuildDir)%(RecursiveDir)**\*" />
+    </ItemGroup>
 
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(DestinationDirectory)%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(BuiltBinaries)" DestinationFiles="@(BuiltBinaries->'$(OutputTargetFolder)%(Filename)%(Extension)')" />
+
+    <Copy SourceFiles="$(BuildDir)README.md" DestinationFolder="$(ProjectDir)\.." />
+    
     <MakeDir Directories="$(SolutionDir)releases" />
     <ZipDirectory SourceDirectory="$(BuildDir)" DestinationFile="$(ReleasesDir)$(AssemblyName)-v$(ModVersion).zip" Overwrite="true" />
 

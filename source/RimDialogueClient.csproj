@@ -17,7 +17,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\RimDialogueServer\build\RimDialogueClient\Assemblies\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -126,6 +126,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)release.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy  "C:\Users\madja\source\repos\RimDialogueServer\build\RimDialogueClient" "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient" /y /s /e</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
