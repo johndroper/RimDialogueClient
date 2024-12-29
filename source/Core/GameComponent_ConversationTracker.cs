@@ -1,4 +1,6 @@
 using RimDialogue;
+using RimDialogue.Access;
+using System;
 using System.Collections.Generic;
 using Verse;
 using static System.Net.Mime.MediaTypeNames;
@@ -15,11 +17,19 @@ public class GameComponent_ConversationTracker : GameComponent
   public override void FinalizeInit()
   {
     base.FinalizeInit();
+
     if (conversations == null)
       conversations = [];
     if (additionalInstructions == null)
       additionalInstructions = [];
   }
+
+  public override void StartedNewGame()
+  {
+    base.StartedNewGame();
+    additionalInstructions["ALL_PAWNS"] = Find.Scenario?.name + "\r\n" + Bubbles_Bubbler_Add.RemoveWhiteSpace(Find.Scenario?.description);
+  }
+
   public void AddConversation(Pawn initiator, Pawn recipient, string text)
   {
     if (initiator == null || recipient == null || string.IsNullOrWhiteSpace(text))
@@ -62,11 +72,27 @@ public class GameComponent_ConversationTracker : GameComponent
       return conversations.FindAll(convo => convo.InvolvesPawn(pawn));
     }
   }
+
+  private string _version = null;
+
   public override void ExposeData()
   {
     base.ExposeData();
+    _version = Scribe.mode is LoadSaveMode.Saving ? RimDialogue.Mod.Version : null;
+    Scribe_Values.Look(ref _version, "Version");
     Scribe_Collections.Look(ref conversations, "conversations", LookMode.Deep);
     Scribe_Collections.Look(ref additionalInstructions, "additionalInstructions", LookMode.Value, LookMode.Value);
+    if (Scribe.mode is LoadSaveMode.LoadingVars && String.IsNullOrEmpty(_version))
+    {
+      // Migrate old version
+      additionalInstructions["ALL_PAWNS"] =
+        Find.Scenario?.name +
+        "\r\n" +
+        Bubbles_Bubbler_Add.RemoveWhiteSpace(Find.Scenario?.description)
+        + "\r\n" +
+        (additionalInstructions.ContainsKey("ALL_PAWNS") ? additionalInstructions["ALL_PAWNS"] : null);
+      RimDialogue.Mod.Log("Scenario prepended to instructions.");
+    }
   }
 }
 

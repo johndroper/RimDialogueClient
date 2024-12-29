@@ -23,6 +23,7 @@ namespace RimDialogue.Access
   {
     private static readonly Regex ColorTag = new("<\\/?color[^>]*>");
     private static readonly Regex WhiteSpace = new("\\s+");
+    private static DateTime? LastConversation = null;
 
     public static bool Prefix(LogEntry entry)
     {
@@ -31,12 +32,22 @@ namespace RimDialogue.Access
     }
     public static void Add(LogEntry entry)
     {
-      var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"Adding log entry.");
+      if (Settings.MinTimeBetweenConversations.Value > 0 && LastConversation.HasValue && DateTime.Now - LastConversation.Value < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
+      {
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Too soon since last conversation.");
+        return;
+      }
+      LastConversation = DateTime.Now;
 
+      var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"Should Show: {shouldShow}.");
       if (!shouldShow) { return; }
 
       Pawn? initiator, recipient;
-
       switch (entry)
       {
         case PlayLogEntry_Interaction interaction:
@@ -50,16 +61,26 @@ namespace RimDialogue.Access
         default:
           return;
       }
-
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"Pawns fetched.");
       if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
 
       var settings_DoNonPlayer = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoNonPlayer.GetValue(null);
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"settings_DoNonPlayer: {settings_DoNonPlayer}.");
       var settings_DoAnimals = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoAnimals.GetValue(null);
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"settings_DoAnimals: {settings_DoAnimals}.");
       var settings_DoDrafted = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoDrafted.GetValue(null);
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"settings_DoAnimals: {settings_DoAnimals}.");
 
       if (!settings_DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
       if (!settings_DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
       if (!settings_DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
+
+      if (!Settings.EnableCaravans.Value && initiator.IsCaravanMember())
+        return;
 
       GetDialogue(initiator, recipient, entry);
     }
@@ -176,6 +197,12 @@ namespace RimDialogue.Access
       //Find.CurrentMap.resourceCounter?.AllCountedAmounts.Where(thing => thing.Key.IsApparel).Sum(thing => thing.Value);
       //var thigncount = Find.CurrentMap.resourceCounter.GetCountIn(ThingRequestGroup.);
 
+      if (Settings.VerboseLogging.Value)
+      {
+        Mod.Log($"Getting dialogue.");
+        Mod.Log($"CurTimeSpeed {Find.TickManager.CurTimeSpeed} > MaxSpeed {(TimeSpeed)Settings.MaxSpeed.Value}: {Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value}.");
+      }
+
       if (Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value)
         return;
 
@@ -185,12 +212,19 @@ namespace RimDialogue.Access
           entry.ToGameStringFromPOV(initiator),
           string.Empty);
 
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"logEntryText: {logEntryText}.");
+
         List<Thought_Memory> initiatorMoodThoughts = initiator.needs?.mood?.thoughts?.memories?.Memories
           .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
           .ToList() ?? [];
         List<Thought_Memory> recipientMoodThoughts = recipient?.needs?.mood?.thoughts?.memories?.Memories
           .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
           .ToList() ?? [];
+
+
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"logEntryText: {logEntryText}.");
 
         var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
         Room room = initiator.GetRoom();
@@ -203,6 +237,8 @@ namespace RimDialogue.Access
         {
           try
           {
+            if (Settings.VerboseLogging.Value)
+              Mod.Log($"Trying to get personality.");
             Reflection.GetPersonality(initiator, out initiatorPersonality, out initiatorPersonalityDescription);
             Reflection.GetPersonality(recipient, out recipientPersonality, out recipientPersonalityDescription);
           }
@@ -213,7 +249,12 @@ namespace RimDialogue.Access
         }
 
         var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Tracker fetched.");
+
         var additionalInstructions = tracker.GetAdditionalInstructions(null);
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Additional Instructions fetched.");
 
         var dialogueData = new DialogueData
         {
@@ -221,7 +262,6 @@ namespace RimDialogue.Access
           maxWords = Settings.MaxWords.Value,
           specialInstructions = Settings.SpecialInstructions.Value + " " + additionalInstructions,
           interaction = logEntryText,
-          scenario = Find.Scenario?.name + " - " + RemoveWhiteSpace(Find.Scenario?.description),
           daysPassedSinceSettle = GenDate.DaysPassedSinceSettle,
           currentWeather = currentWeather.LabelCap + " - " + currentWeather.description,
           outdoorTemp = Find.CurrentMap.mapTemperature.OutdoorTemp,
@@ -346,13 +386,17 @@ namespace RimDialogue.Access
           recipientLastBattle = RemoveWhiteSpaceAndColor(GetMostRecentBattle(recipient)?.GetName()),
           recipientCombatLog = GetCombatLogEntries(recipient, 10).Select(entry => RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(recipient))).ToArray(),
         };
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"DialogueData fetched.");
 
         string dialogueDataJson = JsonUtility.ToJson(dialogueData);
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", dialogueDataJson);
-        using (UnityWebRequest request = UnityWebRequest.Post(Settings.ServerUrl.Value, form))
+        using (UnityWebRequest request = UnityWebRequest.Post(Settings.ServerUrl.Value.Trim(), form))
         {
           var asyncOperation = request.SendWebRequest();
+          if (Settings.VerboseLogging.Value)
+            Mod.Log($"Web request sent.");
           while (!asyncOperation.isDone)
           {
             await Task.Yield();
@@ -365,6 +409,8 @@ namespace RimDialogue.Access
           {
             while (!request.downloadHandler.isDone) { await Task.Yield(); }
             var body = request.downloadHandler.text;
+            if (Settings.VerboseLogging.Value)
+              Mod.Log($"Body returned:{body}.");
             var dialogueResponse = JsonUtility.FromJson<DialogueResponse>(body);
             if (dialogueResponse.rateLimited)
             {
@@ -372,24 +418,31 @@ namespace RimDialogue.Access
               return;
             }
             tracker.AddConversation(initiator, recipient, dialogueResponse.text);
-
+            if (Settings.VerboseLogging.Value)
+              Mod.Log($"Conversation added.");
             var bubbleDictionary = Reflection.Bubbles_Bubbler_Dictionary.GetValue(null) as Dictionary<Pawn, List<Bubble>>;
             if (bubbleDictionary == null)
               return;
-
+            if (Settings.VerboseLogging.Value)
+              Mod.Log($"Bubble Dictionary fetched.");
             var bubble = new Bubble(initiator, entry);
             dialogueDictionary.Add(bubble, dialogueResponse.text ?? "NULL");
 
             if (!bubbleDictionary.ContainsKey(initiator))
+            {
               bubbleDictionary[initiator] = new List<Bubble>();
-
+              if (Settings.VerboseLogging.Value)
+                Mod.Log($"Bubble Dictionary fetched.");
+            }
             bubbleDictionary[initiator].Add(bubble);
+            if (Settings.VerboseLogging.Value)
+              Mod.Log($"Bubble added.");
           }
         }
       }
       catch (Exception ex)
       {
-        Mod.Error($"A http post failed with error: [{ex.Source}: {ex.Message}]\n\nTrace:\n{ex.StackTrace}");
+        Mod.Error($"A http post to '{Settings.ServerUrl.Value}' failed with error: [{ex.Source}: {ex.Message}]\n\nTrace:\n{ex.StackTrace}");
       }
     }
   }

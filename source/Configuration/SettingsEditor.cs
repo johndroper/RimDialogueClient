@@ -23,6 +23,9 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
       l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
       l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
+      l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
+      l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
+      l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
       l.Label("RimDialogue.SpecialInstructions".Translate());
       Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
       l.Label("RimDialogue.ClientId".Translate());

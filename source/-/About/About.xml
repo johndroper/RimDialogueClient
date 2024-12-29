@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <packageId>ProceduralProducts.RimDialogue</packageId>
-  <name>RimDialogue</name>
+  <name>RimDialogue - AI Powered Conversations</name>
   <author>John Roper</author>
   <description>
-    RimDialogue - AI powered conversations for Rimworld
     Mod Version: {ReleaseVersion} BETA
 
     RimDialogue is an extension of Jaxe’s excellent Interaction Bubbles mod, but instead of simply displaying the system-generated interaction text, it takes these interactions and uses a language model to transform them into real dialogue. This dialogue is then displayed in-game above each character’s head in a speech bubble.
@@ -23,6 +22,9 @@
 
     "All the men in the colony speak French."
     Now, only the male pawns will speak exclusively in French.
+
+    For more on getting the most out of RimDialogue check out the tips page at:
+    https://rimdialogue.proceduralproducts.com/Home/Tips
 
     Hosted RimDialogue requires an internet connection and comes in four flavors:
 

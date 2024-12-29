@@ -7,4 +7,7 @@
   <RimDialogue.ServerUrl>Server URL</RimDialogue.ServerUrl>
   <RimDialogue.MaxSpeed>Maximum game speed for dialoge generation</RimDialogue.MaxSpeed>
   <RimDialogue.MaxConversationsStored>Maximum number of conversations stored</RimDialogue.MaxConversationsStored>
+  <RimDialogue.VerboseLogging>Verbose logging</RimDialogue.VerboseLogging>
+  <RimDialogue.MinTimeBetweenConversations>Minimum seconds between conversations</RimDialogue.MinTimeBetweenConversations>
+  <RimDialogue.EnableCaravans>Enable dialogue on caravans</RimDialogue.EnableCaravans>
 </LanguageData>
