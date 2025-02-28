@@ -1,0 +1,61 @@
+<Defs>
+  <InteractionDef>
+    <defName>RecentIncidentChitchat</defName>
+    <label>recent incident chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorker_RecentIncidentChitChat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent event, '**recent_incident**'].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent event, '**recent_incident**', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry(p=0.8)->[INITIATOR_nameDef] [commentedabout] the recent event, '**recent_incident**', to [RECIPIENT_nameDef].</li>
+        <li>talkedabout(p=4)->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->quipped about</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecentBattleChitchat</defName>
+    <label>recent battle chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorker_RecentBattleChitChat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '**recent_battle**'].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '**recent_battle**', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry(p=0.8)->[INITIATOR_nameDef] [commentedabout] the recent battle, '**recent_battle**', to [RECIPIENT_nameDef].</li>
+        <li>talkedabout(p=4)->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->quipped about</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+</Defs>
+  

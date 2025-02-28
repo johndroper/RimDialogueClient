@@ -10,4 +10,5 @@
   <RimDialogue.VerboseLogging>Verbose logging</RimDialogue.VerboseLogging>
   <RimDialogue.MinTimeBetweenConversations>Minimum seconds between conversations</RimDialogue.MinTimeBetweenConversations>
   <RimDialogue.EnableCaravans>Enable dialogue on caravans</RimDialogue.EnableCaravans>
+  <RimDialogue.OnlyColonists>Only colonists talk</RimDialogue.OnlyColonists>
 </LanguageData>

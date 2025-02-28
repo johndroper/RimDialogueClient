@@ -79,8 +79,16 @@
   <ItemGroup>
     <Compile Include="Access\Bubbles_Bubbler_Add.cs" />
     <Compile Include="Access\Bubbles_Bubble_GetText.cs" />
+    <Compile Include="Access\PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\Reflection.cs" />
+    <Compile Include="Access\Verse_LetterMaker_MakeLetter.cs" />
     <Compile Include="Access\Verse_Profile_MemoryUtility_ClearAllMapsAndWorld.cs" />
+    <Compile Include="Core\ChitChatRecentBattleData.cs" />
+    <Compile Include="Core\ChitChatRecentIncidentData.cs" />
+    <Compile Include="Core\DataHelper.cs" />
+    <Compile Include="Core\InteractionWorker_RecentBattleChitChat.cs" />
+    <Compile Include="Core\InteractionWorker_RecentIncidentChitChat.cs" />
+    <Compile Include="Core\PawnData.cs" />
     <Compile Include="Core\DialogueData.cs" />
     <Compile Include="Core\DialogueResponse.cs" />
     <Compile Include="Core\GameComponent_ConversationTracker.cs" />
@@ -97,6 +105,7 @@
   <ItemGroup>
     <Content Include="-\About\PublishedFileId.txt" />
     <Content Include="-\About\steam_workshop.txt" />
+    <Content Include="-\Defs\InteractionDefs\Interactions_Social.xml" />
     <Content Include="-\Defs\MainButtonDefs\RimDialogueMainButtonDef.xml" />
     <Content Include="-\Languages\English\Strings\Words\Nouns\Animals.txt" />
     <Content Include="-\Languages\English\Strings\Words\Nouns\Apparel.txt" />

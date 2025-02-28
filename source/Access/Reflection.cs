@@ -12,6 +12,8 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_Initiator = AccessTools.Field(typeof(PlayLogEntry_Interaction), "initiator");
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_Recipient = AccessTools.Field(typeof(PlayLogEntry_Interaction), "recipient");
     public static readonly FieldInfo Verse_PlayLogEntry_InteractionSinglePawn_Initiator = AccessTools.Field(typeof(PlayLogEntry_InteractionSinglePawn), "initiator");
+    public static readonly FieldInfo Verse_PlayLogEntry_Interaction_InteractionDef = AccessTools.Field(typeof(PlayLogEntry_Interaction), "intDef");
+    public static readonly FieldInfo Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef = AccessTools.Field(typeof(PlayLogEntry_InteractionSinglePawn), "intDef");
 
     public static readonly MethodInfo Bubbles_Bubbler_ShouldShow = AccessTools.Method(typeof(Bubbles.Core.Bubbler), "ShouldShow");
     public static readonly FieldInfo Bubbles_Bubbler_Dictionary = AccessTools.Field(typeof(Bubbles.Core.Bubbler), "Dictionary");
@@ -19,6 +21,9 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Bubbles_Settings_DoNonPlayer = AccessTools.Field(typeof(Bubbles.Settings), "DoNonPlayer");
     public static readonly FieldInfo Bubbles_Settings_DoAnimals = AccessTools.Field(typeof(Bubbles.Settings), "DoAnimals");
     public static readonly FieldInfo Bubbles_Settings_DoDrafted = AccessTools.Field(typeof(Bubbles.Settings), "DoDrafted");
+
+    public static readonly FieldInfo Verse_Rule_String_Output = AccessTools.Field(typeof(Verse.Grammar.Rule_String), "output");
+    public static readonly FieldInfo RimWorld_InteractionDef_Symbol = AccessTools.Field(typeof(RimWorld.InteractionDef), "symbol");
 
     private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
     public static bool IsAssemblyLoaded(string assemblyName)

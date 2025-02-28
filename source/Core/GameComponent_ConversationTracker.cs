@@ -1,5 +1,6 @@
 using RimDialogue;
 using RimDialogue.Access;
+using RimDialogue.Core;
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -27,7 +28,7 @@ public class GameComponent_ConversationTracker : GameComponent
   public override void StartedNewGame()
   {
     base.StartedNewGame();
-    additionalInstructions["ALL_PAWNS"] = Find.Scenario?.name + "\r\n" + Bubbles_Bubbler_Add.RemoveWhiteSpace(Find.Scenario?.description);
+    additionalInstructions["ALL_PAWNS"] = Find.Scenario?.name + "\r\n" + DataHelper.RemoveWhiteSpace(Find.Scenario?.description);
   }
 
   public void AddConversation(Pawn initiator, Pawn recipient, string text)
@@ -88,7 +89,7 @@ public class GameComponent_ConversationTracker : GameComponent
       additionalInstructions["ALL_PAWNS"] =
         Find.Scenario?.name +
         "\r\n" +
-        Bubbles_Bubbler_Add.RemoveWhiteSpace(Find.Scenario?.description)
+        DataHelper.RemoveWhiteSpace(Find.Scenario?.description)
         + "\r\n" +
         (additionalInstructions.ContainsKey("ALL_PAWNS") ? additionalInstructions["ALL_PAWNS"] : null);
       RimDialogue.Mod.Log("Scenario prepended to instructions.");
