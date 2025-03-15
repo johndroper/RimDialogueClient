@@ -57,7 +57,7 @@ namespace RimDialogue
       Rect instructionsScrollRect = new Rect(0, y, leftColWidth, inRect.height - y - 10);
       Rect instructionsContentRect = new Rect(0, 0, leftColWidth - 16f, 2000);
       Widgets.BeginScrollView(instructionsScrollRect, ref instructionsScrollPosition, instructionsContentRect);
-      tracker.AddAdditionalInstructions(selectedPawn, Widgets.TextArea(instructionsContentRect, tracker.GetAdditionalInstructions(selectedPawn)));
+      tracker.AddAdditionalInstructions(selectedPawn, Widgets.TextArea(instructionsContentRect, tracker.GetInstructions(selectedPawn)));
       y += 120f;
       Widgets.EndScrollView();
       Widgets.DrawLineVertical(leftColWidth + 10, colY, inRect.height);

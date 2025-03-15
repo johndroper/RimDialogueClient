@@ -25,6 +25,35 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_Rule_String_Output = AccessTools.Field(typeof(Verse.Grammar.Rule_String), "output");
     public static readonly FieldInfo RimWorld_InteractionDef_Symbol = AccessTools.Field(typeof(RimWorld.InteractionDef), "symbol");
 
+    public static readonly FieldInfo Verse_Messages_LiveMessages = AccessTools.Field(typeof(Verse.Messages), "liveMessages");
+
+    //ALERTS
+    public static readonly FieldInfo RimWorld_Alert_AbandonedBaby_tmpAbandonedBabiesList = AccessTools.Field(typeof(RimWorld.Alert_AbandonedBaby), "tmpAbandonedBabiesList");
+    public static readonly FieldInfo RimWorld_AlertsReadout_ActiveAlerts = AccessTools.Field(typeof(RimWorld.AlertsReadout), "activeAlerts");
+    public static readonly FieldInfo RimWorld_Alert_ColonistsIdle_IdleColonistsResult = AccessTools.Field(typeof(RimWorld.Alert_ColonistsIdle), "idleColonistsResult");
+    public static readonly FieldInfo RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult = AccessTools.Field(typeof(RimWorld.Alert_HunterLacksRangedWeapon), "huntersWithoutRangedWeaponResult");
+    public static readonly FieldInfo RimWorld_Alert_Heatstroke_HeatstrokePawnsResult = AccessTools.Field(typeof(RimWorld.Alert_Heatstroke), "heatstrokePawnsResult");
+    public static readonly FieldInfo RimWorld_Alert_AnimalFilth_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalFilth), "targets");
+    public static readonly FieldInfo RimWorld_Alert_AnimalPenNeeded_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalPenNeeded), "targets");
+    public static readonly FieldInfo RimWorld_Alert_AnimalRoaming_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalRoaming), "targets");
+    public static readonly FieldInfo RimWorld_Alert_Boredom_BoredPawnsResult = AccessTools.Field(typeof(RimWorld.Alert_Boredom), "boredPawnsResult");
+    public static readonly FieldInfo RimWorld_Alert_BrawlerHasRangedWeapon_BrawlersWithRangedWeaponResult = AccessTools.Field(typeof(RimWorld.Alert_BrawlerHasRangedWeapon), "brawlersWithRangedWeaponResult");
+    public static readonly FieldInfo RimWorld_Alert_ColonistLeftUnburied_UnburiedColonistCorpsesResult = AccessTools.Field(typeof(RimWorld.Alert_ColonistLeftUnburied), "unburiedColonistCorpsesResult");
+    public static readonly FieldInfo RimWorld_Alert_BreakRiskAlertUtility_PawnsAtRiskMajorResult = AccessTools.Field(typeof(RimWorld.BreakRiskAlertUtility), "pawnsAtRiskMajorResult");
+    public static readonly FieldInfo RimWorld_Alert_BreakRiskAlertUtility_PawnsAtRiskMinorResult = AccessTools.Field(typeof(RimWorld.BreakRiskAlertUtility), "pawnsAtRiskMinorResult");
+    public static readonly FieldInfo RimWorld_Alert_ColonistNeedsRescuing_ColonistsNeedingRescueResult = AccessTools.Field(typeof(RimWorld.Alert_ColonistNeedsRescuing), "colonistsNeedingRescueResult");
+    public static readonly FieldInfo RimWorld_Alert_ColonistNeedsTend_NeedingColonistsResult = AccessTools.Field(typeof(RimWorld.Alert_ColonistNeedsTend), "needingColonistsResult");
+    public static readonly FieldInfo RimWorld_Alert_DateRitualComing_RitualEntries = AccessTools.Field(typeof(RimWorld.Alert_DateRitualComing), "ritualEntries");
+    public static readonly FieldInfo RimWorld_Alert_Hypothermia_HypothermiaPawnsResult = AccessTools.Field(typeof(RimWorld.Alert_Hypothermia), "hypothermiaPawnsResult");
+    public static readonly FieldInfo RimWorld_Alert_HypothermicAnimals_HypothermicAnimalsResult = AccessTools.Field(typeof(RimWorld.Alert_HypothermicAnimals), "hypothermicAnimalsResult");
+    public static readonly FieldInfo RimWorld_Alert_IdeoBuildingDisrespected_Demand = AccessTools.Field(typeof(RimWorld.Alert_IdeoBuildingDisrespected), "demand");
+    public static readonly FieldInfo RimWorld_Alert_IdeoBuildingMissing_Demand = AccessTools.Field(typeof(RimWorld.Alert_IdeoBuildingMissing), "demand");
+    public static readonly FieldInfo RimWorld_Alert_QuestExpiresSoon_QuestExpiring = AccessTools.Field(typeof(RimWorld.Alert_QuestExpiresSoon), "questExpiring");
+    public static readonly FieldInfo RimWorld_Alert_StarvationAnimals_StarvingAnimalsResult = AccessTools.Field(typeof(RimWorld.Alert_StarvationAnimals), "starvingAnimalsResult");
+    public static readonly FieldInfo RimWorld_Alert_StarvationColonists_StarvingColonistsResult = AccessTools.Field(typeof(RimWorld.Alert_StarvationColonists), "starvingColonistsResult");
+    public static readonly FieldInfo RimWorld_Alert_UnhappyNudity_AffectedPawnsResult = AccessTools.Field(typeof(RimWorld.Alert_UnhappyNudity), "affectedPawnsResult");
+
+
     private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
     public static bool IsAssemblyLoaded(string assemblyName)
     {

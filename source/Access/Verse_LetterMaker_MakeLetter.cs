@@ -29,25 +29,13 @@ namespace RimDialogue.Access
           });
     }
 
-    public static Dictionary<int, LetterRecord> incidentData = [];
+    public static Dictionary<int, RecentLetter> incidentData = [];
 
     private static System.Random random = new();
-    public static LetterRecord? GetLetter(int logId)
-    {
-      if (incidentData.ContainsKey(logId))
-        return incidentData[logId];
-      if (recentLetters.Any())
-      {
-        var letter = recentLetters[random.Next(recentLetters.Count)];
-        incidentData.Add(logId, letter);
-        return letter;
-      }
-      return null;
-    }
 
-    public static List<LetterRecord> recentLetters = new List<LetterRecord>();
+    public static List<RecentLetter> recentLetters = new List<RecentLetter>();
 
-    public class LetterRecord
+    public class RecentLetter
     {
       public TaggedString Label { get; set; }
       public TaggedString Text { get; set; }
@@ -70,7 +58,7 @@ namespace RimDialogue.Access
     {
       if (Settings.VerboseLogging.Value)
         Log.Message($"Creating LetterRecord {def.defName}");
-      var record = new LetterRecord
+      var record = new RecentLetter
       {
         Label = label,
         Text = text,

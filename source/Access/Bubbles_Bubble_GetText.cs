@@ -15,7 +15,7 @@ namespace RimDialogue.Access
     public static bool Prefix(Bubble __instance, ref string __result)
     {
       __result = Bubbles_Bubbler_Add.GetDialogueText(__instance);
-      return false;
+      return (__result == null);
     }
   }
 }

@@ -28,7 +28,7 @@ public class GameComponent_ConversationTracker : GameComponent
   public override void StartedNewGame()
   {
     base.StartedNewGame();
-    additionalInstructions["ALL_PAWNS"] = Find.Scenario?.name + "\r\n" + DataHelper.RemoveWhiteSpace(Find.Scenario?.description);
+    additionalInstructions["ALL_PAWNS"] = Find.Scenario?.name + "\r\n" + H.RemoveWhiteSpace(Find.Scenario?.description);
   }
 
   public void AddConversation(Pawn initiator, Pawn recipient, string text)
@@ -52,7 +52,7 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  public string GetAdditionalInstructions(Pawn pawn)
+  public string GetInstructions(Pawn pawn)
   {
     var thingId = pawn?.ThingID ?? "ALL_PAWNS";
     lock (additionalInstructions)
@@ -89,7 +89,7 @@ public class GameComponent_ConversationTracker : GameComponent
       additionalInstructions["ALL_PAWNS"] =
         Find.Scenario?.name +
         "\r\n" +
-        DataHelper.RemoveWhiteSpace(Find.Scenario?.description)
+        H.RemoveWhiteSpace(Find.Scenario?.description)
         + "\r\n" +
         (additionalInstructions.ContainsKey("ALL_PAWNS") ? additionalInstructions["ALL_PAWNS"] : null);
       RimDialogue.Mod.Log("Scenario prepended to instructions.");

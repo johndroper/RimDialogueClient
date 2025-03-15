@@ -13,10 +13,17 @@ using Verse;
 
 namespace RimDialogue.Core
 {
-  public static class DataHelper
+  public static partial class H
   {
     private static readonly Regex ColorTag = new("<\\/?color[^>]*>");
     private static readonly Regex WhiteSpace = new("\\s+");
+
+    public static GameComponent_ConversationTracker GetTracker()
+    {
+      var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
+      Mod.LogV($"Tracker fetched.");
+      return tracker;
+    }
 
     public static PawnData MakePawnData(Pawn pawn, string? instructions)
     {
@@ -43,13 +50,13 @@ namespace RimDialogue.Core
         Instructions = instructions,
         FullName = pawn.Name?.ToStringFull ?? String.Empty,
         Personality = personality ?? string.Empty,
-        PersonalityDescription = DataHelper.RemoveWhiteSpaceAndColor(personalityDescription),
+        PersonalityDescription = H.RemoveWhiteSpaceAndColor(personalityDescription),
         NickName = pawn.Name?.ToStringShort ?? pawn.Label ?? String.Empty,
         Gender = pawn.GetGenderLabel(),
         FactionName = pawn.Faction?.Name ?? String.Empty,
-        FactionLabel = DataHelper.RemoveWhiteSpace(pawn.Faction?.def?.LabelCap),
-        FactionDescription = DataHelper.RemoveWhiteSpace(pawn.Faction?.def?.description),
-        Description = DataHelper.RemoveWhiteSpace(pawn.DescriptionDetailed),
+        FactionLabel = H.RemoveWhiteSpace(pawn.Faction?.def?.LabelCap),
+        FactionDescription = H.RemoveWhiteSpace(pawn.Faction?.def?.description),
+        Description = H.RemoveWhiteSpace(pawn.DescriptionDetailed),
         Race = pawn.def?.defName ?? String.Empty,
         IsColonist = pawn.IsColonist,
         IsPrisoner = pawn.IsPrisoner,
@@ -61,11 +68,11 @@ namespace RimDialogue.Core
         IsSlave = pawn.IsSlave,
         IsAnimal = pawn.IsNonMutantAnimal,
         IdeologyName = pawn.Ideo?.name ?? string.Empty,
-        IdeologyDescription = DataHelper.RemoveWhiteSpaceAndColor(pawn.Ideo?.description),
-        IdeologyPrecepts = pawn.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + DataHelper.RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
+        IdeologyDescription = H.RemoveWhiteSpaceAndColor(pawn.Ideo?.description),
+        IdeologyPrecepts = pawn.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + H.RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
         Age = pawn.ageTracker?.AgeBiologicalYears ?? -1,
-        Childhood = pawn.story?.Childhood?.title != null ? pawn.story?.Childhood?.title + " - " + DataHelper.RemoveWhiteSpaceAndColor(DataHelper.GetBackstory(pawn, pawn.story?.Childhood)) : string.Empty,
-        Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + DataHelper.RemoveWhiteSpaceAndColor(DataHelper.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
+        Childhood = pawn.story?.Childhood?.title != null ? pawn.story?.Childhood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Childhood)) : string.Empty,
+        Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
         MoodString = pawn.needs?.mood?.MoodString ?? string.Empty,
       };
     }
@@ -106,6 +113,13 @@ namespace RimDialogue.Core
       if (hediff.Part != null)
         text = text + " in their " + hediff.Part.Label;
       return text;
+    }
+
+    public static IEnumerable<Battle> GetRecentBattles(int hours)
+    {
+      return Find.BattleLog.Battles
+        .Where(battle => battle.CreationTimestamp >= Find.TickManager.TicksAbs - hours * 2500)
+        .OrderBy(battle => battle.CreationTimestamp);
     }
 
     public static Battle? GetMostRecentBattle(Pawn? pawn)
