@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueDataAlert : DialogueData
+  public class DialogueDataAlert : DialogueTargetData
   {
     public string Explanation = string.Empty;
-    public int InitiatorOpinionOfTarget = 0;
-    public int RecipientOpinionOfTarget = 0;
   }
 }

@@ -25,15 +25,10 @@ namespace RimDialogue.Access
 
     public static bool Prefix(LogEntry entry)
     {
-
-
-      return true;
+      return Settings.ShowInteractionBubbles.Value;
     }
-    public static void Add(LogEntry entry)
-    {
-
-
-
+    //public static void Add(LogEntry entry)
+    //{
       //var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
       //Mod.LogV($"Should Show: {shouldShow}.");
       //if (!shouldShow) { return; }
@@ -118,7 +113,7 @@ namespace RimDialogue.Access
       //    GetDialogue(initiator, recipient, logEntryText, entry, interactionDef);
       //    break;
       //}
-    }
+    //}
 
     public static void Clear()
     {

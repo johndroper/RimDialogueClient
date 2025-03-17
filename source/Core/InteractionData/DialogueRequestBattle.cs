@@ -55,8 +55,7 @@ namespace RimDialogue.Core.InteractionData
       Send(
         [
           new("chitChatJson", dialogueData)
-        ],
-        "Dialogue");
+        ]);
     }
   }
 }

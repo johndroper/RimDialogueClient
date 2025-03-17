@@ -71,7 +71,6 @@
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **game_condition**.</li>
         <li>talkedabout(p=4)->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
-        <li>talkedabout->boasted about how</li>
         <li>talkedabout->spoke about how</li>
         <li>talkedabout->gabbed about how</li>
         <li>talkedabout->talked about how</li>

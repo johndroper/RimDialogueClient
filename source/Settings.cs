@@ -26,6 +26,9 @@ namespace RimDialogue
     public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 0);
     public static readonly Setting<bool> EnableCaravans = new(nameof(EnableCaravans), false);
 
+    public static readonly Setting<bool> ShowInteractionBubbles = new(nameof(ShowInteractionBubbles), false);
+    public static readonly Setting<bool> ShowDialogueBubbles = new(nameof(ShowDialogueBubbles), true);
+    public static readonly Setting<bool> ShowDialogueMessages = new(nameof(ShowDialogueMessages), true);
 
     public static readonly Setting<int> ChitChatMinHours = new(nameof(ChitChatMinHours), 0);
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 2);
@@ -36,6 +39,7 @@ namespace RimDialogue
     public static readonly Setting<float> RecentBattleChitChatWeight = new(nameof(RecentBattleChitChatWeight), 1f);
     public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 1f);
     public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 1f);
+
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

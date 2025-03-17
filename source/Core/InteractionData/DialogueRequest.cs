@@ -204,7 +204,17 @@ namespace RimDialogue.Core.InteractionData
           Mod.LogV($"Conversation added for log entry {Entry.LogID}.");
           if (dialogueResponse.text == null)
             throw new Exception("Response text is null.");
-          Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, dialogueResponse.text);
+
+          if (Settings.ShowDialogueBubbles.Value)
+            Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, dialogueResponse.text);
+
+          if (Settings.ShowDialogueMessages.Value)
+            Messages.Message(
+              dialogueResponse.text,
+              new LookTargets(Initiator),
+              MessageTypeDefOf.SilentInput,
+              false);
+
           Mod.LogV($"GetChitChat Complete for log entry {Entry.LogID}.");
         }
       }
