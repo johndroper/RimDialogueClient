@@ -20,13 +20,6 @@ namespace RimDialogue.Configuration
       if (l.ButtonText("RimDialogue.ResetToDefault".Translate())) { Reset(); }
       l.End();
       l.BeginScrollView(listingRect, ref _scrollPosition, ref _viewRect);
-      l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
-      l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
-      l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
-      l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
-      //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
-      l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
-      l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
       l.Label("RimDialogue.SpecialInstructions".Translate());
       Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
       l.Label("RimDialogue.ClientId".Translate());
@@ -35,6 +28,20 @@ namespace RimDialogue.Configuration
       if (string.IsNullOrWhiteSpace(Settings.ServerUrl.Value))
         Settings.ServerUrl.Value = "http://rimdialogue.proceduralproducts.com/home/getdialogue";
       Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
+
+      l.CheckboxLabeled("RimDialogue.ShowInteractionBubbles".Translate(), ref Settings.ShowInteractionBubbles.Value);
+      l.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
+      l.CheckboxLabeled("RimDialogue.ShowDialogueMessages".Translate(), ref Settings.ShowDialogueMessages.Value);
+      l.SliderLabeled("RimDialogue.DialogueMessageWidth".Translate(), ref Settings.DialogueMessageWidth.Value, 200, 1200);
+      l.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f);
+      l.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f);
+      l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
+      l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
+      l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
+      l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
+      //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
+      l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
+      l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
       l.EndScrollView(ref _viewRect);
     }
 

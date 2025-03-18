@@ -154,7 +154,7 @@ namespace RimDialogue.Core.InteractionData
       Mod.LogV($"Building ChitChatData");
       clientId = Settings.ClientId.Value;
       var tracker = H.GetTracker();
-      instructions = tracker.GetInstructions(null);
+      instructions = tracker.GetInstructions(null) + " " + Settings.SpecialInstructions;
       maxWords = Settings.MaxWords.Value;
       initiatorOpinionOfRecipient = initiator.relations.OpinionOf(recipient);
       recipientOpinionOfInitiator = recipient.relations.OpinionOf(initiator);
@@ -209,11 +209,9 @@ namespace RimDialogue.Core.InteractionData
             Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, dialogueResponse.text);
 
           if (Settings.ShowDialogueMessages.Value)
-            Messages.Message(
+            DialogueMessages.AddMessage(
               dialogueResponse.text,
-              new LookTargets(Initiator),
-              MessageTypeDefOf.SilentInput,
-              false);
+              new LookTargets(Initiator));
 
           Mod.LogV($"GetChitChat Complete for log entry {Entry.LogID}.");
         }

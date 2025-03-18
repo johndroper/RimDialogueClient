@@ -29,8 +29,11 @@ namespace RimDialogue
     public static readonly Setting<bool> ShowInteractionBubbles = new(nameof(ShowInteractionBubbles), false);
     public static readonly Setting<bool> ShowDialogueBubbles = new(nameof(ShowDialogueBubbles), true);
     public static readonly Setting<bool> ShowDialogueMessages = new(nameof(ShowDialogueMessages), true);
+    public static readonly Setting<float> DialogueMessageLifetime = new(nameof(DialogueMessageLifetime), 13f);
+    public static readonly Setting<float> MinDialogueMessageLifetime = new(nameof(MinDialogueMessageLifetime), 2f);
+    public static readonly Setting<int> DialogueMessageWidth = new(nameof(DialogueMessageWidth), 600);
 
-    public static readonly Setting<int> ChitChatMinHours = new(nameof(ChitChatMinHours), 0);
+    public static readonly Setting<int> ChitChatMinMinutes = new(nameof(ChitChatMinMinutes), 0);
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 2);
     public static readonly Setting<int> RecentBattleHours = new(nameof(RecentBattleHours), 6);
 

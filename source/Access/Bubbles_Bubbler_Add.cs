@@ -25,7 +25,26 @@ namespace RimDialogue.Access
 
     public static bool Prefix(LogEntry entry)
     {
-      return Settings.ShowInteractionBubbles.Value;
+      if (Settings.ShowInteractionBubbles.Value)
+        return true;
+
+      Pawn? initiator;
+      switch (entry)
+      {
+        case PlayLogEntry_Interaction interaction:
+          Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
+          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
+          break;
+        case PlayLogEntry_InteractionSinglePawn interaction:
+          Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
+          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
+          break;
+        default:
+          return false;
+      }
+      var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
+      Mod.LogV(logEntryText);
+      return false;
     }
     //public static void Add(LogEntry entry)
     //{

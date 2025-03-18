@@ -11,4 +11,10 @@
   <RimDialogue.MinTimeBetweenConversations>Minimum seconds between conversations</RimDialogue.MinTimeBetweenConversations>
   <RimDialogue.EnableCaravans>Enable dialogue on caravans</RimDialogue.EnableCaravans>
   <RimDialogue.OnlyColonists>Only colonists talk</RimDialogue.OnlyColonists>
+  <RimDialogue.ShowInteractionBubbles>Show interaction bubbles</RimDialogue.ShowInteractionBubbles>
+  <RimDialogue.ShowDialogueBubbles>Show dialogue bubbles</RimDialogue.ShowDialogueBubbles>
+  <RimDialogue.ShowDialogueMessages>Show dialogue messages</RimDialogue.ShowDialogueMessages>
+  <RimDialogue.DialogueMessageLifetime>Normal dialogue message lifetime</RimDialogue.DialogueMessageLifetime>
+  <RimDialogue.MinDialogueMessageLifetime>Minimum dialogue message lifetime</RimDialogue.MinDialogueMessageLifetime>
+  <RimDialogue.DialogueMessageWidth>Dialogue Message Width</RimDialogue.DialogueMessageWidth>
 </LanguageData>

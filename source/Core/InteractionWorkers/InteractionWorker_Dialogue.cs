@@ -35,7 +35,7 @@ namespace RimDialogue.Core.InteractionWorkers
 
     public static int GetMinTime()
     {
-      return Find.TickManager.TicksAbs - 2500 * Settings.ChitChatMinHours.Value;
+      return Find.TickManager.TicksAbs - (int)(41.6667f * Settings.ChitChatMinMinutes.Value);
     }
   }
 }

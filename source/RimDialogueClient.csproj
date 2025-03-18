@@ -79,8 +79,10 @@
   <ItemGroup>
     <Compile Include="Access\Bubbles_Bubbler_Add.cs" />
     <Compile Include="Access\Bubbles_Bubble_GetText.cs" />
+    <Compile Include="Access\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
     <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
+    <Compile Include="Core\DialogueMessages.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAlert.cs" />
     <Compile Include="Access\PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\Reflection.cs" />
