@@ -28,6 +28,7 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_Messages_LiveMessages = AccessTools.Field(typeof(Verse.Messages), "liveMessages");
 
     public static readonly FieldInfo RimWorld_ColonistBar_CachedDrawLocs = AccessTools.Field(typeof(RimWorld.ColonistBar), "cachedDrawLocs");
+    public static readonly FieldInfo RimWorld_ColonistBar_TmpColonistsInOrder = AccessTools.Field(typeof(RimWorld.ColonistBar), "tmpColonistsInOrder");
 
     //ALERTS
     public static readonly FieldInfo RimWorld_Alert_AbandonedBaby_tmpAbandonedBabiesList = AccessTools.Field(typeof(RimWorld.Alert_AbandonedBaby), "tmpAbandonedBabiesList");

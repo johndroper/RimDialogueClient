@@ -35,7 +35,7 @@ namespace RimDialogue.Core.InteractionWorkers
           Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
-        Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");
+        Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AlertChitChatWeight.Value}");
         return Settings.AlertChitChatWeight.Value;
       }
       catch(Exception ex)

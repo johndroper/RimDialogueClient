@@ -124,7 +124,7 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] '**alert**' </li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] '**alert**'.</li>
         <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
         <li>talkedabout->spoke about how</li>
@@ -140,6 +140,268 @@
         <li>talkedabout->commented about the news that</li>
         <li>talkedabout->told a joke about the news that</li>
         <li>talkedabout->discussed the news that</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>SameIdeologyChitchat</defName>
+    <label>same ideology chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SameIdeology</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [topic], '**INITIATOR_ideology**'.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about </li>
+        <li>talkedabout->had a conversation about</li>
+        <li>topic->the narrative of their ideology</li>
+        <li>topic->the beliefs of their ideology</li>
+        <li>topic->the principles of their ideology</li>
+        <li>topic->the tenets of their ideology</li>
+        <li>topic->the dogma of their ideology</li>
+        <li>topic->the doctrine of their ideology</li>
+        <li>topic->the philosophy of their ideology</li>
+        <li>topic->the teachings of their ideology</li>
+        <li>topic->the creed of their ideology</li>
+        <li>topic->what they like about their ideology</li>
+        <li>topic->what they dislike about their ideology</li>
+        <li>topic->what they find interesting about their ideology</li>
+        <li>topic->what they find boring about their ideology</li>
+        <li>topic->what they find compelling about their ideology</li>
+        <li>topic->what they find unconvincing about their ideology</li>
+        <li>topic->what they find persuasive about their ideology</li>
+        <li>topic->what they find unappealing about their ideology</li>
+        <li>topic->what they find attractive about their ideology</li>
+        <li>topic->what they find repulsive about their ideology</li>
+        <li>topic->what they find appealing about their ideology</li>
+        <li>topic->what they find unattractive about their ideology</li>
+        <li>topic->what they find alluring about their ideology</li>
+        <li>topic->what they find off-putting about their ideology</li>
+        <li>topic->what they find charming about their ideology</li>
+        <li>topic->what they find distasteful about their ideology</li>
+        <li>topic->what they find enchanting about their ideology</li>
+        <li>topic->what they find disgusting about their ideology</li>
+        <li>topic->what they find delightful about their ideology</li>
+        <li>topic->what they find revolting about their ideology</li>
+        <li>topic->the favorite precept of their ideology</li>
+        <li>topic->the least favorite precept of their ideology</li>
+        <li>topic->the most important precept of their ideology</li>
+        <li>topic->the least important precept of their ideology</li>
+        <li>topic->the most cherished precept of their ideology</li>
+        <li>topic->the most despised precept of their ideology</li>
+        <li>topic->the most beloved precept of their ideology</li>
+        <li>topic->the most hated precept of their ideology</li>
+        <li>topic->the most treasured precept of their ideology</li>
+        <li>topic->the most loathed precept of their ideology</li>
+        <li>topic->the most valued precept of their ideology</li>
+        <li>topic->the most disdained precept of their ideology</li>
+        <li>topic->the most revered precept of their ideology</li>
+        <li>topic->how they feel about drug use in their ideology</li>
+        <li>topic->how they feel about child labor in their ideology</li>
+        <li>topic->how they feel about executing prisoners in their ideology</li>
+        <li>topic->how they feel about slavery in their ideology</li>
+        <li>topic->how they feel about female clothing in their ideology</li>
+        <li>topic->how they feel about male clothing in their ideology</li>
+        <li>topic->how they feel about cannibalism in their ideology</li>
+        <li>topic->how they feel about blinding people for ideoligious reasons in their ideology</li>
+        <li>topic->how they feel about the sight of a dead person in their ideology</li>
+        <li>topic->how they feel about fungus food in their ideology</li>
+        <li>topic->how they feel about diversity of thought in their ideology</li>
+        <li>topic->how they feel about marriage names in their ideology</li>
+        <li>topic->how they feel about eating nutrient paste in their ideology</li>
+        <li>topic->how they feel about is research worthwhile in their ideology</li>
+        <li>topic->how they feel about scarification their in ideology</li>
+        <li>topic->how they feel about skullspikes in their ideology</li>
+        <li>topic->how they feel about organ use in their ideology</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>SkillChitchat</defName>
+    <label>skill chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SkillChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] their skills in **skill**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>BestSkillChitchat</defName>
+    <label>best skill chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SkillChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their best skill, **skill**, with [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>WorstSkillChitchat</defName>
+    <label>worst skill chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SkillChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their worst skill, **skill**, with [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>ColonistChitchat</defName>
+    <label>colonist chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_ColonistChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **colonist**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorHealthChitchat</defName>
+    <label>initiator health chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_HealthChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their **hediff** with [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientHealthChitchat</defName>
+    <label>recipient health chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_HealthChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] asked [RECIPIENT_nameDef] about their **hediff**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_possessive] **hediff**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>

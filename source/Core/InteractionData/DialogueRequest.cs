@@ -42,6 +42,27 @@ namespace RimDialogue.Core.InteractionData
         case "AlertChitchat":
           dialogueRequest = DialogueRequestAlert<DialogueDataAlert>.BuildFrom(__instance, interactionTemplate);
           break;
+        case "SameIdeologyChitchat":
+          dialogueRequest = DialogueRequestIdeology<DialogueData>.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "SkillChitchat":
+          dialogueRequest = DialogueRequestSkill<DialogueDataSkill>.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "BestSkillChitchat":
+          dialogueRequest = DialogueRequestBestSkill<DialogueDataSkill>.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "WorstSkillChitchat":
+          dialogueRequest = DialogueRequestWorstSkill<DialogueDataSkill>.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "ColonistChitchat":
+          dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "InitiatorHealthChitchat":
+          dialogueRequest = DialogueRequestHealthInitiator.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientHealthChitchat":
+          dialogueRequest = DialogueRequestHealthRecipient.BuildFrom(__instance, interactionTemplate);
+          break;
         default:
           Mod.LogV($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
           dialogueRequest = new DialogueRequest<DialogueData>(__instance, interactionTemplate);
@@ -154,7 +175,7 @@ namespace RimDialogue.Core.InteractionData
       Mod.LogV($"Building ChitChatData");
       clientId = Settings.ClientId.Value;
       var tracker = H.GetTracker();
-      instructions = tracker.GetInstructions(null) + " " + Settings.SpecialInstructions;
+      instructions = tracker.GetInstructions(null) + " " + Settings.SpecialInstructions.Value;
       maxWords = Settings.MaxWords.Value;
       initiatorOpinionOfRecipient = initiator.relations.OpinionOf(recipient);
       recipientOpinionOfInitiator = recipient.relations.OpinionOf(initiator);
@@ -200,7 +221,10 @@ namespace RimDialogue.Core.InteractionData
             return;
           }
           var tracker = H.GetTracker();
-          tracker.AddConversation(Initiator, Recipient, dialogueResponse.text);
+          var interaction = GetInteraction();
+          var conversation = interaction + "\n" + dialogueResponse.text;
+
+          tracker.AddConversation(Initiator, Recipient, conversation);
           Mod.LogV($"Conversation added for log entry {Entry.LogID}.");
           if (dialogueResponse.text == null)
             throw new Exception("Response text is null.");
@@ -210,7 +234,7 @@ namespace RimDialogue.Core.InteractionData
 
           if (Settings.ShowDialogueMessages.Value)
             DialogueMessages.AddMessage(
-              dialogueResponse.text,
+              conversation,
               new LookTargets(Initiator));
 
           Mod.LogV($"GetChitChat Complete for log entry {Entry.LogID}.");

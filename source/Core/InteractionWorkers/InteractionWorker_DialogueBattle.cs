@@ -25,7 +25,7 @@ namespace RimDialogue.Core.InteractionWorkers
         Mod.LogV($"Battle ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
         return 0f;
       }
-      Mod.LogV($"Battle ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");
+      Mod.LogV($"Battle ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.RecentBattleChitChatWeight.Value}");
       return Settings.RecentBattleChitChatWeight.Value;
     }
   }

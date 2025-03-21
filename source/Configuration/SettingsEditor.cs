@@ -32,6 +32,7 @@ namespace RimDialogue.Configuration
       l.CheckboxLabeled("RimDialogue.ShowInteractionBubbles".Translate(), ref Settings.ShowInteractionBubbles.Value);
       l.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
       l.CheckboxLabeled("RimDialogue.ShowDialogueMessages".Translate(), ref Settings.ShowDialogueMessages.Value);
+      l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
       l.SliderLabeled("RimDialogue.DialogueMessageWidth".Translate(), ref Settings.DialogueMessageWidth.Value, 200, 1200);
       l.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f);
       l.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f);
@@ -40,7 +41,17 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
       l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
       //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
-      l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
+
+      l.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.RecentBattleChitChatWeight".Translate(), ref Settings.RecentBattleChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.RecentIncidentChitChatWeight".Translate(), ref Settings.RecentIncidentChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.AlertChitChatWeight".Translate(), ref Settings.AlertChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.SameIdeologyChitChatWeight".Translate(), ref Settings.SameIdeologyChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.SkillsChitChatWeight".Translate(), ref Settings.SkillChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 1);
+
       l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
       l.EndScrollView(ref _viewRect);
     }

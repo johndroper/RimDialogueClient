@@ -1,4 +1,3 @@
-using RimDialogue.Access;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -9,30 +8,31 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
 {
-  public class InteractionWorker_DialogueIncident : InteractionWorker_Dialogue
+  public class InteractionWorker_HealthChitchat_Initiator : InteractionWorker_Dialogue
   {
     public static int lastUsedTicks = 0;
+
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
       {
+        var hediffs = initiator.health.hediffSet?.hediffs;
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          !initiator.IsColonist ||
-          !recipient.IsColonist ||
-          !Verse_LetterMaker_MakeLetter.recentLetters.Any() ||
+          hediffs == null ||
+          !hediffs.Any() ||
           lastUsedTicks > GetMinTime())
         {
-          Mod.LogV($"Incident ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
+          Mod.LogV($"Health ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
-        Mod.LogV($"Incident ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.RecentIncidentChitChatWeight.Value}");
-        return Settings.RecentIncidentChitChatWeight.Value;
+        Mod.LogV($"Health ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.HealthChitChatWeight.Value}");
+        return Settings.HealthChitChatWeight.Value;
       }
       catch (Exception ex)
       {
-        Mod.Error(ex.ToString());
+        Mod.Error($"Error in InteractionWorker_HealthChitchat: {ex}");
         return 0f;
       }
     }

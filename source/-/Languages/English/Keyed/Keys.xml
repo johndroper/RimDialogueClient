@@ -17,4 +17,13 @@
   <RimDialogue.DialogueMessageLifetime>Normal dialogue message lifetime</RimDialogue.DialogueMessageLifetime>
   <RimDialogue.MinDialogueMessageLifetime>Minimum dialogue message lifetime</RimDialogue.MinDialogueMessageLifetime>
   <RimDialogue.DialogueMessageWidth>Dialogue Message Width</RimDialogue.DialogueMessageWidth>
+  <RimDialogue.MessageChitChatWeight>Message Dialogue Weight</RimDialogue.MessageChitChatWeight>
+  <RimDialogue.GameConditionChitChatWeight>Game Condition Dialogue Weight</RimDialogue.GameConditionChitChatWeight>
+  <RimDialogue.RecentBattleChitChatWeight>Recent BattleChit Dialogue Weight</RimDialogue.RecentBattleChitChatWeight>
+  <RimDialogue.RecentIncidentChitChatWeight>Recent Incident Dialogue Weight</RimDialogue.RecentIncidentChitChatWeight>
+  <RimDialogue.AlertChitChatWeight>Alert Dialogue Weight</RimDialogue.AlertChitChatWeight>
+  <RimDialogue.SameIdeologyChitChatWeight>Same Ideology Dialogue Weight</RimDialogue.SameIdeologyChitChatWeight>
+  <RimDialogue.SkillsChitChatWeight>Skills Dialogue Weight</RimDialogue.SkillsChitChatWeight>
+  <RimDialogue.ColonistChitChatWeight>Colonist Dialogue Weight</RimDialogue.ColonistChitChatWeight>
+  <RimDialogue.HealthChitChatWeight>Health Dialogue Weight</RimDialogue.HealthChitChatWeight>
 </LanguageData>

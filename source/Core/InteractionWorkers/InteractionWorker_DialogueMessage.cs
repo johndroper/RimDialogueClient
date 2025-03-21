@@ -16,13 +16,12 @@ namespace RimDialogue.Core.InteractionWorkers
     {
       try
       {
-        var messages = (List<Verse.Message>)Reflection.Verse_Messages_LiveMessages.GetValue(null);
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !messages.Any() ||
+          !Verse_Messages_Message.RecentMessages.Any() ||
           lastUsedTicks > GetMinTime())
         {
           Mod.LogV($"Message ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");

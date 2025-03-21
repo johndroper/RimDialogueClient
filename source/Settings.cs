@@ -42,7 +42,10 @@ namespace RimDialogue
     public static readonly Setting<float> RecentBattleChitChatWeight = new(nameof(RecentBattleChitChatWeight), 1f);
     public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 1f);
     public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 1f);
-
+    public static readonly Setting<float> SameIdeologyChitChatWeight = new(nameof(SameIdeologyChitChatWeight), 1f);
+    public static readonly Setting<float> SkillChitChatWeight = new(nameof(SkillChitChatWeight), 1f);
+    public static readonly Setting<float> ColonistChitChatWeight = new(nameof(ColonistChitChatWeight), 1f);
+    public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 1f);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

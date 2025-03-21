@@ -34,7 +34,7 @@ namespace RimDialogue.Core.InteractionData
     public DialogueRequestMessage(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       Mod.LogV($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
-      var messages = (List<Message>)Reflection.Verse_Messages_LiveMessages.GetValue(null);
+      var messages = Verse_Messages_Message.RecentMessages;
       Message = messages.RandomElement();
       var tracker = H.GetTracker();
       var target = Message.lookTargets?.PrimaryTarget.Pawn;
@@ -47,7 +47,7 @@ namespace RimDialogue.Core.InteractionData
     public override string GetInteraction()
     {
       return this.InteractionTemplate
-        .Replace(MessagePlaceholder, Message.def.label);
+        .Replace(MessagePlaceholder, Message.text);
     }
 
     public override void Build(DialogueDataMessage data)

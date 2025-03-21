@@ -15,42 +15,6 @@ how life is treating them
 where they are from
 their full name
 how old they are
-the narrative of their ideology
-what they like about their ideology
-the favorite precept of their ideology
-drug use
-child labor
-executing prisoners
-slavery
-female clothing
-male clothing
-cannibalism
-blinding people for ideoligious reasons
-the sight of a dead person
-fungus food
-diversity of thought
-marriage names
-eating nutrient paste
-is research worthwhile
-scarification
-skullspikes
-organ use
-women's spouses
-men's spouses
-thier best skill
-their worst skill
-their shooting skills
-their construction skills
-their animal handling skills
-their artistic skills
-their cooking skills
-their crafting skills
-their medical skills
-their melee fighting skills
-their mining skills
-their intellectual skills
-their plants skills
-their social skills
 their adulthood
 the good things about thier adulthood
 the bad things about their adulthood
@@ -96,9 +60,6 @@ what they hate about the biome
 the current weather
 the temperature outdoors
 how many defenses the settlement has
-that recent battle we were in
-what happened in the recent battle
-what they did in the recent battle
 thier faction
 what they like about their faction
 what they hate about their faction

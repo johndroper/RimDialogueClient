@@ -27,7 +27,7 @@ namespace RimDialogue.Core.InteractionWorkers
           Mod.LogV($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
-        Mod.LogV($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");
+        Mod.LogV($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.GameConditionChitChatWeight.Value}");
         return Settings.GameConditionChitChatWeight.Value;
       }
       catch (Exception ex)
