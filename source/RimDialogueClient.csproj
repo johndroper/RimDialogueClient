@@ -83,6 +83,7 @@
     <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
     <Compile Include="Core\DialogueMessages.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataApparel.cs" />
     <Compile Include="Core\InteractionData\DialogueDataHealth.cs" />
     <Compile Include="Core\InteractionData\DialogueDataSkill.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAlert.cs" />
@@ -91,6 +92,9 @@
     <Compile Include="Access\Verse_LetterMaker_MakeLetter.cs" />
     <Compile Include="Access\Verse_Profile_MemoryUtility_ClearAllMapsAndWorld.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestAlert.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestApparel.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestApparel_Initiator.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestApparel_Recipient.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestBattle.cs" />
     <Compile Include="Core\InteractionData\DialogueData.cs" />
     <Compile Include="Core\InteractionData\DialogueRequest.cs" />
@@ -111,6 +115,8 @@
     <Compile Include="Core\DataHelper.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestCondition.cs" />
     <Compile Include="Core\InteractionData\DialogueTargetData.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_ApparelChitchat_Initiator.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_ApparelChitchat_Recipient.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_ColonistChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueAlert.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_Dialogue.cs" />

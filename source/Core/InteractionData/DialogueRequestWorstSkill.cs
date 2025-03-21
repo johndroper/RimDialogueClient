@@ -18,21 +18,29 @@ namespace RimDialogue.Core.InteractionData
       return new DialogueRequestWorstSkill<DataT>(entry, interactionTemplate);
     }
 
-    public SkillRecord SkillRecord { get; set; }
+    public SkillDef SkillDef { get; set; }
+    public SkillRecord InitiatorSkillRecord { get; set; }
+    public SkillRecord RecipientSkillRecord { get; set; }
 
     public DialogueRequestWorstSkill(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      var skills = this.Initiator.skills?.skills;
+      var skills = Initiator.skills?.skills;
       var maxLevel = skills.Min(s => s.Level);
-      this.SkillRecord = skills.Where(s => s.Level == maxLevel).RandomElement();
+      InitiatorSkillRecord = skills.Where(s => s.Level == maxLevel).RandomElement();
+      SkillDef = InitiatorSkillRecord?.def;
+      RecipientSkillRecord = this.Recipient?.skills?.GetSkill(SkillDef);
     }
 
     public override void Execute()
     {
       var dialogueData = new DataT();
-      dialogueData.SkillName = this.SkillRecord?.def?.label ?? "unknown";
-      dialogueData.SkillLevel = this.SkillRecord?.LevelDescriptor.ToLower() ?? "unknown";
-      dialogueData.SkillDescription = this.SkillRecord?.def.description ?? "unknown";
+      dialogueData.SkillName = SkillDef.label ?? string.Empty;
+      dialogueData.SkillDescription = SkillDef.description ?? string.Empty;
+      dialogueData.InitiatorSkillLevel = InitiatorSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
+      dialogueData.RecipientSkillLevel = RecipientSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
+      dialogueData.InitiatorPassion = InitiatorSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
+      dialogueData.RecipientPassion = RecipientSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
+
       Build(dialogueData);
       Send(
         [
@@ -43,7 +51,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string GetInteraction()
     {
-      return this.InteractionTemplate.Replace(Placeholder, SkillRecord.def.label);
+      return this.InteractionTemplate.Replace(Placeholder, SkillDef.label);
     }
   }
 }

@@ -18,21 +18,29 @@ namespace RimDialogue.Core.InteractionData
       return new DialogueRequestBestSkill<DataT>(entry, interactionTemplate);
     }
 
-    public SkillRecord SkillRecord { get; set; }
+    public SkillDef SkillDef { get; set; }
+    public SkillRecord InitiatorSkillRecord { get; set; }
+    public SkillRecord RecipientSkillRecord { get; set; }
 
     public DialogueRequestBestSkill(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       var skills = this.Initiator.skills?.skills;
       var maxLevel = skills.Max(s => s.Level);
-      this.SkillRecord = skills.Where(s => s.Level == maxLevel).RandomElement();
+      this.InitiatorSkillRecord = skills.Where(s => s.Level == maxLevel).RandomElement();
+      SkillDef = this.InitiatorSkillRecord?.def;
+      RecipientSkillRecord = this.Recipient?.skills?.GetSkill(SkillDef);
     }
 
     public override void Execute()
     {
       var dialogueData = new DataT();
-      dialogueData.SkillName = this.SkillRecord?.def?.label ?? "unknown";
-      dialogueData.SkillLevel = this.SkillRecord?.LevelDescriptor.ToLower() ?? "unknown";
-      dialogueData.SkillDescription = this.SkillRecord?.def.description ?? "unknown";
+      dialogueData.SkillName = this.InitiatorSkillRecord?.def?.label ?? string.Empty;
+      dialogueData.SkillDescription = this.InitiatorSkillRecord?.def.description ?? string.Empty;
+      dialogueData.InitiatorSkillLevel = this.InitiatorSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
+      dialogueData.RecipientSkillLevel = this.RecipientSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
+      dialogueData.InitiatorPassion = InitiatorSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
+      dialogueData.RecipientPassion = RecipientSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
+
       Build(dialogueData);
       Send(
         [
@@ -43,7 +51,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string GetInteraction()
     {
-      return this.InteractionTemplate.Replace(Placeholder, SkillRecord.def.label);
+      return this.InteractionTemplate.Replace(Placeholder, InitiatorSkillRecord.def.label);
     }
   }
 }

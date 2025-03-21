@@ -13,6 +13,10 @@ namespace RimDialogue.Core.InteractionWorkers
   {
 
     private static DateTime? LastConversation = null;
+    public static int GetMinTime()
+    {
+      return Find.TickManager.TicksAbs - (int)(41.6667f * Settings.ChitChatMinMinutes.Value);
+    }
 
     public static bool IsEnabled
     {
@@ -23,7 +27,10 @@ namespace RimDialogue.Core.InteractionWorkers
           Mod.LogV($"Game speed is too high.");
           return false;
         }
-        if (Settings.MinTimeBetweenConversations.Value > 0 && LastConversation.HasValue && DateTime.Now - LastConversation.Value < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
+        if (
+          Settings.MinTimeBetweenConversations.Value > 0 &&
+          LastConversation.HasValue &&
+          DateTime.Now - LastConversation.Value < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
         {
           Mod.LogV($"Too soon since last conversation.");
           return false;
@@ -33,9 +40,14 @@ namespace RimDialogue.Core.InteractionWorkers
       }
     }
 
-    public static int GetMinTime()
+    public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
-      return Find.TickManager.TicksAbs - (int)(41.6667f * Settings.ChitChatMinMinutes.Value);
+      if (
+        !IsEnabled ||
+        recipient.Inhumanized())
+      return 0f;
+
+      return 1f;
     }
   }
 }

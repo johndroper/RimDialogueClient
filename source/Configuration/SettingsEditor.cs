@@ -51,6 +51,7 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.SkillsChitChatWeight".Translate(), ref Settings.SkillChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.ApparelChitChatWeight".Translate(), ref Settings.ApparelChitChatWeight.Value, 0, 1);
 
       l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
       l.EndScrollView(ref _viewRect);

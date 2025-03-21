@@ -63,6 +63,12 @@ namespace RimDialogue.Core.InteractionData
         case "RecipientHealthChitchat":
           dialogueRequest = DialogueRequestHealthRecipient.BuildFrom(__instance, interactionTemplate);
           break;
+        case "InitiatorApparelChitchat":
+          dialogueRequest = DialogueRequestApparel_Initiator.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientApparelChitchat":
+          dialogueRequest = DialogueRequestApparel_Recipient.BuildFrom(__instance, interactionTemplate);
+          break;
         default:
           Mod.LogV($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
           dialogueRequest = new DialogueRequest<DialogueData>(__instance, interactionTemplate);

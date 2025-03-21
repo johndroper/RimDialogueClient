@@ -12,18 +12,31 @@
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **recent_incident**].</li>
         <li>r_logentry->[INITIATOR_nameDef] [talkedabout] **recent_incident** with [RECIPIENT_nameDef].</li>
-        <li>talkedabout(p=4)->chatted about</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **recent_incident** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **recent_incident**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about **recent_incident**.</li>
+        <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
         <li>talkedabout->gabbed about</li>
         <li>talkedabout->talked about</li>
         <li>talkedabout->joked about</li>
         <li>talkedabout->quipped about</li>
-        <li>talkedabout->said something about</li>
-        <li>talkedabout->said a word about</li>
-        <li>talkedabout->made a comment about</li>
-        <li>talkedabout->commented about</li>
-        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+        <li>informed->told</li>
+        <li>informed->informed</li>
+        <li>informed->notified </li>
+        <li>informed->briefed</li>
+        <li>informed->shared with</li>       
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -40,8 +53,8 @@
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '**recent_battle**'].</li>
         <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '**recent_battle**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry(p=0.8)->[INITIATOR_nameDef] [commentedabout] the recent battle, '**recent_battle**', to [RECIPIENT_nameDef].</li>
-        <li>talkedabout(p=4)->chatted about</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the recent battle, '**recent_battle**', to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->boasted about</li>
         <li>talkedabout->spoke about</li>
@@ -49,6 +62,7 @@
         <li>talkedabout->talked about</li>
         <li>talkedabout->joked about</li>
         <li>talkedabout->quipped about</li>
+        <li>talkedabout->discussed</li>
         <li>commentedabout->said something about</li>
         <li>commentedabout->said a word about</li>
         <li>commentedabout->made a comment about</li>
@@ -68,19 +82,27 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **game_condition**.</li>
-        <li>talkedabout(p=4)->chatted about how</li>
-        <li>talkedabout->shared a word about how</li>
-        <li>talkedabout->spoke about how</li>
-        <li>talkedabout->gabbed about how</li>
-        <li>talkedabout->talked about how</li>
-        <li>talkedabout->joked about how</li>
-        <li>talkedabout->quipped about how</li>
-        <li>talkedabout->said something about how</li>
-        <li>talkedabout->said a word about how</li>
-        <li>talkedabout->made a comment about how</li>
-        <li>talkedabout->commented about how</li>
-        <li>talkedabout->told a joke about how</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talked] about how **game_condition**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talked] about how **game_condition** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commented] about how **game_condition** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about how **game_condition**.</li>
+        <li>talked->chatted</li>
+        <li>talked->shared a word</li>
+        <li>talked->spoke</li>
+        <li>talked->gabbed</li>
+        <li>talked->talked</li>
+        <li>talked->joked</li>
+        <li>talked->quipped</li>
+        <li>talked->discussed</li>
+        <li>commented->said something</li>
+        <li>commented->said a word</li>
+        <li>commented->made a comment</li>
+        <li>commented->commented</li>
+        <li>commented->told a joke</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -95,21 +117,40 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the fact that '**message**' just happened.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the fact that '**message**' with [RECIPIENT_nameDef].</li>
-        <li>r_logentry(p=0.8)->[INITIATOR_nameDef] [commentedabout] the fact that '**message**' to [RECIPIENT_nameDef].</li>
-        <li>talkedabout(p=4)->chatted about how</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [that] '**message**' just happened.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [that] '**message**' with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [that] '**message**' to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about '**message**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about '**message**'.</li>
+        <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
         <li>talkedabout->spoke about how</li>
         <li>talkedabout->gabbed about how</li>
         <li>talkedabout->talked about how</li>
         <li>talkedabout->joked about how</li>
         <li>talkedabout->quipped about how</li>
+        <li>talkedabout->said something about how</li>
+        <li>talkedabout->discussed</li>
         <li>commentedabout->said something about how</li>
         <li>commentedabout->said a word about how</li>
         <li>commentedabout->made a comment about how</li>
         <li>commentedabout->commented about how</li>
         <li>commentedabout->told a joke about how</li>
+        <li>that->that</li>
+        <li>that->the news that</li>
+        <li>that->the idea that</li>
+        <li>that->the fact that</li>
+        <li>that->the thought that</li>
+        <li>that->the rumor that</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+        <li>informed->told</li>
+        <li>informed->informed</li>
+        <li>informed->notified </li>
+        <li>informed->briefed</li>
+        <li>informed->shared with</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -124,7 +165,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] '**alert**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **alert**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **alert**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about **alert**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **alert** to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
         <li>talkedabout->spoke about how</li>
@@ -133,13 +177,30 @@
         <li>talkedabout->joked about how</li>
         <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked that</li>
-        <li>talkedabout->brought up that</li>
-        <li>talkedabout->said something about the news that</li>
-        <li>talkedabout->said a word about the news that</li>
-        <li>talkedabout->made a comment about the news that</li>
-        <li>talkedabout->commented about the news that</li>
-        <li>talkedabout->told a joke about the news that</li>
-        <li>talkedabout->discussed the news that</li>
+        <li>talkedabout->brought up [that]</li>
+        <li>talkedabout->discussed [that]</li>
+        <li>commentedabout->said something about [that]</li>
+        <li>commentedabout->said a word about [that]</li>
+        <li>commentedabout->made a comment about [that]</li>
+        <li>commentedabout->commented about [that]</li>
+        <li>commentedabout->told a joke about [that]</li>
+        <li>commentedabout->remarked about [that]</li>
+        <li>commentedabout->mentioned about [that]</li>
+        <li>that->that</li>
+        <li>that->the news that</li>
+        <li>that->the idea that</li>
+        <li>that->the fact that</li>
+        <li>that->the thought that</li>
+        <li>that->the rumor that</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+        <li>informed->told</li>
+        <li>informed->informed</li>
+        <li>informed->notified </li>
+        <li>informed->briefed</li>
+        <li>informed->shared with</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -154,7 +215,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [topic], '**INITIATOR_ideology**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [theytopic] '**INITIATOR_ideology**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [initiatortopic] '**INITIATOR_ideology**' with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] asked [RECIPIENT_nameDef] [recipienttopic] '**INITIATOR_ideology**'.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -162,65 +225,81 @@
         <li>talkedabout->talked about</li>
         <li>talkedabout->joked about </li>
         <li>talkedabout->had a conversation about</li>
-        <li>topic->the narrative of their ideology</li>
-        <li>topic->the beliefs of their ideology</li>
-        <li>topic->the principles of their ideology</li>
-        <li>topic->the tenets of their ideology</li>
-        <li>topic->the dogma of their ideology</li>
-        <li>topic->the doctrine of their ideology</li>
-        <li>topic->the philosophy of their ideology</li>
-        <li>topic->the teachings of their ideology</li>
-        <li>topic->the creed of their ideology</li>
-        <li>topic->what they like about their ideology</li>
-        <li>topic->what they dislike about their ideology</li>
-        <li>topic->what they find interesting about their ideology</li>
-        <li>topic->what they find boring about their ideology</li>
-        <li>topic->what they find compelling about their ideology</li>
-        <li>topic->what they find unconvincing about their ideology</li>
-        <li>topic->what they find persuasive about their ideology</li>
-        <li>topic->what they find unappealing about their ideology</li>
-        <li>topic->what they find attractive about their ideology</li>
-        <li>topic->what they find repulsive about their ideology</li>
-        <li>topic->what they find appealing about their ideology</li>
-        <li>topic->what they find unattractive about their ideology</li>
-        <li>topic->what they find alluring about their ideology</li>
-        <li>topic->what they find off-putting about their ideology</li>
-        <li>topic->what they find charming about their ideology</li>
-        <li>topic->what they find distasteful about their ideology</li>
-        <li>topic->what they find enchanting about their ideology</li>
-        <li>topic->what they find disgusting about their ideology</li>
-        <li>topic->what they find delightful about their ideology</li>
-        <li>topic->what they find revolting about their ideology</li>
-        <li>topic->the favorite precept of their ideology</li>
-        <li>topic->the least favorite precept of their ideology</li>
-        <li>topic->the most important precept of their ideology</li>
-        <li>topic->the least important precept of their ideology</li>
-        <li>topic->the most cherished precept of their ideology</li>
-        <li>topic->the most despised precept of their ideology</li>
-        <li>topic->the most beloved precept of their ideology</li>
-        <li>topic->the most hated precept of their ideology</li>
-        <li>topic->the most treasured precept of their ideology</li>
-        <li>topic->the most loathed precept of their ideology</li>
-        <li>topic->the most valued precept of their ideology</li>
-        <li>topic->the most disdained precept of their ideology</li>
-        <li>topic->the most revered precept of their ideology</li>
-        <li>topic->how they feel about drug use in their ideology</li>
-        <li>topic->how they feel about child labor in their ideology</li>
-        <li>topic->how they feel about executing prisoners in their ideology</li>
-        <li>topic->how they feel about slavery in their ideology</li>
-        <li>topic->how they feel about female clothing in their ideology</li>
-        <li>topic->how they feel about male clothing in their ideology</li>
-        <li>topic->how they feel about cannibalism in their ideology</li>
-        <li>topic->how they feel about blinding people for ideoligious reasons in their ideology</li>
-        <li>topic->how they feel about the sight of a dead person in their ideology</li>
-        <li>topic->how they feel about fungus food in their ideology</li>
-        <li>topic->how they feel about diversity of thought in their ideology</li>
-        <li>topic->how they feel about marriage names in their ideology</li>
-        <li>topic->how they feel about eating nutrient paste in their ideology</li>
-        <li>topic->how they feel about is research worthwhile in their ideology</li>
-        <li>topic->how they feel about scarification their in ideology</li>
-        <li>topic->how they feel about skullspikes in their ideology</li>
-        <li>topic->how they feel about organ use in their ideology</li>
+        <li>initiatortopic->how [INITIATOR_pronoun] feels about [subject] in</li>
+        <li>initiatortopic->what [INITIATOR_pronoun] [likes] about</li>
+        <li>initiatortopic->what [INITIATOR_pronoun] finds [interesting] about</li>
+        <li>initiatortopic->[INITIATOR_possessive] [favorite] precept of</li>
+        <li>initiatortopic->[theytopic]</li>
+        <li>recipienttopic->how [RECIPIENT_pronoun] feels about [subject] in</li>
+        <li>recipienttopic->what [RECIPIENT_pronoun] [likes] about</li>
+        <li>recipienttopic->what [RECIPIENT_pronoun] finds [interesting] about</li>
+        <li>recipienttopic->[RECIPIENT_possessive] [favorite] precept of</li>
+        <li>recipienttopic->[theytopic]</li>
+        <li>theytopic->how they feel about [subject] in</li>
+        <li>theytopic->what they [like] about</li>
+        <li>theytopic->what they find [interesting] about</li>
+        <li>theytopic->their [favorite] precept of</li>
+        <li>narrative->narrative</li>
+        <li>narrative->beliefs</li>
+        <li>narrative->principles</li>
+        <li>narrative->tenets</li>
+        <li>narrative->dogma</li>
+        <li>narrative->doctrine</li>
+        <li>narrative->philosophy</li>
+        <li>narrative->teachings</li>
+        <li>narrative->creed</li>
+        <li>like->like</li>
+        <li>like->dislike</li>
+        <li>likes->likes</li>
+        <li>likes->dislikes</li>
+        <li>interesting->interesting</li>
+        <li>interesting->boring</li>
+        <li>interesting->compelling</li>
+        <li>interesting->unconvincing</li>
+        <li>interesting->persuasive</li>
+        <li>interesting->unappealing</li>
+        <li>interesting->attractive</li>
+        <li>interesting->repulsive</li>
+        <li>interesting->appealing</li>
+        <li>interesting->unattractivey</li>
+        <li>interesting->alluringy</li>
+        <li>interesting->off-putting</li>
+        <li>interesting->charming</li>
+        <li>interesting->distasteful</li>
+        <li>interesting->enchanting</li>
+        <li>interesting->disgusting</li>
+        <li>interesting->delightful</li>
+        <li>interesting->revolting</li>
+        <li>favorite->favorite</li>
+        <li>favorite->least favorite</li>
+        <li>favorite->most important</li>
+        <li>favorite->least important</li>
+        <li>favorite->most cherished</li>
+        <li>favorite->most despised</li>
+        <li>favorite->most beloved</li>
+        <li>favorite->most hated</li>
+        <li>favorite->most treasured</li>
+        <li>favorite->most loathed</li>
+        <li>favorite->most valued</li>
+        <li>favorite->most disdained</li>
+        <li>favorite->most revered</li>
+        <li>subject->drug use</li>
+        <li>subject->child labor</li>
+        <li>subject->executing prisoners</li>
+        <li>subject->slavery</li>
+        <li>subject->female clothing</li>
+        <li>subject->male clothing</li>
+        <li>subject->cannibalism</li>
+        <li>subject->blinding people for ideoligious reasons</li>
+        <li>subject->the sight of a dead person</li>
+        <li>subject->fungus food</li>
+        <li>subject->diversity of thought</li>
+        <li>subject->marriage names</li>
+        <li>subject->eating nutrient paste</li>
+        <li>subject->is research worthwhile</li>
+        <li>subject->scarification</li>
+        <li>subject->skullspikes</li>
+        <li>subject->organ use</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -236,6 +315,9 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] their skills in **skill**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] skills in **skill** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] skills in **skill** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s skills in **skill**.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -245,12 +327,13 @@
         <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked about</li>
         <li>talkedabout->brought up</li>
-        <li>talkedabout->said something about</li>
-        <li>talkedabout->said a word about</li>
-        <li>talkedabout->made a comment about</li>
-        <li>talkedabout->commented about</li>
-        <li>talkedabout->told a joke about</li>
         <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -265,8 +348,12 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their best skill, **skill**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [best] skill, **skill**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [best] skill, **skill**, to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [INITIATOR_nameDef]'s [best] skill, **skill**.</li>
         <li>talkedabout->chatted about</li>
+        <li>talkedabout->boasted about</li>
+        <li>talkedabout->bragged about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
         <li>talkedabout->gabbed about</li>
@@ -275,12 +362,17 @@
         <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked about</li>
         <li>talkedabout->brought up</li>
-        <li>talkedabout->said something about</li>
-        <li>talkedabout->said a word about</li>
-        <li>talkedabout->made a comment about</li>
-        <li>talkedabout->commented about</li>
-        <li>talkedabout->told a joke about</li>
-        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>best->best</li>
+        <li>best->finest</li>
+        <li>best->strongest</li>
+        <li>best->greatest</li>
+        <li>best->most developed</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -295,7 +387,8 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their worst skill, **skill**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [worst] skill, **skill**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [worst] skill, **skill**, to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -305,12 +398,17 @@
         <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked about</li>
         <li>talkedabout->brought up</li>
-        <li>talkedabout->said something about</li>
-        <li>talkedabout->said a word about</li>
-        <li>talkedabout->made a comment about</li>
-        <li>talkedabout->commented about</li>
-        <li>talkedabout->told a joke about</li>
-        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>worst->worst</li>
+        <li>worst->poorest</li>
+        <li>worst->weakest</li>
+        <li>worst->least developed</li>
+        <li>worst->most lacking</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -326,6 +424,9 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **colonist**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] **colonist** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **colonist** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **colonist**.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -335,12 +436,16 @@
         <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked about</li>
         <li>talkedabout->brought up</li>
-        <li>talkedabout->said something about</li>
-        <li>talkedabout->said a word about</li>
-        <li>talkedabout->made a comment about</li>
-        <li>talkedabout->commented about</li>
-        <li>talkedabout->told a joke about</li>
-        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -356,6 +461,8 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their **hediff** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hediff** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hediff** with [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -365,12 +472,12 @@
         <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked about</li>
         <li>talkedabout->brought up</li>
-        <li>talkedabout->said something about</li>
-        <li>talkedabout->said a word about</li>
-        <li>talkedabout->made a comment about</li>
-        <li>talkedabout->commented about</li>
-        <li>talkedabout->told a joke about</li>
-        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -385,15 +492,13 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] asked [RECIPIENT_nameDef] about their **hediff**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_possessive] **hediff**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hediff**.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
         <li>talkedabout->gabbed about</li>
         <li>talkedabout->talked about</li>
         <li>talkedabout->joked about</li>
-        <li>talkedabout->had a conversation about</li>
         <li>talkedabout->remarked about</li>
         <li>talkedabout->brought up</li>
         <li>talkedabout->said something about</li>
@@ -402,6 +507,78 @@
         <li>talkedabout->commented about</li>
         <li>talkedabout->told a joke about</li>
         <li>talkedabout->discussed</li>
+        <li>talkedabout->asked about</li>
+        <li>talkedabout->inquired about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorApparelChitchat</defName>
+    <label>initiator apparel chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_ApparelChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **apparel** [INITIATOR_pronoun] is wearing with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **apparel** [INITIATOR_pronoun] is wearing to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **apparel** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **apparel** to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientApparelChitchat</defName>
+    <label>recipient apparel chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_ApparelChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **apparel**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **apparel**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+        <li>talkedabout->complemented</li>
+        <li>talkedabout->asked about</li>
+        <li>talkedabout->inquired about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>

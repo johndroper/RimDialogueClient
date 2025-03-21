@@ -40,7 +40,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string GetInteraction()
     {
-      return this.InteractionTemplate.Replace(Placeholder, Hediff?.Label ?? "health condition");
+      return this.InteractionTemplate.Replace(Placeholder, $"{Hediff.LabelBase} {Hediff.Part.LabelShort}");
     }
   }
 }
