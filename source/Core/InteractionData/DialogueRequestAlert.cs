@@ -232,6 +232,7 @@ namespace RimDialogue.Core.InteractionData
             .ToList();
           var harvestableFood = Find.CurrentMap.listerThings
             .ThingsInGroup(ThingRequestGroup.FoodSource)
+            .Where(foodSource => foodSource.def.ingestible != null)
             .Select(foodSource => foodSource.def.label)
             .Distinct()
             .ToArray();
@@ -241,7 +242,7 @@ namespace RimDialogue.Core.InteractionData
           Explanation = sbLowFoodAlert.ToString();
           break;
         case Alert_LowMedicine lowMedicineAlert:
-          Subject = $"the colony is running low on medicine.";
+          Subject = $"the colony is running low on medicine";
           break;
         case Alert_MajorOrExtremeBreakRisk majorBreakRiskAlert:
           var majorBreakRiskPawns = (List<Pawn>)Reflection.RimWorld_Alert_BreakRiskAlertUtility_PawnsAtRiskMajorResult.GetValue(null);

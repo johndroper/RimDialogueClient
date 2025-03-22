@@ -45,5 +45,7 @@ namespace RimDialogue.Core
     public string MoodString = string.Empty;
     public string Personality = string.Empty;
     public string PersonalityDescription = string.Empty;
+    public string JobReport = string.Empty;
+    public string Carrying = string.Empty;
   }
 }

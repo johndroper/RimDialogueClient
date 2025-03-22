@@ -24,9 +24,9 @@ namespace RimDialogue.Core.InteractionData
     public override void Execute()
     {
       var dialogueData = new DataT();
-      dialogueData.ApparelLabel = this.Apparel?.LabelNoParenthesis ?? string.Empty;
-      dialogueData.ApparelDescription = this.Apparel?.DescriptionDetailed ?? string.Empty;
-      dialogueData.WornByCorpse = this.Apparel?.WornByCorpse ?? false;
+      dialogueData.ApparelLabel = Apparel.def?.label ?? string.Empty;
+      dialogueData.ApparelDescription = H.RemoveWhiteSpace(Apparel.def?.description) ?? string.Empty;
+      dialogueData.WornByCorpse = Apparel?.WornByCorpse ?? false;
       this.Apparel.TryGetQuality(out var quality);
       dialogueData.ApparelQuality = quality.GetLabel();
 

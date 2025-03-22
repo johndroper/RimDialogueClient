@@ -120,8 +120,8 @@
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [that] '**message**' just happened.</li>
         <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [that] '**message**' with [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [that] '**message**' to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about '**message**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about '**message**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [that] '**message**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about [that] '**message**'.</li>
         <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
         <li>talkedabout->spoke about how</li>

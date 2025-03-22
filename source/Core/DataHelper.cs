@@ -17,6 +17,8 @@ namespace RimDialogue.Core
   {
     private static readonly Regex ColorTag = new("<\\/?color[^>]*>");
     private static readonly Regex WhiteSpace = new("\\s+");
+    private static readonly Regex Parentheses = new(@"\s*\([^)]*\)\s*");
+
 
     public static GameComponent_ConversationTracker GetTracker()
     {
@@ -74,6 +76,8 @@ namespace RimDialogue.Core
         Childhood = pawn.story?.Childhood?.title != null ? pawn.story?.Childhood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Childhood)) : string.Empty,
         Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
         MoodString = pawn.needs?.mood?.MoodString ?? string.Empty,
+        JobReport = RemoveParentheses(pawn.GetJobReport().ToLower()),
+        Carrying = RemoveWhiteSpaceAndColor(pawn.carryTracker?.CarriedThing?.Label)
       };
     }
 
@@ -91,6 +95,12 @@ namespace RimDialogue.Core
     {
       if (input == null) return string.Empty;
       return WhiteSpace.Replace(input, " ");
+    }
+
+    public static string RemoveParentheses(string? input)
+    {
+      if (input == null) return string.Empty;
+      return Parentheses.Replace(input, string.Empty);
     }
 
     public static string RemoveWhiteSpaceAndColor(string? input)

@@ -38,16 +38,16 @@ namespace RimDialogue.Core.InteractionData
       switch (incident.Def.defName)
       {
         case "ThreatBig":
-          Subject = $"a major threat has that just occurred {incident.Label}";
+          Subject = $"a major threat has that just occurred, '{incident.Label.ToLower()}'";
           break;
         case "ThreatSmall":
-          Subject = $"a minor threat has that just occurred {incident.Label}";
+          Subject = $"a minor threat has that just occurred, '{incident.Label.ToLower()}'";
           break;
         case "PositiveEvent":
-          Subject = $"a positive event that just happened {incident.Label}";
+          Subject = $"something positive that has just happened, '{incident.Label.ToLower()}'";
           break;
         case "NeutralEvent":
-          Subject = $"an event has that just occurred {incident.Label}";
+          Subject = $"something that just occurred, '{incident.Label.ToLower()}'";
           break;
         default:
           Subject = $"{incident.Label} that has just occurred";

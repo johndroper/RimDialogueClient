@@ -47,7 +47,7 @@ namespace RimDialogue.Core.InteractionData
     public override string GetInteraction()
     {
       return this.InteractionTemplate
-        .Replace(MessagePlaceholder, Message.text);
+        .Replace(MessagePlaceholder, Message.text.TrimEnd('.'));
     }
 
     public override void Build(DialogueDataMessage data)
