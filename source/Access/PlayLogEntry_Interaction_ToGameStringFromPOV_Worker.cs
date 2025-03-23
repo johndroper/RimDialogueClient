@@ -1,20 +1,10 @@
 #nullable enable
 
 using HarmonyLib;
-using RimDialogue.Core;
 using RimDialogue.Core.InteractionData;
-using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
-using RimWorld.Planet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 using Verse;
-using static RimDialogue.Access.Verse_LetterMaker_MakeLetter;
 
 namespace RimDialogue.Access
 {
@@ -33,7 +23,7 @@ namespace RimDialogue.Access
         __result = dialogueRequest.GetInteraction();
         Mod.LogV($"New {dialogueRequest.GetType().Name} interaction log for log entry {__instance.LogID}: {__result}");
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         Mod.Error($"An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
       }

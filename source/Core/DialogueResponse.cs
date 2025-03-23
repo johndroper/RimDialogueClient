@@ -9,6 +9,7 @@ namespace RimDialogue.Core
   {
     public string? text;
     public bool rateLimited = false;
+    public float rate = 0f;
 
     public string? Text
     {
@@ -20,6 +21,12 @@ namespace RimDialogue.Core
     {
       get => rateLimited;
       set => rateLimited = value;
+    }
+
+    public float Rate
+    {
+      get => rate;
+      set => rate = value;
     }
   }
 }

@@ -1,15 +1,6 @@
 #nullable enable
 
-using RimDialogue.Access;
-using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace RimDialogue.Core
 {
@@ -21,7 +12,7 @@ namespace RimDialogue.Core
     public string FullName = String.Empty;
     public string NickName = String.Empty;
     public string RoyaltyTitle = string.Empty;
-    public string Gender = String.Empty; 
+    public string Gender = String.Empty;
     public string FactionName = String.Empty;
     public string FactionLabel = String.Empty;
     public string FactionDescription = String.Empty;

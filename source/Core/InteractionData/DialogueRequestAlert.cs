@@ -4,12 +4,9 @@ using RimDialogue.Access;
 using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using RimWorld.Planet;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -27,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
     public string Subject { get; set; } = string.Empty;
     public string Explanation { get; set; } = string.Empty;
 
-    public PawnData? targetData; 
+    public PawnData? targetData;
 
     public DialogueRequestAlert(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
@@ -48,7 +45,8 @@ namespace RimDialogue.Core.InteractionData
           {
             var room = abandonedBaby.GetRoom();
             Explanation = $"The baby {abandonedBaby.Name.ToStringShort} is in the {room.GetRoomRoleLabel()}.";
-          };
+          }
+          ;
           break;
         case Alert_AnimalFilth animalFilthAlert:
           Mod.LogV($"Alert_AnimalFilth");

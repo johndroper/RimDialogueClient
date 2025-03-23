@@ -1,10 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using Verse;
 
 namespace RimDialogue.Core
 {
@@ -39,7 +33,7 @@ namespace RimDialogue.Core
     public string initiatorNickName = String.Empty;
     public string initiatorJobReport = String.Empty;
     public string initiatorRoyaltyTitle = string.Empty;
-    public string initiatorGender = String.Empty; 
+    public string initiatorGender = String.Empty;
     public string initiatorFactionName = String.Empty;
     public string initiatorFactionLabel = String.Empty;
     public string initiatorFactionDescription = String.Empty;
@@ -80,7 +74,7 @@ namespace RimDialogue.Core
     public float initiatorBeautyPercentage = -1f;
     public float initiatorDrugsDesirePercentage = -1f;
     public float initiatorEnergyPercentage = -1f;
-    public string initiatorLastBattle= string.Empty;
+    public string initiatorLastBattle = string.Empty;
     public string[] initiatorCombatLog = [];
     public string recipientThingID = String.Empty;
     public string recipientFullName = String.Empty;

@@ -5,17 +5,15 @@ using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Verse;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RimDialogue.Core.InteractionData
 {
 
-  public abstract class DialogueRequest 
+  public abstract class DialogueRequest
   {
     static Dictionary<int, DialogueRequest> Requests { get; set; } = [];
 
@@ -218,31 +216,33 @@ namespace RimDialogue.Core.InteractionData
         Mod.LogV($"DialogueData fetched for log entry {Entry.LogID}.");
         if (action == null)
           action = InteractionDef.defName;
+        var interaction = GetInteraction();
         var dialogueResponse = await Post($"home/{action}", form);
         if (dialogueResponse != null)
         {
           if (dialogueResponse.rateLimited)
           {
-            Mod.Log("Log entry {entry.LogID} was rate limited.");
+            Mod.Log($"Log entry {Entry.LogID} was rate limited: {dialogueResponse.rate} requests per second.");
+            if (!Settings.ShowInteractionBubbles.Value)
+              Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, interaction);
+            if (Settings.ShowDialogueMessages.Value)
+              DialogueMessages.AddMessage(
+                interaction,
+                new LookTargets(Initiator));
             return;
           }
           var tracker = H.GetTracker();
-          var interaction = GetInteraction();
           var conversation = interaction + "\n" + dialogueResponse.text;
-
           tracker.AddConversation(Initiator, Recipient, conversation);
           Mod.LogV($"Conversation added for log entry {Entry.LogID}.");
           if (dialogueResponse.text == null)
             throw new Exception("Response text is null.");
-
           if (Settings.ShowDialogueBubbles.Value)
             Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, dialogueResponse.text);
-
           if (Settings.ShowDialogueMessages.Value)
             DialogueMessages.AddMessage(
               conversation,
               new LookTargets(Initiator));
-
           Mod.LogV($"GetChitChat Complete for log entry {Entry.LogID}.");
         }
       }

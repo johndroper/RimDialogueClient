@@ -1,8 +1,7 @@
-using RimDialogue.Configuration;
 using HarmonyLib;
+using RimDialogue.Configuration;
 using UnityEngine;
 using Verse;
-using System.Linq;
 
 namespace RimDialogue
 {

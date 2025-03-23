@@ -1,5 +1,5 @@
-using System.Reflection;
 using RimDialogue;
+using System.Reflection;
 
 [assembly: AssemblyTitle(Mod.Name)]
 [assembly: AssemblyProduct("Rimworld AI Interactions")]

@@ -1,10 +1,8 @@
 using RimDialogue;
-using RimDialogue.Access;
 using RimDialogue.Core;
 using System;
 using System.Collections.Generic;
 using Verse;
-using static System.Net.Mime.MediaTypeNames;
 public class GameComponent_ConversationTracker : GameComponent
 {
   private Dictionary<string, string> additionalInstructions;
@@ -36,7 +34,7 @@ public class GameComponent_ConversationTracker : GameComponent
     if (initiator == null || recipient == null || string.IsNullOrWhiteSpace(text))
       return;
 
-    lock(conversations)
+    lock (conversations)
     {
       while (conversations.Count > Settings.MaxConversationsStored.Value)
         conversations.RemoveAt(0);
@@ -68,7 +66,7 @@ public class GameComponent_ConversationTracker : GameComponent
   {
     if (pawn == null)
       return new List<Conversation>();
-    lock(conversations)
+    lock (conversations)
     {
       return conversations.FindAll(convo => convo.InvolvesPawn(pawn));
     }

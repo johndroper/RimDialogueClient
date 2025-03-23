@@ -1,4 +1,3 @@
-using Bubbles.Core;
 using HarmonyLib;
 using RimDialogue.Core;
 using RimWorld;

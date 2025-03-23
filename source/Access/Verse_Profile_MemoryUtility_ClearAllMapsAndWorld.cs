@@ -1,4 +1,3 @@
-using RimDialogue.Core;
 using HarmonyLib;
 using Verse.Profile;
 

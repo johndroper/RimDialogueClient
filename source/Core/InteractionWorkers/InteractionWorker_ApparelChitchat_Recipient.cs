@@ -1,9 +1,5 @@
-using RimWorld;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
@@ -21,7 +17,7 @@ namespace RimDialogue.Core.InteractionWorkers
           recipient.apparel.WornApparel == null ||
           !recipient.apparel.WornApparel.Any() ||
           lastUsedTicks > GetMinTime())
-        return 0f;
+          return 0f;
 
         return Settings.ApparelChitChatWeight.Value * weight;
       }

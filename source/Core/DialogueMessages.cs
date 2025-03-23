@@ -1,14 +1,8 @@
 #nullable enable 
 
 using RimDialogue.Access;
-using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -21,7 +15,7 @@ namespace RimDialogue.Core
     public const float MinLifeTime = 2f;
     public const float MaxMessageCount = 5f;
 
-     public static float LifeTime
+    public static float LifeTime
     {
       get
       {
@@ -86,7 +80,7 @@ namespace RimDialogue.Core
 
     public DialogueMessage(string dialogue, LookTargets? targets)
     {
-      
+
       this.dialogue = dialogue;
       LookTargets = targets;
       Text.Font = GameFont.Small;

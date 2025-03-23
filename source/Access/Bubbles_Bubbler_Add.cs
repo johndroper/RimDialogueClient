@@ -5,15 +5,11 @@ using HarmonyLib;
 using RimDialogue.Core;
 using RimDialogue.Core.InteractionData;
 using RimWorld;
-using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Networking;
 using Verse;
-using static RimDialogue.Access.Verse_LetterMaker_MakeLetter;
 
 namespace RimDialogue.Access
 {
@@ -48,90 +44,90 @@ namespace RimDialogue.Access
     }
     //public static void Add(LogEntry entry)
     //{
-      //var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
-      //Mod.LogV($"Should Show: {shouldShow}.");
-      //if (!shouldShow) { return; }
+    //var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
+    //Mod.LogV($"Should Show: {shouldShow}.");
+    //if (!shouldShow) { return; }
 
-      //Pawn? initiator, recipient;
-      //InteractionDef interactionDef;
-      //switch (entry)
-      //{
-      //  case PlayLogEntry_Interaction interaction:
-      //    Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
-      //    initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
-      //    recipient = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(interaction);
-      //    interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(interaction);
-      //    break;
-      //  case PlayLogEntry_InteractionSinglePawn interaction:
-      //    Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
-      //    initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
-      //    recipient = null;
-      //    interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef.GetValue(interaction);
-      //    break;
-      //  default:
-      //    return;
-      //}
-      //Mod.LogV($"Pawns fetched.");
-      //if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
+    //Pawn? initiator, recipient;
+    //InteractionDef interactionDef;
+    //switch (entry)
+    //{
+    //  case PlayLogEntry_Interaction interaction:
+    //    Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
+    //    initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
+    //    recipient = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(interaction);
+    //    interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(interaction);
+    //    break;
+    //  case PlayLogEntry_InteractionSinglePawn interaction:
+    //    Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
+    //    initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
+    //    recipient = null;
+    //    interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef.GetValue(interaction);
+    //    break;
+    //  default:
+    //    return;
+    //}
+    //Mod.LogV($"Pawns fetched.");
+    //if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
 
-      //var settings_DoNonPlayer = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoNonPlayer.GetValue(null);
-      //Mod.LogV($"Log entry {entry.LogID} settings_DoNonPlayer: {settings_DoNonPlayer.Value}.");
-      //var settings_DoAnimals = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoAnimals.GetValue(null);
-      //Mod.LogV($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
-      //var settings_DoDrafted = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoDrafted.GetValue(null);
-      //Mod.LogV($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
+    //var settings_DoNonPlayer = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoNonPlayer.GetValue(null);
+    //Mod.LogV($"Log entry {entry.LogID} settings_DoNonPlayer: {settings_DoNonPlayer.Value}.");
+    //var settings_DoAnimals = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoAnimals.GetValue(null);
+    //Mod.LogV($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
+    //var settings_DoDrafted = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoDrafted.GetValue(null);
+    //Mod.LogV($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
 
-      //if (!settings_DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
-      //if (!settings_DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
-      //if (!settings_DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
+    //if (!settings_DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
+    //if (!settings_DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
+    //if (!settings_DoDrafted.Value && ((initiator.drafter?.Drafted ?? false) || (recipient?.drafter?.Drafted ?? false))) { return; }
 
-      //if (!Settings.EnableCaravans.Value && initiator.IsCaravanMember())
-      //  return;
+    //if (!Settings.EnableCaravans.Value && initiator.IsCaravanMember())
+    //  return;
 
-      //var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
+    //var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
 
-      //Mod.LogV($"Interaction def is '{interactionDef.defName}' for Log entry {entry.LogID}.");
-      //switch (interactionDef.defName)
-      //{
-      //  case "RecentIncidentChitchat":
-      //    Mod.LogV($"Starting GetChitChatRecentIncident for Log entry {entry.LogID}...");
-      //    if (recipient == null)
-      //      throw new Exception($"Recipient is null on RecentIncidentChitchat for Log entry {entry.LogID}.");
-      //    //fire and forget
-      //    GetChitChatRecentIncident(initiator, recipient, logEntryText, entry, interactionDef);
-      //    break;
-      //  case "RecentBattleChitchat":
-      //    Mod.LogV($"Starting GetChitChatRecentBattle for Log entry {entry.LogID}...");
-      //    if (recipient == null)
-      //      throw new Exception($"Recipient is null on RecentBattleChitchat for Log entry {entry.LogID}.");
-      //    //fire and forget
-      //    GetChitChatRecentBattle(initiator, recipient, logEntryText, entry, interactionDef);
-      //    break;
-      //  case "GameConditionChitchat":
-      //    Mod.LogV($"Starting GetGameConditionChitchat for Log entry {entry.LogID}...");
-      //    if (recipient == null)
-      //      throw new Exception($"Recipient is null on GameConditionChitchat for Log entry {entry.LogID}.");
-      //    //fire and forget
-      //    GetChitChatGameCondition(initiator, recipient, logEntryText, entry, interactionDef);
-      //    break;
-      //  case "MessageChitchat":
-      //    Mod.LogV($"Starting MessageChitchat for Log entry {entry.LogID}...");
-      //    if (recipient == null)
-      //      throw new Exception($"Recipient is null on MessageChitchat for Log entry {entry.LogID}.");
-      //    //fire and forget
-      //    GetChitChatMessage(initiator, recipient, logEntryText, entry, interactionDef);
-      //    break;
-      //  case "AlertChitchat":
-      //    Mod.LogV($"Starting AlertChitchat for Log entry {entry.LogID}...");
-      //    //fire and forget
-      //    GetChitChatAlert(entry, interactionDef);
-      //    break;
-      //  default:
-      //    Mod.LogV($"Starting GetDialogue for Log entry {entry.LogID}...");
-      //    //fire and forget
-      //    GetDialogue(initiator, recipient, logEntryText, entry, interactionDef);
-      //    break;
-      //}
+    //Mod.LogV($"Interaction def is '{interactionDef.defName}' for Log entry {entry.LogID}.");
+    //switch (interactionDef.defName)
+    //{
+    //  case "RecentIncidentChitchat":
+    //    Mod.LogV($"Starting GetChitChatRecentIncident for Log entry {entry.LogID}...");
+    //    if (recipient == null)
+    //      throw new Exception($"Recipient is null on RecentIncidentChitchat for Log entry {entry.LogID}.");
+    //    //fire and forget
+    //    GetChitChatRecentIncident(initiator, recipient, logEntryText, entry, interactionDef);
+    //    break;
+    //  case "RecentBattleChitchat":
+    //    Mod.LogV($"Starting GetChitChatRecentBattle for Log entry {entry.LogID}...");
+    //    if (recipient == null)
+    //      throw new Exception($"Recipient is null on RecentBattleChitchat for Log entry {entry.LogID}.");
+    //    //fire and forget
+    //    GetChitChatRecentBattle(initiator, recipient, logEntryText, entry, interactionDef);
+    //    break;
+    //  case "GameConditionChitchat":
+    //    Mod.LogV($"Starting GetGameConditionChitchat for Log entry {entry.LogID}...");
+    //    if (recipient == null)
+    //      throw new Exception($"Recipient is null on GameConditionChitchat for Log entry {entry.LogID}.");
+    //    //fire and forget
+    //    GetChitChatGameCondition(initiator, recipient, logEntryText, entry, interactionDef);
+    //    break;
+    //  case "MessageChitchat":
+    //    Mod.LogV($"Starting MessageChitchat for Log entry {entry.LogID}...");
+    //    if (recipient == null)
+    //      throw new Exception($"Recipient is null on MessageChitchat for Log entry {entry.LogID}.");
+    //    //fire and forget
+    //    GetChitChatMessage(initiator, recipient, logEntryText, entry, interactionDef);
+    //    break;
+    //  case "AlertChitchat":
+    //    Mod.LogV($"Starting AlertChitchat for Log entry {entry.LogID}...");
+    //    //fire and forget
+    //    GetChitChatAlert(entry, interactionDef);
+    //    break;
+    //  default:
+    //    Mod.LogV($"Starting GetDialogue for Log entry {entry.LogID}...");
+    //    //fire and forget
+    //    GetDialogue(initiator, recipient, logEntryText, entry, interactionDef);
+    //    break;
+    //}
     //}
 
     public static void Clear()
@@ -211,8 +207,8 @@ namespace RimDialogue.Access
       //initiator.interactions.InteractionsTrackerTick
       #endregion
 
-      
-        Mod.LogV($"Getting dialogue.");
+
+      Mod.LogV($"Getting dialogue.");
 
       try
       {
@@ -225,8 +221,8 @@ namespace RimDialogue.Access
           .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
           .ToList() ?? [];
 
-        
-          Mod.LogV($"logEntryText: {logEntryText}.");
+
+        Mod.LogV($"logEntryText: {logEntryText}.");
 
         var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
         Room room = initiator.GetRoom();

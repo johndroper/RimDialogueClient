@@ -1,6 +1,6 @@
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -61,7 +61,7 @@ namespace RimDialogue
       y += 120f;
       Widgets.EndScrollView();
       Widgets.DrawLineVertical(leftColWidth + 10, colY, inRect.height);
-      
+
       // Conversation List
       y = colY;
       float x = leftColWidth + 20;
@@ -90,7 +90,7 @@ namespace RimDialogue
         convoY += textHeight;
         convoY += bottomMargin;
         Color previousColor = GUI.color;
-        GUI.color = Widgets.SeparatorLineColor; 
+        GUI.color = Widgets.SeparatorLineColor;
         Widgets.DrawLineHorizontal(0, convoY + bottomMargin, conversationContentRectWidth);
         GUI.color = previousColor;
       }

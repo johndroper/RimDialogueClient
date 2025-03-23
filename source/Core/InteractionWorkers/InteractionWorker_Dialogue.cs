@@ -1,10 +1,5 @@
 using RimWorld;
-using RimWorld.BaseGen;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
@@ -45,7 +40,7 @@ namespace RimDialogue.Core.InteractionWorkers
       if (
         !IsEnabled ||
         recipient.Inhumanized())
-      return 0f;
+        return 0f;
 
       return 1f;
     }

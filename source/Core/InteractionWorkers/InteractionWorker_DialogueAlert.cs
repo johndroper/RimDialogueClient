@@ -3,8 +3,6 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
@@ -25,7 +23,7 @@ namespace RimDialogue.Core.InteractionWorkers
           return 0f;
         }
         if (
-          !IsEnabled || 
+          !IsEnabled ||
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
@@ -38,7 +36,7 @@ namespace RimDialogue.Core.InteractionWorkers
         Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AlertChitChatWeight.Value}");
         return Settings.AlertChitChatWeight.Value;
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         Mod.Error($"Error in InteractionWorker_AlertChitChat: {ex}");
         return 0f;
