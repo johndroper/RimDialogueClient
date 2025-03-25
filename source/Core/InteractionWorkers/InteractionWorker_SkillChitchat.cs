@@ -17,10 +17,8 @@ namespace RimDialogue.Core.InteractionWorkers
           !IsEnabled ||
           initiator.Inhumanized() ||
           initiator.skills == null ||
-          !initiator.skills.skills.Any() ||
-          lastUsedTicks > GetMinTime())
+          !initiator.skills.skills.Any())
         {
-          Mod.LogV($"Skill ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Skill ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.SkillChitChatWeight.Value}");

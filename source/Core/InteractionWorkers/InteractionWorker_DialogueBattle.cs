@@ -14,10 +14,8 @@ namespace RimDialogue.Core.InteractionWorkers
         initiator.Inhumanized() ||
         !initiator.IsColonist ||
         !recipient.IsColonist ||
-        !H.GetRecentBattles(Settings.RecentBattleHours.Value).Any() ||
-        lastUsedTicks > GetMinTime())
+        !H.GetRecentBattles(Settings.RecentBattleHours.Value).Any())
       {
-        Mod.LogV($"Battle ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
         return 0f;
       }
       Mod.LogV($"Battle ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.RecentBattleChitChatWeight.Value}");

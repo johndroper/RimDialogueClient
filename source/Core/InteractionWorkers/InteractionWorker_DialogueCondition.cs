@@ -17,10 +17,8 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !Find.CurrentMap.GameConditionManager.ActiveConditions.Any() ||
-          lastUsedTicks > GetMinTime())
+          !Find.CurrentMap.GameConditionManager.ActiveConditions.Any())
         {
-          Mod.LogV($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.GameConditionChitChatWeight.Value}");

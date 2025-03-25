@@ -1,48 +1,64 @@
 using RimWorld;
 using System;
+using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
 {
+
+
   public class InteractionWorker_Dialogue : InteractionWorker
   {
+    public const float TicksPerMinute = 41.6667f;
 
-    private static DateTime? LastConversation = null;
-    public static int GetMinTime()
+    public static int LastUsedTicksAll { get; set; } = 0;
+    public static Dictionary<string, int> LastTicksByType = [];
+
+    public static int GetLastUsedTicks(string workerType)
     {
-      return Find.TickManager.TicksAbs - (int)(41.6667f * Settings.ChitChatMinMinutes.Value);
+      if (LastTicksByType.TryGetValue(workerType, out var lastUsed))
+        return lastUsed;
+      else
+        return 0;
     }
 
-    public static bool IsEnabled
+    public void SetLastUsedTicks()
+    {
+      int ticksAbs = Find.TickManager.TicksAbs;
+      LastUsedTicksAll = ticksAbs;
+      LastTicksByType[this.GetType().Name] = ticksAbs;
+    }
+
+    public int LastUsedTicks
     {
       get
       {
-        if (Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value)
-        {
-          Mod.LogV($"Game speed is too high.");
-          return false;
-        }
-        if (
-          Settings.MinTimeBetweenConversations.Value > 0 &&
-          LastConversation.HasValue &&
-          DateTime.Now - LastConversation.Value < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
-        {
-          Mod.LogV($"Too soon since last conversation.");
-          return false;
-        }
-        LastConversation = DateTime.Now;
-        return true;
+        return GetLastUsedTicks(this.GetType().Name);
       }
     }
 
-    public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
+    public bool IsEnabled
     {
-      if (
-        !IsEnabled ||
-        recipient.Inhumanized())
-        return 0f;
-
-      return 1f;
+      get
+      {
+        //if (Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value)
+        //{
+        //  Mod.LogV($"Game speed is too high.");
+        //  return false;
+        //}
+        int ticksAbs = Find.TickManager.TicksAbs;
+        if (ticksAbs - LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * TicksPerMinute)
+        {
+          Mod.LogV($"Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {LastUsedTicksAll}");
+          return false;
+        }
+        if (ticksAbs - LastUsedTicks < Settings.MinDelayMinutes.Value * TicksPerMinute)
+        {
+          Mod.LogV($"Too soon since last dialogue of type {this.GetType().Name}. Current ticks: '{ticksAbs}' Last used ticks: {LastUsedTicks}");
+          return false;
+        }
+        return true;
+      }
     }
   }
 }

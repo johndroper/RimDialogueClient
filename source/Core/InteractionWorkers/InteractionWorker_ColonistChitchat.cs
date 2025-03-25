@@ -9,7 +9,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_ColonistChitchat : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       var colonists = Reflection.RimWorld_ColonistBar_TmpColonistsInOrder.GetValue(Find.ColonistBar) as List<Pawn>;
@@ -23,10 +22,8 @@ namespace RimDialogue.Core.InteractionWorkers
           !Find.ColonistBar
             .GetColonistsInOrder()
             .Where(colonist => colonist != initiator && colonist != recipient)
-            .Any() ||
-          lastUsedTicks > GetMinTime())
+            .Any())
         {
-          Mod.LogV($"Colonists ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Colonists ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.ColonistChitChatWeight.Value}");

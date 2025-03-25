@@ -15,10 +15,8 @@ namespace RimDialogue.Core.InteractionWorkers
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          initiator.Ideo.name != recipient.Ideo.name ||
-          lastUsedTicks > GetMinTime())
+          initiator.Ideo.name != recipient.Ideo.name)
         {
-          Mod.LogV($"Same Ideology ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Same Ideology ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.SameIdeologyChitChatWeight.Value}");

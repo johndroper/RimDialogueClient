@@ -8,7 +8,11 @@
   <RimDialogue.MaxSpeed>Maximum game speed for dialoge generation</RimDialogue.MaxSpeed>
   <RimDialogue.MaxConversationsStored>Maximum number of conversations stored</RimDialogue.MaxConversationsStored>
   <RimDialogue.VerboseLogging>Verbose logging</RimDialogue.VerboseLogging>
-  <RimDialogue.MinTimeBetweenConversations>Minimum seconds between conversations</RimDialogue.MinTimeBetweenConversations>
+
+  <RimDialogue.MinDelayMinutesAll>Minimum game minutes between all types of dialogue</RimDialogue.MinDelayMinutesAll>
+  <RimDialogue.MinDelayMinutes>Minimum game minutes between each type of dialogue</RimDialogue.MinDelayMinutes>
+  <RimDialogue.MinTimeBetweenConversations>Minimum real second between dialogue</RimDialogue.MinTimeBetweenConversations>
+
   <RimDialogue.EnableCaravans>Enable dialogue on caravans</RimDialogue.EnableCaravans>
   <RimDialogue.OnlyColonists>Only colonists talk</RimDialogue.OnlyColonists>
   <RimDialogue.ShowInteractionBubbles>Show interaction bubbles</RimDialogue.ShowInteractionBubbles>
@@ -26,4 +30,5 @@
   <RimDialogue.SkillsChitChatWeight>Skills Dialogue Weight</RimDialogue.SkillsChitChatWeight>
   <RimDialogue.ColonistChitChatWeight>Colonist Dialogue Weight</RimDialogue.ColonistChitChatWeight>
   <RimDialogue.HealthChitChatWeight>Health Dialogue Weight</RimDialogue.HealthChitChatWeight>
+  <RimDialogue.ApparelChitChatWeight>Apparel Dialogue Weight</RimDialogue.ApparelChitChatWeight>
 </LanguageData>

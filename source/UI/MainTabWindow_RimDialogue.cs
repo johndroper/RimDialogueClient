@@ -32,10 +32,10 @@ namespace RimDialogue
       {
         List<FloatMenuOption> options = new List<FloatMenuOption>
         {
-            new FloatMenuOption("All Pawns", () => selectedPawn = null)
+          new FloatMenuOption("All Pawns", () => selectedPawn = null)
         };
         options.AddRange(Find.CurrentMap.mapPawns.FreeColonists.OrderBy(pawn => pawn?.Name?.ToStringShort ?? "Unknown").Select(pawn =>
-            new FloatMenuOption(pawn?.Name?.ToStringShort ?? "Unknown", () => selectedPawn = pawn)
+          new FloatMenuOption(pawn?.Name?.ToStringShort ?? "Unknown", () => selectedPawn = pawn)
         ));
         options.AddRange(Find.CurrentMap.mapPawns.PrisonersOfColony.OrderBy(pawn => pawn?.Name?.ToStringShort ?? "Unknown").Select(pawn =>
           new FloatMenuOption(pawn?.Name?.ToStringShort ?? "Unknown", () => selectedPawn = pawn)

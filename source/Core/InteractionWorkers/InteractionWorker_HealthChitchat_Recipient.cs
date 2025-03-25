@@ -17,10 +17,8 @@ namespace RimDialogue.Core.InteractionWorkers
           !IsEnabled ||
           initiator.Inhumanized() ||
           hediffs == null ||
-          !hediffs.Any() ||
-          lastUsedTicks > GetMinTime())
+          !hediffs.Any())
         {
-          Mod.LogV($"Recipient Health ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Recipient Health ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.HealthChitChatWeight.Value}");

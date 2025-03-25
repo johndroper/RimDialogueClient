@@ -35,9 +35,14 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f);
       l.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f);
       l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
-      l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
+      //l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
       l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
+
+      l.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
+      l.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
       l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
+
+
       //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
 
       l.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1);

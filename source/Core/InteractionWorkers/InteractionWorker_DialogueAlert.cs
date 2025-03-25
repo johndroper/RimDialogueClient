@@ -27,10 +27,8 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !alerts.Any() ||
-          lastUsedTicks > GetMinTime())
+          !alerts.Any())
         {
-          Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AlertChitChatWeight.Value}");

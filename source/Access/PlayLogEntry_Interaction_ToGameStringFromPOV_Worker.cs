@@ -2,6 +2,7 @@
 
 using HarmonyLib;
 using RimDialogue.Core.InteractionData;
+using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
 using Verse;
@@ -17,9 +18,9 @@ namespace RimDialogue.Access
       {
         Mod.LogV($"Original interaction log for log entry {__instance.LogID}: {__result}");
         var dialogueRequest = DialogueRequest.Create(
-          ref __instance,
-          ref __result,
-          (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
+        ref __instance,
+        ref __result,
+        (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
         __result = dialogueRequest.GetInteraction();
         Mod.LogV($"New {dialogueRequest.GetType().Name} interaction log for log entry {__instance.LogID}: {__result}");
       }

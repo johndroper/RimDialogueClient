@@ -85,6 +85,8 @@
     <Compile Include="Core\DialogueMessages.cs" />
     <Compile Include="Core\InteractionData\DialogueDataApparel.cs" />
     <Compile Include="Core\InteractionData\DialogueDataHealth.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataNeed.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataRelations.cs" />
     <Compile Include="Core\InteractionData\DialogueDataSkill.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAlert.cs" />
     <Compile Include="Access\PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Core\InteractionData\DialogueRequestHealth.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestHealthInitiator.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestHealthRecipient.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestNeed.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestWorstSkill.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestColonist.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestBestSkill .cs" />
@@ -131,6 +134,7 @@
     <Compile Include="Core\DataHelper2.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_HealthChitchat_Initiator.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_HealthChitchat_Recipient.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_UnsatisfiedNeedChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_SameIdeology.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_SkillChitchat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

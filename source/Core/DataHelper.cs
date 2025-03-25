@@ -55,7 +55,7 @@ namespace RimDialogue.Core
         FactionName = pawn.Faction?.Name ?? String.Empty,
         FactionLabel = H.RemoveWhiteSpace(pawn.Faction?.def?.LabelCap),
         FactionDescription = H.RemoveWhiteSpace(pawn.Faction?.def?.description),
-        Description = H.RemoveWhiteSpace(pawn.DescriptionDetailed),
+        Description = H.RemoveWhiteSpace(pawn.DescriptionDetailed).TrimEnd('.').ToLower(),
         Race = pawn.def?.defName ?? String.Empty,
         IsColonist = pawn.IsColonist,
         IsPrisoner = pawn.IsPrisoner,

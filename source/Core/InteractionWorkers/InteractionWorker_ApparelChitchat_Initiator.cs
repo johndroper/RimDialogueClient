@@ -7,7 +7,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_ApparelChitchat_Initiator : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -17,8 +16,7 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           initiator.apparel == null ||
           initiator.apparel.WornApparel == null ||
-          !initiator.apparel.WornApparel.Any() ||
-          lastUsedTicks > GetMinTime())
+          !initiator.apparel.WornApparel.Any())
         {
           Mod.LogV($"Initiator Apparel ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;

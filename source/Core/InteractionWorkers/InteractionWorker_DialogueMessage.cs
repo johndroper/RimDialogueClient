@@ -18,10 +18,8 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !Verse_Messages_Message.RecentMessages.Any() ||
-          lastUsedTicks > GetMinTime())
+          !Verse_Messages_Message.RecentMessages.Any())
         {
-          Mod.LogV($"Message ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
         Mod.LogV($"Message ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");

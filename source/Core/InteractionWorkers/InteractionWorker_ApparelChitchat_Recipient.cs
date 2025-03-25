@@ -1,3 +1,4 @@
+using RimWorld;
 using System;
 using System.Linq;
 using Verse;
@@ -6,20 +7,21 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_ApparelChitchat_Recipient : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
       {
-        var weight = base.RandomSelectionWeight(initiator, recipient);
         if (
+          !IsEnabled ||
+          initiator.Inhumanized() ||
+          recipient.Inhumanized() ||
           recipient.apparel == null ||
           recipient.apparel.WornApparel == null ||
-          !recipient.apparel.WornApparel.Any() ||
-          lastUsedTicks > GetMinTime())
+          !recipient.apparel.WornApparel.Any())
           return 0f;
 
-        return Settings.ApparelChitChatWeight.Value * weight;
+        Mod.LogV($"Apparel Weight: {initiator.Name} -> {recipient.Name} = {Settings.ApparelChitChatWeight.Value}");
+        return Settings.ApparelChitChatWeight.Value;
       }
       catch (Exception ex)
       {

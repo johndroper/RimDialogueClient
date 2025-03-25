@@ -15,6 +15,7 @@ namespace RimDialogue.Core.InteractionData
 
   public abstract class DialogueRequest
   {
+    public static DateTime LastDialogue = DateTime.MinValue;
     static Dictionary<int, DialogueRequest> Requests { get; set; } = [];
 
     public static DialogueRequest Create(ref PlayLogEntry_Interaction __instance, ref string interactionTemplate, InteractionDef interactionDef)
@@ -67,10 +68,25 @@ namespace RimDialogue.Core.InteractionData
         case "RecipientApparelChitchat":
           dialogueRequest = DialogueRequestApparel_Recipient.BuildFrom(__instance, interactionTemplate);
           break;
+        case "UnsatisfiedNeedChitchat":
+          dialogueRequest = DialogueRequestNeed<DialogueDataNeed>.BuildFrom(__instance, interactionTemplate);
+          break;
         default:
           Mod.LogV($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
           dialogueRequest = new DialogueRequest<DialogueData>(__instance, interactionTemplate);
           break;
+      }
+      if (DateTime.Now.Subtract(LastDialogue) < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
+      {
+        Mod.LogV($"Too soon since last dialogue. Current time: '{DateTime.Now}' Last dialogue time: {LastDialogue}.");
+        return dialogueRequest;
+      }
+      LastDialogue = DateTime.Now;
+      int ticksAbs = Find.TickManager.TicksAbs;
+      if (ticksAbs - InteractionWorker_Dialogue.LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * InteractionWorker_Dialogue.TicksPerMinute)
+      {
+        Mod.LogV($"Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {InteractionWorker_Dialogue.LastUsedTicksAll}.");
+        return dialogueRequest;
       }
       dialogueRequest.Execute();
       return dialogueRequest;
@@ -231,6 +247,10 @@ namespace RimDialogue.Core.InteractionData
                 new LookTargets(Initiator));
             return;
           }
+
+          if (InteractionDef.Worker is InteractionWorker_Dialogue)
+            ((InteractionWorker_Dialogue)InteractionDef.Worker).SetLastUsedTicks();
+
           var tracker = H.GetTracker();
           var conversation = interaction + "\n" + dialogueResponse.text;
           tracker.AddConversation(Initiator, Recipient, conversation);
@@ -253,8 +273,6 @@ namespace RimDialogue.Core.InteractionData
     }
     public override void Execute()
     {
-      if (!InteractionWorker_Dialogue.IsEnabled)
-        return;
       var dialogueData = new DataT();
       Build(dialogueData);
       Send(

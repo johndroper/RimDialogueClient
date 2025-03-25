@@ -33,7 +33,10 @@ namespace RimDialogue.Core.InteractionData
 
     public override string GetInteraction()
     {
-      return this.InteractionTemplate.Replace(Placeholder, $"{Hediff.LabelBase} {Hediff.Part.LabelShort}");
+      if (Hediff.Part != null)
+        return this.InteractionTemplate.Replace(Placeholder, $"{Hediff.LabelBase} {Hediff.Part.LabelShort}");
+      else
+        return this.InteractionTemplate.Replace(Placeholder, $"{Hediff.LabelBase}");
     }
   }
 }
