@@ -86,13 +86,14 @@
     <Compile Include="Core\InteractionData\DialogueDataApparel.cs" />
     <Compile Include="Core\InteractionData\DialogueDataHealth.cs" />
     <Compile Include="Core\InteractionData\DialogueDataNeed.cs" />
-    <Compile Include="Core\InteractionData\DialogueDataRelations.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataFamily.cs" />
     <Compile Include="Core\InteractionData\DialogueDataSkill.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAlert.cs" />
     <Compile Include="Access\PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\Reflection.cs" />
     <Compile Include="Access\Verse_LetterMaker_MakeLetter.cs" />
     <Compile Include="Access\Verse_Profile_MemoryUtility_ClearAllMapsAndWorld.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataWeather.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestAlert.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestApparel.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestApparel_Initiator.cs" />
@@ -101,10 +102,13 @@
     <Compile Include="Core\InteractionData\DialogueData.cs" />
     <Compile Include="Core\InteractionData\DialogueRequest.cs" />
     <Compile Include="Core\InteractionData\DialogueDataCondition.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestRecipientFamily.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestInitiatorFamily.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestHealth.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestHealthInitiator.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestHealthRecipient.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestNeed.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestWeather.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestWorstSkill.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestColonist.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestBestSkill .cs" />
@@ -132,11 +136,14 @@
     <Compile Include="Core\GameComponent_ConversationTracker.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueCondition.cs" />
     <Compile Include="Core\DataHelper2.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_RecipientFamilyChitchat.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_InitiatorFamilyChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_HealthChitchat_Initiator.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_HealthChitchat_Recipient.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_UnsatisfiedNeedChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_SameIdeology.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_SkillChitchat.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_WeatherChitchat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\MainTabWindow_RimDialogue.cs" />
   </ItemGroup>

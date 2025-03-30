@@ -27,15 +27,11 @@ namespace RimDialogue.Core.InteractionData
     public override void Execute()
     {
       var dialogueData = new DataT();
-      dialogueData.NeedLabel = this.Need?.def.label ?? string.Empty;
-      dialogueData.NeedDescription = this.Need?.def.description ?? string.Empty;
-      dialogueData.NeedLevel = this.Need?.CurLevelPercentage ?? 0f;
       Build(dialogueData);
       Send(
-        new List<KeyValuePair<string, object?>>
-        {
+        [
           new("chitChatJson", dialogueData)
-        },
+        ],
         "NeedsChitchat");
     }
 

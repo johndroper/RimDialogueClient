@@ -7,7 +7,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_HealthChitchat_Recipient : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -21,7 +20,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        Mod.LogV($"Recipient Health ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.HealthChitChatWeight.Value}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Recipient Health ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.HealthChitChatWeight.Value}");
         return Settings.HealthChitChatWeight.Value;
       }
       catch (Exception ex)

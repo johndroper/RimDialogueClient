@@ -15,7 +15,7 @@
 //  {
 //    public static bool Prefix(IncidentParms parms)
 //    {
-//      Mod.LogV($"IncidentWorker_RaidEnemy_TryExecuteWorker.");
+//      if (Settings.VerboseLogging.Value) Mod.Log($"IncidentWorker_RaidEnemy_TryExecuteWorker.");
 
 //      string text = string.Format(parms.raidArrivalMode.textEnemy, parms.faction.def.pawnsPlural, parms.faction.Name.ApplyTag(parms.faction)).CapitalizeFirst();
 //      text += "\n\n";

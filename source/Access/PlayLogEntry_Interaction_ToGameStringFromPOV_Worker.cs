@@ -16,13 +16,13 @@ namespace RimDialogue.Access
     {
       try
       {
-        Mod.LogV($"Original interaction log for log entry {__instance.LogID}: {__result}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Original interaction log for log entry {__instance.LogID}: {__result}");
         var dialogueRequest = DialogueRequest.Create(
         ref __instance,
         ref __result,
         (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
         __result = dialogueRequest.GetInteraction();
-        Mod.LogV($"New {dialogueRequest.GetType().Name} interaction log for log entry {__instance.LogID}: {__result}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"New {dialogueRequest.GetType().Name} interaction log for log entry {__instance.LogID}: {__result}");
       }
       catch (Exception ex)
       {

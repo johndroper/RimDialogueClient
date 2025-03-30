@@ -25,24 +25,29 @@ namespace RimDialogue.Core.InteractionData
     }
 
     public Message Message { get; set; }
+    public Pawn? Target { get; set; }
 
     public DialogueRequestMessage(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      Mod.LogV($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
       var messages = Verse_Messages_Message.RecentMessages;
       Message = messages.RandomElement();
       var tracker = H.GetTracker();
-      var target = Message.lookTargets?.PrimaryTarget.Pawn;
-      if (target is not null)
-        TargetData = H.MakePawnData(target, tracker.GetInstructions(target));
+      Target = Message.lookTargets?.PrimaryTarget.Pawn;
+      if (Target is not null)
+        TargetData = H.MakePawnData(Target, tracker.GetInstructions(Target));
       else
         TargetData = null;
     }
 
     public override string GetInteraction()
     {
-      return this.InteractionTemplate
-        .Replace(MessagePlaceholder, Message.text.TrimEnd('.'));
+      if (Target == null)
+        return this.InteractionTemplate
+          .Replace(MessagePlaceholder, Message.text.TrimEnd('.'));
+      else
+        return this.InteractionTemplate
+          .Replace(MessagePlaceholder, Target.Name.ToStringShort + " is experiencing a " + Message.text.TrimEnd('.'));
     }
 
     public override void Build(DialogueDataMessage data)
@@ -54,7 +59,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override void Execute()
     {
-      Mod.LogV($"Executing dialogue request for message {Entry.LogID}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for message {Entry.LogID}.");
       InteractionWorker_DialogueMessage.lastUsedTicks = Find.TickManager.TicksAbs;
       var dialogueData = new DialogueDataMessage();
       Build(dialogueData);

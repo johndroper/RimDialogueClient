@@ -6,30 +6,32 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
 {
-  public class InteractionWorker_DialogueMessage : InteractionWorker_Dialogue
+  public class InteractionWorker_RecipientFamilyChitchat : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
       {
+        var relations = recipient.relations.DirectRelations;
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
+          recipient.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !Verse_Messages_Message.RecentMessages.Any())
+          !relations.Any())
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Message ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");
-        return Settings.MessageChitChatWeight.Value;
+        if (Settings.VerboseLogging.Value) Mod.Log($"Recipient Family ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.FamilyChitChatWeight.Value}");
+        return Settings.FamilyChitChatWeight.Value;
       }
       catch (Exception ex)
       {
-        Mod.Error(ex.ToString());
+        Mod.Error($"Error in InteractionWorker_RecipientFamilyChitchat: {ex}");
         return 0f;
       }
     }
   }
 }
+

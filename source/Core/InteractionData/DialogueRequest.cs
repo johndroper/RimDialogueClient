@@ -20,10 +20,10 @@ namespace RimDialogue.Core.InteractionData
 
     public static DialogueRequest Create(ref PlayLogEntry_Interaction __instance, ref string interactionTemplate, InteractionDef interactionDef)
     {
-      InteractionWorker_DialogueAlert.lastUsedTicks = Find.TickManager.TicksAbs;
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
       DialogueRequest dialogueRequest;
+      if (Settings.VerboseLogging.Value) Mod.Log($"DialogueRequest: {interactionDef.defName}");
       switch (interactionDef.defName)
       {
         case "RecentIncidentChitchat":
@@ -71,21 +71,30 @@ namespace RimDialogue.Core.InteractionData
         case "UnsatisfiedNeedChitchat":
           dialogueRequest = DialogueRequestNeed<DialogueDataNeed>.BuildFrom(__instance, interactionTemplate);
           break;
+        case "InitiatorFamilyChitchat":
+          dialogueRequest = DialogueRequestInitiatorFamily.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientFamilyChitchat":
+          dialogueRequest = DialogueRequestRecipientFamily.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "WeatherChitchat":
+          dialogueRequest = DialogueRequestWeather.BuildFrom(__instance, interactionTemplate);
+          break;
         default:
-          Mod.LogV($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
           dialogueRequest = new DialogueRequest<DialogueData>(__instance, interactionTemplate);
           break;
       }
       if (DateTime.Now.Subtract(LastDialogue) < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
       {
-        Mod.LogV($"Too soon since last dialogue. Current time: '{DateTime.Now}' Last dialogue time: {LastDialogue}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Too soon since last dialogue. Current time: '{DateTime.Now}' Last dialogue time: {LastDialogue}.");
         return dialogueRequest;
       }
       LastDialogue = DateTime.Now;
       int ticksAbs = Find.TickManager.TicksAbs;
       if (ticksAbs - InteractionWorker_Dialogue.LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * InteractionWorker_Dialogue.TicksPerMinute)
       {
-        Mod.LogV($"Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {InteractionWorker_Dialogue.LastUsedTicksAll}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {InteractionWorker_Dialogue.LastUsedTicksAll}.");
         return dialogueRequest;
       }
       dialogueRequest.Execute();
@@ -98,12 +107,12 @@ namespace RimDialogue.Core.InteractionData
       var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + "/" + action;
       try
       {
-        Mod.LogV($"Server URL: {serverUrl}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Server URL: {serverUrl}");
         using (UnityWebRequest request = UnityWebRequest.Post(serverUrl, form))
         {
           var asyncOperation = request.SendWebRequest();
 
-          Mod.LogV($"Web request sent to {serverUrl}.");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Web request sent to {serverUrl}.");
           while (!asyncOperation.isDone)
           {
             await Task.Yield();
@@ -116,7 +125,7 @@ namespace RimDialogue.Core.InteractionData
           {
             while (!request.downloadHandler.isDone) { await Task.Yield(); }
             var body = request.downloadHandler.text;
-            Mod.LogV($"Body returned:{body}.");
+            if (Settings.VerboseLogging.Value) Mod.Log($"Body returned:{body}.");
             return JsonUtility.FromJson<DialogueResponse>(body);
           }
         }
@@ -161,19 +170,20 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequest(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
+      if (Settings.VerboseLogging.Value) Mod.Log($"Dialogue Request started: { this.GetType().Name }");
       InteractionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry);
       Pawn? initiator, recipient;
       InteractionDef interactionDef;
       switch (entry)
       {
         case PlayLogEntry_Interaction interaction:
-          Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
           recipient = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(interaction);
           interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(interaction);
           break;
         case PlayLogEntry_InteractionSinglePawn interaction:
-          Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
           recipient = null;
           interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef.GetValue(interaction);
@@ -181,7 +191,7 @@ namespace RimDialogue.Core.InteractionData
         default:
           throw new Exception("Unknown interaction type");
       }
-      Mod.LogV($"Pawns fetched.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Pawns fetched.");
       if (initiator is null || initiator.Map != Find.CurrentMap)
       {
         throw new Exception("Initiator is null or not on the current map");
@@ -192,14 +202,14 @@ namespace RimDialogue.Core.InteractionData
       }
       this.Initiator = initiator;
       this.Recipient = recipient;
-      Mod.LogV($"Building ChitChatData");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Building ChitChatData");
       clientId = Settings.ClientId.Value;
       var tracker = H.GetTracker();
       instructions = tracker.GetInstructions(null) + " " + Settings.SpecialInstructions.Value;
       maxWords = Settings.MaxWords.Value;
       initiatorOpinionOfRecipient = initiator.relations.OpinionOf(recipient);
       recipientOpinionOfInitiator = recipient.relations.OpinionOf(initiator);
-      Mod.LogV($"ChitChatData built.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"ChitChatData built.");
 
       initiatorData = H.MakePawnData(Initiator, tracker.GetInstructions(Initiator));
       recipientData = H.MakePawnData(Recipient, tracker.GetInstructions(Recipient));
@@ -229,7 +239,7 @@ namespace RimDialogue.Core.InteractionData
           if (data.Value != null)
             form.AddField(data.Key, JsonUtility.ToJson(data.Value));
         }
-        Mod.LogV($"DialogueData fetched for log entry {Entry.LogID}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"DialogueData fetched for log entry {Entry.LogID}.");
         if (action == null)
           action = InteractionDef.defName;
         var interaction = GetInteraction();
@@ -254,7 +264,7 @@ namespace RimDialogue.Core.InteractionData
           var tracker = H.GetTracker();
           var conversation = interaction + "\n" + dialogueResponse.text;
           tracker.AddConversation(Initiator, Recipient, conversation);
-          Mod.LogV($"Conversation added for log entry {Entry.LogID}.");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Conversation added for log entry {Entry.LogID}.");
           if (dialogueResponse.text == null)
             throw new Exception("Response text is null.");
           if (Settings.ShowDialogueBubbles.Value)
@@ -263,7 +273,7 @@ namespace RimDialogue.Core.InteractionData
             DialogueMessages.AddMessage(
               conversation,
               new LookTargets(Initiator));
-          Mod.LogV($"GetChitChat Complete for log entry {Entry.LogID}.");
+          if (Settings.VerboseLogging.Value) Mod.Log($"GetChitChat Complete for log entry {Entry.LogID}.");
         }
       }
       catch (Exception ex)

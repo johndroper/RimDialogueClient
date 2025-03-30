@@ -33,11 +33,10 @@ namespace RimDialogue.Core.InteractionData
       var tracker = H.GetTracker();
       Build(dialogueData);
       Send(
-        new List<KeyValuePair<string, object?>>
-        {
+        [
           new("chitChatJson", dialogueData),
           new("targetJson", H.MakePawnData(Target, tracker.GetInstructions(Target)))
-        },
+        ],
         "ColonistChitchat");
     }
 

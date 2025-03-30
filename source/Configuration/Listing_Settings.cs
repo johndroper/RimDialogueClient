@@ -11,9 +11,7 @@ namespace RimDialogue.Configuration
     public void BeginScrollView(Rect rect, ref Vector2 scrollPosition, ref Rect viewRect)
     {
       if (viewRect == default) { viewRect = new Rect(rect.x, rect.y, rect.width - ScrollAreaWidth, 99999f); }
-
       Widgets.BeginScrollView(rect, ref scrollPosition, viewRect);
-
       Begin(viewRect);
     }
 

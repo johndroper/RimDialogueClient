@@ -33,7 +33,7 @@ namespace RimDialogue.Core
 
     public static void AddMessage(string message, LookTargets? targets)
     {
-      Mod.LogV($"Adding dialogue message {message}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Adding dialogue message {message}.");
       var newMessage = new DialogueMessage(message, targets);
       Messages.Add(newMessage);
     }
@@ -88,14 +88,14 @@ namespace RimDialogue.Core
       cachedDrawLocs = (List<Vector2>)Reflection.RimWorld_ColonistBar_CachedDrawLocs.GetValue(Find.ColonistBar);
       float maxY = cachedDrawLocs.Max(entry => entry.y);
       rect = new Rect(UI.screenWidth / 2f - width / 2, maxY + Find.ColonistBar.Size.y + 10f, width + 12f, height + 4f);
-      Mod.LogV($"Message Rect: {rect}");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Message Rect: {rect}");
     }
 
     public void Start(float lifeTime)
     {
       this.LifeTime = lifeTime;
       startingTime = RealTime.LastRealTime;
-      Mod.LogV($"Message starting: {startingTime}");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Message starting: {startingTime}");
     }
 
     public float Alpha

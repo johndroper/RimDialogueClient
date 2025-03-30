@@ -7,7 +7,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_DialogueCondition : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -21,7 +20,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        Mod.LogV($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.GameConditionChitChatWeight.Value}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.GameConditionChitChatWeight.Value}");
         return Settings.GameConditionChitChatWeight.Value;
       }
       catch (Exception ex)

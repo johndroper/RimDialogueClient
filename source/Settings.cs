@@ -12,7 +12,7 @@ namespace RimDialogue
     public const int AutoHideSpeedDisabled = 1;
 
     public static bool Activated = true;
-
+    
     public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 25);
     public static readonly SettingString SpecialInstructions = new(nameof(SpecialInstructions), string.Empty);
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());
@@ -32,7 +32,7 @@ namespace RimDialogue
 
     public static readonly Setting<int> MinDelayMinutesAll = new(nameof(MinDelayMinutesAll), 1);
     public static readonly Setting<int> MinDelayMinutes = new(nameof(MinDelayMinutes), 5);
-    public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 3);
+    public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 1);
 
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 2);
     public static readonly Setting<int> RecentBattleHours = new(nameof(RecentBattleHours), 6);
@@ -47,8 +47,9 @@ namespace RimDialogue
     public static readonly Setting<float> ColonistChitChatWeight = new(nameof(ColonistChitChatWeight), 1f);
     public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 1f);
     public static readonly Setting<float> ApparelChitChatWeight = new(nameof(ApparelChitChatWeight), 1f);
-
     public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 1f);
+    public static readonly Setting<float> FamilyChitChatWeight = new (nameof(FamilyChitChatWeight), 1f);
+    public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 1f);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

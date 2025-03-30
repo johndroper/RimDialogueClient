@@ -10,7 +10,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_UnsatisfiedNeedChitchat : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -23,7 +22,7 @@ namespace RimDialogue.Core.InteractionWorkers
           !initiator.needs.AllNeeds.Where(need => need.CurLevelPercentage < .333f).Any())
           return 0f;
 
-        Mod.LogV($"Unsatisfied Need Weight: {initiator.Name} -> {recipient.Name} = {Settings.NeedChitChatWeight.Value}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Unsatisfied Need Weight: {initiator.Name} -> {recipient.Name} = {Settings.NeedChitChatWeight.Value}");
         return Settings.NeedChitChatWeight.Value;
       }
       catch (Exception ex)

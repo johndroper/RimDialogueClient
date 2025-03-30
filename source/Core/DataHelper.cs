@@ -20,7 +20,7 @@ namespace RimDialogue.Core
     public static GameComponent_ConversationTracker GetTracker()
     {
       var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
-      Mod.LogV($"Tracker fetched.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Tracker fetched.");
       return tracker;
     }
 
@@ -73,7 +73,7 @@ namespace RimDialogue.Core
         Childhood = pawn.story?.Childhood?.title != null ? pawn.story?.Childhood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Childhood)) : string.Empty,
         Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
         MoodString = pawn.needs?.mood?.MoodString ?? string.Empty,
-        JobReport = RemoveParentheses(pawn.GetJobReport().ToLower()),
+        JobReport = RemoveParentheses(pawn.GetJobReport()?.ToLower()),
         Carrying = RemoveWhiteSpaceAndColor(pawn.carryTracker?.CarriedThing?.Label)
       };
     }

@@ -23,8 +23,13 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequestIncident(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      Mod.LogV($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
       var incidents = Verse_LetterMaker_MakeLetter.recentLetters;
+      if (!incidents.Any())
+      {
+        Mod.Warning("No recent incidents found.");
+        return;
+      }
       var incident = incidents.RandomElement();
       Explanation = incident.Text;
       switch (incident.Def.defName)
@@ -46,7 +51,7 @@ namespace RimDialogue.Core.InteractionData
           break;
       }
       var tracker = H.GetTracker();
-      if (Target is not null)
+      if (Target != null)
         TargetData = H.MakePawnData(Target, tracker.GetInstructions(Target));
       else
         TargetData = null;
@@ -66,8 +71,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override void Execute()
     {
-      Mod.LogV($"Executing dialogue request for incident {Entry.LogID}.");
-      InteractionWorker_DialogueIncident.lastUsedTicks = Find.TickManager.TicksAbs;
+      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for incident {Entry.LogID}.");
       var dialogueData = new DataT();
       Build(dialogueData);
       Send(

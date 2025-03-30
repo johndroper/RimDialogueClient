@@ -28,24 +28,24 @@ namespace RimDialogue.Access
       switch (entry)
       {
         case PlayLogEntry_Interaction interaction:
-          Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
           break;
         case PlayLogEntry_InteractionSinglePawn interaction:
-          Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
           break;
         default:
           return false;
       }
       var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
-      Mod.LogV(logEntryText);
+      if (Settings.VerboseLogging.Value) Mod.Log(logEntryText);
       return false;
     }
     //public static void Add(LogEntry entry)
     //{
     //var shouldShow = (bool)Reflection.Bubbles_Bubbler_ShouldShow.Invoke(null, null);
-    //Mod.LogV($"Should Show: {shouldShow}.");
+    //if (Settings.VerboseLogging.Value) Mod.Log($"Should Show: {shouldShow}.");
     //if (!shouldShow) { return; }
 
     //Pawn? initiator, recipient;
@@ -53,13 +53,13 @@ namespace RimDialogue.Access
     //switch (entry)
     //{
     //  case PlayLogEntry_Interaction interaction:
-    //    Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Interaction {entry.LogID} is 'PlayLogEntry_Interaction'");
     //    initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
     //    recipient = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(interaction);
     //    interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(interaction);
     //    break;
     //  case PlayLogEntry_InteractionSinglePawn interaction:
-    //    Mod.LogV($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Interaction {entry.LogID} is 'PlayLogEntry_InteractionSinglePawn'");
     //    initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
     //    recipient = null;
     //    interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef.GetValue(interaction);
@@ -67,15 +67,15 @@ namespace RimDialogue.Access
     //  default:
     //    return;
     //}
-    //Mod.LogV($"Pawns fetched.");
+    //if (Settings.VerboseLogging.Value) Mod.Log($"Pawns fetched.");
     //if (initiator is null || initiator.Map != Find.CurrentMap) { return; }
 
     //var settings_DoNonPlayer = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoNonPlayer.GetValue(null);
-    //Mod.LogV($"Log entry {entry.LogID} settings_DoNonPlayer: {settings_DoNonPlayer.Value}.");
+    //if (Settings.VerboseLogging.Value) Mod.Log($"Log entry {entry.LogID} settings_DoNonPlayer: {settings_DoNonPlayer.Value}.");
     //var settings_DoAnimals = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoAnimals.GetValue(null);
-    //Mod.LogV($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
+    //if (Settings.VerboseLogging.Value) Mod.Log($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
     //var settings_DoDrafted = (Bubbles.Configuration.Setting<bool>)Reflection.Bubbles_Settings_DoDrafted.GetValue(null);
-    //Mod.LogV($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
+    //if (Settings.VerboseLogging.Value) Mod.Log($"Log entry {entry.LogID} settings_DoAnimals: {settings_DoAnimals.Value}.");
 
     //if (!settings_DoNonPlayer.Value && (!initiator.Faction?.IsPlayer ?? true)) { return; }
     //if (!settings_DoAnimals.Value && ((initiator.RaceProps?.Animal ?? false) || (recipient?.RaceProps?.Animal ?? false))) { return; }
@@ -86,44 +86,44 @@ namespace RimDialogue.Access
 
     //var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
 
-    //Mod.LogV($"Interaction def is '{interactionDef.defName}' for Log entry {entry.LogID}.");
+    //if (Settings.VerboseLogging.Value) Mod.Log($"Interaction def is '{interactionDef.defName}' for Log entry {entry.LogID}.");
     //switch (interactionDef.defName)
     //{
     //  case "RecentIncidentChitchat":
-    //    Mod.LogV($"Starting GetChitChatRecentIncident for Log entry {entry.LogID}...");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Starting GetChitChatRecentIncident for Log entry {entry.LogID}...");
     //    if (recipient == null)
     //      throw new Exception($"Recipient is null on RecentIncidentChitchat for Log entry {entry.LogID}.");
     //    //fire and forget
     //    GetChitChatRecentIncident(initiator, recipient, logEntryText, entry, interactionDef);
     //    break;
     //  case "RecentBattleChitchat":
-    //    Mod.LogV($"Starting GetChitChatRecentBattle for Log entry {entry.LogID}...");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Starting GetChitChatRecentBattle for Log entry {entry.LogID}...");
     //    if (recipient == null)
     //      throw new Exception($"Recipient is null on RecentBattleChitchat for Log entry {entry.LogID}.");
     //    //fire and forget
     //    GetChitChatRecentBattle(initiator, recipient, logEntryText, entry, interactionDef);
     //    break;
     //  case "GameConditionChitchat":
-    //    Mod.LogV($"Starting GetGameConditionChitchat for Log entry {entry.LogID}...");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Starting GetGameConditionChitchat for Log entry {entry.LogID}...");
     //    if (recipient == null)
     //      throw new Exception($"Recipient is null on GameConditionChitchat for Log entry {entry.LogID}.");
     //    //fire and forget
     //    GetChitChatGameCondition(initiator, recipient, logEntryText, entry, interactionDef);
     //    break;
     //  case "MessageChitchat":
-    //    Mod.LogV($"Starting MessageChitchat for Log entry {entry.LogID}...");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Starting MessageChitchat for Log entry {entry.LogID}...");
     //    if (recipient == null)
     //      throw new Exception($"Recipient is null on MessageChitchat for Log entry {entry.LogID}.");
     //    //fire and forget
     //    GetChitChatMessage(initiator, recipient, logEntryText, entry, interactionDef);
     //    break;
     //  case "AlertChitchat":
-    //    Mod.LogV($"Starting AlertChitchat for Log entry {entry.LogID}...");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Starting AlertChitchat for Log entry {entry.LogID}...");
     //    //fire and forget
     //    GetChitChatAlert(entry, interactionDef);
     //    break;
     //  default:
-    //    Mod.LogV($"Starting GetDialogue for Log entry {entry.LogID}...");
+    //    if (Settings.VerboseLogging.Value) Mod.Log($"Starting GetDialogue for Log entry {entry.LogID}...");
     //    //fire and forget
     //    GetDialogue(initiator, recipient, logEntryText, entry, interactionDef);
     //    break;
@@ -157,10 +157,10 @@ namespace RimDialogue.Access
       if (!bubbleDictionary.ContainsKey(initiator))
       {
         bubbleDictionary[initiator] = new List<Bubble>();
-        Mod.LogV($"New bubble dictionary created for pawn {initiator.thingIDNumber}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"New bubble dictionary created for pawn {initiator.thingIDNumber}.");
       }
       bubbleDictionary[initiator].Add(bubble);
-      Mod.LogV($"Bubble added for pawn {initiator.thingIDNumber}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Bubble added for pawn {initiator.thingIDNumber}.");
     }
 
     public static async void GetDialogue(Pawn initiator, Pawn? recipient, string logEntryText, LogEntry entry, InteractionDef? interactionDef)
@@ -208,11 +208,11 @@ namespace RimDialogue.Access
       #endregion
 
 
-      Mod.LogV($"Getting dialogue.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Getting dialogue.");
 
       try
       {
-        Mod.LogV($"logEntryText: {logEntryText}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"logEntryText: {logEntryText}.");
 
         List<Thought_Memory> initiatorMoodThoughts = initiator.needs?.mood?.thoughts?.memories?.Memories
           .Where(thoughtMemory => thoughtMemory.MoodOffset() != 0f)
@@ -222,7 +222,7 @@ namespace RimDialogue.Access
           .ToList() ?? [];
 
 
-        Mod.LogV($"logEntryText: {logEntryText}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"logEntryText: {logEntryText}.");
 
         var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
         Room room = initiator.GetRoom();
@@ -235,7 +235,7 @@ namespace RimDialogue.Access
         {
           try
           {
-            Mod.LogV($"Trying to get personality for entry {entry.LogID}.");
+            if (Settings.VerboseLogging.Value) Mod.Log($"Trying to get personality for entry {entry.LogID}.");
             Reflection.GetPersonality(initiator, out initiatorPersonality, out initiatorPersonalityDescription);
             Reflection.GetPersonality(recipient, out recipientPersonality, out recipientPersonalityDescription);
           }
@@ -246,7 +246,7 @@ namespace RimDialogue.Access
         }
         var tracker = H.GetTracker();
         var additionalInstructions = tracker.GetInstructions(null);
-        Mod.LogV($"Additional Instructions fetched for entry {entry.LogID}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Additional Instructions fetched for entry {entry.LogID}.");
         var dialogueData = new Core.DialogueData
         {
           clientId = Settings.ClientId.Value,
@@ -378,17 +378,17 @@ namespace RimDialogue.Access
           recipientCombatLog = H.GetCombatLogEntries(recipient, 10).Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(recipient))).ToArray(),
         };
         string jsonData = JsonUtility.ToJson(dialogueData);
-        Mod.LogV($"DialogueData fetched for entry {entry.LogID}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"DialogueData fetched for entry {entry.LogID}.");
         WWWForm form = new WWWForm();
         form.AddField("dialogueDataJSON", jsonData);
         var dialogueResponse = await DialogueRequest.Post("home/GetDialogue", form);
         if (dialogueResponse.rateLimited)
         {
-          Mod.LogV($"Entry {entry.LogID} was rate limited.");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} was rate limited.");
           return;
         }
         tracker.AddConversation(initiator, recipient, dialogueResponse.text);
-        Mod.LogV($"Conversation added for entry {entry.LogID}.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Conversation added for entry {entry.LogID}.");
         if (dialogueResponse.text == null)
           throw new Exception("Response text is null.");
         AddBubble(initiator, entry, dialogueResponse.text);

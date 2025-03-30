@@ -20,7 +20,7 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequestBattle(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      Mod.LogV($"Creating dialogue request for battle {entry.LogID} with template {interactionTemplate}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for battle {entry.LogID} with template {interactionTemplate}.");
       Battle = H.GetRecentBattles(Settings.RecentBattleHours.Value).RandomElement();
       Duration = (Find.TickManager.TicksGame - Battle.CreationTimestamp).ToStringTicksToPeriod();
       Interaction = $"a battle named '{Battle.GetName()}' occurred {Duration} ago.";
@@ -43,8 +43,7 @@ namespace RimDialogue.Core.InteractionData
     }
     public override void Execute()
     {
-      Mod.LogV($"Executing dialogue request for battle {Entry.LogID}.");
-      InteractionWorker_DialogueBattle.lastUsedTicks = Find.TickManager.TicksAbs;
+      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for battle {Entry.LogID}.");
       var dialogueData = new DataT();
       Build(dialogueData);
       Send(

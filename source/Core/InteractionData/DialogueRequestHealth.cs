@@ -24,10 +24,9 @@ namespace RimDialogue.Core.InteractionData
       dialogueData.HediffPart = this.Hediff?.Part?.Label ?? string.Empty;
       Build(dialogueData);
       Send(
-        new List<KeyValuePair<string, object?>>
-        {
+        [
           new("chitChatJson", dialogueData)
-        },
+        ],
         "HealthChitchat");
     }
 

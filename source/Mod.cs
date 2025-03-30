@@ -9,7 +9,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.72.0";
+    public const string Version = "0.73.0";
 
     public static Mod Instance = null!;
 
@@ -36,16 +36,16 @@ namespace RimDialogue
 
     public override string SettingsCategory() => Name;
 
-    public static void LogV(string text)
-    {
-      if (Settings.VerboseLogging.Value)
-        Log(text);
-    }
-    public static void WarningV(string text)
-    {
-      if (Settings.VerboseLogging.Value)
-        Warning(text);
-    }
+    //public static void LogV(string text)
+    //{
+    //  if (Settings.VerboseLogging.Value)
+    //    Log(text);
+    //}
+    //public static void WarningV(string text)
+    //{
+    //  if (Settings.VerboseLogging.Value)
+    //    Warning(text);
+    //}
     public static void ErrorV(string text)
     {
       if (Settings.VerboseLogging.Value)

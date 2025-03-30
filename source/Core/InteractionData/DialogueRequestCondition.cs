@@ -23,7 +23,7 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequestCondition(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      Mod.LogV($"Creating dialogue request for condition {entry.LogID} with template {interactionTemplate}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for condition {entry.LogID} with template {interactionTemplate}.");
       GameCondition = Find.CurrentMap.GameConditionManager.ActiveConditions.RandomElement();
       Explanation = H.RemoveWhiteSpaceAndColor(GameCondition.def.description ?? GameCondition.def.letterText);
       Duration = GameCondition.TicksPassed.ToStringTicksToPeriod();
@@ -103,8 +103,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override void Execute()
     {
-      Mod.LogV($"Executing dialogue request for condition {GameCondition.Label}.");
-      InteractionWorker_DialogueCondition.lastUsedTicks = Find.TickManager.TicksAbs;
+      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for condition {GameCondition.Label}.");
       var dialogueData = new DataT();
       Build(dialogueData);
       Send(

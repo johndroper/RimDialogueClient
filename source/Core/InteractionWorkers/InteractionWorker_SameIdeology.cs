@@ -6,8 +6,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_SameIdeology : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
-
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -19,7 +17,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        Mod.LogV($"Same Ideology ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.SameIdeologyChitChatWeight.Value}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Same Ideology ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.SameIdeologyChitChatWeight.Value}");
         return Settings.SameIdeologyChitChatWeight.Value;
       }
       catch (Exception ex)

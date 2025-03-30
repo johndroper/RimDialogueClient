@@ -9,9 +9,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_DialogueAlert : InteractionWorker_Dialogue
   {
-
-    public static int lastUsedTicks = 0;
-
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -19,7 +16,7 @@ namespace RimDialogue.Core.InteractionWorkers
         var alerts = (List<Alert>)Reflection.RimWorld_AlertsReadout_ActiveAlerts.GetValue(Find.Alerts);
         if (alerts == null)
         {
-          Mod.WarningV($"InteractionWorker_AlertChitChat alerts are null.");
+          Mod.Warning($"InteractionWorker_AlertChitChat alerts are null.");
           return 0f;
         }
         if (
@@ -31,7 +28,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        Mod.LogV($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AlertChitChatWeight.Value}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AlertChitChatWeight.Value}");
         return Settings.AlertChitChatWeight.Value;
       }
       catch (Exception ex)

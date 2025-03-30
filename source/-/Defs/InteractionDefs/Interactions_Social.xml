@@ -620,9 +620,9 @@
     </logRulesInitiator>
   </InteractionDef>
   <InteractionDef>
-    <defName>UnsatisfiedNeedChitchat</defName>
-    <label>unsatified need chitchat</label>
-    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_UnsatisfiedNeedChitchat</workerClass>
+    <defName>InitiatorFamilyChitchat</defName>
+    <label>initiator family chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_InitiatorFamilyChitchat</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
     <initiatorThought>Chitchat</initiatorThought>
     <initiatorXpGainSkill>Social</initiatorXpGainSkill>
@@ -630,9 +630,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] how [INITIATOR_nameDef]'s need for **need** is [unfufilled].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [unfufilled] need for **need** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [unfufilled] need for **need** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [INITIATOR_nameDef]'s **relation** **family**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **relation** **family** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **relation** **family** with [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -649,10 +649,98 @@
         <li>commentedabout->commented about</li>
         <li>commentedabout->told a joke about</li>
         <li>commentedabout->remarked about</li>
-        <li>unfufilled->unfufilled</li>
-        <li>unfufilled->unsatisfied</li>
-        <li>unfufilled->unsated</li>
-        <li>unfufilled->unsatiated</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientFamilyChitchat</defName>
+    <label>recipient family chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_RecipientFamilyChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **relation** **family**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **relation** **family** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **relation** **family** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive]'s **relation** **family**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>WeatherChitchat</defName>
+    <label>weather chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_WeatherChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **weather** weather.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weather** weather to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weather** weather with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **weather** weather.</li>
+
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **weather** weather in the **biome**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weather** weather in the **biome** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weather** weather in the **biome** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **weather** weather in the **biome**.</li>
+
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **weather** weather in **season**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weather** weather in **season** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weather** weather in **season** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **weather** weather in **season**.</li>
+
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **biome**'s **weather** weather in **season**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **biome**'s **weather** weather in **season** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **biome**'s **weather** weather in **season** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **biome**'s **weather** weather in **season**.</li>
+        
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>

@@ -6,9 +6,8 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
 {
-  public class InteractionWorker_DialogueMessage : InteractionWorker_Dialogue
+  public class InteractionWorker_WeatherChitchat : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -18,16 +17,17 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !Verse_Messages_Message.RecentMessages.Any())
+          !initiator.IsOutside() ||
+          !recipient.IsOutside())
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Message ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");
-        return Settings.MessageChitChatWeight.Value;
+        if (Settings.VerboseLogging.Value) Mod.Log($"Weather ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.WeatherChitChatWeight.Value}");
+        return Settings.WeatherChitChatWeight.Value;
       }
       catch (Exception ex)
       {
-        Mod.Error(ex.ToString());
+        Mod.Error($"Error in InteractionWorker_WeatherChitchat: {ex}");
         return 0f;
       }
     }

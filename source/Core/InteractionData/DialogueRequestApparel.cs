@@ -26,10 +26,9 @@ namespace RimDialogue.Core.InteractionData
 
       Build(dialogueData);
       Send(
-        new List<KeyValuePair<string, object?>>
-        {
+        [
           new("chitChatJson", dialogueData)
-        },
+        ],
         "ApparelChitchat");
     }
 
