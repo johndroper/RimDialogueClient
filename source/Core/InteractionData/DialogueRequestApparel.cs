@@ -1,3 +1,4 @@
+#nullable enable
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -8,12 +9,22 @@ namespace RimDialogue.Core.InteractionData
   {
     const string Placeholder = "**apparel**";
 
-    public Apparel Apparel { get; set; }
 
     public DialogueRequestApparel(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      Apparel = this.Initiator.apparel?.WornApparel.RandomElement();
+
     }
+
+    private Apparel? _apparel;
+    public virtual Apparel Apparel
+    {
+      get
+      {
+        _apparel ??= Initiator.apparel.WornApparel.RandomElement();
+        return _apparel;
+      }
+    }
+
 
     public override void Execute()
     {

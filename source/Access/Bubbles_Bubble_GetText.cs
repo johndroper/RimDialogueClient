@@ -8,8 +8,10 @@ namespace RimDialogue.Access
   {
     public static bool Prefix(Bubble __instance, ref string __result)
     {
-      __result = Bubbles_Bubbler_Add.GetDialogueText(__instance);
-      return (__result == null);
+      var text = Bubbles_Bubbler_Add.GetDialogueText(__instance);
+      if (text != null)
+        __result = text;
+      return (text == null);
     }
   }
 }

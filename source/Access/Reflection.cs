@@ -1,3 +1,4 @@
+#nullable enable
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -66,10 +67,10 @@ namespace RimDialogue.Access
       return _isAssemblyLoaded[assemblyName];
     }
 
-    private static MethodInfo tryGetEnneagramCompMethod;
-    private static MethodInfo getDescriptionMethodInfo;
-    private static PropertyInfo enneagramProperty;
-    private static MethodInfo toStringMethod;
+    private static MethodInfo? tryGetEnneagramCompMethod;
+    private static MethodInfo? getDescriptionMethodInfo;
+    private static PropertyInfo? enneagramProperty;
+    private static MethodInfo? toStringMethod;
 
     static Reflection()
     {
@@ -98,7 +99,7 @@ namespace RimDialogue.Access
         return;
     }
 
-    public static void GetPersonality(Pawn pawn, out string label, out string description)
+    public static void GetPersonality(Pawn? pawn, out string? label, out string? description)
     {
       label = null;
       description = null;
@@ -107,9 +108,14 @@ namespace RimDialogue.Access
       object enneagramCompObject = tryGetEnneagramCompMethod.Invoke(null, [pawn]);
       if (enneagramCompObject == null)
         return;
-      description = (string)getDescriptionMethodInfo.Invoke(enneagramCompObject, null);
-      var enneagramObject = enneagramProperty.GetValue(enneagramCompObject);
-      label = (string)toStringMethod.Invoke(enneagramObject, null);
+      if (getDescriptionMethodInfo != null)
+        description = (string)getDescriptionMethodInfo.Invoke(enneagramCompObject, null);
+      if (enneagramProperty != null)
+      {
+        var enneagramObject = enneagramProperty.GetValue(enneagramCompObject);
+        if (toStringMethod != null)
+          label = (string)toStringMethod.Invoke(enneagramObject, null);
+      }
     }
   }
 }

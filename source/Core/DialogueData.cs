@@ -26,7 +26,7 @@ namespace RimDialogue.Core
     public int colonistsCount = -1;
     public int prisonersCount = -1;
     public string[] recentIncidents = [];
-    public string[] otherFactions;
+    public string[] otherFactions = [];
     public string initiatorThingID = String.Empty;
     public string initiatorFullName = String.Empty;
     public string initiatorCarrying = String.Empty;
@@ -115,23 +115,23 @@ namespace RimDialogue.Core
     public int recipientOpinionOfInitiator2 = 0;
     public string[] recipientMoodThoughts = [];
     public string recipientMoodString = string.Empty;
-    public float recipientMoodPercentage;
-    public float recipientComfortPercentage;
-    public float recipientFoodPercentage;
-    public float recipientRestPercentage;
-    public float recipientJoyPercentage;
-    public float recipientBeautyPercentage;
-    public float recipientDrugsDesirePercentage;
-    public float recipientEnergyPercentage;
+    public float recipientMoodPercentage = 0;
+    public float recipientComfortPercentage = 0;
+    public float recipientFoodPercentage = 0;
+    public float recipientRestPercentage = 0;
+    public float recipientJoyPercentage = 0;
+    public float recipientBeautyPercentage = 0;
+    public float recipientDrugsDesirePercentage = 0;
+    public float recipientEnergyPercentage = 0;
     public string[] recipientCombatLog = [];
     public string recipientLastBattle = string.Empty;
-    public string initiatorPersonality;
-    public string recipientPersonality;
-    public string initiatorPersonalityDescription;
-    public string recipientPersonalityDescription;
-    public string initiatorInstructions;
-    public string recipientInstructions;
-    public int hourOfDay;
-    public string season;
+    public string initiatorPersonality = string.Empty;
+    public string recipientPersonality = string.Empty;
+    public string initiatorPersonalityDescription = string.Empty;
+    public string recipientPersonalityDescription = string.Empty;
+    public string initiatorInstructions = string.Empty;
+    public string recipientInstructions = string.Empty;
+    public int hourOfDay = 0;
+    public string season = string.Empty;
   }
 }

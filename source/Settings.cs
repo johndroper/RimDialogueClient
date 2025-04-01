@@ -50,6 +50,7 @@ namespace RimDialogue
     public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 1f);
     public static readonly Setting<float> FamilyChitChatWeight = new (nameof(FamilyChitChatWeight), 1f);
     public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 1f);
+    public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 1f);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

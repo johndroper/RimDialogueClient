@@ -1,3 +1,5 @@
+#nullable enable
+using RimWorld;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -11,7 +13,18 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequestApparel_Recipient(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      Apparel = this.Recipient.apparel?.WornApparel.RandomElement();
+
+    }
+
+    private Apparel? _apparel = null;
+    public override Apparel Apparel
+    {
+      get
+      {
+        if (_apparel == null)
+          _apparel = Recipient.apparel.WornApparel.RandomElement();
+        return _apparel; 
+      }
     }
   }
 }

@@ -37,14 +37,10 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
       //l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
       l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
-
       l.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
       l.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
       l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
-
-
       //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
-
       l.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.RecentBattleChitChatWeight".Translate(), ref Settings.RecentBattleChitChatWeight.Value, 0, 1);
@@ -55,7 +51,10 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.ApparelChitChatWeight".Translate(), ref Settings.ApparelChitChatWeight.Value, 0, 1);
-
+      l.SliderLabeled("RimDialogue.NeedChitChatWeight".Translate(), ref Settings.NeedChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.FamilyChitChatWeight".Translate(), ref Settings.FamilyChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.WeatherChitChatWeight".Translate(), ref Settings.WeatherChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.FactionChitChatWeight".Translate(), ref Settings.FactionChitChatWeight.Value, 0, 1);
       l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
       l.EndScrollView(ref _viewRect);
     }

@@ -45,13 +45,13 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestIdeology<DialogueData>.BuildFrom(__instance, interactionTemplate);
           break;
         case "SkillChitchat":
-          dialogueRequest = DialogueRequestSkill<DialogueDataSkill>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestSkill.BuildFrom(__instance, interactionTemplate);
           break;
         case "BestSkillChitchat":
-          dialogueRequest = DialogueRequestBestSkill<DialogueDataSkill>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestBestSkill.BuildFrom(__instance, interactionTemplate);
           break;
         case "WorstSkillChitchat":
-          dialogueRequest = DialogueRequestWorstSkill<DialogueDataSkill>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestWorstSkill.BuildFrom(__instance, interactionTemplate);
           break;
         case "ColonistChitchat":
           dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
@@ -79,6 +79,18 @@ namespace RimDialogue.Core.InteractionData
           break;
         case "WeatherChitchat":
           dialogueRequest = DialogueRequestWeather.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "HostileFactionChitchat":
+          dialogueRequest = DialogueRequestHostileFaction.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "AlliedFactionChitchat":
+          dialogueRequest = DialogueRequestAlliedFaction.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RoyalFactionChitchat":
+          dialogueRequest = DialogueRequestRoyalFaction.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "NeutralFactionChitchat":
+          dialogueRequest = DialogueRequestNeutralFaction.BuildFrom(__instance, interactionTemplate);
           break;
         default:
           if (Settings.VerboseLogging.Value) Mod.Log($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");

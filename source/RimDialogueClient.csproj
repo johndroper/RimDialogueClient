@@ -84,6 +84,7 @@
     <Compile Include="Access\Verse_Messages_Message.cs" />
     <Compile Include="Core\DialogueMessages.cs" />
     <Compile Include="Core\InteractionData\DialogueDataApparel.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataFaction.cs" />
     <Compile Include="Core\InteractionData\DialogueDataHealth.cs" />
     <Compile Include="Core\InteractionData\DialogueDataNeed.cs" />
     <Compile Include="Core\InteractionData\DialogueDataFamily.cs" />
@@ -102,6 +103,8 @@
     <Compile Include="Core\InteractionData\DialogueData.cs" />
     <Compile Include="Core\InteractionData\DialogueRequest.cs" />
     <Compile Include="Core\InteractionData\DialogueDataCondition.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestFaction.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestNeutralFaction.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestRecipientFamily.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestInitiatorFamily.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestHealth.cs" />
@@ -122,6 +125,10 @@
     <Compile Include="Core\DataHelper.cs" />
     <Compile Include="Core\InteractionData\DialogueRequestCondition.cs" />
     <Compile Include="Core\InteractionData\DialogueTargetData.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestAlliedFaction.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestHostileFaction.cs" />
+    <Compile Include="Core\InteractionData\DialogueRequestRoyalFaction.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_AlliedFactionChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_ApparelChitchat_Initiator.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_ApparelChitchat_Recipient.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_ColonistChitchat.cs" />
@@ -136,10 +143,13 @@
     <Compile Include="Core\GameComponent_ConversationTracker.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueCondition.cs" />
     <Compile Include="Core\DataHelper2.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_HostileFactionChitchat.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_NeutralFactionChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_RecipientFamilyChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_InitiatorFamilyChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_HealthChitchat_Initiator.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_HealthChitchat_Recipient.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_RoyalFactionChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_UnsatisfiedNeedChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_SameIdeology.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_SkillChitchat.cs" />

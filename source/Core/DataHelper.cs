@@ -26,8 +26,8 @@ namespace RimDialogue.Core
 
     public static PawnData MakePawnData(Pawn pawn, string? instructions)
     {
-      string personality = string.Empty;
-      string personalityDescription = string.Empty;
+      string? personality = string.Empty;
+      string? personalityDescription = string.Empty;
 
       if (Reflection.IsAssemblyLoaded("SP_Module1"))
       {

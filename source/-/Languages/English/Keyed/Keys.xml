@@ -31,4 +31,8 @@
   <RimDialogue.ColonistChitChatWeight>Colonist Dialogue Weight</RimDialogue.ColonistChitChatWeight>
   <RimDialogue.HealthChitChatWeight>Health Dialogue Weight</RimDialogue.HealthChitChatWeight>
   <RimDialogue.ApparelChitChatWeight>Apparel Dialogue Weight</RimDialogue.ApparelChitChatWeight>
+  <RimDialogue.WeatherChitChatWeight>Weather Dialogue Weight</RimDialogue.WeatherChitChatWeight>
+  <RimDialogue.FamilyChitChatWeight>Family Dialogue Weight</RimDialogue.FamilyChitChatWeight>
+  <RimDialogue.NeedChitChatWeight>Need Dialogue Weight</RimDialogue.NeedChitChatWeight>
+  <RimDialogue.FactionChitChatWeight>Faction Dialogue Weight</RimDialogue.FactionChitChatWeight>
 </LanguageData>

@@ -1,9 +1,11 @@
+#nullable enable
 using RimWorld;
+using System;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestSkill<DataT> : DialogueRequest<DataT> where DataT : DialogueDataSkill, new()
+  public class DialogueRequestSkill: DialogueRequest<DialogueDataSkill>
   {
     public static readonly SkillDef[] SkillDefs = new SkillDef[]
     {
@@ -22,27 +24,34 @@ namespace RimDialogue.Core.InteractionData
     };
 
     const string Placeholder = "**skill**";
-    public static DialogueRequestSkill<DataT> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static DialogueRequestSkill BuildFrom(LogEntry entry, string interactionTemplate)
     {
-      return new DialogueRequestSkill<DataT>(entry, interactionTemplate);
+      return new DialogueRequestSkill(entry, interactionTemplate);
     }
-
-    public SkillDef SkillDef { get; set; }
 
     public SkillRecord InitiatorSkillRecord { get; set; }
     public SkillRecord RecipientSkillRecord { get; set; }
 
     public DialogueRequestSkill(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      SkillDef = SkillDefs.RandomElement();
-      InitiatorSkillRecord = Initiator.skills?.GetSkill(SkillDef);
-      RecipientSkillRecord = Recipient.skills?.GetSkill(SkillDef);
+      InitiatorSkillRecord = Initiator.skills.GetSkill(SkillDef);
+      RecipientSkillRecord = Recipient.skills.GetSkill(SkillDef);
+    }
 
+    private SkillDef? _skillDef;
+    public virtual SkillDef SkillDef
+    {
+      get
+      {
+        if (_skillDef == null)
+          _skillDef = SkillDefs.RandomElement();
+        return _skillDef;
+      }
     }
 
     public override void Execute()
     {
-      var dialogueData = new DataT();
+      var dialogueData = new DialogueDataSkill();
       dialogueData.SkillName = SkillDef.label ?? string.Empty;
       dialogueData.SkillDescription = SkillDef.description ?? string.Empty;
       dialogueData.InitiatorSkillLevel = InitiatorSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
@@ -59,7 +68,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string GetInteraction()
     {
-      return this.InteractionTemplate.Replace(Placeholder, InitiatorSkillRecord.def.label);
+      return this.InteractionTemplate.Replace(Placeholder, SkillDef.label);
     }
   }
 }

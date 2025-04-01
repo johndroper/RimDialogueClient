@@ -15,8 +15,7 @@ namespace RimDialogue.Core.InteractionWorkers
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          !initiator.IsColonist ||
-          !recipient.IsColonist ||
+          recipient.Inhumanized() ||
           !initiator.IsOutside() ||
           !recipient.IsOutside())
         {

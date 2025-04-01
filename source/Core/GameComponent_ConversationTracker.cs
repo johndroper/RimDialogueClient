@@ -1,3 +1,4 @@
+#nullable enable
 using RimDialogue;
 using RimDialogue.Core;
 using System;
@@ -29,9 +30,9 @@ public class GameComponent_ConversationTracker : GameComponent
     additionalInstructions["ALL_PAWNS"] = Find.Scenario?.name + "\r\n" + H.RemoveWhiteSpace(Find.Scenario?.description);
   }
 
-  public void AddConversation(Pawn initiator, Pawn recipient, string text)
+  public void AddConversation(Pawn initiator, Pawn? recipient, string? text)
   {
-    if (initiator == null || recipient == null || string.IsNullOrWhiteSpace(text))
+    if (initiator == null || recipient == null || text == null || string.IsNullOrWhiteSpace(text))
       return;
 
     lock (conversations)
@@ -42,7 +43,7 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  public void AddAdditionalInstructions(Pawn pawn, string value)
+  public void AddAdditionalInstructions(Pawn? pawn, string value)
   {
     lock (additionalInstructions)
     {
@@ -50,7 +51,7 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  public string GetInstructions(Pawn pawn)
+  public string GetInstructions(Pawn? pawn)
   {
     var thingId = pawn?.ThingID ?? "ALL_PAWNS";
     lock (additionalInstructions)
@@ -72,7 +73,7 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  private string _version = null;
+  private string? _version = null;
 
   public override void ExposeData()
   {
@@ -97,9 +98,9 @@ public class GameComponent_ConversationTracker : GameComponent
 
 public class Conversation : IExposable
 {
-  private Pawn initiator;
-  private Pawn recipient;
-  public string text;
+  private Pawn? initiator;
+  private Pawn? recipient;
+  public string? text;
 
   public Conversation() { }
 
@@ -109,12 +110,12 @@ public class Conversation : IExposable
     this.recipient = recipient;
     this.text = text;
   }
-  public Pawn Initiator => initiator;
-  public Pawn Recipient => recipient;
+  public Pawn? Initiator => initiator;
+  public Pawn? Recipient => recipient;
   public string Participants => $"{Initiator?.Name?.ToStringShort ?? "Unknown"} ↔ {Recipient?.Name?.ToStringShort ?? "Unknown"}";
   public bool InvolvesPawn(Pawn pawn)
   {
-    return pawn.thingIDNumber == initiator.thingIDNumber || pawn.thingIDNumber == recipient.thingIDNumber;
+    return pawn.thingIDNumber == initiator?.thingIDNumber || pawn.thingIDNumber == recipient?.thingIDNumber;
   }
   public void ExposeData()
   {

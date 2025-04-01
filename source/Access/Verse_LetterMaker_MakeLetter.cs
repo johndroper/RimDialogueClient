@@ -1,3 +1,5 @@
+#nullable enable
+
 using HarmonyLib;
 using RimWorld;
 using System.Collections.Generic;
@@ -25,19 +27,35 @@ namespace RimDialogue.Access
 
     public static Dictionary<int, RecentLetter> incidentData = [];
 
-    private static System.Random random = new();
-
     public static List<RecentLetter> recentLetters = new List<RecentLetter>();
 
     public class RecentLetter
     {
+      public RecentLetter(
+        TaggedString label,
+        TaggedString text,
+        LetterDef def,
+        LookTargets lookTargets,
+        Faction relatedFaction,
+        Quest? quest,
+        List<ThingDef> hyperlinkThingDefs)
+      {
+        Label = label;
+        Text = text;
+        Def = def;
+        LookTargets = lookTargets;
+        RelatedFaction = relatedFaction;
+        Quest = quest;
+        HyperlinkThingDefs = hyperlinkThingDefs;
+      }
+
       public TaggedString Label { get; set; }
       public TaggedString Text { get; set; }
       public LetterDef Def { get; set; }
       public LookTargets LookTargets { get; set; }
       public Faction RelatedFaction { get; set; }
-      public Quest Quest { get; set; }
-      public List<ThingDef> HyperlinkThingDefs { get; set; }
+      public Quest? Quest { get; set; }
+      public List<ThingDef>? HyperlinkThingDefs { get; set; }
       public int Ticks { get; set; } = Find.TickManager.TicksAbs;
     }
 
@@ -52,16 +70,7 @@ namespace RimDialogue.Access
     {
       if (Settings.VerboseLogging.Value)
         Log.Message($"Creating LetterRecord {def.defName}");
-      var record = new RecentLetter
-      {
-        Label = label,
-        Text = text,
-        Def = def,
-        LookTargets = lookTargets,
-        RelatedFaction = relatedFaction,
-        Quest = quest,
-        HyperlinkThingDefs = hyperlinkThingDefs
-      };
+      var record = new RecentLetter(label, text, def, lookTargets, relatedFaction, quest, hyperlinkThingDefs);
       recentLetters.Add(record);
       var currentTicks = Find.TickManager.TicksAbs;
       recentLetters.RemoveAll(letter => currentTicks - letter.Ticks > Settings.RecentIncidentHours.Value * 2500);

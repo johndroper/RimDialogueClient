@@ -1,3 +1,5 @@
+#nullable enable
+
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace RimDialogue
     private Vector2 conversationScrollPosition = Vector2.zero; // For scrolling the conversation list
     private Vector2 instructionsScrollPosition = Vector2.zero;
 
-    private Pawn selectedPawn = null; // Filtered pawn
+    private Pawn? selectedPawn = null; // Filtered pawn
 
     // Set the initial window size
     public override Vector2 RequestedTabSize => new Vector2(800f, 400f);
@@ -83,7 +85,7 @@ namespace RimDialogue
         var headerRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
         Widgets.Label(headerRect, conversation.Participants);
         convoY += labelHeight;
-        string displayText = conversation.text;
+        string displayText = conversation.text ?? string.Empty;
         float textHeight = Text.CalcHeight(displayText, conversationContentRectWidth);
         var convoRect = new Rect(0, convoY, conversationContentRectWidth, textHeight);
         Widgets.Label(convoRect, displayText);
