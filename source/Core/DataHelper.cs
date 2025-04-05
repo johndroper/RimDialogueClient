@@ -74,11 +74,11 @@ namespace RimDialogue.Core
         Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
         MoodString = pawn.needs?.mood?.MoodString ?? string.Empty,
         JobReport = RemoveParentheses(pawn.GetJobReport()?.ToLower()),
-        Carrying = RemoveWhiteSpaceAndColor(pawn.carryTracker?.CarriedThing?.Label)
+        Carrying = RemoveWhiteSpaceAndColor(pawn.carryTracker?.CarriedThing?.Label),
+        Skills = pawn.skills?.skills.Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {H.RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+        Traits = pawn.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + H.RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve())).ToArray() ?? [],
       };
     }
-
-
 
     public static string UncapitalizeFirst(this TaggedString input)
     {

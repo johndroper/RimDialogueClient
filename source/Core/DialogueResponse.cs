@@ -5,17 +5,10 @@ using System;
 namespace RimDialogue.Core
 {
   [Serializable]
-  public class DialogueResponse
+  public class DialogueResponse : PromptResponse
   {
-    public string? text;
     public bool rateLimited = false;
     public float rate = 0f;
-
-    public string? Text
-    {
-      get => text;
-      set => text = value;
-    }
 
     public bool RateLimited
     {

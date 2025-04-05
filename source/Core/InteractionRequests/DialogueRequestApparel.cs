@@ -5,7 +5,7 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestApparel<DataT> : DialogueRequest<DataT> where DataT : DialogueDataApparel, new()
+  public abstract class DialogueRequestApparel : DialogueRequest<DialogueDataApparel>
   {
     const string Placeholder = "**apparel**";
 
@@ -28,7 +28,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override void Execute()
     {
-      var dialogueData = new DataT();
+      var dialogueData = new DialogueDataApparel();
       dialogueData.ApparelLabel = Apparel.def?.label ?? string.Empty;
       dialogueData.ApparelDescription = H.RemoveWhiteSpace(Apparel.def?.description) ?? string.Empty;
       dialogueData.WornByCorpse = Apparel?.WornByCorpse ?? false;

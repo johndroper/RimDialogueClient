@@ -339,6 +339,18 @@ namespace RimDialogue.Core.InteractionData
           Target = unhappyNudityPawn;
           Subject = $"{unhappyNudityPawn.Name.ToStringShort} is unhappy about being naked";
           break;
+        case Alert_LifeThreateningHediff lifeThreateningHediffAlert:
+          if (Settings.VerboseLogging.Value) Mod.Log($"Alert_LifeThreateningHediff");
+          var sickPawns = (List<Pawn>)Reflection.RimWorld_Alert_LifeThreateningHediff_SickPawnsResult.GetValue(lifeThreateningHediffAlert);
+          var sickPawn = sickPawns.RandomElement();
+          Target = sickPawn;
+          Subject = $"{sickPawn.Name.ToStringShort} is suffering from a life-threatening condition";
+          var criticalHediffs = sickPawn.health.hediffSet.hediffs
+            .Where(hediff => hediff.IsCurrentlyLifeThreatening)
+            .OrderByDescending(hediff => hediff.Severity)
+            .ToArray();
+          Explanation = $"{sickPawn.Name.ToStringShort} has the following critical conditions: {string.Join(", ", criticalHediffs.Select(hediff => hediff.LabelCap))}.";
+          break;
         default:
           if (alert != null)
             Subject = Subject.Replace(AlertPlaceholder, alert.Label);

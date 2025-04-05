@@ -208,6 +208,8 @@ namespace RimDialogue.Access
       #endregion
 
 
+
+
       if (Settings.VerboseLogging.Value) Mod.Log($"Getting dialogue.");
 
       try
@@ -245,7 +247,9 @@ namespace RimDialogue.Access
           }
         }
         var tracker = H.GetTracker();
-        var additionalInstructions = tracker.GetInstructions(null);
+        var additionalInstructions = tracker.GetInstructions(InstructionsSet.ALL_PAWNS);
+        if (initiator.IsColonist || (recipient != null && recipient.IsColonist))
+          additionalInstructions += "\r\n" + tracker.GetInstructions(InstructionsSet.COLONISTS);
         if (Settings.VerboseLogging.Value) Mod.Log($"Additional Instructions fetched for entry {entry.LogID}.");
         var dialogueData = new Core.DialogueData
         {

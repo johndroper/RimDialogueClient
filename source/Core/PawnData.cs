@@ -32,11 +32,13 @@ namespace RimDialogue.Core
     public bool IsAnimal = false;
     public string Childhood = String.Empty;
     public string Adulthood = String.Empty;
-    public int OpinionOfRecipient = 0;
+    //public int OpinionOfRecipient = 0;
     public string MoodString = string.Empty;
     public string Personality = string.Empty;
     public string PersonalityDescription = string.Empty;
     public string JobReport = string.Empty;
     public string Carrying = string.Empty;
+    public string[] Skills = [];
+    public string[] Traits = [];
   }
 }

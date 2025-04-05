@@ -36,7 +36,7 @@
         <li>informed->informed</li>
         <li>informed->notified </li>
         <li>informed->briefed</li>
-        <li>informed->shared with</li>       
+        <li>informed->shared with</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -166,8 +166,8 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **alert**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **alert**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about **alert**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] that **alert**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] that **alert**.</li>
         <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **alert** to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
@@ -423,10 +423,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **colonist**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] **colonist** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **colonist** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **colonist**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] fellow colonist, **colonist**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] fellow colonist, **colonist**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] fellow colonist, **colonist**, to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about fellow colonist, **colonist**.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -891,5 +891,531 @@
         <li>asked->consulted</li>
       </rulesStrings>
     </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorWeaponChitchat</defName>
+    <label>initiator weapon chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_WeaponChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weapon** [INITIATOR_pronoun] is using with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weapon** [INITIATOR_pronoun] is using to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **weapon** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **weapon** to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientWeaponChitchat</defName>
+    <label>recipient weapon chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_WeaponChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **weapon**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **weapon** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **weapon**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorBeardChitchat</defName>
+    <label>initiator beard chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BeardChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **beard** beard [INITIATOR_pronoun] is growing with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **beard** beard [INITIATOR_pronoun] is growing to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **beard** beard with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **beard** beard to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientBeardChitchat</defName>
+    <label>recipient beard chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BeardChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **beard** beard.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **beard** beard to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **beard** beard.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorBodyTattooChitchat</defName>
+    <label>initiator body tattoo chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BodyTattooChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **body_tattoo** body tattoo [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **body_tattoo** body tattoo [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **body_tattoo** body tattoo with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **body_tattoo** body tattoo to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientBodyTattooChitchat</defName>
+    <label>recipient body tattoo chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BodyTattooChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **body_tattoo** body tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **body_tattoo** body tattoo to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **body_tattoo** body tattoo.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorFaceTattooChitchat</defName>
+    <label>initiator face tattoo chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_FaceTattooChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **face_tattoo** face tattoo [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **face_tattoo** face tattoo [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **face_tattoo** face tattoo with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **face_tattoo** face tattoo to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientFaceTattooChitchat</defName>
+    <label>recipient face tattoo chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_FaceTattooChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **face_tattoo** face tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **face_tattoo** face tattoo to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **face_tattoo** face tattoo.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorHairChitchat</defName>
+    <label>initiator hair chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_HairChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **hair** hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **hair** hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hair** hair with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hair** hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **hair_color** hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **hair_color** hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hair_color** hair with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hair_color** hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **hair** **hair_color** hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **hair** **hair_color** hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hair** **hair_color** hair with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hair** **hair_color** hair to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientHairChitchat</defName>
+    <label>recipient hair chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_HairChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hair** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **hair** hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **hair** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hair_color** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **hair_color** hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **hair_color** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hair** **hair_color** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **hair** **hair_color** hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **hair** **hair_color** hair.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>ColonyAnimalChitchat</defName>
+    <label>colony animal chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_ColonyAnimal</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the colony's animal, **animal**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the colony's animal, **animal**, to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the colony's animal, **animal**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the colony's animal, **animal**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>WildAnimalChitchat</defName>
+    <label>colony animal chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_WildAnimal</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the nearby wild animal, **animal**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the nearby wild animal, **animal**, to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the nearby wild animal, **animal**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about nearby the wild animal, **animal**.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RoomChitchat</defName>
+    <label>room chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_RoomChitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **room** they are in.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **room** they are in to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **room** they are in with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **room** they are in.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>InitiatorBedroomChitchat</defName>
+    <label>initiator bedroom chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BedroomChitchat_Initiator</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the bedroom [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the bedroom [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] bedroom with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] bedroom to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->had a conversation about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientBedroomChitchat</defName>
+    <label>recipient bedroom chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BedroomChitchat_Recipient</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s bedroom.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s bedroom to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] bedroom.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+    
+
+    
   </InteractionDef>
 </Defs>

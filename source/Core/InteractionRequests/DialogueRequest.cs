@@ -54,7 +54,13 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestWorstSkill.BuildFrom(__instance, interactionTemplate);
           break;
         case "ColonistChitchat":
-          dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
+            dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "ColonyAnimalChitchat":
+          dialogueRequest = DialogueRequestAnimal_Colony.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "WildAnimalChitchat":
+          dialogueRequest = DialogueRequestAnimal_Wild.BuildFrom(__instance, interactionTemplate);
           break;
         case "InitiatorHealthChitchat":
           dialogueRequest = DialogueRequestHealthInitiator.BuildFrom(__instance, interactionTemplate);
@@ -80,6 +86,15 @@ namespace RimDialogue.Core.InteractionData
         case "WeatherChitchat":
           dialogueRequest = DialogueRequestWeather.BuildFrom(__instance, interactionTemplate);
           break;
+        case "RoomChitchat":
+          dialogueRequest = DialogueRequestRoom.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "InitiatorBedroomChitchat":
+          dialogueRequest = DialogueRequestRoom_InitiatorBedroom.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientBedroomChitchat":
+          dialogueRequest = DialogueRequestRoom_RecipientBedroom.BuildFrom(__instance, interactionTemplate);
+          break;
         case "HostileFactionChitchat":
           dialogueRequest = DialogueRequestHostileFaction.BuildFrom(__instance, interactionTemplate);
           break;
@@ -91,6 +106,24 @@ namespace RimDialogue.Core.InteractionData
           break;
         case "NeutralFactionChitchat":
           dialogueRequest = DialogueRequestNeutralFaction.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "InitiatorWeaponChitchat":
+          dialogueRequest = DialogueRequestWeapon_Initiator.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientWeaponChitchat":
+          dialogueRequest = DialogueRequestWeapon_Recipient.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "InitiatorBeardChitchat":
+        case "InitiatorBodyTattooChitchat":
+        case "InitiatorFaceTattooChitchat":
+        case "InitiatorHairChitchat":
+          dialogueRequest = DialogueRequestAppearance_Initiator.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientBeardChitchat":
+        case "RecipientBodyTattooChitchat":
+        case "RecipientFaceTattooChitchat":
+        case "RecipientHairChitchat":
+          dialogueRequest = DialogueRequestAppearance_Recipient.BuildFrom(__instance, interactionTemplate);
           break;
         default:
           if (Settings.VerboseLogging.Value) Mod.Log($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
@@ -205,24 +238,21 @@ namespace RimDialogue.Core.InteractionData
       }
       if (Settings.VerboseLogging.Value) Mod.Log($"Pawns fetched.");
       if (initiator is null || initiator.Map != Find.CurrentMap)
-      {
         throw new Exception("Initiator is null or not on the current map");
-      }
       if (recipient is null || recipient.Map != Find.CurrentMap)
-      {
         throw new Exception("Recipient is not null or not on the current map");
-      }
       this.Initiator = initiator;
       this.Recipient = recipient;
       if (Settings.VerboseLogging.Value) Mod.Log($"Building ChitChatData");
       clientId = Settings.ClientId.Value;
       var tracker = H.GetTracker();
-      instructions = tracker.GetInstructions(null) + " " + Settings.SpecialInstructions.Value;
+      instructions = tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
+      if (initiator.IsColonist || recipient.IsColonist)
+        instructions += "\r\n" + tracker.GetInstructions(InstructionsSet.COLONISTS);
       maxWords = Settings.MaxWords.Value;
       initiatorOpinionOfRecipient = initiator.relations.OpinionOf(recipient);
       recipientOpinionOfInitiator = recipient.relations.OpinionOf(initiator);
       if (Settings.VerboseLogging.Value) Mod.Log($"ChitChatData built.");
-
       initiatorData = H.MakePawnData(Initiator, tracker.GetInstructions(Initiator));
       recipientData = H.MakePawnData(Recipient, tracker.GetInstructions(Recipient));
     }

@@ -51,10 +51,44 @@ namespace RimDialogue
     public static readonly Setting<float> FamilyChitChatWeight = new (nameof(FamilyChitChatWeight), 1f);
     public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 1f);
     public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 1f);
+    public static readonly Setting<float> WeaponChitChatWeight = new(nameof(WeaponChitChatWeight), 1f);
+    public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 1f);
+    public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 1f);
+    public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 1f);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 
     public static void Reset() => AllSettings.Do(static setting => setting.ToDefault());
+
+    public static Setting<float>[] chitChatWeights = new[]
+    {
+        MessageChitChatWeight,
+        GameConditionChitChatWeight,
+        RecentBattleChitChatWeight,
+        RecentIncidentChitChatWeight,
+        AlertChitChatWeight,
+        SameIdeologyChitChatWeight,
+        SkillChitChatWeight,
+        ColonistChitChatWeight,
+        HealthChitChatWeight,
+        ApparelChitChatWeight,
+        NeedChitChatWeight,
+        FamilyChitChatWeight,
+        WeatherChitChatWeight,
+        FactionChitChatWeight,
+        WeaponChitChatWeight,
+        AppearanceChitChatWeight,
+        AnimalChitChatWeight,
+        RoomChitChatWeight
+    };
+
+    public static void ToggleAllChitChatWeights() // Add this method
+    {
+      foreach (var weight in chitChatWeights)
+      {
+        weight.Value = weight.Value == 0 ? 1 : 0;
+      }
+    }
 
     public override void ExposeData()
     {

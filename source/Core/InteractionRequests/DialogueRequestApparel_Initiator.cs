@@ -4,7 +4,7 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestApparel_Initiator : DialogueRequestApparel<DialogueDataApparel>
+  public class DialogueRequestApparel_Initiator : DialogueRequestApparel
   {
     public static DialogueRequestApparel_Initiator BuildFrom(LogEntry entry, string interactionTemplate)
     {

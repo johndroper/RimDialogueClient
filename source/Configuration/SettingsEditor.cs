@@ -31,6 +31,8 @@ namespace RimDialogue.Configuration
       l.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
       l.CheckboxLabeled("RimDialogue.ShowDialogueMessages".Translate(), ref Settings.ShowDialogueMessages.Value);
       l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
+      l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
+
       l.SliderLabeled("RimDialogue.DialogueMessageWidth".Translate(), ref Settings.DialogueMessageWidth.Value, 200, 1200);
       l.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f);
       l.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f);
@@ -41,6 +43,8 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
       l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
       //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
+
+      if (l.ButtonText("RimDialogue.ToggleAllChitchatWeights".Translate())) { ToggleAllChitChatWeights(); }
       l.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.RecentBattleChitChatWeight".Translate(), ref Settings.RecentBattleChitChatWeight.Value, 0, 1);
@@ -55,7 +59,11 @@ namespace RimDialogue.Configuration
       l.SliderLabeled("RimDialogue.FamilyChitChatWeight".Translate(), ref Settings.FamilyChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.WeatherChitChatWeight".Translate(), ref Settings.WeatherChitChatWeight.Value, 0, 1);
       l.SliderLabeled("RimDialogue.FactionChitChatWeight".Translate(), ref Settings.FactionChitChatWeight.Value, 0, 1);
-      l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
+      l.SliderLabeled("RimDialogue.WeaponChitChatWeight".Translate(), ref Settings.WeaponChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.AppearanceChitChatWeight".Translate(), ref Settings.AppearanceChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.AnimalChitChatWeight".Translate(), ref Settings.AnimalChitChatWeight.Value, 0, 1);
+      l.SliderLabeled("RimDialogue.RoomChitChatWeight".Translate(), ref Settings.RoomChitChatWeight.Value, 0, 1);
+
       l.EndScrollView(ref _viewRect);
     }
 
@@ -64,6 +72,11 @@ namespace RimDialogue.Configuration
       _colorBuffer = new string[4];
 
       Settings.Reset();
+    }
+
+    private static void ToggleAllChitChatWeights()
+    {
+      Settings.ToggleAllChitChatWeights();
     }
 
     public static void ShowWindow() => Find.WindowStack!.Add(new Dialog());
