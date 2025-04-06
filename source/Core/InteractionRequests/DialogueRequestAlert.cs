@@ -45,8 +45,7 @@ namespace RimDialogue.Core.InteractionData
           {
             var room = abandonedBaby.GetRoom();
             Explanation = $"The baby {abandonedBaby.Name.ToStringShort} is in the {room.GetRoomRoleLabel()}.";
-          }
-          ;
+          };
           break;
         case Alert_AnimalFilth animalFilthAlert:
           if (Settings.VerboseLogging.Value) Mod.Log($"Alert_AnimalFilth");
@@ -200,13 +199,13 @@ namespace RimDialogue.Core.InteractionData
           var hypothermicAnimals = (List<Pawn>)Reflection.RimWorld_Alert_HypothermicAnimals_HypothermicAnimalsResult.GetValue(hypothermicAnimalsAlert);
           var hypothermicAnimal = hypothermicAnimals.RandomElement();
           Target = hypothermicAnimal;
-          Subject = $"{hypothermicAnimal.Name.ToStringShort} is suffering from hypothermia";
+          Subject = $"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label} is suffering from hypothermia";
           var hypothermicAnimalHediff = hypothermicAnimal.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Hypothermia, mustBeVisible: true);
           StringBuilder hypothermicAnimalSb = new StringBuilder();
-          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name.ToStringShort}'s hypothermia is in the {hypothermicAnimalHediff.CurStage.label} stage");
+          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label}'s hypothermia is in the {hypothermicAnimalHediff.CurStage.label} stage");
           hypothermicAnimalSb.AppendLine($"The current temperature outside is {H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)} ");
-          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name.ToStringShort}'s comfortable temperature range is {hypothermicAnimal.ComfortableTemperatureRange()}");
-          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name.ToStringShort}'s hypothermia is {(hypothermicAnimalHediff.IsCurrentlyLifeThreatening ? "life threatening" : "not life threatening")}.");
+          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label}'s comfortable temperature range is {hypothermicAnimal.ComfortableTemperatureRange()}");
+          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label}'s hypothermia is {(hypothermicAnimalHediff.IsCurrentlyLifeThreatening ? "life threatening" : "not life threatening")}.");
           Explanation = hypothermicAnimalSb.ToString();
           break;
         case Alert_IdeoBuildingDisrespected ideoBuildingDisrespectedAlert:

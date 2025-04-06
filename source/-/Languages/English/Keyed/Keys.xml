@@ -51,7 +51,7 @@
   <RimDialogue.Unknown>Unknown</RimDialogue.Unknown>
 
   <RimDialogue.AllPawnsTip>Enter custom instructions that will apply to all pawns during dialogue generation. Use this to define tone, style, or behavior guidelines (e.g., “Keep responses short and sarcastic” or “Speak formally with archaic phrasing”). These instructions will be added to every pawn’s prompt.</RimDialogue.AllPawnsTip>
-  <RimDialogue.ColonistsTip>Enter instructions that will apply only to colonists when generating dialogue. Use this to shape teh culure of your colony and how your colonists speak in conversations (e.g., “Use optimistic language” or “Refer to each other by full names”). These instructions won't affect prisoners, guests, or other pawns.</RimDialogue.ColonistsTip>
+  <RimDialogue.ColonistsTip>Enter instructions that will apply only to colonists when generating dialogue. Use this to shape the culure of your colony and how your colonists speak in conversations (e.g., “Use optimistic language” or “Refer to each other by full names”). These instructions won't affect prisoners, guests, or other pawns.</RimDialogue.ColonistsTip>
   <RimDialogue.PawnTip>Enter custom instructions that apply only to this pawn’s dialogue. Use this to define unique personality traits, speech patterns, or quirks (e.g., “Always speaks in rhyme” or “Uses military jargon”).</RimDialogue.PawnTip>
   
 </LanguageData>

@@ -45,6 +45,7 @@ public class GameComponent_ConversationTracker : GameComponent
     {
       var pawnData = H.MakePawnData(pawn, null);
       WWWForm form = new WWWForm();
+      form.AddField("clientId", Settings.ClientId.Value);
       form.AddField("pawnJson", JsonUtility.ToJson(pawnData));
       var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form);
       if (dialogueResponse.text != null)
@@ -61,6 +62,7 @@ public class GameComponent_ConversationTracker : GameComponent
     try
     {
       WWWForm form = new WWWForm();
+      form.AddField("clientId", Settings.ClientId.Value);
       form.AddField("scenarioText", scenarioText);
       var dialogueResponse = await DialogueRequest.Post("home/GetScenarioPrompt", form);
       if (dialogueResponse.text != null)
