@@ -2,7 +2,6 @@
 
 using HarmonyLib;
 using RimDialogue.Core.InteractionData;
-using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
 using Verse;

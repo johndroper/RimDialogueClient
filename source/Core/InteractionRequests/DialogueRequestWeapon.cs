@@ -1,6 +1,5 @@
 #nullable enable
 using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -24,20 +23,14 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Execute()
+    public override void Build(DialogueDataWeapon data)
     {
-      var dialogueData = new DialogueDataWeapon();
-      dialogueData.WeaponLabel = Weapon.def?.label ?? string.Empty;
-      dialogueData.WeaponDescription = H.RemoveWhiteSpace(Weapon.def?.description) ?? string.Empty;
-      dialogueData.WeaponQuality = Weapon.TryGetQuality(out var quality) ? quality.GetLabel() : string.Empty;
-
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "WeaponChitchat");
+      data.WeaponLabel = Weapon.def?.label ?? string.Empty;
+      data.WeaponDescription = H.RemoveWhiteSpace(Weapon.def?.description) ?? string.Empty;
+      data.WeaponQuality = Weapon.TryGetQuality(out var quality) ? quality.GetLabel() : string.Empty;
     }
+
+    public override string? Action => "WeaponChitchat";
 
     public override string GetInteraction()
     {

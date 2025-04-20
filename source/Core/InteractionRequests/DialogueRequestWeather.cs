@@ -1,5 +1,4 @@
 using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -24,24 +23,18 @@ namespace RimDialogue.Core.InteractionData
       OutdoorTemp = Find.CurrentMap.mapTemperature.OutdoorTemp;
     }
 
-    public override void Execute()
+    public override void Build(DialogueDataWeather data)
     {
-      var dialogueData = new DialogueDataWeather
-      {
-        WeatherLabel = this.Weather.label,
-        WeatherDescription = this.Weather.description,
-        BiomeLabel = this.Biome.label,
-        BiomeDescription = this.Biome.description,
-        Season = this.Season.ToString(),
-        OutdoorTemp = this.OutdoorTemp,
-      };
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "WeatherChitchat");
+      data.WeatherLabel = this.Weather.label;
+      data.WeatherDescription = this.Weather.description;
+      data.BiomeLabel = this.Biome.label;
+      data.BiomeDescription = this.Biome.description;
+      data.Season = this.Season.ToString();
+      data.OutdoorTemp = this.OutdoorTemp;
+      base.Build(data);
     }
+
+    public override string Action => "WeatherChitchat";
 
     public override string GetInteraction()
     {

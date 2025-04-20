@@ -1,9 +1,6 @@
 using RimWorld;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
@@ -17,13 +14,12 @@ namespace RimDialogue.Core.InteractionWorkers
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          recipient.Inhumanized() ||
           initiator.needs == null ||
           !initiator.needs.AllNeeds.Where(need => need.CurLevelPercentage < .333f).Any())
           return 0f;
 
         if (Settings.VerboseLogging.Value) Mod.Log($"Unsatisfied Need Weight: {initiator.Name} -> {recipient.Name} = {Settings.NeedChitChatWeight.Value}");
-        return Settings.NeedChitChatWeight.Value;
+        return Settings.NeedChitChatWeight.Value * 5;
       }
       catch (Exception ex)
       {

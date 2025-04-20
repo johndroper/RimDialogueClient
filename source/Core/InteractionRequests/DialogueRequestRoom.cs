@@ -1,5 +1,4 @@
 using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -27,24 +26,18 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Execute()
+    public override void Build(DialogueDataRoom data)
     {
-      var dialogueData = new DialogueDataRoom
-      {
-        RoomLabel = Room.GetRoomRoleLabel(),
-        RoomCleanliness = RoomStatDefOf.Cleanliness.GetScoreStage(Room.GetStat(RoomStatDefOf.Cleanliness)).label,
-        RoomImpressiveness = RoomStatDefOf.Impressiveness.GetScoreStage(Room.GetStat(RoomStatDefOf.Impressiveness)).label,
-        RoomWealth = RoomStatDefOf.Wealth.GetScoreStage(Room.GetStat(RoomStatDefOf.Wealth)).label,
-        RoomSpace = RoomStatDefOf.Space.GetScoreStage(Room.GetStat(RoomStatDefOf.Space)).label,
-        RoomBeauty = RoomStatDefOf.Beauty.GetScoreStage(Room.GetStat(RoomStatDefOf.Beauty)).label,
-      };
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "RoomChitchat");
+      data.RoomLabel = Room.GetRoomRoleLabel();
+      data.RoomCleanliness = RoomStatDefOf.Cleanliness.GetScoreStage(Room.GetStat(RoomStatDefOf.Cleanliness)).label;
+      data.RoomImpressiveness = RoomStatDefOf.Impressiveness.GetScoreStage(Room.GetStat(RoomStatDefOf.Impressiveness)).label;
+      data.RoomWealth = RoomStatDefOf.Wealth.GetScoreStage(Room.GetStat(RoomStatDefOf.Wealth)).label;
+      data.RoomSpace = RoomStatDefOf.Space.GetScoreStage(Room.GetStat(RoomStatDefOf.Space)).label;
+      data.RoomBeauty = RoomStatDefOf.Beauty.GetScoreStage(Room.GetStat(RoomStatDefOf.Beauty)).label;
+      base.Build(data);
     }
+
+    public override string Action => "RoomChitchat";
 
     public override string GetInteraction()
     {

@@ -1,11 +1,9 @@
-using RimDialogue.Access;
-using System.Collections.Generic;
-using System.Linq;
+using RimDialogue.Core.InteractionRequests;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestColonyAnimal<DataT> : DialogueRequest<DataT> where DataT : DialogueTargetData, new()
+  public class DialogueRequestColonyAnimal<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueTargetData, new()
   {
     const string animalPlaceholder = "**animal**";
 
@@ -14,30 +12,22 @@ namespace RimDialogue.Core.InteractionData
       return new DialogueRequestColonyAnimal<DataT>(entry, interactionTemplate);
     }
 
-    Pawn Target { get; set; }
+    public override Pawn Target => _target;
+
+    private Pawn _target;
 
     public DialogueRequestColonyAnimal(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
-    {;
-      Target = Find.CurrentMap.mapPawns.SpawnedColonyAnimals.RandomElement();
+    {
+      ;
+      _target = Find.CurrentMap.mapPawns.SpawnedColonyAnimals.RandomElement();
     }
 
-    public override void Execute()
-    {
-      var dialogueData = new DataT();
-      var tracker = H.GetTracker();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData),
-          new("targetJson", H.MakePawnData(Target, tracker.GetInstructions(Target)))
-        ],
-        "ColonistChitchat");
-    }
+    public override string Action => "ColonistChitchat";
 
     public override string GetInteraction()
     {
       return this.InteractionTemplate
-        .Replace(animalPlaceholder, this.Target.Name.ToStringShort);
+        .Replace(animalPlaceholder, this._target.Name.ToStringShort);
     }
   }
 }

@@ -1,4 +1,3 @@
-using RimDialogue.Access;
 using RimWorld;
 using System;
 using System.Linq;
@@ -16,8 +15,6 @@ namespace RimDialogue.Core.InteractionWorkers
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          !initiator.IsColonist ||
-          !recipient.IsColonist ||
           !relations.Any())
         {
           return 0f;

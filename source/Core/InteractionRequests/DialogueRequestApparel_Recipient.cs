@@ -23,7 +23,7 @@ namespace RimDialogue.Core.InteractionData
       {
         if (_apparel == null)
           _apparel = Recipient.apparel.WornApparel.RandomElement();
-        return _apparel; 
+        return _apparel;
       }
     }
   }

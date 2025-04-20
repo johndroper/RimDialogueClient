@@ -1,6 +1,7 @@
 #nullable enable
 
 using RimDialogue.Access;
+using RimDialogue.Core.InteractionRequests;
 using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
@@ -30,7 +31,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestIncident<DialogueDataIncident>.BuildFrom(__instance, interactionTemplate);
           break;
         case "RecentBattleChitchat":
-          dialogueRequest = DialogueRequestBattle<DialogueDataBattle>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestBattle_Recent.BuildFrom(__instance, interactionTemplate);
           break;
         case "GameConditionChitchat":
           dialogueRequest = DialogueRequestCondition<DialogueDataCondition>.BuildFrom(__instance, interactionTemplate);
@@ -54,7 +55,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestWorstSkill.BuildFrom(__instance, interactionTemplate);
           break;
         case "ColonistChitchat":
-            dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
           break;
         case "ColonyAnimalChitchat":
           dialogueRequest = DialogueRequestAnimal_Colony.BuildFrom(__instance, interactionTemplate);
@@ -72,6 +73,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestApparel_Initiator.BuildFrom(__instance, interactionTemplate);
           break;
         case "RecipientApparelChitchat":
+        case "SlightApparel":
           dialogueRequest = DialogueRequestApparel_Recipient.BuildFrom(__instance, interactionTemplate);
           break;
         case "UnsatisfiedNeedChitchat":
@@ -81,6 +83,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestInitiatorFamily.BuildFrom(__instance, interactionTemplate);
           break;
         case "RecipientFamilyChitchat":
+        case "SlightFamily":
           dialogueRequest = DialogueRequestRecipientFamily.BuildFrom(__instance, interactionTemplate);
           break;
         case "WeatherChitchat":
@@ -111,6 +114,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestWeapon_Initiator.BuildFrom(__instance, interactionTemplate);
           break;
         case "RecipientWeaponChitchat":
+        case "SlightWeapon":
           dialogueRequest = DialogueRequestWeapon_Recipient.BuildFrom(__instance, interactionTemplate);
           break;
         case "InitiatorBeardChitchat":
@@ -123,7 +127,20 @@ namespace RimDialogue.Core.InteractionData
         case "RecipientBodyTattooChitchat":
         case "RecipientFaceTattooChitchat":
         case "RecipientHairChitchat":
+        case "SlightBeard":
+        case "SlightBodyTattoo":
+        case "SlightFaceTattoo":
+        case "SlightHair":
           dialogueRequest = DialogueRequestAppearance_Recipient.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "DeadColonistDeepTalk":
+          dialogueRequest = DialogueRequestDeadColonist.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "InitiatorBattleChitchat":
+          dialogueRequest = DialogueRequestBattle_Initiator.BuildFrom(__instance, interactionTemplate);
+          break;
+        case "RecipientBattleChitchat":
+          dialogueRequest = DialogueRequestBattle_Recipient.BuildFrom(__instance, interactionTemplate);
           break;
         default:
           if (Settings.VerboseLogging.Value) Mod.Log($"Default interaction def {interactionDef.defName} for log entry {__instance.LogID}.");
@@ -210,12 +227,13 @@ namespace RimDialogue.Core.InteractionData
     public string clientId;
     public string instructions;
     public int maxWords;
+    public int minWords;
     public int initiatorOpinionOfRecipient;
     public int recipientOpinionOfInitiator;
 
     public DialogueRequest(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Dialogue Request started: { this.GetType().Name }");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Dialogue Request started: {this.GetType().Name}");
       InteractionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry);
       Pawn? initiator, recipient;
       InteractionDef interactionDef;
@@ -250,6 +268,7 @@ namespace RimDialogue.Core.InteractionData
       if (initiator.IsColonist || recipient.IsColonist)
         instructions += "\r\n" + tracker.GetInstructions(InstructionsSet.COLONISTS);
       maxWords = Settings.MaxWords.Value;
+      minWords = Settings.MinWords.Value;
       initiatorOpinionOfRecipient = initiator.relations.OpinionOf(recipient);
       recipientOpinionOfInitiator = recipient.relations.OpinionOf(initiator);
       if (Settings.VerboseLogging.Value) Mod.Log($"ChitChatData built.");
@@ -263,11 +282,12 @@ namespace RimDialogue.Core.InteractionData
       data.ClientId = clientId;
       data.Instructions = instructions;
       data.MaxWords = maxWords;
+      data.MinWords = minWords;
       data.InitiatorOpinionOfRecipient = initiatorOpinionOfRecipient;
       data.RecipientOpinionOfInitiator = recipientOpinionOfInitiator;
     }
 
-    public async void Send(
+    public virtual async void Send(
       List<KeyValuePair<string, object?>> datae,
       string? action = null)
     {
@@ -293,28 +313,25 @@ namespace RimDialogue.Core.InteractionData
             Mod.Log($"Log entry {Entry.LogID} was rate limited: {dialogueResponse.rate} requests per second.");
             if (!Settings.ShowInteractionBubbles.Value)
               Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, interaction);
-            if (Settings.ShowDialogueMessages.Value)
-              DialogueMessages.AddMessage(
-                interaction,
-                new LookTargets(Initiator));
+            //if (Settings.ShowDialogueMessages.Value && GameComponent_ConversationTracker.Instance.DialogueMessageWindow != null)
+            //  GameComponent_ConversationTracker.Instance.DialogueMessageWindow.AddMessage(
+            //    interaction,
+            //    new LookTargets(Initiator));
             return;
           }
-
           if (InteractionDef.Worker is InteractionWorker_Dialogue)
             ((InteractionWorker_Dialogue)InteractionDef.Worker).SetLastUsedTicks();
-
           var tracker = H.GetTracker();
-          var conversation = interaction + "\n" + dialogueResponse.text;
-          tracker.AddConversation(Initiator, Recipient, conversation);
+          tracker.AddConversation(Initiator, Recipient, interaction, dialogueResponse.text);
           if (Settings.VerboseLogging.Value) Mod.Log($"Conversation added for log entry {Entry.LogID}.");
           if (dialogueResponse.text == null)
             throw new Exception("Response text is null.");
           if (Settings.ShowDialogueBubbles.Value)
             Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, dialogueResponse.text);
-          if (Settings.ShowDialogueMessages.Value)
-            DialogueMessages.AddMessage(
-              conversation,
-              new LookTargets(Initiator));
+          //if (Settings.ShowDialogueMessages.Value && GameComponent_ConversationTracker.Instance.DialogueMessageWindow != null)
+          //  GameComponent_ConversationTracker.Instance.DialogueMessageWindow.AddMessage(
+          //    conversation,
+          //    new LookTargets(Initiator));
           if (Settings.VerboseLogging.Value) Mod.Log($"GetChitChat Complete for log entry {Entry.LogID}.");
         }
       }
@@ -323,6 +340,15 @@ namespace RimDialogue.Core.InteractionData
         Mod.ErrorV($"An error occurred in Send for log entry {Entry.LogID}.\r\n{ex}");
       }
     }
+
+    public virtual string? Action
+    {
+      get
+      {
+        return "Dialogue";
+      }
+    }
+
     public override void Execute()
     {
       var dialogueData = new DataT();
@@ -331,7 +357,7 @@ namespace RimDialogue.Core.InteractionData
         [
           new("chitChatJson", dialogueData)
         ],
-        "Dialogue");
+        Action);
     }
   }
 }

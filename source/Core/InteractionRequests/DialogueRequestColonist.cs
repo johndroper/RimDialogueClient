@@ -1,11 +1,12 @@
 using RimDialogue.Access;
+using RimDialogue.Core.InteractionRequests;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestColonist<DataT> : DialogueRequest<DataT> where DataT : DialogueTargetData, new()
+  public class DialogueRequestColonist<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueTargetData, new()
   {
     const string colonistPlaceholder = "**colonist**";
 
@@ -14,31 +15,27 @@ namespace RimDialogue.Core.InteractionData
       return new DialogueRequestColonist<DataT>(entry, interactionTemplate);
     }
 
-    Pawn Target { get; set; }
+    private Pawn _target;
+    public override Pawn Target
+    {
+      get
+      {
+        return _target;
+      }
+    }
 
     public DialogueRequestColonist(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       var colonists = Reflection.RimWorld_ColonistBar_TmpColonistsInOrder.GetValue(Find.ColonistBar) as List<Pawn>;
       if (colonists != null && colonists.Any())
-        Target = colonists
+        _target = colonists
           .Where(colonist => colonist != this.Initiator && colonist != this.Recipient)
           .RandomElement();
       else
-        Target = this.Initiator;
+        _target = this.Initiator;
     }
 
-    public override void Execute()
-    {
-      var dialogueData = new DataT();
-      var tracker = H.GetTracker();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData),
-          new("targetJson", H.MakePawnData(Target, tracker.GetInstructions(Target)))
-        ],
-        "ColonistChitchat");
-    }
+    public override string Action => "ColonistChitchat";
 
     public override string GetInteraction()
     {

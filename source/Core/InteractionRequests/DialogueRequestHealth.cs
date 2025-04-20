@@ -1,11 +1,9 @@
 #nullable enable
-using System;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestHealth : DialogueRequest<DialogueDataHealth> 
+  public abstract class DialogueRequestHealth : DialogueRequest<DialogueDataHealth>
   {
     const string Placeholder = "**hediff**";
 
@@ -19,21 +17,17 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override void Execute()
+    public override void Build(DialogueDataHealth data)
     {
-      var dialogueData = new DialogueDataHealth();
-      dialogueData.HediffLabel = this.Hediff.LabelCap ?? string.Empty;
-      dialogueData.HediffSeverity = this.Hediff.Severity.ToString() ?? string.Empty;
-      dialogueData.HediffDescription = this.Hediff.def.description ?? string.Empty;
-      dialogueData.HediffSource = this.Hediff.sourceLabel ?? string.Empty;
-      dialogueData.HediffPart = this.Hediff.Part?.Label ?? string.Empty;
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "HealthChitchat");
+      data.HediffLabel = this.Hediff.LabelCap ?? string.Empty;
+      data.HediffSeverity = this.Hediff.Severity.ToString() ?? string.Empty;
+      data.HediffDescription = this.Hediff.def.description ?? string.Empty;
+      data.HediffSource = this.Hediff.sourceLabel ?? string.Empty;
+      data.HediffPart = this.Hediff.Part?.Label ?? string.Empty;
+      base.Build(data);
     }
+
+    public override string? Action => "HealthChitchat";
 
     public override string GetInteraction()
     {

@@ -391,7 +391,7 @@ namespace RimDialogue.Access
           if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} was rate limited.");
           return;
         }
-        tracker.AddConversation(initiator, recipient, dialogueResponse.text);
+        tracker.AddConversation(initiator, recipient, logEntryText, dialogueResponse.text);
         if (Settings.VerboseLogging.Value) Mod.Log($"Conversation added for entry {entry.LogID}.");
         if (dialogueResponse.text == null)
           throw new Exception("Response text is null.");

@@ -1,22 +1,3 @@
-carrot
-onion
-turnip
-gourd
-pumpkin
-cauliflower
-bell pepper
-pepper
-mushroom
-pea
-artichoke
-eggplant
-lentil
-cabbage
-beet
-corn cob
-yam
-zucchini
-
 potato  
 sweet potato  
 broccoli  

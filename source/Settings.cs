@@ -12,8 +12,9 @@ namespace RimDialogue
     public const int AutoHideSpeedDisabled = 1;
 
     public static bool Activated = true;
-    
-    public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 25);
+
+    public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 50);
+    public static readonly Setting<int> MinWords = new(nameof(MinWords), 15);
     public static readonly SettingString SpecialInstructions = new(nameof(SpecialInstructions), string.Empty);
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());
     public static readonly SettingString ServerUrl = new(nameof(ServerUrl), "http://rimdialogue.proceduralproducts.com/");
@@ -34,12 +35,12 @@ namespace RimDialogue
     public static readonly Setting<int> MinDelayMinutes = new(nameof(MinDelayMinutes), 5);
     public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 1);
 
-    public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 2);
+    public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 4);
     public static readonly Setting<int> RecentBattleHours = new(nameof(RecentBattleHours), 6);
 
     public static readonly Setting<float> MessageChitChatWeight = new(nameof(MessageChitChatWeight), 1f);
     public static readonly Setting<float> GameConditionChitChatWeight = new(nameof(GameConditionChitChatWeight), 1f);
-    public static readonly Setting<float> RecentBattleChitChatWeight = new(nameof(RecentBattleChitChatWeight), 1f);
+    public static readonly Setting<float> BattleChitChatWeight = new(nameof(BattleChitChatWeight), 1f);
     public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 1f);
     public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 1f);
     public static readonly Setting<float> SameIdeologyChitChatWeight = new(nameof(SameIdeologyChitChatWeight), 1f);
@@ -48,13 +49,15 @@ namespace RimDialogue
     public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 1f);
     public static readonly Setting<float> ApparelChitChatWeight = new(nameof(ApparelChitChatWeight), 1f);
     public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 1f);
-    public static readonly Setting<float> FamilyChitChatWeight = new (nameof(FamilyChitChatWeight), 1f);
+    public static readonly Setting<float> FamilyChitChatWeight = new(nameof(FamilyChitChatWeight), 1f);
     public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 1f);
     public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 1f);
     public static readonly Setting<float> WeaponChitChatWeight = new(nameof(WeaponChitChatWeight), 1f);
     public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 1f);
     public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 1f);
     public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 1f);
+
+    public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 1f);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 
@@ -64,7 +67,7 @@ namespace RimDialogue
     {
         MessageChitChatWeight,
         GameConditionChitChatWeight,
-        RecentBattleChitChatWeight,
+        BattleChitChatWeight,
         RecentIncidentChitChatWeight,
         AlertChitChatWeight,
         SameIdeologyChitChatWeight,
@@ -79,7 +82,8 @@ namespace RimDialogue
         WeaponChitChatWeight,
         AppearanceChitChatWeight,
         AnimalChitChatWeight,
-        RoomChitChatWeight
+        RoomChitChatWeight,
+        DeadColonistWeight
     };
 
     public static void ToggleAllChitChatWeights() // Add this method

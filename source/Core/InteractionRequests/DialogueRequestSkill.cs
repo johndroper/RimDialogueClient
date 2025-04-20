@@ -1,11 +1,10 @@
 #nullable enable
 using RimWorld;
-using System;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestSkill: DialogueRequest<DialogueDataSkill>
+  public class DialogueRequestSkill : DialogueRequest<DialogueDataSkill>
   {
     public static readonly SkillDef[] SkillDefs = new SkillDef[]
     {
@@ -49,21 +48,17 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Execute()
+    public override string? Action => "SkillChitchat";
+
+    public override void Build(DialogueDataSkill data)
     {
-      var dialogueData = new DialogueDataSkill();
-      dialogueData.SkillName = SkillDef.label ?? string.Empty;
-      dialogueData.SkillDescription = SkillDef.description ?? string.Empty;
-      dialogueData.InitiatorSkillLevel = InitiatorSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
-      dialogueData.RecipientSkillLevel = RecipientSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
-      dialogueData.InitiatorPassion = InitiatorSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
-      dialogueData.RecipientPassion = RecipientSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "SkillChitchat");
+      data.SkillName = SkillDef.label ?? string.Empty;
+      data.SkillDescription = SkillDef.description ?? string.Empty;
+      data.InitiatorSkillLevel = InitiatorSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
+      data.RecipientSkillLevel = RecipientSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
+      data.InitiatorPassion = InitiatorSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
+      data.RecipientPassion = RecipientSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
+      base.Build(data);
     }
 
     public override string GetInteraction()

@@ -1,6 +1,4 @@
 #nullable enable
-using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData

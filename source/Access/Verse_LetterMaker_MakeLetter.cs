@@ -1,6 +1,7 @@
 #nullable enable
 
 using HarmonyLib;
+using RimDialogue.Core;
 using RimWorld;
 using System.Collections.Generic;
 using System.Reflection;
@@ -25,40 +26,6 @@ namespace RimDialogue.Access
           });
     }
 
-    public static Dictionary<int, RecentLetter> incidentData = [];
-
-    public static List<RecentLetter> recentLetters = new List<RecentLetter>();
-
-    public class RecentLetter
-    {
-      public RecentLetter(
-        TaggedString label,
-        TaggedString text,
-        LetterDef def,
-        LookTargets lookTargets,
-        Faction relatedFaction,
-        Quest? quest,
-        List<ThingDef> hyperlinkThingDefs)
-      {
-        Label = label;
-        Text = text;
-        Def = def;
-        LookTargets = lookTargets;
-        RelatedFaction = relatedFaction;
-        Quest = quest;
-        HyperlinkThingDefs = hyperlinkThingDefs;
-      }
-
-      public TaggedString Label { get; set; }
-      public TaggedString Text { get; set; }
-      public LetterDef Def { get; set; }
-      public LookTargets LookTargets { get; set; }
-      public Faction RelatedFaction { get; set; }
-      public Quest? Quest { get; set; }
-      public List<ThingDef>? HyperlinkThingDefs { get; set; }
-      public int Ticks { get; set; } = Find.TickManager.TicksAbs;
-    }
-
     public static void Prefix(
       ref TaggedString label,
       ref TaggedString text,
@@ -70,10 +37,10 @@ namespace RimDialogue.Access
     {
       if (Settings.VerboseLogging.Value)
         Log.Message($"Creating LetterRecord {def.defName}");
-      var record = new RecentLetter(label, text, def, lookTargets, relatedFaction, quest, hyperlinkThingDefs);
-      recentLetters.Add(record);
-      var currentTicks = Find.TickManager.TicksAbs;
-      recentLetters.RemoveAll(letter => currentTicks - letter.Ticks > Settings.RecentIncidentHours.Value * 2500);
+
+      var record = new GameComponent_LetterTracker.RecentLetter(label, text, def, lookTargets, relatedFaction, quest, hyperlinkThingDefs);
+
+      GameComponent_LetterTracker.Instance.RecordLetter(record);
     }
   }
 }

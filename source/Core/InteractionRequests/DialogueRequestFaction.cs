@@ -19,16 +19,7 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override void Execute()
-    {
-      var dialogueData = new DialogueDataFaction();
-      Build(dialogueData);
-      Send(
-        [
-            new("chitChatJson", dialogueData)
-        ],
-        "FactionChitchat");
-    }
+    public override string? Action => "FactionChitchat";
 
     public override void Build(DialogueDataFaction data)
     {

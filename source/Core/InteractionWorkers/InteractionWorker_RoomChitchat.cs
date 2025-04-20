@@ -1,7 +1,5 @@
-using RimDialogue.Access;
 using RimWorld;
 using System;
-using System.Linq;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
@@ -17,7 +15,6 @@ namespace RimDialogue.Core.InteractionWorkers
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          recipient.Inhumanized() ||
           initiator.IsOutside() ||
           recipient.IsOutside() ||
           initiatorRoom == null ||

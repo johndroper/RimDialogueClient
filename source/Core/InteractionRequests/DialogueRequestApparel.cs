@@ -1,6 +1,5 @@
 #nullable enable
 using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -25,23 +24,17 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-
-    public override void Execute()
+    public override void Build(DialogueDataApparel data)
     {
-      var dialogueData = new DialogueDataApparel();
-      dialogueData.ApparelLabel = Apparel.def?.label ?? string.Empty;
-      dialogueData.ApparelDescription = H.RemoveWhiteSpace(Apparel.def?.description) ?? string.Empty;
-      dialogueData.WornByCorpse = Apparel?.WornByCorpse ?? false;
+      data.ApparelLabel = Apparel.def?.label ?? string.Empty;
+      data.ApparelDescription = H.RemoveWhiteSpace(Apparel.def?.description) ?? string.Empty;
+      data.WornByCorpse = Apparel?.WornByCorpse ?? false;
       this.Apparel.TryGetQuality(out var quality);
-      dialogueData.ApparelQuality = quality.GetLabel();
-
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "ApparelChitchat");
+      data.ApparelQuality = quality.GetLabel();
+      base.Build(data);
     }
+
+    public override string? Action => "ApparelChitchat";
 
     public override string GetInteraction()
     {

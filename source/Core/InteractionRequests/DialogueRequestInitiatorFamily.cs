@@ -1,12 +1,10 @@
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Verse;
-using static UnityEngine.GraphicsBuffer;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestInitiatorFamily : DialogueRequest<DialogueDataFamily>
+  public class DialogueRequestInitiatorFamily : DialogueRequestTarget<DialogueDataFamily>
   {
     const string RelationPlaceholder = "**relation**";
     const string FamilyPlaceholder = "**family**";
@@ -29,17 +27,14 @@ namespace RimDialogue.Core.InteractionData
       data.RelationType = Relation.def.GetGenderSpecificLabel(Relation.otherPawn) ?? string.Empty;
     }
 
-    public override void Execute()
+    public override string Action => "FamilyChitchat";
+
+    public override Pawn Target
     {
-      var dialogueData = new DialogueDataFamily();
-      Build(dialogueData);
-      var tracker = H.GetTracker();
-      Send(
-        [
-          new("chitChatJson", dialogueData),
-          new("targetJson", H.MakePawnData(Relation.otherPawn, tracker.GetInstructions(Relation.otherPawn)))
-        ],
-        "FamilyChitchat");
+      get
+      {
+        return Relation.otherPawn;
+      }
     }
 
     public override string GetInteraction()

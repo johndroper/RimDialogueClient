@@ -1,6 +1,4 @@
 #nullable enable
-using RimWorld;
-using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -25,30 +23,26 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Execute()
+    public override void Build(DialogueDataAnimal data)
     {
-      var dialogueData = new DialogueDataAnimal();
-      dialogueData.AnimalName = Animal.Name?.ToStringShort ?? Animal.LabelNoParenthesis ?? string.Empty;
-      dialogueData.AnimalId = Animal.ThingID;
-      dialogueData.AnimalType = Animal.def?.label ?? string.Empty;
-      dialogueData.AnimalDescription = H.RemoveWhiteSpace(Animal.def?.description);
-      dialogueData.Predator = Animal.RaceProps?.predator ?? false;
-      dialogueData.HerdAnimal = Animal.RaceProps?.herdAnimal ?? false;
-      dialogueData.PackAnimal = Animal.RaceProps?.packAnimal ?? false;
-      dialogueData.Wildness = Animal.RaceProps?.wildness ?? -1f;
-      dialogueData.LifeExpectancy = Animal.RaceProps?.lifeExpectancy ?? -1;
-      dialogueData.BaseHungerRate = Animal.RaceProps?.baseHungerRate ?? -1f;
-      dialogueData.BaseBodySize = Animal.RaceProps?.baseBodySize ?? -1f;
-      dialogueData.BaseHealthScale = Animal.RaceProps?.baseHealthScale ?? -1f;
-      dialogueData.Trainability = Animal.RaceProps?.trainability?.label ?? string.Empty;
+      data.AnimalName = Animal.Name?.ToStringShort ?? Animal.LabelNoParenthesis ?? string.Empty;
+      data.AnimalId = Animal.ThingID;
+      data.AnimalType = Animal.def?.label ?? string.Empty;
+      data.AnimalDescription = H.RemoveWhiteSpace(Animal.def?.description);
+      data.Predator = Animal.RaceProps?.predator ?? false;
+      data.HerdAnimal = Animal.RaceProps?.herdAnimal ?? false;
+      data.PackAnimal = Animal.RaceProps?.packAnimal ?? false;
+      data.Wildness = Animal.RaceProps?.wildness ?? -1f;
+      data.LifeExpectancy = Animal.RaceProps?.lifeExpectancy ?? -1;
+      data.BaseHungerRate = Animal.RaceProps?.baseHungerRate ?? -1f;
+      data.BaseBodySize = Animal.RaceProps?.baseBodySize ?? -1f;
+      data.BaseHealthScale = Animal.RaceProps?.baseHealthScale ?? -1f;
+      data.Trainability = Animal.RaceProps?.trainability?.label ?? string.Empty;
 
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "AnimalChitchat");
+      base.Build(data);
     }
+
+    public override string? Action => "AnimalChitchat";
 
     public override string GetInteraction()
     {

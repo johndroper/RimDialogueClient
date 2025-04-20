@@ -17,16 +17,7 @@ namespace RimDialogue.Core.InteractionData
 
     }
 
-    public override void Execute()
-    {
-      var dialogueData = new DataT();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "IdeologyChitchat");
-    }
+    public override string Action => "IdeologyChitchat";
 
     public override string GetInteraction()
     {

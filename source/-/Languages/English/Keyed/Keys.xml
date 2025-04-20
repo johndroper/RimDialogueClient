@@ -2,6 +2,7 @@
 <LanguageData>
   <RimDialogue.ResetToDefault>Reset to default</RimDialogue.ResetToDefault>
   <RimDialogue.MaxWords>Approximate maximum dialogue length</RimDialogue.MaxWords>
+  <RimDialogue.MinWords>Approximate minimum dialogue length</RimDialogue.MinWords>
   <RimDialogue.SpecialInstructions>Additional instructions</RimDialogue.SpecialInstructions>
   <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>
   <RimDialogue.ServerUrl>Server URL</RimDialogue.ServerUrl>
@@ -11,7 +12,7 @@
 
   <RimDialogue.MinDelayMinutesAll>Minimum game minutes between all types of dialogue</RimDialogue.MinDelayMinutesAll>
   <RimDialogue.MinDelayMinutes>Minimum game minutes between each type of dialogue</RimDialogue.MinDelayMinutes>
-  <RimDialogue.MinTimeBetweenConversations>Minimum real second between dialogue</RimDialogue.MinTimeBetweenConversations>
+  <RimDialogue.MinTimeBetweenConversations>Minimum real seconds between dialogue</RimDialogue.MinTimeBetweenConversations>
 
   <RimDialogue.EnableCaravans>Enable dialogue on caravans</RimDialogue.EnableCaravans>
   <RimDialogue.OnlyColonists>Only colonists talk</RimDialogue.OnlyColonists>
@@ -22,10 +23,10 @@
   <RimDialogue.MinDialogueMessageLifetime>Minimum dialogue message lifetime</RimDialogue.MinDialogueMessageLifetime>
   <RimDialogue.DialogueMessageWidth>Dialogue message width</RimDialogue.DialogueMessageWidth>
 
-  <RimDialogue.ToggleAllChitchatWeights>Toggle All Chitchat Weights</RimDialogue.ToggleAllChitchatWeights>
+  <RimDialogue.ToggleAllChitchatWeights>Toggle All Dialogue Weights</RimDialogue.ToggleAllChitchatWeights>
   <RimDialogue.MessageChitChatWeight>Message dialogue weight</RimDialogue.MessageChitChatWeight>
   <RimDialogue.GameConditionChitChatWeight>Game condition dialogue weight</RimDialogue.GameConditionChitChatWeight>
-  <RimDialogue.RecentBattleChitChatWeight>Recent battleChit dialogue weight</RimDialogue.RecentBattleChitChatWeight>
+  <RimDialogue.BattleChitChatWeight>Battle dialogue weight</RimDialogue.BattleChitChatWeight>
   <RimDialogue.RecentIncidentChitChatWeight>Recent incident dialogue weight</RimDialogue.RecentIncidentChitChatWeight>
   <RimDialogue.AlertChitChatWeight>Alert dialogue weight</RimDialogue.AlertChitChatWeight>
   <RimDialogue.SameIdeologyChitChatWeight>Same ideology dialogue weight</RimDialogue.SameIdeologyChitChatWeight>
@@ -41,10 +42,11 @@
   <RimDialogue.AppearanceChitChatWeight>Appearance dialogue weight</RimDialogue.AppearanceChitChatWeight>
   <RimDialogue.AnimalChitChatWeight>Animal dialogue weight</RimDialogue.AnimalChitChatWeight>
   <RimDialogue.RoomChitChatWeight>Room dialogue weight</RimDialogue.RoomChitChatWeight>
-
+  <RimDialogue.DeadColonistDeepTalk>Dead colonist weight</RimDialogue.DeadColonistDeepTalk>
+  
   <RimDialogue.DefaultInstructions>Write dialogue that reflects the gritty, darkly humorous, and emotionally complex tone of RimWorld, grounded in the harsh realities of survival on a chaotic, unforgiving rimworld colony.</RimDialogue.DefaultInstructions>
   <RimDialogue.AdditionalInstructions>Additional Instructions For [pawn]</RimDialogue.AdditionalInstructions>
-  <RimDialogue.Ago> Ago</RimDialogue.Ago>
+  <RimDialogue.Ago> ago</RimDialogue.Ago>
   <RimDialogue.Conversations>Past Conversations</RimDialogue.Conversations>
   <RimDialogue.AllPawns>All Pawns</RimDialogue.AllPawns>
   <RimDialogue.Colonists>Colonists</RimDialogue.Colonists>

@@ -5,7 +5,7 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestWorstSkill: DialogueRequestSkill
+  public class DialogueRequestWorstSkill : DialogueRequestSkill
   {
     public static new DialogueRequestWorstSkill BuildFrom(LogEntry entry, string interactionTemplate)
     {

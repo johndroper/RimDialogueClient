@@ -82,10 +82,14 @@
     <Compile Include="Access\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
     <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
+    <Compile Include="Access\Verse_Pawn_Kill.cs" />
     <Compile Include="Core\DialogueMessages.cs" />
+    <Compile Include="Core\GameComponent_LetterTracker.cs" />
+    <Compile Include="Core\GameComponent_MessageTracker.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAnimal.cs" />
     <Compile Include="Core\InteractionData\DialogueDataApparel.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAppearance.cs" />
+    <Compile Include="Core\InteractionData\DialogueDataDeadPawn.cs" />
     <Compile Include="Core\InteractionData\DialogueDataFaction.cs" />
     <Compile Include="Core\InteractionData\DialogueDataHealth.cs" />
     <Compile Include="Core\InteractionData\DialogueDataNeed.cs" />
@@ -103,6 +107,9 @@
     <Compile Include="Core\InteractionRequests\DialogueRequestAnimal.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestAnimal_Colony.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestAnimal_Wild.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestBattle_Recipient.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestBattle_Initiator.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestBattle_Recent.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestColonyAnimal.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestApparel.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestApparel_Initiator.cs" />
@@ -114,6 +121,8 @@
     <Compile Include="Core\InteractionRequests\DialogueRequestAppearance.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestAppearance_Initiator.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestAppearance_Recipient.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestDeadColonist.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestDeadPawn.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestFaction.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestNeutralFaction.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestRecipientFamily.cs" />
@@ -125,6 +134,7 @@
     <Compile Include="Core\InteractionRequests\DialogueRequestRoom.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestRoom_InitiatorBedroom.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestRoom_RecipientBedroom.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestTarget.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestWeapon.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestWeapon_Initiator.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestWeapon_Recipient.cs" />
@@ -155,11 +165,21 @@
     <Compile Include="Core\InteractionWorkers\InteractionWorker_BodyTattooChitchat_Initiator.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_BodyTattooChitchat_Recipient.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_ColonistChitchat.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_DeadColonistDeepTalk.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueAlert.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_Dialogue.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_RecipientBattle.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_InitiatorBattle.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueBattle.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueMessage.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_DialogueIncident.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightHair.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightFaceTattoo.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightBodyTattoo.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightBeard.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightWeapon.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightFamily.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_SlightApparel.cs" />
     <Compile Include="Core\PawnData.cs" />
     <Compile Include="Core\DialogueData.cs" />
     <Compile Include="Core\DialogueResponse.cs" />
@@ -186,8 +206,10 @@
     <Compile Include="Core\InteractionWorkers\InteractionWorker_WeaponChitchat_Recipient.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_WeatherChitchat.cs" />
     <Compile Include="Core\InteractionWorkers\InteractionWorker_WildAnimal.cs" />
+    <Compile Include="Core\GameComponent_PawnDeathTracker.cs" />
     <Compile Include="Core\PromptResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\DialogueMessageWindow.cs" />
     <Compile Include="UI\MainTabWindow_RimDialogue.cs" />
   </ItemGroup>
   <ItemGroup>

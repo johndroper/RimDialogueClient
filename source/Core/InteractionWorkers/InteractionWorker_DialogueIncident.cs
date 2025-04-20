@@ -1,4 +1,3 @@
-using RimDialogue.Access;
 using RimWorld;
 using System;
 using System.Linq;
@@ -17,12 +16,12 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !Verse_LetterMaker_MakeLetter.recentLetters.Any())
+          !GameComponent_LetterTracker.Instance.RecentLetters.Any())
         {
           return 0f;
         }
         if (Settings.VerboseLogging.Value) Mod.Log($"Incident ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.RecentIncidentChitChatWeight.Value}");
-        return Settings.RecentIncidentChitChatWeight.Value;
+        return Settings.RecentIncidentChitChatWeight.Value * 10;
       }
       catch (Exception ex)
       {

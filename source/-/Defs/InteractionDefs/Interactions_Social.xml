@@ -51,9 +51,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '**recent_battle**'].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '**recent_battle**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the recent battle, '**recent_battle**', to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '**battle**'].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '**battle**', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the recent battle, '**battle**', to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->boasted about</li>
@@ -68,6 +68,88 @@
         <li>commentedabout->made a comment about</li>
         <li>commentedabout->commented about</li>
         <li>commentedabout->told a joke about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>InitiatorBattleChitchat</defName>
+    <label>initiator battle chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_InitiatorBattle</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the battle, '**battle**', [INITIATOR_nameDef] was in.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_posessive] [performance] in the battle, '**battle**', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the battle, '**battle**', [INITIATOR_pronoun] was in to [RECIPIENT_nameDef].</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->boasted about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->quipped about</li>
+        <li>talkedabout->discussed</li>
+        <li>commentedabout->said something about</li>
+        <li>commentedabout->said a word about</li>
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->commented about</li>
+        <li>commentedabout->told a joke about</li>
+        <li>performance->performance</li>
+        <li>performance->actions</li>
+        <li>performance->deeds</li>
+        <li>performance->achievements</li>
+        <li>performance->accomplishments</li>
+        <li>performance->feats</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RecipientBattleChitchat</defName>
+    <label>recipient battle chitchat</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_RecipientBattle</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Chitchat</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Chitchat</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [performance] in the battle, '**battle**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [performance] in the battle, '**battle**', to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [performance] in the battle, '**battle**'.</li>
+        <li>talkedabout->chatted about</li>
+        <li>talkedabout->shared a word about</li>
+        <li>talkedabout->spoke about</li>
+        <li>talkedabout->gabbed about</li>
+        <li>talkedabout->talked about</li>
+        <li>talkedabout->joked about</li>
+        <li>talkedabout->remarked about</li>
+        <li>talkedabout->brought up</li>
+        <li>talkedabout->said something about</li>
+        <li>talkedabout->said a word about</li>
+        <li>talkedabout->made a comment about</li>
+        <li>talkedabout->commented about</li>
+        <li>talkedabout->told a joke about</li>
+        <li>talkedabout->discussed</li>
+        <li>talkedabout->complemented</li>
+        <li>talkedabout->asked about</li>
+        <li>talkedabout->inquired about</li>
+        <li>asked->asked</li>
+        <li>asked->inquired of</li>
+        <li>asked->queried</li>
+        <li>asked->consulted</li>
+        <li>performance->performance</li>
+        <li>performance->actions</li>
+        <li>performance->deeds</li>
+        <li>performance->achievements</li>
+        <li>performance->accomplishments</li>
+        <li>performance->feats</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -583,6 +665,31 @@
     </logRulesInitiator>
   </InteractionDef>
   <InteractionDef>
+    <defName>SlightApparel</defName>
+    <label>slight apparel</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightApparel</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **apparel**.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
     <defName>UnsatisfiedNeedChitchat</defName>
     <label>unsatified need chitchat</label>
     <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_UnsatisfiedNeedChitchat</workerClass>
@@ -687,6 +794,31 @@
         <li>asked->inquired of</li>
         <li>asked->queried</li>
         <li>asked->consulted</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>SlightFamily</defName>
+    <label>slight family</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightFamily</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **relation** **family**.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -962,6 +1094,31 @@
     </logRulesInitiator>
   </InteractionDef>
   <InteractionDef>
+    <defName>SlightWeapon</defName>
+    <label>slight weapon</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightWeapon</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **weapon**.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
     <defName>InitiatorBeardChitchat</defName>
     <label>initiator beard chitchat</label>
     <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_BeardChitchat_Initiator</workerClass>
@@ -1026,6 +1183,33 @@
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
+  <InteractionDef>
+    <defName>SlightBeard</defName>
+    <label>slight beard</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightBeard</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **beard** beard.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+
   <InteractionDef>
     <defName>InitiatorBodyTattooChitchat</defName>
     <label>initiator body tattoo chitchat</label>
@@ -1092,6 +1276,31 @@
     </logRulesInitiator>
   </InteractionDef>
   <InteractionDef>
+    <defName>SlightBodyTattoo</defName>
+    <label>slight body tattoo</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightBodyTattoo</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **body_tattoo** body tattoo.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
     <defName>InitiatorFaceTattooChitchat</defName>
     <label>initiator face tattoo chitchat</label>
     <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_FaceTattooChitchat_Initiator</workerClass>
@@ -1153,6 +1362,31 @@
         <li>commentedabout->commented about</li>
         <li>commentedabout->told a joke about</li>
         <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>SlightFaceTattoo</defName>
+    <label>slight face tattoo</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightFaceTattoo</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **face_tattoo** face tattoo.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -1232,6 +1466,31 @@
         <li>commentedabout->commented about</li>
         <li>commentedabout->told a joke about</li>
         <li>commentedabout->remarked about</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>SlightHair</defName>
+    <label>slight hair</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_SlightHair</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <socialFightBaseChance>0.005</socialFightBaseChance>
+    <recipientThought>Slighted</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **hair** **hair_color** hair.</li>
+        <li>madefunof->made fun of</li>
+        <li>madefunof->disrespected</li>
+        <li>madefunof->subtly scorned</li>
+        <li>madefunof->subtly shamed</li>
+        <li>madefunof->spoke badly of</li>
+        <li>madefunof->spoke negatively of</li>
+        <li>madefunof->laughed at</li>
+        <li>madefunof->sniggered at</li>
+        <li>madefunof->implied negative things about</li>
+        <li>madefunof->belittled</li>
+        <li>madefunof->made a contemptuous remark about</li>
+        <li>madefunof->offered a backhanded compliment about</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -1414,8 +1673,31 @@
         <li>commentedabout->remarked about</li>
       </rulesStrings>
     </logRulesInitiator>
-    
-
-    
+  </InteractionDef>
+  <InteractionDef>
+    <defName>DeadColonistDeepTalk</defName>
+    <label>dead colonist deep talk</label>
+    <workerClass>RimDialogue.Core.InteractionWorkers.InteractionWorker_DeadColonistDeepTalk</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/DeepTalk</symbol>
+    <initiatorThought>DeepTalk</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <recipientThought>DeepTalk</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the death of fellow colonist, **pawn**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the death of fellow colonist, **pawn**, with [RECIPIENT_nameDef].</li>
+        <li>talkedabout->communicated thoughts about</li>
+        <li>talkedabout->exchanged thoughts about</li>
+        <li>talkedabout->exchanged ideas about</li>
+        <li>talkedabout->shared views on</li>
+        <li>talkedabout->shared beliefs on</li>
+        <li>talkedabout->discussed the topic of</li>
+        <li>talkedabout->had a heartfelt conversation about</li>
+        <li>talkedabout->talked quietly about</li>
+        <li>talkedabout->talked deeply about</li>
+        <li>talkedabout->connected on the topic of</li>
+      </rulesStrings>
+    </logRulesInitiator>
   </InteractionDef>
 </Defs>

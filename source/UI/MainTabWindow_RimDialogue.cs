@@ -27,7 +27,7 @@ namespace RimDialogue
     private Vector2 conversationScrollPosition = Vector2.zero; // For scrolling the conversation list
     private Vector2 instructionsScrollPosition = Vector2.zero;
 
-    private FilterMode filterMode = FilterMode.All; 
+    private FilterMode filterMode = FilterMode.All;
     private Pawn? selectedPawn = null;
 
     private static string additionalInstructionsText = "RimDialogue.AdditionalInstructions".Translate().ToString();
@@ -118,7 +118,7 @@ namespace RimDialogue
       };
 
       Widgets.Label(instructionsLabelRect, instructionsLabel);
-      
+
       y += 30f;
 
       Rect instructionsScrollRect = new Rect(0, y, leftColWidth, inRect.height - y - 10);
@@ -197,7 +197,7 @@ namespace RimDialogue
           Widgets.Label(periodRect, (Find.TickManager.TicksGame - conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
           convoY += labelHeight;
         }
-        
+
         string displayText = conversation.text ?? string.Empty;
         float textHeight = Text.CalcHeight(displayText, conversationContentRectWidth);
         var convoRect = new Rect(0, convoY, conversationContentRectWidth, textHeight);

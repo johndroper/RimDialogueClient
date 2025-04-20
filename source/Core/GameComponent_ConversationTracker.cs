@@ -2,17 +2,33 @@
 using RimDialogue;
 using RimDialogue.Core;
 using RimDialogue.Core.InteractionData;
+using RimDialogue.UI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using Verse;
 
+public class ConversationArgs : EventArgs
+{
+  public Conversation Conversation { get; }
+
+  public ConversationArgs(Conversation conversation)
+  {
+    Conversation = conversation;
+  }
+}
+
 public class GameComponent_ConversationTracker : GameComponent
 {
+  public static GameComponent_ConversationTracker Instance =>
+    Current.Game.GetComponent<GameComponent_ConversationTracker>();
+
+  public event EventHandler<ConversationArgs>? ConversationAdded;
+
   private Dictionary<string, string> additionalInstructions;
   private List<Conversation> conversations;
-
+  private bool windowOpened = false;
+  public DialogueMessageWindow? DialogueMessageWindow { get; private set; }
   public GameComponent_ConversationTracker(Game game)
   {
     conversations = [];
@@ -36,6 +52,23 @@ public class GameComponent_ConversationTracker : GameComponent
     foreach (var pawn in Find.CurrentMap.mapPawns.FreeColonists)
     {
       GetPawnInstructions(pawn);
+    }
+  }
+
+  public override void GameComponentUpdate()
+  {
+    // Wait until game is fully loaded and window hasn't been shown yet
+    if (!windowOpened && Current.ProgramState == ProgramState.Playing && Settings.ShowDialogueMessages.Value)
+    {
+      DialogueMessageWindow = new DialogueMessageWindow();
+      Find.WindowStack.Add(DialogueMessageWindow);
+      windowOpened = true;
+    }
+    else if (!Settings.ShowDialogueMessages.Value && DialogueMessageWindow != null)
+    {
+      DialogueMessageWindow.Close();
+      DialogueMessageWindow = null;
+      windowOpened = false;
     }
   }
 
@@ -66,24 +99,26 @@ public class GameComponent_ConversationTracker : GameComponent
       form.AddField("scenarioText", scenarioText);
       var dialogueResponse = await DialogueRequest.Post("home/GetScenarioPrompt", form);
       if (dialogueResponse.text != null)
-       additionalInstructions[InstructionsSet.COLONISTS] = dialogueResponse.text;
+        additionalInstructions[InstructionsSet.COLONISTS] = dialogueResponse.text;
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
       RimDialogue.Mod.Error("Error fetching ScenarioInstructions: " + ex.ToString());
     }
   }
 
-  public void AddConversation(Pawn initiator, Pawn? recipient, string? text)
+  public void AddConversation(Pawn initiator, Pawn? recipient, string? interaction, string? text)
   {
     if (initiator == null || recipient == null || text == null || string.IsNullOrWhiteSpace(text))
       return;
+    Conversation conversation = new Conversation(initiator, recipient, interaction, text);
     lock (conversations)
     {
       while (conversations.Count > Settings.MaxConversationsStored.Value)
         conversations.RemoveAt(0);
-      conversations.Add(new Conversation(initiator, recipient, text));
+      conversations.Add(conversation);
     }
+    ConversationAdded?.Invoke(this, new ConversationArgs(conversation));
   }
 
   public void AddAdditionalInstructions(Pawn pawn, string value)
@@ -141,6 +176,7 @@ public class GameComponent_ConversationTracker : GameComponent
     Scribe_Values.Look(ref _version, "Version");
     Scribe_Collections.Look(ref conversations, "conversations", LookMode.Deep);
     Scribe_Collections.Look(ref additionalInstructions, "additionalInstructions", LookMode.Value, LookMode.Value);
+    //Scribe_Values.Look(ref windowOpened, "windowOpened", false);
     if (Scribe.mode is LoadSaveMode.LoadingVars && String.IsNullOrEmpty(_version))
     {
       // Migrate old version
@@ -160,14 +196,16 @@ public class Conversation : IExposable
   private Pawn? initiator;
   private Pawn? recipient;
   public string? text;
+  public string? interaction;
   public int? timestamp;
   public Conversation() { }
 
-  public Conversation(Pawn initiator, Pawn recipient, string text)
+  public Conversation(Pawn initiator, Pawn recipient, string? interaction, string text)
   {
     this.initiator = initiator;
     this.recipient = recipient;
     this.text = text;
+    this.interaction = interaction;
     timestamp = Find.TickManager.TicksGame;
   }
   public Pawn? Initiator => initiator;
@@ -186,6 +224,7 @@ public class Conversation : IExposable
     Scribe_References.Look(ref initiator, "initiator");
     Scribe_References.Look(ref recipient, "recipient");
     Scribe_Values.Look(ref text, "text");
+    Scribe_Values.Look(ref interaction, "interaction");
     Scribe_Values.Look(ref timestamp, "timestamp");
   }
 }

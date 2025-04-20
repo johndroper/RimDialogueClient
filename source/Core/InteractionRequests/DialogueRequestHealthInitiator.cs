@@ -17,7 +17,8 @@ namespace RimDialogue.Core.InteractionData
     }
 
     private Hediff? _hediff;
-    public override Hediff Hediff {
+    public override Hediff Hediff
+    {
       get
       {
         if (_hediff == null)

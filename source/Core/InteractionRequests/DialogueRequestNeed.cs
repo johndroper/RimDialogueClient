@@ -1,5 +1,4 @@
 using RimWorld;
-using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -24,16 +23,7 @@ namespace RimDialogue.Core.InteractionData
       Need = unsatisfiedNeeds.RandomElement();
     }
 
-    public override void Execute()
-    {
-      var dialogueData = new DataT();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "NeedsChitchat");
-    }
+    public override string Action => "NeedChitchat";
 
     public override void Build(DataT data)
     {

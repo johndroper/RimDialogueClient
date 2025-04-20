@@ -1,12 +1,11 @@
 #nullable enable
 
-using RimDialogue.Access;
-using RimDialogue.Core.InteractionWorkers;
+using RimDialogue.Core.InteractionRequests;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestIncident<DataT> : DialogueRequest<DataT> where DataT : DialogueDataIncident, new()
+  public class DialogueRequestIncident<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataIncident, new()
   {
     const string IncidentPlaceholder = "**recent_incident**";
 
@@ -15,16 +14,22 @@ namespace RimDialogue.Core.InteractionData
       return new DialogueRequestIncident<DataT>(entry, interactionTemplate);
     }
 
-    public Pawn? Target { get; set; }
+    public override Pawn? Target
+    {
+      get
+      {
+        return _target;
+      }
+    }
+
+    private Pawn? _target { get; set; }
     public string Subject { get; set; } = string.Empty;
     public string Explanation { get; set; } = string.Empty;
-
-    public PawnData? TargetData { get; set; } = null;
 
     public DialogueRequestIncident(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
-      var incidents = Verse_LetterMaker_MakeLetter.recentLetters;
+      var incidents = GameComponent_LetterTracker.Instance.RecentLetters;
       if (!incidents.Any())
       {
         Mod.Warning("No recent incidents found.");
@@ -50,11 +55,6 @@ namespace RimDialogue.Core.InteractionData
           Subject = $"{incident.Label} that has just occurred";
           break;
       }
-      var tracker = H.GetTracker();
-      if (Target != null)
-        TargetData = H.MakePawnData(Target, tracker.GetInstructions(Target));
-      else
-        TargetData = null;
     }
 
     public override void Build(DataT data)
@@ -67,18 +67,6 @@ namespace RimDialogue.Core.InteractionData
     {
       return this.InteractionTemplate
         .Replace(IncidentPlaceholder, Subject);
-    }
-
-    public override void Execute()
-    {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for incident {Entry.LogID}.");
-      var dialogueData = new DataT();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData),
-          new("targetJson", TargetData),
-        ]);
     }
   }
 }

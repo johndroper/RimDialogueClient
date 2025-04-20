@@ -1,19 +1,16 @@
 #nullable enable
 
-using RimDialogue.Access;
-using RimDialogue.Core.InteractionWorkers;
+using RimDialogue.Core.InteractionRequests;
 using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestMessage : DialogueRequest<DialogueDataMessage>
+  public class DialogueRequestMessage : DialogueRequestTarget<DialogueDataMessage>
   {
     const string MessagePlaceholder = "**message**";
 
     static Dictionary<int, DialogueRequestMessage> recent = [];
-
-    public PawnData? TargetData { get; set; } = null;
 
     public static DialogueRequestMessage BuildFrom(LogEntry entry, string interactionTemplate)
     {
@@ -25,29 +22,27 @@ namespace RimDialogue.Core.InteractionData
     }
 
     public Message Message { get; set; }
-    public Pawn? Target { get; set; }
+    protected Pawn? _target { get; set; }
+
+    public override Pawn? Target => _target;
 
     public DialogueRequestMessage(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
-      var messages = Verse_Messages_Message.RecentMessages;
-      Message = messages.RandomElement();
+
+      Message = GameComponent_MessageTracker.Instance.TrackedMessages.RandomElement().Message;
       var tracker = H.GetTracker();
-      Target = Message.lookTargets?.PrimaryTarget.Pawn;
-      if (Target is not null)
-        TargetData = H.MakePawnData(Target, tracker.GetInstructions(Target));
-      else
-        TargetData = null;
+      _target = Message.lookTargets?.PrimaryTarget.Pawn;
     }
 
     public override string GetInteraction()
     {
-      if (Target == null)
+      if (_target == null)
         return this.InteractionTemplate
           .Replace(MessagePlaceholder, Message.text.TrimEnd('.'));
       else
         return this.InteractionTemplate
-          .Replace(MessagePlaceholder, Target.Name.ToStringShort + " is experiencing a " + Message.text.TrimEnd('.'));
+          .Replace(MessagePlaceholder, _target.Name.ToStringShort + " is experiencing a " + Message.text.TrimEnd('.'));
     }
 
     public override void Build(DialogueDataMessage data)
@@ -57,17 +52,7 @@ namespace RimDialogue.Core.InteractionData
       base.Build(data);
     }
 
-    public override void Execute()
-    {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for message {Entry.LogID}.");
-      InteractionWorker_DialogueMessage.lastUsedTicks = Find.TickManager.TicksAbs;
-      var dialogueData = new DialogueDataMessage();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData),
-          new("targetJson", TargetData)
-        ]);
-    }
+    public override string? Action => null;
+
   }
 }

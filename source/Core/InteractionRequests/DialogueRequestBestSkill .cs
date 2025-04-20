@@ -31,7 +31,7 @@ namespace RimDialogue.Core.InteractionData
           var maxLevel = skills.Max(s => s.Level);
           _skillDef = skills.Where(s => s.Level == maxLevel).RandomElement().def;
         }
-        return _skillDef; 
+        return _skillDef;
       }
     }
   }

@@ -29,7 +29,7 @@ namespace RimDialogue.Core.InteractionWorkers
           return 0f;
         }
         if (Settings.VerboseLogging.Value) Mod.Log($"Alert ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AlertChitChatWeight.Value}");
-        return Settings.AlertChitChatWeight.Value;
+        return Settings.AlertChitChatWeight.Value * 10;
       }
       catch (Exception ex)
       {

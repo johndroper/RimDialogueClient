@@ -1,4 +1,3 @@
-using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -101,15 +100,7 @@ namespace RimDialogue.Core.InteractionData
       base.Build(data);
     }
 
-    public override void Execute()
-    {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Executing dialogue request for condition {GameCondition.Label}.");
-      var dialogueData = new DataT();
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ]);
-    }
+    public override string Action => null;
+
   }
 }

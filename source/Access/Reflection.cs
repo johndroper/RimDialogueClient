@@ -59,7 +59,7 @@ namespace RimDialogue.Access
     public static readonly FieldInfo RimWorld_Alert_LifeThreateningHediff_SickPawnsResult = AccessTools.Field(typeof(RimWorld.Alert_LifeThreateningHediff), "sickPawnsResult");
 
     private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
-    
+
 
     public static bool IsAssemblyLoaded(string assemblyName)
     {

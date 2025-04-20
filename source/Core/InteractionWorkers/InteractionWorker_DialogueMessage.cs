@@ -1,4 +1,3 @@
-using RimDialogue.Access;
 using RimWorld;
 using System;
 using System.Linq;
@@ -8,7 +7,6 @@ namespace RimDialogue.Core.InteractionWorkers
 {
   public class InteractionWorker_DialogueMessage : InteractionWorker_Dialogue
   {
-    public static int lastUsedTicks = 0;
     public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
     {
       try
@@ -18,12 +16,12 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.Inhumanized() ||
           !initiator.IsColonist ||
           !recipient.IsColonist ||
-          !Verse_Messages_Message.RecentMessages.Any())
+          !GameComponent_MessageTracker.Instance.TrackedMessages.Any())
         {
           return 0f;
         }
         if (Settings.VerboseLogging.Value) Mod.Log($"Message ChitChat Weight: {initiator.Name} -> {recipient.Name} = 1");
-        return Settings.MessageChitChatWeight.Value;
+        return Settings.MessageChitChatWeight.Value * 10;
       }
       catch (Exception ex)
       {

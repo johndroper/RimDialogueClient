@@ -1,6 +1,4 @@
 #nullable enable
-using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -18,28 +16,25 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override void Execute()
+    public override void Build(DialogueDataAppearance data)
     {
       var style = this.Pawn.style;
       var story = this.Pawn.story;
-      var dialogueData = new DialogueDataAppearance();
-      dialogueData.Pawn = this.Pawn.Name.ToStringShort;
-      dialogueData.Beard = style.beardDef.label;
-      dialogueData.BeardCategory = style.beardDef.StyleItemCategory.label;
-      dialogueData.Hair = story.hairDef.label;
-      dialogueData.HairColor = H.DescribeHairColor(story.HairColor.r, story.HairColor.g, story.HairColor.b, story.HairColor.a);
-      dialogueData.HairCategory = story.hairDef.StyleItemCategory.label;
-      dialogueData.BodyTattoo = style.BodyTattoo?.label ?? "None";
-      dialogueData.BodyTattooCategory = style.BodyTattoo?.StyleItemCategory.label ?? "None";
-      dialogueData.FaceTattoo = style.FaceTattoo?.label ?? "None";
-      dialogueData.FaceTattooCategory = style.FaceTattoo?.StyleItemCategory.label ?? "None";
-      Build(dialogueData);
-      Send(
-        [
-          new("chitChatJson", dialogueData)
-        ],
-        "AppearanceChitchat");
+      data.Pawn = this.Pawn.Name.ToStringShort;
+      data.Beard = style.beardDef.label;
+      data.BeardCategory = style.beardDef.StyleItemCategory.label;
+      data.Hair = story.hairDef.label;
+      data.HairColor = H.DescribeHairColor(story.HairColor.r, story.HairColor.g, story.HairColor.b, story.HairColor.a);
+      data.HairCategory = story.hairDef.StyleItemCategory.label;
+      data.BodyTattoo = style.BodyTattoo?.label ?? "None";
+      data.BodyTattooCategory = style.BodyTattoo?.StyleItemCategory.label ?? "None";
+      data.FaceTattoo = style.FaceTattoo?.label ?? "None";
+      data.FaceTattooCategory = style.FaceTattoo?.StyleItemCategory.label ?? "None";
+
+      base.Build(data);
     }
+
+    public override string? Action => "AppearanceChitchat";
 
     public override string GetInteraction()
     {
