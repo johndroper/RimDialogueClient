@@ -1,8 +1,17 @@
+using Bubbles;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
 using UnityEngine;
 using Verse;
+using static Verse.Widgets;
 
 namespace RimDialogue.Configuration
 {
+
+
+
   public static class SettingsEditor
   {
     private static string?[] _colorBuffer = new string[4];
@@ -10,65 +19,148 @@ namespace RimDialogue.Configuration
     private static Vector2 _scrollPosition = Vector2.zero;
     private static Rect _viewRect;
 
+    private static string DropdownLabel(int value)
+    {
+      return value switch
+      {
+        1 => "Moveable",
+        2 => "Top Center",
+        3 => "None",
+        _ => "Unknown"
+      };
+    }
+
+    public static void SliderLabeled(this Listing_Standard listing, string label, ref int value, int min, int max, int roundTo = -1, string? display = null)
+    {
+      var floatValue = (float)value;
+      SliderLabeled(listing, label, ref floatValue, min, max, roundTo, display);
+      value = (int)floatValue;
+    }
+
+    public static void SliderLabeled(this Listing_Standard listing, string label, ref float value, float min, float max, float roundTo = -1f, string? display = null)
+    {
+      var rect = listing.GetRect(Text.LineHeight);
+
+      Widgets.Label(rect.LeftHalf(), label);
+
+      var anchor = Text.Anchor;
+      Text.Anchor = TextAnchor.MiddleRight;
+      Widgets.Label(rect.RightHalf(), display ?? value.ToString(CultureInfo.InvariantCulture));
+      Text.Anchor = anchor;
+
+      value = listing.Slider(value, min, max);
+      if (roundTo > 0f) { value = Mathf.Round(value / roundTo) * roundTo; }
+    }
+
     public static void DrawSettings(Rect rect)
     {
-      var listingRect = new Rect(rect.x, rect.y + 40f, rect.width, rect.height - 40f);
-      var l = new Listing_Settings();
-      l.Begin(rect);
-      if (l.ButtonText("RimDialogue.ResetToDefault".Translate())) { Reset(); }
-      l.End();
-      l.BeginScrollView(listingRect, ref _scrollPosition, ref _viewRect);
-      l.Label("RimDialogue.SpecialInstructions".Translate());
-      Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
-      l.Label("RimDialogue.ClientId".Translate());
-      Settings.ClientId.Value = l.TextEntry(Settings.ClientId.Value, 1);
-      l.Label("RimDialogue.ServerUrl".Translate());
-      if (string.IsNullOrWhiteSpace(Settings.ServerUrl.Value))
-        Settings.ServerUrl.Value = "http://rimdialogue.proceduralproducts.com/home/getdialogue";
-      Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
+      try
+      {
+        var listingRect = new Rect(rect.x, rect.y + 40f, rect.width, rect.height - 40f);
+        var l = new Listing_Settings();
+        l.Begin(rect);
+        if (l.ButtonText("RimDialogue.ResetToDefault".Translate())) { Reset(); }
+        l.End();
+        l.BeginScrollView(listingRect, ref _scrollPosition, ref _viewRect);
+        l.Label("RimDialogue.SpecialInstructions".Translate());
+        Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
+        l.Label("RimDialogue.ClientId".Translate());
+        Settings.ClientId.Value = l.TextEntry(Settings.ClientId.Value, 1);
+        l.Label("RimDialogue.ServerUrl".Translate());
+        if (string.IsNullOrWhiteSpace(Settings.ServerUrl.Value))
+          Settings.ServerUrl.Value = "http://rimdialogue.proceduralproducts.com/home/getdialogue";
+        Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
 
-      l.CheckboxLabeled("RimDialogue.ShowInteractionBubbles".Translate(), ref Settings.ShowInteractionBubbles.Value);
-      l.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
-      l.CheckboxLabeled("RimDialogue.ShowDialogueMessages".Translate(), ref Settings.ShowDialogueMessages.Value);
-      l.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
-      l.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
+        l.Gap();
 
-      l.SliderLabeled("RimDialogue.DialogueMessageWidth".Translate(), ref Settings.DialogueMessageWidth.Value, 200, 1200);
-      l.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f);
-      l.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f);
-      l.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
-      l.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, 100);
-      //l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
-      l.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
-      l.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
-      l.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
-      l.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
-      //l.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
+        var messageListing = l.BeginSection(30f * 7);
+        messageListing.ColumnWidth = listingRect.width - 50f;
+        messageListing.Label("RimDialogue.DialogueMessages".Translate());
+        messageListing.Gap();
+        messageListing.Indent();
+        var row = messageListing.GetRect(30f);
+        Widgets.Label(row.LeftPart(0.8f), "Interface");
+        Widgets.Dropdown<int, int>(
+            row.RightPart(0.2f),                            
+            Settings.DialogueMessageInterface.Value,       
+            val => val,                                    
+            val => new List<DropdownMenuElement<int>>      
+            {
+              new DropdownMenuElement<int> { option = new FloatMenuOption("Moveable", () => Settings.DialogueMessageInterface.Value = 1), payload = 1 },
+              new DropdownMenuElement<int> { option = new FloatMenuOption("Top Center", () => Settings.DialogueMessageInterface.Value = 2), payload = 2 },
+              new DropdownMenuElement<int> { option = new FloatMenuOption("None", () => Settings.DialogueMessageInterface.Value = 3), payload = 3 }
+            },
+            DropdownLabel(Settings.DialogueMessageInterface.Value)
+        );
+        if (Settings.DialogueMessageInterface.Value == 1)
+          messageListing.SliderLabeled("RimDialogue.MessageScrollSpeed".Translate(), ref Settings.MessageScrollSpeed.Value, 1, 50);
+        if (Settings.DialogueMessageInterface.Value == 2)
+        {
+          messageListing.SliderLabeled("RimDialogue.DialogueMessageWidth".Translate(), ref Settings.DialogueMessageWidth.Value, 200, 1200);
+          messageListing.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f, roundTo: 1f);
+          messageListing.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f, roundTo: 1f);
+        }
+        messageListing.Outdent();
+        l.EndSection(messageListing);
 
-      if (l.ButtonText("RimDialogue.ToggleAllChitchatWeights".Translate())) { ToggleAllChitChatWeights(); }
-      l.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.BattleChitChatWeight".Translate(), ref Settings.BattleChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.RecentIncidentChitChatWeight".Translate(), ref Settings.RecentIncidentChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.AlertChitChatWeight".Translate(), ref Settings.AlertChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.SameIdeologyChitChatWeight".Translate(), ref Settings.SameIdeologyChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.SkillsChitChatWeight".Translate(), ref Settings.SkillChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.ApparelChitChatWeight".Translate(), ref Settings.ApparelChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.NeedChitChatWeight".Translate(), ref Settings.NeedChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.FamilyChitChatWeight".Translate(), ref Settings.FamilyChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.WeatherChitChatWeight".Translate(), ref Settings.WeatherChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.FactionChitChatWeight".Translate(), ref Settings.FactionChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.WeaponChitChatWeight".Translate(), ref Settings.WeaponChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.AppearanceChitChatWeight".Translate(), ref Settings.AppearanceChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.AnimalChitChatWeight".Translate(), ref Settings.AnimalChitChatWeight.Value, 0, 1);
-      l.SliderLabeled("RimDialogue.RoomChitChatWeight".Translate(), ref Settings.RoomChitChatWeight.Value, 0, 1);
+        l.Gap();
+
+        var dialogueListing = l.BeginSection(30f * 14);
+        dialogueListing.ColumnWidth = listingRect.width - 50f;
+        dialogueListing.Label("RimDialogue.DialogueSettings".Translate());
+        dialogueListing.Indent();
+        dialogueListing.CheckboxLabeled("RimDialogue.ShowInteractionBubbles".Translate(), ref Settings.ShowInteractionBubbles.Value);
+        dialogueListing.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
+        dialogueListing.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
+        dialogueListing.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
+        dialogueListing.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
+        dialogueListing.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, 100);
+        //l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
+        dialogueListing.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
+        dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
+        dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
+        dialogueListing.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
+        dialogueListing.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
+        dialogueListing.Outdent();
+        l.EndSection(dialogueListing);
+
+        l.Gap();
 
 
-      l.SliderLabeled("RimDialogue.DeadColonistDeepTalk".Translate(), ref Settings.DeadColonistWeight.Value, 0, 1);
+        var weights = l.BeginSection(30f * 14);
+        weights.ColumnWidth = listingRect.width - 50f;
+        weights.Label("RimDialogue.DialogueWeights".Translate());
+        weights.Indent();
+        if (l.ButtonText("RimDialogue.ToggleAllChitchatWeights".Translate())) { ToggleAllChitChatWeights(); }
+        weights.Gap();
+        weights.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.BattleChitChatWeight".Translate(), ref Settings.BattleChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.RecentIncidentChitChatWeight".Translate(), ref Settings.RecentIncidentChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.AlertChitChatWeight".Translate(), ref Settings.AlertChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.SameIdeologyChitChatWeight".Translate(), ref Settings.SameIdeologyChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.SkillsChitChatWeight".Translate(), ref Settings.SkillChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.ApparelChitChatWeight".Translate(), ref Settings.ApparelChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.NeedChitChatWeight".Translate(), ref Settings.NeedChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.FamilyChitChatWeight".Translate(), ref Settings.FamilyChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.WeatherChitChatWeight".Translate(), ref Settings.WeatherChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.FactionChitChatWeight".Translate(), ref Settings.FactionChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.WeaponChitChatWeight".Translate(), ref Settings.WeaponChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.AppearanceChitChatWeight".Translate(), ref Settings.AppearanceChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.AnimalChitChatWeight".Translate(), ref Settings.AnimalChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.RoomChitChatWeight".Translate(), ref Settings.RoomChitChatWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.DeadColonistDeepTalk".Translate(), ref Settings.DeadColonistWeight.Value, 0, 1, roundTo: .01f);
+        weights.Outdent();
+        l.EndSection(weights);
 
-      l.EndScrollView(ref _viewRect);
+        l.EndScrollView(ref _viewRect);
+      }
+      catch(Exception ex)
+      {
+        Mod.Error(ex.ToString());
+      }
     }
 
     private static void Reset()

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RimDialogue.ResetToDefault>Reset to default</RimDialogue.ResetToDefault>
+  <RimDialogue.DialogueSettings>Dialogue Settings</RimDialogue.DialogueSettings>
+  <RimDialogue.DialogueMessages>Dialogue Messages</RimDialogue.DialogueMessages>
   <RimDialogue.MaxWords>Approximate maximum dialogue length</RimDialogue.MaxWords>
   <RimDialogue.MinWords>Approximate minimum dialogue length</RimDialogue.MinWords>
-  <RimDialogue.SpecialInstructions>Additional instructions</RimDialogue.SpecialInstructions>
+  <RimDialogue.SpecialInstructions>Instructions</RimDialogue.SpecialInstructions>
   <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>
   <RimDialogue.ServerUrl>Server URL</RimDialogue.ServerUrl>
   <RimDialogue.MaxSpeed>Maximum game speed for dialoge generation</RimDialogue.MaxSpeed>
@@ -23,29 +25,33 @@
   <RimDialogue.MinDialogueMessageLifetime>Minimum dialogue message lifetime</RimDialogue.MinDialogueMessageLifetime>
   <RimDialogue.DialogueMessageWidth>Dialogue message width</RimDialogue.DialogueMessageWidth>
 
-  <RimDialogue.ToggleAllChitchatWeights>Toggle All Dialogue Weights</RimDialogue.ToggleAllChitchatWeights>
-  <RimDialogue.MessageChitChatWeight>Message dialogue weight</RimDialogue.MessageChitChatWeight>
-  <RimDialogue.GameConditionChitChatWeight>Game condition dialogue weight</RimDialogue.GameConditionChitChatWeight>
-  <RimDialogue.BattleChitChatWeight>Battle dialogue weight</RimDialogue.BattleChitChatWeight>
-  <RimDialogue.RecentIncidentChitChatWeight>Recent incident dialogue weight</RimDialogue.RecentIncidentChitChatWeight>
-  <RimDialogue.AlertChitChatWeight>Alert dialogue weight</RimDialogue.AlertChitChatWeight>
-  <RimDialogue.SameIdeologyChitChatWeight>Same ideology dialogue weight</RimDialogue.SameIdeologyChitChatWeight>
-  <RimDialogue.SkillsChitChatWeight>Skills dialogue weight</RimDialogue.SkillsChitChatWeight>
-  <RimDialogue.ColonistChitChatWeight>Colonist dialogue weight</RimDialogue.ColonistChitChatWeight>
-  <RimDialogue.HealthChitChatWeight>Health dialogue weight</RimDialogue.HealthChitChatWeight>
-  <RimDialogue.ApparelChitChatWeight>Apparel dialogue weight</RimDialogue.ApparelChitChatWeight>
-  <RimDialogue.WeatherChitChatWeight>Weather dialogue weight</RimDialogue.WeatherChitChatWeight>
-  <RimDialogue.FamilyChitChatWeight>Family dialogue weight</RimDialogue.FamilyChitChatWeight>
-  <RimDialogue.NeedChitChatWeight>Need dialogue weight</RimDialogue.NeedChitChatWeight>
-  <RimDialogue.FactionChitChatWeight>Faction dialogue weight</RimDialogue.FactionChitChatWeight>
-  <RimDialogue.WeaponChitChatWeight>Weapon dialogue weight</RimDialogue.WeaponChitChatWeight>
-  <RimDialogue.AppearanceChitChatWeight>Appearance dialogue weight</RimDialogue.AppearanceChitChatWeight>
-  <RimDialogue.AnimalChitChatWeight>Animal dialogue weight</RimDialogue.AnimalChitChatWeight>
-  <RimDialogue.RoomChitChatWeight>Room dialogue weight</RimDialogue.RoomChitChatWeight>
-  <RimDialogue.DeadColonistDeepTalk>Dead colonist weight</RimDialogue.DeadColonistDeepTalk>
+  <RimDialogue.MessageScrollSpeed>Message Scroll Speed</RimDialogue.MessageScrollSpeed>
+
+  <RimDialogue.DialogueWeights>Dialogue Weights</RimDialogue.DialogueWeights>
+  
+  <RimDialogue.ToggleAllChitchatWeights>Toggle All</RimDialogue.ToggleAllChitchatWeights>
+  <RimDialogue.MessageChitChatWeight>Message</RimDialogue.MessageChitChatWeight>
+  <RimDialogue.GameConditionChitChatWeight>Game Condition</RimDialogue.GameConditionChitChatWeight>
+  <RimDialogue.BattleChitChatWeight>Battle</RimDialogue.BattleChitChatWeight>
+  <RimDialogue.RecentIncidentChitChatWeight>Recent Incident</RimDialogue.RecentIncidentChitChatWeight>
+  <RimDialogue.AlertChitChatWeight>Alert</RimDialogue.AlertChitChatWeight>
+  <RimDialogue.SameIdeologyChitChatWeight>Same Ideology</RimDialogue.SameIdeologyChitChatWeight>
+  <RimDialogue.SkillsChitChatWeight>Skills</RimDialogue.SkillsChitChatWeight>
+  <RimDialogue.ColonistChitChatWeight>Colonist</RimDialogue.ColonistChitChatWeight>
+  <RimDialogue.HealthChitChatWeight>Health</RimDialogue.HealthChitChatWeight>
+  <RimDialogue.ApparelChitChatWeight>Apparel</RimDialogue.ApparelChitChatWeight>
+  <RimDialogue.WeatherChitChatWeight>Weather</RimDialogue.WeatherChitChatWeight>
+  <RimDialogue.FamilyChitChatWeight>Family</RimDialogue.FamilyChitChatWeight>
+  <RimDialogue.NeedChitChatWeight>Need</RimDialogue.NeedChitChatWeight>
+  <RimDialogue.FactionChitChatWeight>Faction</RimDialogue.FactionChitChatWeight>
+  <RimDialogue.WeaponChitChatWeight>Weapon</RimDialogue.WeaponChitChatWeight>
+  <RimDialogue.AppearanceChitChatWeight>Appearance</RimDialogue.AppearanceChitChatWeight>
+  <RimDialogue.AnimalChitChatWeight>Animal</RimDialogue.AnimalChitChatWeight>
+  <RimDialogue.RoomChitChatWeight>Room</RimDialogue.RoomChitChatWeight>
+  <RimDialogue.DeadColonistDeepTalk>Dead Colonist</RimDialogue.DeadColonistDeepTalk>
   
   <RimDialogue.DefaultInstructions>Write dialogue that reflects the gritty, darkly humorous, and emotionally complex tone of RimWorld, grounded in the harsh realities of survival on a chaotic, unforgiving rimworld colony.</RimDialogue.DefaultInstructions>
-  <RimDialogue.AdditionalInstructions>Additional Instructions For [pawn]</RimDialogue.AdditionalInstructions>
+  <RimDialogue.AdditionalInstructions>Instructions For [pawn]</RimDialogue.AdditionalInstructions>
   <RimDialogue.Ago> ago</RimDialogue.Ago>
   <RimDialogue.Conversations>Past Conversations</RimDialogue.Conversations>
   <RimDialogue.AllPawns>All Pawns</RimDialogue.AllPawns>
@@ -55,5 +61,6 @@
   <RimDialogue.AllPawnsTip>Enter custom instructions that will apply to all pawns during dialogue generation. Use this to define tone, style, or behavior guidelines (e.g., “Keep responses short and sarcastic” or “Speak formally with archaic phrasing”). These instructions will be added to every pawn’s prompt.</RimDialogue.AllPawnsTip>
   <RimDialogue.ColonistsTip>Enter instructions that will apply only to colonists when generating dialogue. Use this to shape the culure of your colony and how your colonists speak in conversations (e.g., “Use optimistic language” or “Refer to each other by full names”). These instructions won't affect prisoners, guests, or other pawns.</RimDialogue.ColonistsTip>
   <RimDialogue.PawnTip>Enter custom instructions that apply only to this pawn’s dialogue. Use this to define unique personality traits, speech patterns, or quirks (e.g., “Always speaks in rhyme” or “Uses military jargon”).</RimDialogue.PawnTip>
-  
+  <RimDialogue.Characters>characters</RimDialogue.Characters>
+
 </LanguageData>

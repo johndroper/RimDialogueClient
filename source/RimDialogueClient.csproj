@@ -83,7 +83,7 @@
     <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
     <Compile Include="Access\Verse_Pawn_Kill.cs" />
-    <Compile Include="Core\DialogueMessages.cs" />
+    <Compile Include="UI\DialogueMessagesFixed.cs" />
     <Compile Include="Core\GameComponent_LetterTracker.cs" />
     <Compile Include="Core\GameComponent_MessageTracker.cs" />
     <Compile Include="Core\InteractionData\DialogueDataAnimal.cs" />

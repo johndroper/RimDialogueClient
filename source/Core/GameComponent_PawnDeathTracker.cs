@@ -1,6 +1,7 @@
 #nullable enable
 namespace RimDialogue.Core
 {
+  using RimDialogue.UI;
   using RimWorld;
   using System.Collections.Generic;
   using Verse;
@@ -26,6 +27,18 @@ namespace RimDialogue.Core
       Scribe_Collections.Look(ref DeadHostiles, "DeadHostiles", LookMode.Deep);
       Scribe_Collections.Look(ref DeadNeutrals, "DeadNeutrals", LookMode.Deep);
       Scribe_Collections.Look(ref DeadAllies, "DeadAllies", LookMode.Deep);
+    }
+
+    public override void FinalizeInit()
+    {
+      base.FinalizeInit();
+
+      if (DeadNeutrals == null)
+        DeadNeutrals = [];
+      if (DeadHostiles == null)
+        DeadHostiles = [];
+      if (DeadColonists == null)
+        DeadColonists = [];
     }
 
     public void RecordDeath(Pawn pawn, DamageInfo? dinfo, Hediff exactCulprit)

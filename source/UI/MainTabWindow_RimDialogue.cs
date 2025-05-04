@@ -108,15 +108,27 @@ namespace RimDialogue
       float leftColWidth = inRect.width * 0.4f - 10;
       float rightColWidth = inRect.width - leftColWidth - 20;
 
-      var instructionsLabelRect = new Rect(0, y, leftColWidth, 25f);
-      var instructionsLabel = filterMode switch
+      string instructionsLabel = "RimDialogue.Unknown".Translate();
+      string instructions = "RimDialogue.Unknown".Translate();
+      switch (filterMode)
       {
-        FilterMode.All => additionalInstructionsText.Replace("[pawn]", allPawnsText),
-        FilterMode.Colonist => additionalInstructionsText.Replace("[pawn]", colonistsText),
-        FilterMode.Pawn => additionalInstructionsText.Replace("[pawn]", selectedPawn != null ? selectedPawn.Name.ToStringShort : unknownText),
-        _ => additionalInstructionsText.Replace("[pawn]", unknownText)
-      };
+        case FilterMode.All:
+          instructions = tracker.GetInstructions(InstructionsSet.ALL_PAWNS);
+          instructionsLabel = additionalInstructionsText.Replace("[pawn]", allPawnsText) + $" ({instructions.Length} {"RimDialogue.Characters".Translate()})";
+          break;
+        case FilterMode.Colonist:
+          instructions = tracker.GetInstructions(InstructionsSet.COLONISTS);
+          instructionsLabel = additionalInstructionsText.Replace("[pawn]", colonistsText) + $" ({instructions.Length} {"RimDialogue.Characters".Translate()})";
+          break;
+        case FilterMode.Pawn:
+          if (selectedPawn == null)
+            throw new InvalidOperationException("SelectedPawn is null but filter mode is set to SelectedPawn.");
+          instructions = tracker.GetInstructions(selectedPawn);
+          instructionsLabel = additionalInstructionsText.Replace("[pawn]", selectedPawn != null ? selectedPawn.Name.ToStringShort : unknownText) + $" ({instructions.Length} {"RimDialogue.Characters".Translate()})";
+          break;
+      }
 
+      var instructionsLabelRect = new Rect(0, y, leftColWidth, 25f);
       Widgets.Label(instructionsLabelRect, instructionsLabel);
 
       y += 30f;
@@ -129,18 +141,18 @@ namespace RimDialogue
       {
         case FilterMode.All:
           tracker.AddAdditionalInstructions(InstructionsSet.ALL_PAWNS,
-            Widgets.TextArea(instructionsContentRect, tracker.GetInstructions(InstructionsSet.ALL_PAWNS)));
+            Widgets.TextArea(instructionsContentRect, instructions));
           TooltipHandler.TipRegion(instructionsScrollRect, allPawnsTip);
           break;
         case FilterMode.Colonist:
           tracker.AddAdditionalInstructions(InstructionsSet.COLONISTS,
-            Widgets.TextArea(instructionsContentRect, tracker.GetInstructions(InstructionsSet.COLONISTS)));
+            Widgets.TextArea(instructionsContentRect, instructions));
           TooltipHandler.TipRegion(instructionsScrollRect, colonistsTip);
           break;
         case FilterMode.Pawn:
           if (selectedPawn == null)
             throw new InvalidOperationException("SelectedPawn is null but filter mode is set to SelectedPawn.");
-          tracker.AddAdditionalInstructions(selectedPawn, Widgets.TextArea(instructionsContentRect, tracker.GetInstructions(selectedPawn)));
+          tracker.AddAdditionalInstructions(selectedPawn, Widgets.TextArea(instructionsContentRect, instructions));
           TooltipHandler.TipRegion(instructionsScrollRect, pawnTip);
           break;
       }

@@ -15,6 +15,8 @@ namespace RimDialogue.Access
     {
       try
       {
+        if (Settings.OnlyColonists.Value && !pov.IsColonist)
+          return;
         if (Settings.VerboseLogging.Value) Mod.Log($"Original interaction log for log entry {__instance.LogID}: {__result}");
         var dialogueRequest = DialogueRequest.Create(
         ref __instance,

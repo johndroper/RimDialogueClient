@@ -33,7 +33,7 @@ namespace RimDialogue.Core.InteractionData
       data.Importance = Battle.Importance.ToString();
       data.Participants = Battle.Entries
         .SelectMany(entry => entry.GetConcerns()
-          .Select(thing => H.RemoveWhiteSpaceAndColor(thing is Pawn ? ((Pawn)thing).Name.ToStringShort : thing.Label) + $" ({thing.Faction.Name})"))
+          .Select(thing => H.RemoveWhiteSpaceAndColor(thing is Pawn ? ((Pawn)thing)?.Name.ToStringShort ?? thing.Label : thing.Label) + thing.Faction != null ? $" ({thing.Faction.Name})" : string.Empty))
         .Distinct()
         .ToArray();
       data.Factions = Battle.Entries

@@ -21,12 +21,12 @@ namespace RimDialogue
     //public static readonly Setting<int> MaxSpeed = new(nameof(MaxSpeed), 3);
     public static readonly Setting<int> MaxConversationsStored = new(nameof(MaxConversationsStored), 25);
     public static readonly Setting<bool> VerboseLogging = new(nameof(VerboseLogging), false);
+    public static readonly Setting<bool> OnlyColonists = new(nameof(OnlyColonists), false);
 
     public static readonly Setting<bool> EnableCaravans = new(nameof(EnableCaravans), false);
 
     public static readonly Setting<bool> ShowInteractionBubbles = new(nameof(ShowInteractionBubbles), false);
     public static readonly Setting<bool> ShowDialogueBubbles = new(nameof(ShowDialogueBubbles), true);
-    public static readonly Setting<bool> ShowDialogueMessages = new(nameof(ShowDialogueMessages), true);
     public static readonly Setting<float> DialogueMessageLifetime = new(nameof(DialogueMessageLifetime), 13f);
     public static readonly Setting<float> MinDialogueMessageLifetime = new(nameof(MinDialogueMessageLifetime), 2f);
     public static readonly Setting<int> DialogueMessageWidth = new(nameof(DialogueMessageWidth), 600);
@@ -58,6 +58,10 @@ namespace RimDialogue
     public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 1f);
 
     public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 1f);
+
+    public static readonly Setting<int> DialogueMessageInterface = new(nameof(DialogueMessageInterface), 1);
+
+    public static readonly Setting<int> MessageScrollSpeed = new(nameof(MessageScrollSpeed), 6);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

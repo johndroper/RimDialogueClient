@@ -6,43 +6,110 @@ using System.Linq;
 namespace RimDialogue.UI
 {
   using RimDialogue;
+  using RimDialogue.Core;
   using RimWorld;
   using UnityEngine;
   using Verse;
   using Mod = RimDialogue.Mod;
 
-  public class DialogueMessageWindow : Window, IExposable
+
+  public class ConversationLabel
+  {
+    public const float LabelHeight = 20f;
+    public const float TopMargin = 15f;
+    public const float BottomMargin = 4f;
+
+    private static string agoText = "RimDialogue.Ago".Translate().ToString();
+
+    public Conversation Conversation { get; set; }
+    public ConversationLabel(Conversation conversation)
+    {
+      Conversation = conversation;
+    }
+
+    private float lastContentRectWidth = 0;
+    private float? _height;
+
+    public float GetHeight(float contentRectWidth)
+    {
+      if (lastContentRectWidth != contentRectWidth)
+      {
+        _height = null;
+        _interactionHeight = null;
+        _textHeight = null;
+      }
+      _height ??= TopMargin
+        + (Conversation.timestamp != null ? LabelHeight : 0)
+        + GetInteractionHeight(contentRectWidth)
+        + GetTextHeight(contentRectWidth)
+        + BottomMargin;
+      return _height.Value;
+    }
+
+    private float? _interactionHeight;
+    public float GetInteractionHeight(float contentRectWidth)
+    {
+      Text.Font = GameFont.Small;
+      if (Conversation.interaction == null)
+        return 0f;
+        _interactionHeight ??= Text.CalcHeight(Conversation.interaction, contentRectWidth) + 3f;
+      return _interactionHeight.Value;
+    }
+
+    private float? _textHeight;
+    public float GetTextHeight(float contentRectWidth)
+    {
+      Text.Font = GameFont.Small;
+      _textHeight ??= Text.CalcHeight(Conversation.text, contentRectWidth);
+      return _textHeight.Value;
+    }
+
+    public float Draw(float currentY, float contentRectWidth)
+    {
+      GUI.color = Widgets.SeparatorLineColor;
+      Widgets.DrawLineHorizontal(0, currentY, contentRectWidth);
+      Text.Font = GameFont.Small;
+      GUI.color = Color.white;
+
+      string text = Conversation.text ?? string.Empty;
+      float textHeight = GetTextHeight(contentRectWidth);
+      currentY -= textHeight + BottomMargin;
+      var textRect = new Rect(0, currentY, contentRectWidth, textHeight);
+      Widgets.Label(textRect, text);
+      if (Conversation.interaction != null)
+      {
+        var interactionLabelHeight = GetInteractionHeight(contentRectWidth);
+        currentY -= interactionLabelHeight;
+        var interactionRect = new Rect(0, currentY, contentRectWidth, interactionLabelHeight);
+        Widgets.Label(interactionRect, Conversation.interaction);
+      }
+      if (Conversation.timestamp != null)
+      {
+        currentY -= LabelHeight;
+        var periodRect = new Rect(0, currentY, contentRectWidth, LabelHeight);
+        Widgets.Label(periodRect, (Find.TickManager.TicksGame - Conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
+      }
+      currentY -= TopMargin;
+      return currentY;
+    }
+  }
+
+  public class DialogueMessageWindow : Window
   {
     public const float MinLifeTime = 2f;
     public const float MaxMessageCount = 5f;
 
-    private static GUIStyle? _style;
-    public static GUIStyle Style => _style ??= new GUIStyle(Verse.Text.CurFontStyle)
-    {
-      alignment = TextAnchor.MiddleCenter,
-      clipping = TextClipping.Clip
-    };
-
     private const float fadeSpeed = 0.5f;
-    private const float scrollSpeed = 6f;
     private const float minAlpha = 0.2f;
     private const float maxAlpha = 0.85f;
-    const float labelHeight = 20f;
-    const float topMargin = 15f;
-    const float bottomMargin = 4f;
 
-    private Vector2 savedSize = new Vector2(200f, 400f);
-    private Vector2 savedPosition = new Vector2(100f, 50f);
     private float currentAlpha = 0.2f;
     private float targetAlpha = 0.2f;
 
+    private float scrollPosition = 0f;
 
-    private Vector2 conversationScrollPosition = Vector2.zero;
-    private static string agoText = "RimDialogue.Ago".Translate().ToString();
-
-    private float contentRectY = 0;
-
-    private List<Conversation> newConversations = [];
+    public List<ConversationLabel> ConversationLabels { get; set; }
+    private List<ConversationLabel> _newConversations = new List<ConversationLabel>();
 
     public DialogueMessageWindow()
     {
@@ -54,7 +121,6 @@ namespace RimDialogue.UI
       this.closeOnClickedOutside = false;
       this.drawShadow = false;
       this.doWindowBackground = false;
-      this.windowRect = new Rect(savedPosition.x, savedPosition.y, savedSize.x, savedSize.y);
       this.focusWhenOpened = false;
       this.resizeable = true;
       this.closeOnCancel = false;
@@ -62,62 +128,64 @@ namespace RimDialogue.UI
       this.preventCameraMotion = false;
       this.layer = WindowLayer.GameUI;
 
+      var savedSize = GameComponent_ConversationTracker.Instance.MessageWindowSize;
+      var savedPosition = GameComponent_ConversationTracker.Instance.MessageWindowPosition;
+      this.windowRect = new Rect(savedPosition.x, savedPosition.y, savedSize.x, savedSize.y);
+
+      ConversationLabels = GameComponent_ConversationTracker.Instance.Conversations
+        .Select(conversation => new ConversationLabel(conversation))
+        .ToList();
+
       GameComponent_ConversationTracker.Instance.ConversationAdded += (s, e) =>
       {
-        conversationContentRectHeight = null;
-        newConversations.Add(e.Conversation);
+        var newLabel = new ConversationLabel(e.Conversation);
+        _newConversations.Add(newLabel);
+        ConversationLabels.Add(newLabel);
+      };
+
+      GameComponent_ConversationTracker.Instance.ConversationRemoved += (s, e) =>
+      {
+        ConversationLabels.RemoveAll(label => label.Conversation == e.Conversation);
       };
     }
 
-    private Dictionary<Conversation, float> conversationHeights = [];
-
-    public float GetConversationHeight(Conversation conversation)
+    public float GetAllHeight(List<ConversationLabel> conversationLabels)
     {
-      if (conversationHeights.ContainsKey(conversation))
-        return conversationHeights[conversation];
-      else
-      {
-        var contentRectWidth = ContentRectWidth;
-        var result = topMargin
-            + (conversation.timestamp != null ? labelHeight : 0)
-            + (conversation.interaction != null ? Text.CalcHeight(conversation.interaction, contentRectWidth) : 0) + 3f
-            + Text.CalcHeight(conversation.text, contentRectWidth)
-            + bottomMargin;
-        conversationHeights.Add(conversation, result);
-        if (Settings.VerboseLogging.Value) Mod.Log($"Conversation height: {result}, contentRectWidth: {contentRectWidth}, contentRectY: {contentRectY}");
-        return result;
-      }
-    }
-
-    public float GetAllHeight(List<Conversation> conversations)
-    {
-      var allHeight = conversations
-        .Sum(conversation => GetConversationHeight(conversation));
-      if (Settings.VerboseLogging.Value) Mod.Log($"All {conversations.Count} conversations height: {allHeight}");
+      var contentRectWidth = ContentRectWidth;
+      var allHeight = conversationLabels
+        .Sum(conversationLabel => conversationLabel.GetHeight(contentRectWidth));
+      //if (Settings.VerboseLogging.Value) Mod.Log($"All {conversations.Count} conversations height: {allHeight}");
       return allHeight;
     }
 
-    public override Vector2 InitialSize => new Vector2(350f, UI.screenHeight - 200f);
+    public override void WindowUpdate()
+    {
+      base.WindowUpdate();
+    }
 
     protected override void SetInitialSizeAndPosition()
     {
-      Vector2 initialSize = InitialSize;
-      windowRect = new Rect(75f, 100f, initialSize.x, initialSize.y);
+      var savedSize = GameComponent_ConversationTracker.Instance.MessageWindowSize;
+      var savedPosition = GameComponent_ConversationTracker.Instance.MessageWindowPosition;
+      windowRect = new Rect(savedPosition.x, savedPosition.y, savedSize.x, savedSize.y);
       windowRect = windowRect.Rounded();
+      if (ConversationLabels.Any())
+        scrollPosition = windowRect.height - GetAllHeight(ConversationLabels);
+      else
+        scrollPosition = windowRect.height;
     }
 
-    public float ScrollRectWidth => windowRect.width - 50f;
-    public float ContentRectWidth => ScrollRectWidth - 16f;
+    public float ContentRectWidth => windowRect.width - 50f;
 
-    float? conversationContentRectHeight = null;
-    float? lastWindowWidth;
-    float? lastWindowHeight;
+    Vector2? LastWindowSize;
+    Vector2? LastWindowPosition;
 
     public override void DoWindowContents(Rect inRect)
     {
       //Background
       var contents = new Rect(0, 0, windowRect.width, windowRect.height);
-      if (Mouse.IsOver(contents))
+      bool mouseOver = Mouse.IsOver(contents);
+      if (mouseOver)
         targetAlpha = maxAlpha;
       else
         targetAlpha = minAlpha;
@@ -125,73 +193,43 @@ namespace RimDialogue.UI
         currentAlpha = Mathf.Lerp(currentAlpha, targetAlpha, RealTime.deltaTime * fadeSpeed);
       DrawTransparentBackground();
 
-      var conversationsScrollRect = new Rect(10, 0, ScrollRectWidth, windowRect.height - 40);
-      var contentRectWidth = ContentRectWidth;
-
-      if (!lastWindowWidth.HasValue
-        || !lastWindowHeight.HasValue
-        || this.windowRect.width != lastWindowWidth
-        || this.windowRect.height != lastWindowHeight)
-      {
-        conversationContentRectHeight = null;
-        lastWindowWidth = this.windowRect.width;
-        lastWindowHeight = this.windowRect.height;
-      }
-
-      var conversations = GameComponent_ConversationTracker.Instance.Conversations;
-      if (!conversations.Any())
-        return;
-
       Text.Font = GameFont.Small;
       GUI.color = Color.white;
-      conversationContentRectHeight ??= GetAllHeight(conversations);
+      var contentRectWidth = ContentRectWidth;
+      var conversationContentRectHeight = GetAllHeight(ConversationLabels);
 
-      if (newConversations.Any())
+      if (this.windowRect.position != LastWindowPosition)
       {
-        var height = GetAllHeight(newConversations);
-        contentRectY -= height / 2;
-        if (Settings.VerboseLogging.Value) Mod.Log($"New contentRectY: {contentRectY}");
-        newConversations.Clear();
+        LastWindowPosition = this.windowRect.position;
+        GameComponent_ConversationTracker.Instance.MessageWindowPosition = new Vector2(this.windowRect.x, this.windowRect.y);
       }
 
-      if (contentRectY < -1)
-        contentRectY += RealTime.deltaTime * scrollSpeed;
-      else
-        contentRectY = 0;
-      var conversationContentRect = new Rect(0, 0, contentRectWidth, conversationContentRectHeight.Value + contentRectY);
-      Widgets.BeginScrollView(conversationsScrollRect, ref conversationScrollPosition, conversationContentRect);
-      Widgets.BeginGroup(new Rect(0, contentRectY, conversationContentRect.width, conversationContentRect.height + Math.Abs(contentRectY)));
-      float convoY = contentRectY;
-      for (int i = conversations.Count - 1; i >= 0; i--)
+      if (LastWindowSize != this.windowRect.size)
       {
-        convoY += topMargin;
-        var conversation = conversations[i];
-        if (conversation.timestamp != null)
-        {
-          var periodRect = new Rect(0, convoY, contentRectWidth, 25f);
-          Widgets.Label(periodRect, (Find.TickManager.TicksGame - conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
-          convoY += labelHeight;
-        }
-        if (conversation.interaction != null)
-        {
-          var interactionLabelHeight = Text.CalcHeight(conversation.interaction, contentRectWidth) + 3f;
-          var interactionRect = new Rect(0, convoY, contentRectWidth, interactionLabelHeight);
-          Widgets.Label(interactionRect, conversation.interaction);
-          convoY += interactionLabelHeight;
-        }
-        string displayText = conversation.text ?? string.Empty;
-        float textHeight = Text.CalcHeight(displayText, contentRectWidth);
-        var convoRect = new Rect(0, convoY, contentRectWidth, textHeight);
-        Widgets.Label(convoRect, displayText);
-        convoY += textHeight;
-        convoY += bottomMargin;
-        Color previousColor = GUI.color;
-        GUI.color = Widgets.SeparatorLineColor;
-        Widgets.DrawLineHorizontal(0, convoY + bottomMargin, contentRectWidth);
-        GUI.color = previousColor;
+        LastWindowSize = this.windowRect.size;
+        GameComponent_ConversationTracker.Instance.MessageWindowSize = new Vector2(this.windowRect.width, this.windowRect.height);
+        if (this.windowRect.height < scrollPosition)
+          scrollPosition = this.windowRect.height;
+        if (this.windowRect.height > scrollPosition + conversationContentRectHeight)
+          scrollPosition += this.windowRect.height - (scrollPosition + conversationContentRectHeight);
       }
+
+      if (!ConversationLabels.Any())
+        return;
+
+      var conversationContentRect = new Rect(10, scrollPosition - ConversationLabel.TopMargin, contentRectWidth, conversationContentRectHeight);
+      Widgets.BeginGroup(conversationContentRect);
+      float convoY = conversationContentRect.height;
+      Color previousColor = GUI.color;
+      for (int i = ConversationLabels.Count - 1; i >= 0; i--)
+      {
+        convoY = ConversationLabels[i].Draw(convoY, conversationContentRect.width);
+      }
+      GUI.color = previousColor;
       Widgets.EndGroup();
-      Widgets.EndScrollView();
+
+      if (!mouseOver && conversationContentRect.y + conversationContentRect.height > windowRect.height - 40)
+        scrollPosition -= RealTime.deltaTime * Settings.MessageScrollSpeed.Value;
     }
 
     private void DrawTransparentBackground()
@@ -200,12 +238,6 @@ namespace RimDialogue.UI
       GUI.color = new Color(0f, 0f, 0f, currentAlpha);
       Widgets.DrawBoxSolid(new Rect(0f, 0f, windowRect.width, windowRect.height), GUI.color);
       GUI.color = originalColor;
-    }
-
-    public void ExposeData()
-    {
-      Scribe_Values.Look(ref savedSize, "savedSize", new Vector2(200f, 400f));
-      Scribe_Values.Look(ref savedPosition, "savedPosition", new Vector2(100f, 50f));
     }
   }
 }

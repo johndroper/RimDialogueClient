@@ -5,6 +5,8 @@ using RimDialogue.Core.InteractionData;
 using RimDialogue.UI;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -24,11 +26,15 @@ public class GameComponent_ConversationTracker : GameComponent
     Current.Game.GetComponent<GameComponent_ConversationTracker>();
 
   public event EventHandler<ConversationArgs>? ConversationAdded;
+  public event EventHandler<ConversationArgs>? ConversationRemoved;
 
   private Dictionary<string, string> additionalInstructions;
   private List<Conversation> conversations;
   private bool windowOpened = false;
   public DialogueMessageWindow? DialogueMessageWindow { get; private set; }
+  public Vector2 MessageWindowSize = new Vector2(350f, Math.Max(UI.screenHeight - 300f, 200f));
+  public Vector2 MessageWindowPosition = new Vector2(75f, 100f);
+  public DialogueMessagesFixed? DialogueMessagesFixed { get; private set; }
   public GameComponent_ConversationTracker(Game game)
   {
     conversations = [];
@@ -42,6 +48,8 @@ public class GameComponent_ConversationTracker : GameComponent
       conversations = [];
     if (additionalInstructions == null)
       additionalInstructions = [];
+    if (DialogueMessagesFixed == null)
+      DialogueMessagesFixed = new DialogueMessagesFixed();
   }
 
   public override void StartedNewGame()
@@ -49,22 +57,19 @@ public class GameComponent_ConversationTracker : GameComponent
     base.StartedNewGame();
     additionalInstructions[InstructionsSet.ALL_PAWNS] = "RimDialogue.DefaultInstructions".Translate();
     GetScenarioInstructions(Find.Scenario?.name + "\r\n" + H.RemoveWhiteSpace(Find.Scenario?.description));
-    foreach (var pawn in Find.CurrentMap.mapPawns.FreeColonists)
-    {
-      GetPawnInstructions(pawn);
-    }
+    GetInstructions();
   }
 
   public override void GameComponentUpdate()
   {
     // Wait until game is fully loaded and window hasn't been shown yet
-    if (!windowOpened && Current.ProgramState == ProgramState.Playing && Settings.ShowDialogueMessages.Value)
+    if (Settings.DialogueMessageInterface.Value == 1 && !windowOpened && Current.ProgramState == ProgramState.Playing)
     {
       DialogueMessageWindow = new DialogueMessageWindow();
       Find.WindowStack.Add(DialogueMessageWindow);
       windowOpened = true;
     }
-    else if (!Settings.ShowDialogueMessages.Value && DialogueMessageWindow != null)
+    else if (Settings.DialogueMessageInterface.Value != 1 && DialogueMessageWindow != null)
     {
       DialogueMessageWindow.Close();
       DialogueMessageWindow = null;
@@ -72,22 +77,32 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  private async void GetPawnInstructions(Pawn pawn)
+  private async void GetInstructions()
   {
     try
     {
-      var pawnData = H.MakePawnData(pawn, null);
-      WWWForm form = new WWWForm();
-      form.AddField("clientId", Settings.ClientId.Value);
-      form.AddField("pawnJson", JsonUtility.ToJson(pawnData));
-      var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form);
-      if (dialogueResponse.text != null)
-        additionalInstructions[pawn.ThingID] = dialogueResponse.text;
+      var colonists = Find.CurrentMap.mapPawns.FreeColonists.ListFullCopy();
+      foreach (var pawn in colonists)
+      {
+        await GetPawnInstructions(pawn);
+        await Task.Delay(1000);
+      }
     }
     catch (Exception ex)
     {
       RimDialogue.Mod.Error("Error fetching pawn Instructions: " + ex.ToString());
     }
+  }
+
+  private async Task GetPawnInstructions(Pawn pawn)
+  {
+    var pawnData = H.MakePawnData(pawn, null);
+    WWWForm form = new WWWForm();
+    form.AddField("clientId", Settings.ClientId.Value);
+    form.AddField("pawnJson", JsonUtility.ToJson(pawnData));
+    var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form);
+    if (dialogueResponse.text != null)
+      additionalInstructions[pawn.ThingID] = dialogueResponse.text;
   }
 
   private async void GetScenarioInstructions(string scenarioText)
@@ -115,7 +130,11 @@ public class GameComponent_ConversationTracker : GameComponent
     lock (conversations)
     {
       while (conversations.Count > Settings.MaxConversationsStored.Value)
+      {
+        Conversation removed = conversations[0];
         conversations.RemoveAt(0);
+        ConversationRemoved?.Invoke(this, new ConversationArgs(removed));
+      }
       conversations.Add(conversation);
     }
     ConversationAdded?.Invoke(this, new ConversationArgs(conversation));
@@ -166,7 +185,6 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-
   private string? _version = null;
 
   public override void ExposeData()
@@ -176,18 +194,8 @@ public class GameComponent_ConversationTracker : GameComponent
     Scribe_Values.Look(ref _version, "Version");
     Scribe_Collections.Look(ref conversations, "conversations", LookMode.Deep);
     Scribe_Collections.Look(ref additionalInstructions, "additionalInstructions", LookMode.Value, LookMode.Value);
-    //Scribe_Values.Look(ref windowOpened, "windowOpened", false);
-    if (Scribe.mode is LoadSaveMode.LoadingVars && String.IsNullOrEmpty(_version))
-    {
-      // Migrate old version
-      additionalInstructions["ALL_PAWNS"] =
-        Find.Scenario?.name +
-        "\r\n" +
-        H.RemoveWhiteSpace(Find.Scenario?.description)
-        + "\r\n" +
-        (additionalInstructions.ContainsKey("ALL_PAWNS") ? additionalInstructions["ALL_PAWNS"] : null);
-      RimDialogue.Mod.Log("Scenario prepended to instructions.");
-    }
+    Scribe_Values.Look(ref MessageWindowSize, "messageWindowSize", new Vector2(200f, 400f));
+    Scribe_Values.Look(ref MessageWindowPosition, "messageWindowPosition", new Vector2(100f, 50f));
   }
 }
 
