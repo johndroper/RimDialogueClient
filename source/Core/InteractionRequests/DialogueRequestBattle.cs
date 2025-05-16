@@ -1,14 +1,16 @@
+#nullable enable
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Linq;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestBattle : DialogueRequest<DialogueDataBattle>
+  public abstract class DialogueRequestBattle : DialogueRequestTwoPawn<DialogueDataBattle>
   {
     const string BattlePlaceholder = "**battle**";
 
-    public DialogueRequestBattle(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestBattle(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
     }
 
@@ -23,7 +25,7 @@ namespace RimDialogue.Core.InteractionData
         .Replace(BattlePlaceholder, Battle.GetName() ?? "an unnamed battle");
     }
 
-    public override void Build(DialogueDataBattle data)
+    public override void BuildData(DialogueDataBattle data)
     {
       data.Name = Battle.GetName();
       data.Entries = Battle.Entries
@@ -33,7 +35,7 @@ namespace RimDialogue.Core.InteractionData
       data.Importance = Battle.Importance.ToString();
       data.Participants = Battle.Entries
         .SelectMany(entry => entry.GetConcerns()
-          .Select(thing => H.RemoveWhiteSpaceAndColor(thing is Pawn ? ((Pawn)thing)?.Name.ToStringShort ?? thing.Label : thing.Label) + thing.Faction != null ? $" ({thing.Faction.Name})" : string.Empty))
+          .Select(thing => H.RemoveWhiteSpaceAndColor(thing != null && thing is Pawn pawn ? pawn?.Name.ToStringShort ?? thing.Label : thing?.Label) + thing?.Faction != null ? $" ({thing?.Faction.Name})" : string.Empty))
         .Distinct()
         .ToArray();
       data.Factions = Battle.Entries
@@ -42,7 +44,7 @@ namespace RimDialogue.Core.InteractionData
         .Where(faction => faction != null)
         .Select(faction => (faction.Name ?? "Unknown Name") + $" ({faction.def.label}) - " + faction.def.description)
         .ToArray();
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string Action => "Battle";

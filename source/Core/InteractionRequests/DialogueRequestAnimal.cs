@@ -1,14 +1,15 @@
 #nullable enable
+using RimDialogue.Core.InteractionRequests;
 using System.Linq;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestAnimal : DialogueRequest<DialogueDataAnimal>
+  public abstract class DialogueRequestAnimal : DialogueRequestTwoPawn<DialogueDataAnimal>
   {
     const string Placeholder = "**animal**";
 
-    public DialogueRequestAnimal(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestAnimal(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }
@@ -23,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Build(DialogueDataAnimal data)
+    public override void BuildData(DialogueDataAnimal data)
     {
       data.AnimalName = Animal.Name?.ToStringShort ?? Animal.LabelNoParenthesis ?? string.Empty;
       data.AnimalId = Animal.ThingID;
@@ -39,7 +40,7 @@ namespace RimDialogue.Core.InteractionData
       data.BaseHealthScale = Animal.RaceProps?.baseHealthScale ?? -1f;
       data.Trainability = Animal.RaceProps?.trainability?.label ?? string.Empty;
 
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string? Action => "AnimalChitchat";

@@ -12,7 +12,7 @@ namespace RimDialogue.Core.InteractionData
 
     static Dictionary<int, DialogueRequestMessage> recent = [];
 
-    public static DialogueRequestMessage BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestMessage BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       if (recent.ContainsKey(entry.LogID))
         return recent[entry.LogID];
@@ -26,7 +26,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override Pawn? Target => _target;
 
-    public DialogueRequestMessage(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestMessage(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
 
@@ -45,11 +45,11 @@ namespace RimDialogue.Core.InteractionData
           .Replace(MessagePlaceholder, _target.Name.ToStringShort + " is experiencing a " + Message.text.TrimEnd('.'));
     }
 
-    public override void Build(DialogueDataMessage data)
+    public override void BuildData(DialogueDataMessage data)
     {
       data.QuestName = Message.quest?.name ?? string.Empty;
       data.QuestDescription = H.RemoveWhiteSpaceAndColor(Message.quest?.description);
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string? Action => null;

@@ -11,19 +11,19 @@ namespace RimDialogue.Core.InteractionData
 
     public DirectPawnRelation Relation { get; set; }
 
-    public static DialogueRequestInitiatorFamily BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestInitiatorFamily BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestInitiatorFamily(entry, interactionTemplate);
     }
 
-    public DialogueRequestInitiatorFamily(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestInitiatorFamily(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       Relation = this.Initiator.relations.DirectRelations.RandomElement();
     }
 
-    public override void Build(DialogueDataFamily data)
+    public override void BuildData(DialogueDataFamily data)
     {
-      base.Build(data);
+      base.BuildData(data);
       data.RelationType = Relation.def.GetGenderSpecificLabel(Relation.otherPawn) ?? string.Empty;
     }
 

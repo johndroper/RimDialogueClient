@@ -1,15 +1,16 @@
 #nullable enable
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestFaction : DialogueRequest<DialogueDataFaction>
+  public abstract class DialogueRequestFaction : DialogueRequestTwoPawn<DialogueDataFaction>
   {
     const string FactionPlaceholder = "**faction**";
 
 
-    public DialogueRequestFaction(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestFaction(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }
@@ -21,9 +22,9 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "FactionChitchat";
 
-    public override void Build(DialogueDataFaction data)
+    public override void BuildData(DialogueDataFaction data)
     {
-      base.Build(data);
+      base.BuildData(data);
       data.FactionName = Faction.Name;
       data.FactionLeader = Faction.leader?.Name.ToStringFull ?? string.Empty;
       data.LeaderTitle = Faction.LeaderTitle;

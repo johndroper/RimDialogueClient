@@ -15,15 +15,15 @@ namespace RimDialogue.Access
     public static MethodBase TargetMethod()
     {
       return AccessTools.Method(typeof(LetterMaker), "MakeLetter",
-          new[] {
-                    typeof(TaggedString),
-                    typeof(TaggedString),
-                    typeof(LetterDef),
-                    typeof(LookTargets),
-                    typeof(Faction),
-                    typeof(Quest),
-                    typeof(List<ThingDef>)
-          });
+        new[] {
+            typeof(TaggedString),
+            typeof(TaggedString),
+            typeof(LetterDef),
+            typeof(LookTargets),
+            typeof(Faction),
+            typeof(Quest),
+            typeof(List<ThingDef>)
+        });
     }
 
     public static void Prefix(

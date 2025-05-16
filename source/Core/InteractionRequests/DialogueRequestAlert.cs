@@ -15,7 +15,7 @@ namespace RimDialogue.Core.InteractionData
   {
     const string AlertPlaceholder = "**alert**";
 
-    public static DialogueRequestAlert<DataT> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestAlert<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestAlert<DataT>(entry, interactionTemplate);
     }
@@ -35,7 +35,7 @@ namespace RimDialogue.Core.InteractionData
 
     public PawnData? targetData;
 
-    public DialogueRequestAlert(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestAlert(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for alert {entry.LogID} with template {interactionTemplate}.");
       var alerts = (List<Alert>)Reflection.RimWorld_AlertsReadout_ActiveAlerts.GetValue(Find.Alerts);
@@ -365,17 +365,17 @@ namespace RimDialogue.Core.InteractionData
             Subject = alert.Label;
           else
           {
-            Mod.Warning($"No alerts to choose from for log entry {entry.LogID}.");
+            Mod.Warning($"Entry {entry.LogID} - No alerts to choose from.");
             Subject = "an alert";
           }
           break;
       }
     }
 
-    public override void Build(DataT data)
+    public override void BuildData(DataT data)
     {
       data.Explanation = Explanation;
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string? Action => null;

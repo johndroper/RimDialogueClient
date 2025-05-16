@@ -8,12 +8,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestRoyalFaction : DialogueRequestFaction
   {
-    public static DialogueRequestRoyalFaction BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestRoyalFaction BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestRoyalFaction(entry, interactionTemplate);
     }
 
-    public DialogueRequestRoyalFaction(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestRoyalFaction(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }

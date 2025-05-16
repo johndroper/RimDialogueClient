@@ -7,12 +7,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestNeutralFaction : DialogueRequestFaction
   {
-    public static DialogueRequestNeutralFaction BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestNeutralFaction BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestNeutralFaction(entry, interactionTemplate);
     }
 
-    public DialogueRequestNeutralFaction(LogEntry entry, string interactionTemplate) :
+    public DialogueRequestNeutralFaction(PlayLogEntry_Interaction entry, string interactionTemplate) :
       base(entry, interactionTemplate)
     {
 

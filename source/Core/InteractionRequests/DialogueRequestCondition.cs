@@ -1,18 +1,19 @@
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestCondition<DataT> : DialogueRequest<DataT> where DataT : DialogueDataCondition, new()
+  public class DialogueRequestCondition : DialogueRequestTwoPawn<DialogueDataCondition>
   {
     const string GameConditionPlaceholder = "**game_condition**";
 
-    static Dictionary<int, DialogueRequestCondition<DataT>> recentConditions = new();
+    static Dictionary<int, DialogueRequestCondition> recentConditions = new();
 
-    public static DialogueRequestCondition<DataT> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestCondition BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
-      return new DialogueRequestCondition<DataT>(entry, interactionTemplate);
+      return new DialogueRequestCondition(entry, interactionTemplate);
     }
 
     public GameCondition GameCondition { get; set; }
@@ -20,7 +21,7 @@ namespace RimDialogue.Core.InteractionData
     public string Explanation { get; set; }
     public string Duration { get; set; }
 
-    public DialogueRequestCondition(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestCondition(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for condition {entry.LogID} with template {interactionTemplate}.");
       GameCondition = Find.CurrentMap.GameConditionManager.ActiveConditions.RandomElement();
@@ -89,7 +90,7 @@ namespace RimDialogue.Core.InteractionData
         .Replace(GameConditionPlaceholder, Interaction);
     }
 
-    public override void Build(DataT data)
+    public override void BuildData(DialogueDataCondition data)
     {
       data.Explanation = Explanation;
       data.LabelCap = GameCondition.LabelCap;
@@ -97,7 +98,7 @@ namespace RimDialogue.Core.InteractionData
       data.Duration = Duration;
       data.DurationTicks = GameCondition.TicksPassed;
       data.Permanent = GameCondition.Permanent;
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string Action => null;

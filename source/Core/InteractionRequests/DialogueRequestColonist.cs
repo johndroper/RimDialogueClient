@@ -10,7 +10,7 @@ namespace RimDialogue.Core.InteractionData
   {
     const string colonistPlaceholder = "**colonist**";
 
-    public static DialogueRequestColonist<DataT> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestColonist<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestColonist<DataT>(entry, interactionTemplate);
     }
@@ -24,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public DialogueRequestColonist(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestColonist(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       var colonists = Reflection.RimWorld_ColonistBar_TmpColonistsInOrder.GetValue(Find.ColonistBar) as List<Pawn>;
       if (colonists != null && colonists.Any())

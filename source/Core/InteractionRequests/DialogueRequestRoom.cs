@@ -1,22 +1,24 @@
+#nullable enable
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestRoom : DialogueRequest<DialogueDataRoom>
+  public class DialogueRequestRoom : DialogueRequestTwoPawn<DialogueDataRoom>
   {
-    public static DialogueRequestRoom BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestRoom BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestRoom(entry, interactionTemplate);
     }
 
 
-    public DialogueRequestRoom(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestRoom(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }
 
-    private Room _room;
+    private Room? _room;
     public virtual Room Room
     {
       get
@@ -26,7 +28,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Build(DialogueDataRoom data)
+    public override void BuildData(DialogueDataRoom data)
     {
       data.RoomLabel = Room.GetRoomRoleLabel();
       data.RoomCleanliness = RoomStatDefOf.Cleanliness.GetScoreStage(Room.GetStat(RoomStatDefOf.Cleanliness)).label;
@@ -34,7 +36,7 @@ namespace RimDialogue.Core.InteractionData
       data.RoomWealth = RoomStatDefOf.Wealth.GetScoreStage(Room.GetStat(RoomStatDefOf.Wealth)).label;
       data.RoomSpace = RoomStatDefOf.Space.GetScoreStage(Room.GetStat(RoomStatDefOf.Space)).label;
       data.RoomBeauty = RoomStatDefOf.Beauty.GetScoreStage(Room.GetStat(RoomStatDefOf.Beauty)).label;
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string Action => "RoomChitchat";

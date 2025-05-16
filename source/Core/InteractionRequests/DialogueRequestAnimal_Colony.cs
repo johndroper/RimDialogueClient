@@ -5,12 +5,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestAnimal_Colony : DialogueRequestAnimal
   {
-    public static DialogueRequestAnimal_Colony BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestAnimal_Colony BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestAnimal_Colony(entry, interactionTemplate);
     }
 
-    public DialogueRequestAnimal_Colony(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestAnimal_Colony(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }

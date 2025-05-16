@@ -20,11 +20,11 @@ namespace RimDialogue.Core
     public static GameComponent_ConversationTracker GetTracker()
     {
       var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
-      if (Settings.VerboseLogging.Value) Mod.Log($"Tracker fetched.");
+      //if (Settings.VerboseLogging.Value) Mod.Log($"Tracker fetched.");
       return tracker;
     }
 
-    public static PawnData MakePawnData(Pawn pawn, string? instructions)
+    public static PawnData MakeData(this Pawn pawn, string? instructions, int entryId)
     {
       string? personality = string.Empty;
       string? personalityDescription = string.Empty;
@@ -33,13 +33,13 @@ namespace RimDialogue.Core
       {
         try
         {
-          if (Settings.VerboseLogging.Value)
-            Mod.Log($"Trying to get personality.");
           Reflection.GetPersonality(pawn, out personality, out personalityDescription);
+          if (Settings.VerboseLogging.Value)
+            Mod.Log($"Entry {entryId} - Personality fetched: {personality}.");
         }
         catch (Exception ex)
         {
-          Mod.Warning($"Failed to get personality: {ex.Message}");
+          Mod.Warning($"Entry {entryId} - Failed to get personality: {ex.Message}");
         }
       }
 

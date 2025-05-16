@@ -28,7 +28,7 @@
   <RimDialogue.MessageScrollSpeed>Message Scroll Speed</RimDialogue.MessageScrollSpeed>
 
   <RimDialogue.DialogueWeights>Dialogue Weights</RimDialogue.DialogueWeights>
-  
+  <RimDialogue.TimelyEventWeight>Timely Event Bonus</RimDialogue.TimelyEventWeight>
   <RimDialogue.ToggleAllChitchatWeights>Toggle All</RimDialogue.ToggleAllChitchatWeights>
   <RimDialogue.MessageChitChatWeight>Message</RimDialogue.MessageChitChatWeight>
   <RimDialogue.GameConditionChitChatWeight>Game Condition</RimDialogue.GameConditionChitChatWeight>
@@ -49,7 +49,14 @@
   <RimDialogue.AnimalChitChatWeight>Animal</RimDialogue.AnimalChitChatWeight>
   <RimDialogue.RoomChitChatWeight>Room</RimDialogue.RoomChitChatWeight>
   <RimDialogue.DeadColonistDeepTalk>Dead Colonist</RimDialogue.DeadColonistDeepTalk>
-  
+
+  <RimDialogue.ChanceOf>Chance Of</RimDialogue.ChanceOf>
+  <RimDialogue.MeleeCombatQuipChance>Melee Combat Quip</RimDialogue.MeleeCombatQuipChance>
+  <RimDialogue.RangedFireQuipChance>Ranged Fire Quip</RimDialogue.RangedFireQuipChance>
+  <RimDialogue.RangedImpactQuipChance>Ranged Impact Quip</RimDialogue.RangedImpactQuipChance>
+  <RimDialogue.DamageTakenQuipChance>Damage Taken Quip</RimDialogue.DamageTakenQuipChance>
+  <RimDialogue.KillQuipChance>Kill Quip</RimDialogue.KillQuipChance>
+
   <RimDialogue.DefaultInstructions>Write dialogue that reflects the gritty, darkly humorous, and emotionally complex tone of RimWorld, grounded in the harsh realities of survival on a chaotic, unforgiving rimworld colony.</RimDialogue.DefaultInstructions>
   <RimDialogue.AdditionalInstructions>Instructions For [pawn]</RimDialogue.AdditionalInstructions>
   <RimDialogue.Ago> ago</RimDialogue.Ago>

@@ -32,7 +32,7 @@ public class GameComponent_ConversationTracker : GameComponent
   private List<Conversation> conversations;
   private bool windowOpened = false;
   public DialogueMessageWindow? DialogueMessageWindow { get; private set; }
-  public Vector2 MessageWindowSize = new Vector2(350f, Math.Max(UI.screenHeight - 300f, 200f));
+  public Vector2 MessageWindowSize = new Vector2(350f, Math.Max(UI.screenHeight - 400f, 200f));
   public Vector2 MessageWindowPosition = new Vector2(75f, 100f);
   public DialogueMessagesFixed? DialogueMessagesFixed { get; private set; }
   public GameComponent_ConversationTracker(Game game)
@@ -96,11 +96,11 @@ public class GameComponent_ConversationTracker : GameComponent
 
   private async Task GetPawnInstructions(Pawn pawn)
   {
-    var pawnData = H.MakePawnData(pawn, null);
+    var pawnData = pawn.MakeData(null, -1);
     WWWForm form = new WWWForm();
     form.AddField("clientId", Settings.ClientId.Value);
     form.AddField("pawnJson", JsonUtility.ToJson(pawnData));
-    var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form);
+    var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form, -1);
     if (dialogueResponse.text != null)
       additionalInstructions[pawn.ThingID] = dialogueResponse.text;
   }
@@ -112,7 +112,7 @@ public class GameComponent_ConversationTracker : GameComponent
       WWWForm form = new WWWForm();
       form.AddField("clientId", Settings.ClientId.Value);
       form.AddField("scenarioText", scenarioText);
-      var dialogueResponse = await DialogueRequest.Post("home/GetScenarioPrompt", form);
+      var dialogueResponse = await DialogueRequest.Post("home/GetScenarioPrompt", form, -1);
       if (dialogueResponse.text != null)
         additionalInstructions[InstructionsSet.COLONISTS] = dialogueResponse.text;
     }
@@ -124,7 +124,7 @@ public class GameComponent_ConversationTracker : GameComponent
 
   public void AddConversation(Pawn initiator, Pawn? recipient, string? interaction, string? text)
   {
-    if (initiator == null || recipient == null || text == null || string.IsNullOrWhiteSpace(text))
+    if (initiator == null || text == null || string.IsNullOrWhiteSpace(text))
       return;
     Conversation conversation = new Conversation(initiator, recipient, interaction, text);
     lock (conversations)
@@ -201,14 +201,16 @@ public class GameComponent_ConversationTracker : GameComponent
 
 public class Conversation : IExposable
 {
-  private Pawn? initiator;
+  private Pawn initiator;
   private Pawn? recipient;
   public string? text;
   public string? interaction;
   public int? timestamp;
+#pragma warning disable CS8618 
   public Conversation() { }
+#pragma warning restore CS8618 
 
-  public Conversation(Pawn initiator, Pawn recipient, string? interaction, string text)
+  public Conversation(Pawn initiator, Pawn? recipient, string? interaction, string text)
   {
     this.initiator = initiator;
     this.recipient = recipient;
@@ -216,12 +218,12 @@ public class Conversation : IExposable
     this.interaction = interaction;
     timestamp = Find.TickManager.TicksGame;
   }
-  public Pawn? Initiator => initiator;
+  public Pawn Initiator => initiator;
   public Pawn? Recipient => recipient;
-  public string Participants => $"{Initiator?.Name?.ToStringShort ?? "Unknown"} ↔ {Recipient?.Name?.ToStringShort ?? "Unknown"}";
+  public string Participants => $"{Initiator.Name?.ToStringShort ?? "Unknown"}" + Recipient != null ? $" ↔ {Recipient?.Name?.ToStringShort ?? "Unknown"}" : "";
   public bool InvolvesPawn(Pawn pawn)
   {
-    return pawn.thingIDNumber == initiator?.thingIDNumber || pawn.thingIDNumber == recipient?.thingIDNumber;
+    return pawn.thingIDNumber == initiator.thingIDNumber || pawn.thingIDNumber == recipient?.thingIDNumber;
   }
   public bool InvolvesColonist()
   {

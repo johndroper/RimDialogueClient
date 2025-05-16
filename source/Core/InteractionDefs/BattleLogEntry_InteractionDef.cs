@@ -1,0 +1,61 @@
+#nullable enable
+using RimDialogue.Access;
+using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Verse;
+using Verse.Grammar;
+
+namespace RimDialogue.Core.InteractionDefs
+{
+  public abstract class BattleLogEntry_InteractionDef : InteractionDef
+  {
+    public const string DEFLECTED = "deflected";
+    public const string WEAPON_EXISTS = "weapon_exists";
+    public const string PROJECTILE_EXISTS = "projectile_exists";
+
+    public Dictionary<string, string> Constants;
+
+    protected List<Rule> rulesRaw = new List<Rule>();
+
+    public BattleLogEntry_InteractionDef(
+      InteractionDef baseDef,
+      string combatLogText,
+      Pawn? target,
+      Dictionary<string, string>? constants)
+    {
+      Target = target;
+      CombatLogText = H.RemoveWhiteSpaceAndColor(combatLogText);
+
+      this.defName = baseDef.defName;
+      this.label = baseDef.label;
+      this.interactionMote = baseDef.interactionMote;
+
+      var baseRulesStrings = Reflection.Verse_RulePack_RulesStrings.GetValue(baseDef.logRulesInitiator);
+      this.logRulesInitiator = new RulePack();
+      Reflection.Verse_RulePack_RulesStrings.SetValue(this.logRulesInitiator, baseRulesStrings);
+
+      if (target != null)
+      {
+        rulesRaw.AddRange(GrammarUtility.RulesForPawn("TARGET", target));
+        if (Settings.VerboseLogging.Value) Mod.Log($"Rules added for '{target}'.");
+      }
+      else if (Settings.VerboseLogging.Value) Mod.Log("Target is null.");
+      Reflection.Verse_RulePack_RulesRaw.SetValue(this.logRulesInitiator, rulesRaw);
+
+      var symbol = (string)Reflection.RimWorld_InteractionDef_Symbol.GetValue(baseDef);
+      Reflection.RimWorld_InteractionDef_Symbol.SetValue(this, symbol);
+
+      if (constants != null)
+        Constants = constants;
+      else
+        Constants = [];
+    }
+
+    public Pawn? Target { get; set; }
+    public string CombatLogText { get; set; }
+  }
+}

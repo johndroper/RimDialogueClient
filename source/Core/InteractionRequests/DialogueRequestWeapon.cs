@@ -1,14 +1,15 @@
 #nullable enable
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestWeapon : DialogueRequest<DialogueDataWeapon>
+  public abstract class DialogueRequestWeapon : DialogueRequestTwoPawn<DialogueDataWeapon>
   {
     const string Placeholder = "**weapon**";
 
-    public DialogueRequestWeapon(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestWeapon(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }
@@ -23,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Build(DialogueDataWeapon data)
+    public override void BuildData(DialogueDataWeapon data)
     {
       data.WeaponLabel = Weapon.def?.label ?? string.Empty;
       data.WeaponDescription = H.RemoveWhiteSpace(Weapon.def?.description) ?? string.Empty;

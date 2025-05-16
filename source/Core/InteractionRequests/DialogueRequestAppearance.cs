@@ -1,12 +1,13 @@
 #nullable enable
+using RimDialogue.Core.InteractionRequests;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestAppearance : DialogueRequest<DialogueDataAppearance>
+  public abstract class DialogueRequestAppearance : DialogueRequestTwoPawn<DialogueDataAppearance>
   {
 
-    public DialogueRequestAppearance(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestAppearance(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }
@@ -16,7 +17,7 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override void Build(DialogueDataAppearance data)
+    public override void BuildData(DialogueDataAppearance data)
     {
       var style = this.Pawn.style;
       var story = this.Pawn.story;
@@ -31,7 +32,7 @@ namespace RimDialogue.Core.InteractionData
       data.FaceTattoo = style.FaceTattoo?.label ?? "None";
       data.FaceTattooCategory = style.FaceTattoo?.StyleItemCategory.label ?? "None";
 
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string? Action => "AppearanceChitchat";

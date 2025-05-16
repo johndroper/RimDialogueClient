@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <InteractionDef>
+    <defName>MeleeCombatQuip</defName>
+    <label>melee combat quip</label>
+    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [said_something] after [attacking] [target].</li>
+        <li>r_logentry->After [attacking] [target], [INITIATOR_nameDef] [said_something].</li>
+        <li>attacking->attacking</li>
+        <li>attacking->striking</li>
+        <li>target->an enemy [TARGET_kind]</li>
+        <li>target->[TARGET_nameDef]</li>
+        <li>said_something->said something badass</li>
+        <li>said_something->uttered a cold threat</li>
+        <li>said_something->muttered something menacing</li>
+        <li>said_something->spat a taunt</li>
+        <li>said_something->growled through gritted teeth</li>
+        <li>said_something->delivered a one-liner</li>
+        <li>said_something->delivered a quip</li>
+        <li>said_something->told a joke</li>
+        <li>said_something->said something witty</li>
+        <li>said_something->shouted</li>
+        <li>said_something->roared</li>
+        <li>said_something->bellowed</li>
+        <li>said_something->exclaimed</li>
+        <li>said_something->growled</li>
+        <li>said_something->snarled</li>
+        <li>said_something->grunted</li>
+        <li>said_something->cried out</li>
+        <li>said_something->whooped</li>
+        <li>said_something->boasted</li>
+        <li>said_something->taunted</li>
+        <li>said_something->jeered</li>
+        <li>said_something->mocked</li>
+        <li>said_something->snickered</li>
+        <li>said_something->scoffed</li>
+        <li>said_something->chuckled</li>
+        <li>said_something->yelled</li>
+        <li>said_something->wisecracked</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RangedFireQuip</defName>
+    <label>ranged fire quip</label>
+    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry(weapon_exists==false)->[INITIATOR_nameDef] [said_something] after [attacking] [target].</li>
+        <li>r_logentry(weapon_exists==false)->After [attacking] [target], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(weapon_exists==true)->[INITIATOR_nameDef] [said_something] after [attacking] [target] with [INITIATOR_possessive] [WEAPON_label].</li>
+        <li>r_logentry(weapon_exists==true)->After [attacking] [target] with [INITIATOR_possessive] [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
+        <li>attacking->attacking</li>
+        <li>attacking->shooting at</li>
+        <li>attacking->taking a shot at</li>
+        <li>attacking->firing at</li>
+        <li>attacking->unloading on</li>
+        <li>attacking->cracking off a shot at</li>
+        <li>attacking->letting off a round at</li>
+        <li>target->an enemy [TARGET_kind]</li>
+        <li>target->[TARGET_nameDef]</li>
+        <li>said_something->quipped</li>
+        <li>said_something->said something badass</li>
+        <li>said_something->uttered a cold threat</li>
+        <li>said_something->muttered something menacing</li>
+        <li>said_something->spat a taunt</li>
+        <li>said_something->growled through gritted teeth</li>
+        <li>said_something->delivered a one-liner</li>
+        <li>said_something->delivered a quip</li>
+        <li>said_something->told a joke</li>
+        <li>said_something->said something witty</li>
+        <li>said_something->shouted</li>
+        <li>said_something->roared</li>
+        <li>said_something->bellowed</li>
+        <li>said_something->exclaimed</li>
+        <li>said_something->growled</li>
+        <li>said_something->snarled</li>
+        <li>said_something->grunted</li>
+        <li>said_something->cried out</li>
+        <li>said_something->whooped</li>
+        <li>said_something->boasted</li>
+        <li>said_something->taunted</li>
+        <li>said_something->jeered</li>
+        <li>said_something->mocked</li>
+        <li>said_something->snickered</li>
+        <li>said_something->scoffed</li>
+        <li>said_something->chuckled</li>
+        <li>said_something->yelled</li>
+        <li>said_something->wisecracked</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>RangedImpactQuip</defName>
+    <label>ranged impact quip</label>
+    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==false)->[INITIATOR_nameDef] [said_something] after hitting [target].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==false)->[INITIATOR_nameDef] [said_something] after hitting [target] in the [damaged_targets].</li>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==false)->After hitting [target], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==false)->After hitting [target] in the [damaged_targets], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==true)->[INITIATOR_nameDef] [said_something] after hitting [target] with [INITIATOR_possessive] [WEAPON_label].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==true)->[INITIATOR_nameDef] [said_something] after hitting [target] in the [damaged_targets] with [INITIATOR_possessive] [WEAPON_label].</li>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==true)->After hitting [target] with [INITIATOR_possessive] [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==true)->After hitting [target] in the [damaged_targets] with [INITIATOR_possessive] [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
+        <li>target->an enemy [ORIGINAL_TARGET_kind]</li>
+        <li>target->[ORIGINAL_TARGET_nameDef]</li>
+        <li>said_something->quipped</li>
+        <li>said_something->said something badass</li>
+        <li>said_something->uttered a cold threat</li>
+        <li>said_something->muttered something menacing</li>
+        <li>said_something->spat a taunt</li>
+        <li>said_something->growled through gritted teeth</li>
+        <li>said_something->delivered a one-liner</li>
+        <li>said_something->delivered a quip</li>
+        <li>said_something->told a joke</li>
+        <li>said_something->said something witty</li>
+        <li>said_something->shouted</li>
+        <li>said_something->roared</li>
+        <li>said_something->bellowed</li>
+        <li>said_something->exclaimed</li>
+        <li>said_something->growled</li>
+        <li>said_something->snarled</li>
+        <li>said_something->grunted</li>
+        <li>said_something->cried out</li>
+        <li>said_something->whooped</li>
+        <li>said_something->boasted</li>
+        <li>said_something->taunted</li>
+        <li>said_something->jeered</li>
+        <li>said_something->mocked</li>
+        <li>said_something->snickered</li>
+        <li>said_something->scoffed</li>
+        <li>said_something->chuckled</li>
+        <li>said_something->yelled</li>
+        <li>said_something->wisecracked</li>
+        <li>damaged_targets(target_part_damaged_count==1)->[target_part_damaged0_label]</li>
+        <li>damaged_targets(target_part_damaged_count==2)->[target_part_damaged0_label] and [target_part_damaged1_label]</li>
+        <li>damaged_targets(target_part_damaged_count==3)->[target_part_damaged0_label], [target_part_damaged1_label], and [target_part_damaged2_label]</li>
+        <li>damaged_targets->[target_part_damaged0_label], [target_part_damaged1_label], [target_part_damaged2_label], and [target_part_damaged3_label]</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>DamageTakenQuip</defName>
+    <label>ranged impact quip</label>
+    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry(target_part_damaged_count==0)->[INITIATOR_nameDef] [said_something] after hitting [target].</li>
+        <li>r_logentry(target_part_damaged_count>=1)->[INITIATOR_nameDef] [said_something] after hitting [target] in the [damaged_targets].</li>
+        <li>r_logentry(target_part_damaged_count==0)->After hitting [target], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count>=1)->After hitting [target] in the [damaged_targets], [INITIATOR_nameDef] [said_something].</li>
+        <li>target->an enemy [TARGET_kind]</li>
+        <li>target->[TARGET_nameDef]</li>
+        <li>said_something->quipped</li>
+        <li>said_something->said something badass</li>
+        <li>said_something->delivered a quip</li>
+        <li>said_something->told a joke</li>
+        <li>said_something->said something witty</li>
+        <li>said_something->shouted</li>
+        <li>said_something->roared</li>
+        <li>said_something->bellowed</li>
+        <li>said_something->exclaimed</li>
+        <li>said_something->growled</li>
+        <li>said_something->snarled</li>
+        <li>said_something->grunted</li>
+        <li>said_something->cried out</li>
+        <li>said_something->whooped</li>
+        <li>said_something->boasted</li>
+        <li>said_something->taunted</li>
+        <li>said_something->jeered</li>
+        <li>said_something->mocked</li>
+        <li>said_something->snickered</li>
+        <li>said_something->scoffed</li>
+        <li>said_something->chuckled</li>
+        <li>said_something->yelled</li>
+        <li>said_something->wisecracked</li>
+        <li>damaged_targets(target_part_damaged_count==1)->[target_part_damaged0_label]</li>
+        <li>damaged_targets(target_part_damaged_count==2)->[target_part_damaged0_label] and [target_part_damaged1_label]</li>
+        <li>damaged_targets(target_part_damaged_count==3)->[target_part_damaged0_label], [target_part_damaged1_label], and [target_part_damaged2_label]</li>
+        <li>damaged_targets->[target_part_damaged0_label], [target_part_damaged1_label], [target_part_damaged2_label], and [target_part_damaged3_label]</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  <InteractionDef>
+    <defName>ImHit</defName>
+    <label>I'm hit!</label>
+    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==false)->[INITIATOR_nameDef] [cried_out] in [pain] after being hit by [TARGET_nameDef].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==false)->[INITIATOR_nameDef] [cried_out] in [pain] after being hit in the [damaged_targets] by [TARGET_nameDef].</li>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==false)->After being hit by [TARGET_nameDef], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==false)->After being hit in the [damaged_targets] by [TARGET_nameDef], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==true)->[INITIATOR_nameDef] [cried_out] in [pain] after being hit with [TARGET_nameDef]'s [WEAPON_label].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==true)->[INITIATOR_nameDef] [cried_out] in [pain] after being hit in the [damaged_targets] with [TARGET_nameDef]'s [WEAPON_label].</li>
+        <li>r_logentry(target_part_damaged_count==0, weapon_exists==true)->After being hit with [TARGET_nameDef]'s [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
+        <li>r_logentry(target_part_damaged_count>=1, weapon_exists==true)->After being hit in the [damaged_targets] with [TARGET_nameDef]'s [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
+        <li>cried_out->cried out</li>
+        <li>cried_out->shouted</li>
+        <li>cried_out->yelled</li>
+        <li>cried_out->screamed</li>
+        <li>cried_out->muttered</li>
+        <li>cried_out->gasped</li>
+        <li>cried_out->grunted</li>
+        <li>cried_out->snarled</li>
+        <li>cried_out->moaned</li>
+        <li>cried_out->howled</li>
+        <li>cried_out->shrieked</li>
+        <li>cried_out->hissed</li>
+        <li>cried_out->cursed</li>
+        <li>cried_out->wailed</li>
+        <li>pain->pain</li>
+        <li>pain->anger</li>
+        <li>pain->agony</li>
+        <li>pain->torment</li>
+        <li>pain->misery</li>
+        <li>pain->suffering</li>
+        <li>pain->anguish</li>
+        <li>pain->discomfort</li>
+        <li>pain->rage</li>
+        <li>pain->desperation</li>
+        <li>pain->horror</li>
+        <li>damaged_targets(target_part_damaged_count==1)->[target_part_damaged0_label]</li>
+        <li>damaged_targets(target_part_damaged_count==2)->[target_part_damaged0_label] and [target_part_damaged1_label]</li>
+        <li>damaged_targets(target_part_damaged_count==3)->[target_part_damaged0_label], [target_part_damaged1_label], and [target_part_damaged2_label]</li>
+        <li>damaged_targets->[target_part_damaged0_label], [target_part_damaged1_label], [target_part_damaged2_label], and [target_part_damaged3_label]</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+</Defs>

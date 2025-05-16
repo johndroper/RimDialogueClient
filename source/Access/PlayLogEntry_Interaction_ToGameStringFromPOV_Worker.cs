@@ -17,17 +17,17 @@ namespace RimDialogue.Access
       {
         if (Settings.OnlyColonists.Value && !pov.IsColonist)
           return;
-        if (Settings.VerboseLogging.Value) Mod.Log($"Original interaction log for log entry {__instance.LogID}: {__result}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Original interaction: '{__result}'");
         var dialogueRequest = DialogueRequest.Create(
-        ref __instance,
-        ref __result,
+        __instance,
+        __result,
         (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
         __result = dialogueRequest.GetInteraction();
-        if (Settings.VerboseLogging.Value) Mod.Log($"New {dialogueRequest.GetType().Name} interaction log for log entry {__instance.LogID}: {__result}");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
       }
       catch (Exception ex)
       {
-        Mod.Error($"An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
+        Mod.Error($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
       }
     }
   }

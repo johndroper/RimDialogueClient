@@ -52,9 +52,9 @@ namespace RimDialogue.Core
       public Quest? Quest;
       //public List<ThingDef>? HyperlinkThingDefs;
       public int Ticks;
-
+#pragma warning disable CS8618
       public RecentLetter() { }
-
+#pragma warning restore CS8618
       public RecentLetter(
           TaggedString label,
           TaggedString text,

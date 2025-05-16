@@ -41,7 +41,7 @@ namespace RimDialogue.Core
         DeadColonists = [];
     }
 
-    public void RecordDeath(Pawn pawn, DamageInfo? dinfo, Hediff exactCulprit)
+    public void RecordDeath(Pawn pawn, DamageInfo? dinfo, Hediff? exactCulprit)
     {
       if (pawn == null || !pawn.Dead)
         return;
@@ -80,7 +80,7 @@ namespace RimDialogue.Core
       }
     }
 
-    private string GenerateCauseString(DamageInfo? dinfo, Hediff exactCulprit)
+    private string GenerateCauseString(DamageInfo? dinfo, Hediff? exactCulprit)
     {
       if (dinfo.HasValue)
       {
@@ -128,9 +128,9 @@ namespace RimDialogue.Core
     public Pawn Pawn;
     public string Cause;
     public int TimeStamp;
-
+#pragma warning disable CS8618
     public PawnDeathRecord() { }
-
+#pragma warning restore CS8618
     public PawnDeathRecord(Pawn pawn, string cause, int ticksAtDeath)
     {
       Pawn = pawn;
@@ -141,7 +141,7 @@ namespace RimDialogue.Core
     public void ExposeData()
     {
       Scribe_References.Look(ref Pawn, "Pawn");
-      Scribe_Values.Look(ref Cause, "Cause");
+      Scribe_Values.Look(ref Cause!, "Cause");
       Scribe_Values.Look(ref TimeStamp, "TicksAtDeath");
     }
   }

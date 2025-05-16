@@ -3,20 +3,20 @@ using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestColonyAnimal<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueTargetData, new()
+  public class DialogueRequestColonyAnimal : DialogueRequestTarget<DialogueTargetData>
   {
     const string animalPlaceholder = "**animal**";
 
-    public static DialogueRequestColonyAnimal<DataT> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestColonyAnimal BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
-      return new DialogueRequestColonyAnimal<DataT>(entry, interactionTemplate);
+      return new DialogueRequestColonyAnimal(entry, interactionTemplate);
     }
 
     public override Pawn Target => _target;
 
     private Pawn _target;
 
-    public DialogueRequestColonyAnimal(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestColonyAnimal(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       ;
       _target = Find.CurrentMap.mapPawns.SpawnedColonyAnimals.RandomElement();

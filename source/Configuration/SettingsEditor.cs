@@ -133,6 +133,7 @@ namespace RimDialogue.Configuration
         weights.Indent();
         if (l.ButtonText("RimDialogue.ToggleAllChitchatWeights".Translate())) { ToggleAllChitChatWeights(); }
         weights.Gap();
+        weights.SliderLabeled("RimDialogue.TimelyEventWeight".Translate(), ref Settings.TimelyEventWeight.Value, 0, 10, roundTo: .01f);
         weights.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1, roundTo: .01f);
         weights.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1, roundTo: .01f);
         weights.SliderLabeled("RimDialogue.BattleChitChatWeight".Translate(), ref Settings.BattleChitChatWeight.Value, 0, 1, roundTo: .01f);
@@ -155,6 +156,18 @@ namespace RimDialogue.Configuration
         weights.Outdent();
         l.EndSection(weights);
 
+        var chances = l.BeginSection(30f * 7);
+        chances.ColumnWidth = listingRect.width - 50f;
+        chances.Label("RimDialogue.ChanceOf".Translate());
+        chances.Indent();
+        chances.Gap();
+        chances.SliderLabeled("RimDialogue.MeleeCombatQuipChance".Translate(), ref Settings.MeleeCombatQuipChance.Value, 0, 1, roundTo: .01f);
+        chances.SliderLabeled("RimDialogue.RangedFireQuipChance".Translate(), ref Settings.RangedFireQuipChance.Value, 0, 1, roundTo: .01f);
+        chances.SliderLabeled("RimDialogue.RangedImpactQuipChance".Translate(), ref Settings.RangedImpactQuipChance.Value, 0, 1, roundTo: .01f);
+        chances.SliderLabeled("RimDialogue.DamageTakenQuipChance".Translate(), ref Settings.DamageTakenQuipChance.Value, 0, 1, roundTo: .01f);
+
+        chances.Outdent();
+        l.EndSection(chances);
         l.EndScrollView(ref _viewRect);
       }
       catch(Exception ex)

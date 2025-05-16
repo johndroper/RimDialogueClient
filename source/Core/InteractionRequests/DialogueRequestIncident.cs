@@ -9,7 +9,7 @@ namespace RimDialogue.Core.InteractionData
   {
     const string IncidentPlaceholder = "**recent_incident**";
 
-    public static DialogueRequestIncident<DataT> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestIncident<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestIncident<DataT>(entry, interactionTemplate);
     }
@@ -26,7 +26,7 @@ namespace RimDialogue.Core.InteractionData
     public string Subject { get; set; } = string.Empty;
     public string Explanation { get; set; } = string.Empty;
 
-    public DialogueRequestIncident(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestIncident(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
       var incidents = GameComponent_LetterTracker.Instance.RecentLetters;
@@ -57,10 +57,10 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Build(DataT data)
+    public override void BuildData(DataT data)
     {
       data.Explanation = Explanation;
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string GetInteraction()

@@ -1,10 +1,11 @@
 #nullable enable
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestSkill : DialogueRequest<DialogueDataSkill>
+  public class DialogueRequestSkill : DialogueRequestTwoPawn<DialogueDataSkill>
   {
     public static readonly SkillDef[] SkillDefs = new SkillDef[]
     {
@@ -23,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
     };
 
     const string Placeholder = "**skill**";
-    public static DialogueRequestSkill BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestSkill BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestSkill(entry, interactionTemplate);
     }
@@ -31,7 +32,7 @@ namespace RimDialogue.Core.InteractionData
     public SkillRecord InitiatorSkillRecord { get; set; }
     public SkillRecord RecipientSkillRecord { get; set; }
 
-    public DialogueRequestSkill(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestSkill(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       InitiatorSkillRecord = Initiator.skills.GetSkill(SkillDef);
       RecipientSkillRecord = Recipient.skills.GetSkill(SkillDef);
@@ -50,7 +51,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "SkillChitchat";
 
-    public override void Build(DialogueDataSkill data)
+    public override void BuildData(DialogueDataSkill data)
     {
       data.SkillName = SkillDef.label ?? string.Empty;
       data.SkillDescription = SkillDef.description ?? string.Empty;
@@ -58,7 +59,7 @@ namespace RimDialogue.Core.InteractionData
       data.RecipientSkillLevel = RecipientSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
       data.InitiatorPassion = InitiatorSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
       data.RecipientPassion = RecipientSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string GetInteraction()

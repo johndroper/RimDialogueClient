@@ -224,6 +224,8 @@ namespace RimDialogue.UI
       for (int i = ConversationLabels.Count - 1; i >= 0; i--)
       {
         convoY = ConversationLabels[i].Draw(convoY, conversationContentRect.width);
+        if (convoY < 0)
+          break;
       }
       GUI.color = previousColor;
       Widgets.EndGroup();

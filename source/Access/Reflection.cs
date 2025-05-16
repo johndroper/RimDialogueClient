@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Access
 {
@@ -13,8 +14,38 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_Initiator = AccessTools.Field(typeof(PlayLogEntry_Interaction), "initiator");
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_Recipient = AccessTools.Field(typeof(PlayLogEntry_Interaction), "recipient");
     public static readonly FieldInfo Verse_PlayLogEntry_InteractionSinglePawn_Initiator = AccessTools.Field(typeof(PlayLogEntry_InteractionSinglePawn), "initiator");
+
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_InteractionDef = AccessTools.Field(typeof(PlayLogEntry_Interaction), "intDef");
     public static readonly FieldInfo Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef = AccessTools.Field(typeof(PlayLogEntry_InteractionSinglePawn), "intDef");
+
+    public static readonly FieldInfo Verse_BattleLogEntry_DamageTaken_InitiatorPawn = AccessTools.Field(typeof(BattleLogEntry_DamageTaken), "initiatorPawn");
+    public static readonly FieldInfo Verse_BattleLogEntry_DamageTaken_RecipientPawn = AccessTools.Field(typeof(BattleLogEntry_DamageTaken), "recipientPawn");
+
+    public static readonly FieldInfo Verse_BattleLogEntry_MeleeCombat_Initiator = AccessTools.Field(typeof(BattleLogEntry_MeleeCombat), "initiator");
+    public static readonly FieldInfo Verse_BattleLogEntry_MeleeCombat_RecipientPawn = AccessTools.Field(typeof(BattleLogEntry_MeleeCombat), "recipientPawn");
+
+    public static readonly FieldInfo Verse_LogEntry_DamageResult_DamagedParts = AccessTools.Field(typeof(LogEntry_DamageResult), "damagedParts");
+    public static readonly FieldInfo Verse_LogEntry_DamageResult_DamagedPartsDestroyed = AccessTools.Field(typeof(LogEntry_DamageResult), "damagedPartsDestroyed");
+    public static readonly FieldInfo Verse_LogEntry_DamageResult_Deflected = AccessTools.Field(typeof(LogEntry_DamageResult), "deflected");
+
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_InitiatorPawn = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "initiatorPawn");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_InitiatorThing = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "initiatorThing");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_RecipientPawn = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "recipientPawn");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_RecipientThing = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "recipientThing");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_OriginalTargetPawn = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "originalTargetPawn");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_OriginalTargetThing = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "originalTargetThing");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_WeaponDef = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "weaponDef");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_ProjectileDef = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "projectileDef");
+    
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_InitiatorPawn = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "initiatorPawn");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_InitiatorThing = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "initiatorThing");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_RecipientPawn = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "recipientPawn");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_RecipientThing = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "recipientThing");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_WeaponDef = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "weaponDef");
+    public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_ProjectileDef = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "projectileDef");
+
+    public static readonly FieldInfo Verse_RulePack_RulesStrings = AccessTools.Field(typeof(RulePack), "rulesStrings");
+    public static readonly FieldInfo Verse_RulePack_RulesRaw = AccessTools.Field(typeof(RulePack), "rulesRaw");
 
     public static readonly MethodInfo Bubbles_Bubbler_ShouldShow = AccessTools.Method(typeof(Bubbles.Core.Bubbler), "ShouldShow");
     public static readonly FieldInfo Bubbles_Bubbler_Dictionary = AccessTools.Field(typeof(Bubbles.Core.Bubbler), "Dictionary");
@@ -57,7 +88,8 @@ namespace RimDialogue.Access
     public static readonly FieldInfo RimWorld_Alert_StarvationColonists_StarvingColonistsResult = AccessTools.Field(typeof(RimWorld.Alert_StarvationColonists), "starvingColonistsResult");
     public static readonly FieldInfo RimWorld_Alert_UnhappyNudity_AffectedPawnsResult = AccessTools.Field(typeof(RimWorld.Alert_UnhappyNudity), "affectedPawnsResult");
     public static readonly FieldInfo RimWorld_Alert_LifeThreateningHediff_SickPawnsResult = AccessTools.Field(typeof(RimWorld.Alert_LifeThreateningHediff), "sickPawnsResult");
-
+    public static readonly FieldInfo RimWorld_InteractionDef_SymbolTex = AccessTools.Field(typeof(RimWorld.InteractionDef), "symbolTex");
+        
     private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
 
 

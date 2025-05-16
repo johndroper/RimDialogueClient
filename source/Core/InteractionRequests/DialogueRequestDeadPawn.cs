@@ -10,7 +10,7 @@ namespace RimDialogue.Core.InteractionRequests
     private const string Placeholder = "**pawn**";
     private static string agoText = "RimDialogue.Ago".Translate().ToString();
 
-    public DialogueRequestDeadPawn(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestDeadPawn(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
     }
 
@@ -20,12 +20,12 @@ namespace RimDialogue.Core.InteractionRequests
       get;
     }
 
-    public override void Build(DialogueDataDeadPawn data)
+    public override void BuildData(DialogueDataDeadPawn data)
     {
       data.PawnName = Record.Pawn.Name.ToStringShort ?? Record.Pawn.LabelNoParenthesis ?? "Unknown";
       data.CauseOfDeath = Record.Cause;
       data.TimeSinceDeath = (Find.TickManager.TicksGame - Record.TimeStamp).ToStringTicksToPeriod() + agoText;
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override Pawn Target

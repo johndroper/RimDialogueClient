@@ -48,9 +48,9 @@ namespace RimDialogue.Core
   {
     public Message Message;
     public int Ticks;
-
+#pragma warning disable CS8618
     public MessageRecord() { }
-
+#pragma warning restore CS8618
     public MessageRecord(Message message, int ticks)
     {
       Message = message;

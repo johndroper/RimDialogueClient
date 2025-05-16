@@ -5,12 +5,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestHostileFaction : DialogueRequestFaction
   {
-    public static DialogueRequestHostileFaction BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestHostileFaction BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestHostileFaction(entry, interactionTemplate);
     }
 
-    public DialogueRequestHostileFaction(LogEntry entry, string interactionTemplate) :
+    public DialogueRequestHostileFaction(PlayLogEntry_Interaction entry, string interactionTemplate) :
       base(entry, interactionTemplate)
     {
 

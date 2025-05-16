@@ -1,21 +1,22 @@
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Linq;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestNeed<DataT> : DialogueRequest<DataT> where DataT : DialogueDataNeed, new()
+  public class DialogueRequestNeed<DataT> : DialogueRequestTwoPawn<DataT> where DataT : DialogueDataNeed, new()
   {
     const string Placeholder = "**need**";
 
     public Need Need { get; set; }
 
-    public static DialogueRequestNeed<DialogueDataNeed> BuildFrom(LogEntry entry, string interactionTemplate)
+    public static new DialogueRequestNeed<DialogueDataNeed> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
     {
       return new DialogueRequestNeed<DialogueDataNeed>(entry, interactionTemplate);
     }
 
-    public DialogueRequestNeed(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestNeed(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       var unsatisfiedNeeds = this.Initiator.needs
         .AllNeeds
@@ -25,9 +26,9 @@ namespace RimDialogue.Core.InteractionData
 
     public override string Action => "NeedChitchat";
 
-    public override void Build(DataT data)
+    public override void BuildData(DataT data)
     {
-      base.Build(data);
+      base.BuildData(data);
       data.NeedLabel = this.Need?.def.label ?? string.Empty;
       data.NeedDescription = this.Need?.def.description ?? string.Empty;
       data.NeedLevel = this.Need?.CurLevelPercentage ?? 0f;

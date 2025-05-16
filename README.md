@@ -1,6 +1,6 @@
 # RimDialogueClient 
 
-RimDialogue is a extension of Jaxe’s excellent Interaction Bubbles mod, but instead of simply displaying the system-generated interaction text, it takes these interactions and uses a language model to transform them into real dialogue. This dialogue is then displayed in-game above each character’s head in a speech bubble.
+RimDialogue is a fork of Jaxe’s excellent Interaction Bubbles mod, but instead of simply displaying the system-generated interaction text, it takes these interactions and uses a language model to transform them into real dialogue. This dialogue is then displayed in-game above each character’s head in a speech bubble.
 
 For example, an interaction like, "Huynh and Nila chatted about crazy eels," could turn into something like:
 

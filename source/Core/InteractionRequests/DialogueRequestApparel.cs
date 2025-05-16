@@ -1,15 +1,16 @@
 #nullable enable
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public abstract class DialogueRequestApparel : DialogueRequest<DialogueDataApparel>
+  public abstract class DialogueRequestApparel : DialogueRequestTwoPawn<DialogueDataApparel>
   {
     const string Placeholder = "**apparel**";
 
 
-    public DialogueRequestApparel(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestApparel(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
 
     }
@@ -24,14 +25,14 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Build(DialogueDataApparel data)
+    public override void BuildData(DialogueDataApparel data)
     {
-      data.ApparelLabel = Apparel.def?.label ?? string.Empty;
-      data.ApparelDescription = H.RemoveWhiteSpace(Apparel.def?.description) ?? string.Empty;
+      data.ApparelLabel = Apparel?.def.label ?? string.Empty;
+      data.ApparelDescription = H.RemoveWhiteSpace(Apparel?.def.description) ?? string.Empty;
       data.WornByCorpse = Apparel?.WornByCorpse ?? false;
       this.Apparel.TryGetQuality(out var quality);
       data.ApparelQuality = quality.GetLabel();
-      base.Build(data);
+      base.BuildData(data);
     }
 
     public override string? Action => "ApparelChitchat";

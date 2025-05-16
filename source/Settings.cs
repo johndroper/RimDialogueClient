@@ -38,6 +38,8 @@ namespace RimDialogue
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 4);
     public static readonly Setting<int> RecentBattleHours = new(nameof(RecentBattleHours), 6);
 
+    public static readonly Setting<float> TimelyEventWeight = new(nameof(TimelyEventWeight), 5f);
+
     public static readonly Setting<float> MessageChitChatWeight = new(nameof(MessageChitChatWeight), 1f);
     public static readonly Setting<float> GameConditionChitChatWeight = new(nameof(GameConditionChitChatWeight), 1f);
     public static readonly Setting<float> BattleChitChatWeight = new(nameof(BattleChitChatWeight), 1f);
@@ -56,12 +58,17 @@ namespace RimDialogue
     public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 1f);
     public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 1f);
     public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 1f);
-
     public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 1f);
+        
+    public static readonly Setting<float> MeleeCombatQuipChance = new(nameof(MeleeCombatQuipChance), .1f);
+    public static readonly Setting<float> RangedFireQuipChance = new(nameof(RangedFireQuipChance), .1f);
+    public static readonly Setting<float> RangedImpactQuipChance = new(nameof(RangedImpactQuipChance), .25f);
+    public static readonly Setting<float> DamageTakenQuipChance = new(nameof(DamageTakenQuipChance), .25f);
+    public static readonly Setting<float> ImHitChance = new(nameof(ImHitChance), .333f);
 
     public static readonly Setting<int> DialogueMessageInterface = new(nameof(DialogueMessageInterface), 1);
 
-    public static readonly Setting<int> MessageScrollSpeed = new(nameof(MessageScrollSpeed), 6);
+    public static readonly Setting<int> MessageScrollSpeed = new(nameof(MessageScrollSpeed), 12);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 
