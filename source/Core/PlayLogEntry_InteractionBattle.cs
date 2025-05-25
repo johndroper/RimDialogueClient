@@ -1,3 +1,4 @@
+# nullable enable
 using RimDialogue.Core.InteractionData;
 using RimDialogue.Core.InteractionDefs;
 using RimWorld;
@@ -20,7 +21,14 @@ namespace RimDialogue.Core
       Find.PlayLog.Add(new PlayLogEntry_InteractionBattle(intDef, initiator, null));
     }
 
-    protected BattleLogEntry_InteractionDef InteractionDef { get; set; }
+    protected BattleLogEntry_InteractionDef InteractionDef;
+    protected string? _Text = null;
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    public PlayLogEntry_InteractionBattle()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    {
+    }
 
     public PlayLogEntry_InteractionBattle(BattleLogEntry_InteractionDef interactionDef, Pawn initiator, List<RulePackDef> extraSentencePacks) :
       base(interactionDef, initiator, extraSentencePacks)
@@ -30,6 +38,9 @@ namespace RimDialogue.Core
 
     protected override string ToGameStringFromPOV_Worker(Thing pov, bool forceLog)
     {
+      if (_Text != null)
+        return _Text;
+
       if (initiator == null)
       {
         Log.ErrorOnce("PlayLogEntry_InteractionBattle has a null pawn reference.", 34422);
@@ -39,17 +50,17 @@ namespace RimDialogue.Core
       Rand.Seed = logID;
       GrammarRequest request = GenerateGrammarRequest();
       request.Constants.AddRange(InteractionDef.Constants);
-      string text;
       if (pov == initiator)
       {
         request.IncludesBare.Add(intDef.logRulesInitiator);
         request.Rules.AddRange(GrammarUtility.RulesForPawn("INITIATOR", initiator, request.Constants));
-        text = GrammarResolver.Resolve("r_logentry", request, "interaction from initiator", forceLog);
+        _Text = GrammarResolver.Resolve("r_logentry", request, "interaction from initiator", forceLog);
+        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New battle interaction text: '{_Text}'.");
       }
       else
       {
         Log.ErrorOnce("Cannot display PlayLogEntry_InteractionBattle from POV who isn't initiator.", 51251);
-        text = ToString();
+        _Text = ToString();
       }
       if (extraSentencePacks != null)
       {
@@ -58,21 +69,26 @@ namespace RimDialogue.Core
           request.Clear();
           request.Includes.Add(extraSentencePacks[i]);
           request.Rules.AddRange(GrammarUtility.RulesForPawn("INITIATOR", initiator, request.Constants));
-          text = text + " " + GrammarResolver.Resolve(extraSentencePacks[i].FirstRuleKeyword, request, "extraSentencePack", forceLog, extraSentencePacks[i].FirstUntranslatedRuleKeyword);
+          _Text = _Text + " " + GrammarResolver.Resolve(extraSentencePacks[i].FirstRuleKeyword, request, "extraSentencePack", forceLog, extraSentencePacks[i].FirstUntranslatedRuleKeyword);
         }
       }
       Rand.PopState();
 
       if (Settings.OnlyColonists.Value && !initiator.IsColonist)
-        return text;
+        return _Text;
 
       var dialogueRequest = DialogueRequest.Create(
         this,
-        text,
+        _Text,
         InteractionDef);
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} interaction: '{text}'");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} interaction: '{_Text}'");
 
-      return text;
+      return _Text;
+    }
+    public override void ExposeData()
+    {
+      base.ExposeData();
+      Scribe_Values.Look(ref _Text, "_Text");
     }
   }
 }

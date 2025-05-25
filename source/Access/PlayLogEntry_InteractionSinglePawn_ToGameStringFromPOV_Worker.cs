@@ -16,7 +16,7 @@ public static class PlayLogEntry_Interaction_ToGameStringFromPOV_Worker
     {
       if (Settings.OnlyColonists.Value && !pov.IsColonist)
         return;
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Original interaction: '{__result}'");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_InteractionSinglePawn Original interaction: '{__result}'");
       var dialogueRequest = DialogueRequest.Create(
       __instance,
       __result,

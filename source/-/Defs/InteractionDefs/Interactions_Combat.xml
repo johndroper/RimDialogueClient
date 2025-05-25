@@ -3,7 +3,7 @@
   <InteractionDef>
     <defName>MeleeCombatQuip</defName>
     <label>melee combat quip</label>
-    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Axe</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] [said_something] after [attacking] [target].</li>
@@ -45,7 +45,7 @@
   <InteractionDef>
     <defName>RangedFireQuip</defName>
     <label>ranged fire quip</label>
-    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Rifle</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry(weapon_exists==false)->[INITIATOR_nameDef] [said_something] after [attacking] [target].</li>
@@ -95,7 +95,7 @@
   <InteractionDef>
     <defName>RangedImpactQuip</defName>
     <label>ranged impact quip</label>
-    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Bullseye</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry(target_part_damaged_count==0, weapon_exists==false)->[INITIATOR_nameDef] [said_something] after hitting [target].</li>
@@ -146,7 +146,7 @@
   <InteractionDef>
     <defName>DamageTakenQuip</defName>
     <label>ranged impact quip</label>
-    <symbol>Things/Mote/SpeechSymbols/Insult</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Axe</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry(target_part_damaged_count==0)->[INITIATOR_nameDef] [said_something] after hitting [target].</li>
@@ -188,7 +188,7 @@
   <InteractionDef>
     <defName>ImHit</defName>
     <label>I'm hit!</label>
-    <symbol>Things/Mote/SpeechSymbols/Slight</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Injury</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry(target_part_damaged_count==0, weapon_exists==false)->[INITIATOR_nameDef] [cried_out] in [pain] after being hit by [TARGET_nameDef].</li>

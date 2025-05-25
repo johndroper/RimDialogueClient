@@ -153,12 +153,9 @@ namespace RimDialogue.Core.InteractionData
           break;
         case Alert_DateRitualComing dateRitualComingAlert:
           if (Settings.VerboseLogging.Value) Mod.Log($"Alert_DateRitualComing");
-          Precept_Ritual ritual = Faction.OfPlayer.ideos.AllIdeos
-            .SelectMany(ideo => ideo.PreceptsListForReading.OfType<Precept_Ritual>())
-            .Where(ritual => !ritual.isAnytime)
-            .RandomElement();
-          Subject = $"the ritual '{ritual.LabelCap}' is coming soon";
-          Explanation = ritual.Description;
+          var rituals = (List<string>)Reflection.RimWorld_Alert_DateRitualComing_RitualEntries.GetValue(dateRitualComingAlert);
+          var ritual = rituals.RandomElement();
+          Subject = $"this ritual is coming soon: {ritual}";
           break;
         case Alert_FireInHomeArea fireInHomeAreaAlert:
           if (Settings.VerboseLogging.Value) Mod.Log($"Alert_FireInHomeArea");

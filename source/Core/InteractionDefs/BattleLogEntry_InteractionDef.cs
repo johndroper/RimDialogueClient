@@ -19,7 +19,14 @@ namespace RimDialogue.Core.InteractionDefs
 
     public Dictionary<string, string> Constants;
 
-    protected List<Rule> rulesRaw = new List<Rule>();
+    protected List<Rule> rulesRaw = [];
+
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    public BattleLogEntry_InteractionDef()
+    {
+    }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public BattleLogEntry_InteractionDef(
       InteractionDef baseDef,
@@ -27,6 +34,11 @@ namespace RimDialogue.Core.InteractionDefs
       Pawn? target,
       Dictionary<string, string>? constants)
     {
+      if (constants != null)
+        Constants = constants;
+      else
+        Constants = [];
+
       Target = target;
       CombatLogText = H.RemoveWhiteSpaceAndColor(combatLogText);
 
@@ -48,11 +60,6 @@ namespace RimDialogue.Core.InteractionDefs
 
       var symbol = (string)Reflection.RimWorld_InteractionDef_Symbol.GetValue(baseDef);
       Reflection.RimWorld_InteractionDef_Symbol.SetValue(this, symbol);
-
-      if (constants != null)
-        Constants = constants;
-      else
-        Constants = [];
     }
 
     public Pawn? Target { get; set; }

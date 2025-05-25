@@ -24,6 +24,11 @@ namespace RimDialogue.Core.InteractionData
     public DialogueRequestCondition(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
       if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for condition {entry.LogID} with template {interactionTemplate}.");
+      if (!Find.CurrentMap.GameConditionManager.ActiveConditions.Any())
+      {
+        Interaction = "a very normal day.";
+        return;
+      }
       GameCondition = Find.CurrentMap.GameConditionManager.ActiveConditions.RandomElement();
       Explanation = H.RemoveWhiteSpaceAndColor(GameCondition.def.description ?? GameCondition.def.letterText);
       Duration = GameCondition.TicksPassed.ToStringTicksToPeriod();

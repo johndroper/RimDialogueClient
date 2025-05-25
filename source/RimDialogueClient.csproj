@@ -79,6 +79,8 @@
   <ItemGroup>
     <Compile Include="Access\Bubbles_Bubbler_Add.cs" />
     <Compile Include="Access\Bubbles_Bubble_GetText.cs" />
+    <Compile Include="Access\Patch_ThoughtMaker_MakeThought.cs" />
+    <Compile Include="Access\PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\PlayLogEntry_InteractionSinglePawn_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
     <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
@@ -88,16 +90,23 @@
     <Compile Include="Access\Verse_Messages_Message.cs" />
     <Compile Include="Access\Verse_Pawn_Kill.cs" />
     <Compile Include="Access\Verse_Thing_TakeDamage.cs" />
+    <Compile Include="Core\GameComponent_ThoughtTracker.cs" />
     <Compile Include="Core\InteractionData\BattleLogData.cs" />
+    <Compile Include="Core\InteractionData\ThoughtData.cs" />
     <Compile Include="Core\InteractionDefs\BattleLogEntry_InteractionDef.cs" />
     <Compile Include="Core\InteractionDefs\RangedFire_InteractionDef.cs" />
     <Compile Include="Core\InteractionDefs\RangedImpact_InteractionDef.cs" />
     <Compile Include="Core\InteractionDefs\MeleeCombat_InteractionDef.cs" />
     <Compile Include="Core\InteractionDefs\DamageTaken_InteractionDef.cs" />
+    <Compile Include="Core\InteractionDefs\Thought_InteractionDef.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestThought.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestBattleLogEntry.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestSinglePawn.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestMany.cs" />
     <Compile Include="Core\InteractionRequests\DialogueRequestTwoPawn.cs" />
     <Compile Include="Core\PlayLogEntry_InteractionBattle.cs" />
+    <Compile Include="Core\PlayLogEntry_InteractionThought.cs" />
+    <Compile Include="Core\ThingData.cs" />
     <Compile Include="UI\DialogueMessagesFixed.cs" />
     <Compile Include="Core\GameComponent_LetterTracker.cs" />
     <Compile Include="Core\GameComponent_MessageTracker.cs" />
@@ -236,6 +245,7 @@
   <ItemGroup>
     <Content Include="-\About\PublishedFileId.txt" />
     <Content Include="-\About\steam_workshop.txt" />
+    <Content Include="-\Defs\InteractionDefs\Interactions_Thought.xml" />
     <Content Include="-\Defs\InteractionDefs\Interactions_Combat.xml" />
     <Content Include="-\Defs\InteractionDefs\Interactions_Social.xml" />
     <Content Include="-\Defs\MainButtonDefs\RimDialogueMainButtonDef.xml" />
@@ -255,6 +265,11 @@
     <Content Include="-\Textures\RimDialogue\Inner.png" />
     <Content Include="-\Textures\RimDialogue\Outer.png" />
     <Content Include="-\LoadFolders.xml" />
+    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Axe.png" />
+    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Bullseye.png" />
+    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Gears.png" />
+    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Injury.png" />
+    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Rifle.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lib.Harmony">

@@ -15,8 +15,7 @@ namespace RimDialogue.Core.InteractionRequests
     {
       _battle = Find.BattleLog.Battles
         .OrderByDescending(battle => battle.CreationTimestamp)
-        .Take(5)
-        .RandomElement();
+        .RandomElementByWeight(battle => battle.Importance * (1 / AgeDays(battle)));
     }
 
     private Battle _battle;

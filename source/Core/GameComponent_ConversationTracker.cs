@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Mod = RimDialogue.Mod;
 
 public class ConversationArgs : EventArgs
 {

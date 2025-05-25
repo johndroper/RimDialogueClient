@@ -19,7 +19,8 @@ namespace RimDialogue.Access
 
     public static void Prefix(Message msg, bool historical = true)
     {
-      GameComponent_MessageTracker.Instance.AddMessage(msg);
+      if (GameComponent_MessageTracker.Instance != null)
+        GameComponent_MessageTracker.Instance.AddMessage(msg);
     }
   }
 }

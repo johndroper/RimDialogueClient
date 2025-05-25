@@ -28,11 +28,11 @@ namespace RimDialogue.Access
       switch (entry)
       {
         case PlayLogEntry_Interaction interaction:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is a 'PlayLogEntry_Interaction'");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
           break;
         case PlayLogEntry_InteractionSinglePawn interaction:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is 'PlayLogEntry_InteractionSinglePawn'");
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
           break;
         default:

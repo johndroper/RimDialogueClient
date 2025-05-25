@@ -127,7 +127,7 @@ namespace RimDialogue.Configuration
         l.Gap();
 
 
-        var weights = l.BeginSection(30f * 14);
+        var weights = l.BeginSection(45f * 20f + 50f);
         weights.ColumnWidth = listingRect.width - 50f;
         weights.Label("RimDialogue.DialogueWeights".Translate());
         weights.Indent();
@@ -156,7 +156,7 @@ namespace RimDialogue.Configuration
         weights.Outdent();
         l.EndSection(weights);
 
-        var chances = l.BeginSection(30f * 7);
+        var chances = l.BeginSection(45f * 5f + 50f);
         chances.ColumnWidth = listingRect.width - 50f;
         chances.Label("RimDialogue.ChanceOf".Translate());
         chances.Indent();
@@ -165,6 +165,7 @@ namespace RimDialogue.Configuration
         chances.SliderLabeled("RimDialogue.RangedFireQuipChance".Translate(), ref Settings.RangedFireQuipChance.Value, 0, 1, roundTo: .01f);
         chances.SliderLabeled("RimDialogue.RangedImpactQuipChance".Translate(), ref Settings.RangedImpactQuipChance.Value, 0, 1, roundTo: .01f);
         chances.SliderLabeled("RimDialogue.DamageTakenQuipChance".Translate(), ref Settings.DamageTakenQuipChance.Value, 0, 1, roundTo: .01f);
+        chances.SliderLabeled("RimDialogue.ThoughtChance".Translate(), ref Settings.ThoughtChance.Value, 0, 1, roundTo: .01f);
 
         chances.Outdent();
         l.EndSection(chances);

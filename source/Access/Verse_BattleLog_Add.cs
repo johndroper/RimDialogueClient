@@ -21,8 +21,11 @@ namespace RimDialogue.Access
     {
       if (_lastInteractionTicks.TryGetValue(thing, out int lastInteraction)
         && Find.TickManager.TicksGame - lastInteraction < Settings.MinDelayMinutes.Value * InteractionWorker_Dialogue.TicksPerMinute)
+      {
+        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {thing} - Too soon to add interaction.");
+        _lastInteractionTicks[thing] = Find.TickManager.TicksGame;
         return true;
-      _lastInteractionTicks[thing] = Find.TickManager.TicksGame;
+      }
       return false;
     }
 
@@ -72,7 +75,7 @@ namespace RimDialogue.Access
     {
       try
       {
-        await Task.Delay(250);
+        await Task.Yield();
         if (!Rand.Chance(Settings.ImHitChance.Value))
           return;
         Pawn initiator = (Pawn)Reflection.Verse_BattleLogEntry_DamageTaken_InitiatorPawn.GetValue(damageTakenEntry);
@@ -106,7 +109,7 @@ namespace RimDialogue.Access
     {
       try
       {
-        await Task.Delay(250);
+        await Task.Yield();
         if (!Rand.Chance(Settings.ImHitChance.Value))
           return;
         Pawn targetPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_RecipientPawn.GetValue(rangedImpactEntry);
@@ -115,7 +118,7 @@ namespace RimDialogue.Access
         Pawn initiatorPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_InitiatorPawn.GetValue(rangedImpactEntry);
         //Thing initiatorThing = (Thing)Reflection.Verse_BattleLogEntry_RangedImpact_InitiatorThing.GetValue(rangedImpactEntry);
         //Thing targetThing = (Thing)Reflection.Verse_BattleLogEntry_RangedImpact_RecipientThing.GetValue(rangedImpactEntry);
-        //Pawn originalTargetPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_OriginalTargetPawn.GetValue(rangedImpactEntry);
+        Pawn originalTargetPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_OriginalTargetPawn.GetValue(rangedImpactEntry);
         //Thing originalTargetThing = (Thing)Reflection.Verse_BattleLogEntry_RangedImpact_OriginalTargetThing.GetValue(rangedImpactEntry);
         ThingDef weaponDef = (ThingDef)Reflection.Verse_BattleLogEntry_RangedImpact_WeaponDef.GetValue(rangedImpactEntry);
         ThingDef projectileDef = (ThingDef)Reflection.Verse_BattleLogEntry_RangedImpact_ProjectileDef.GetValue(rangedImpactEntry);
@@ -126,7 +129,7 @@ namespace RimDialogue.Access
           return;
         if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Im Hit interaction.");
         Dictionary<string, string> constants = [];
-        //constants.Add("hit_target", (targetPawn == originalTargetPawn).ToString());
+        constants.Add("hit_target", (targetPawn == originalTargetPawn).ToString());
         PlayLogEntry_InteractionBattle.ImitateInteractionWithNoPawn(
           targetPawn,
           new RangedImpact_InteractionDef(
@@ -153,7 +156,7 @@ namespace RimDialogue.Access
     {
       try
       {
-        await Task.Delay(250);
+        await Task.Yield();
         if (!Rand.Chance(Settings.DamageTakenQuipChance.Value))
           return;
         Pawn initiator = (Pawn)Reflection.Verse_BattleLogEntry_DamageTaken_InitiatorPawn.GetValue(damageTakenEntry);
@@ -192,9 +195,13 @@ namespace RimDialogue.Access
     {
       try
       {
-        await Task.Delay(250);
+        await Task.Yield();
+
         if (!Rand.Chance(Settings.RangedImpactQuipChance.Value))
+        {
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {rangedImpactEntry.LogID} - Ranged Impact interaction - no chance.");
           return;
+        }
         Pawn initiatorPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_InitiatorPawn.GetValue(rangedImpactEntry);
         Pawn originalTargetPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_OriginalTargetPawn.GetValue(rangedImpactEntry);
         //Thing initiatorThing = (Thing)Reflection.Verse_BattleLogEntry_RangedImpact_InitiatorThing.GetValue(rangedImpactEntry);
@@ -245,7 +252,7 @@ namespace RimDialogue.Access
     {
       try
       {
-        await Task.Delay(250);
+        await Task.Yield();
         if (!Rand.Chance(Settings.MeleeCombatQuipChance.Value))
           return;
         Pawn initiator = (Pawn)Reflection.Verse_BattleLogEntry_MeleeCombat_Initiator.GetValue(meleeEntry);
@@ -283,7 +290,7 @@ namespace RimDialogue.Access
     {
       try
       {
-        await Task.Delay(250);
+        await Task.Yield();
         if (!Rand.Chance(Settings.RangedFireQuipChance.Value))
           return;
         Pawn initiator = (Pawn)Reflection.Verse_BattleLogEntry_RangedFire_InitiatorPawn.GetValue(rangedEntry);

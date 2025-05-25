@@ -13,7 +13,7 @@ namespace RimDialogue
 
     public static bool Activated = true;
 
-    public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 50);
+    public static readonly Setting<int> MaxWords = new(nameof(MaxWords), 75);
     public static readonly Setting<int> MinWords = new(nameof(MinWords), 15);
     public static readonly SettingString SpecialInstructions = new(nameof(SpecialInstructions), string.Empty);
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());
@@ -40,34 +40,34 @@ namespace RimDialogue
 
     public static readonly Setting<float> TimelyEventWeight = new(nameof(TimelyEventWeight), 5f);
 
-    public static readonly Setting<float> MessageChitChatWeight = new(nameof(MessageChitChatWeight), 1f);
-    public static readonly Setting<float> GameConditionChitChatWeight = new(nameof(GameConditionChitChatWeight), 1f);
-    public static readonly Setting<float> BattleChitChatWeight = new(nameof(BattleChitChatWeight), 1f);
-    public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 1f);
-    public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 1f);
-    public static readonly Setting<float> SameIdeologyChitChatWeight = new(nameof(SameIdeologyChitChatWeight), 1f);
-    public static readonly Setting<float> SkillChitChatWeight = new(nameof(SkillChitChatWeight), 1f);
-    public static readonly Setting<float> ColonistChitChatWeight = new(nameof(ColonistChitChatWeight), 1f);
-    public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 1f);
-    public static readonly Setting<float> ApparelChitChatWeight = new(nameof(ApparelChitChatWeight), 1f);
-    public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 1f);
-    public static readonly Setting<float> FamilyChitChatWeight = new(nameof(FamilyChitChatWeight), 1f);
-    public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 1f);
-    public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 1f);
-    public static readonly Setting<float> WeaponChitChatWeight = new(nameof(WeaponChitChatWeight), 1f);
-    public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 1f);
-    public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 1f);
-    public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 1f);
-    public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 1f);
+    public static readonly Setting<float> MessageChitChatWeight = new(nameof(MessageChitChatWeight), 0.5f);
+    public static readonly Setting<float> GameConditionChitChatWeight = new(nameof(GameConditionChitChatWeight), 0.5f);
+    public static readonly Setting<float> BattleChitChatWeight = new(nameof(BattleChitChatWeight), 0.5f);
+    public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 0.5f);
+    public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 0.5f);
+    public static readonly Setting<float> SameIdeologyChitChatWeight = new(nameof(SameIdeologyChitChatWeight), 0.5f);
+    public static readonly Setting<float> SkillChitChatWeight = new(nameof(SkillChitChatWeight), 0.5f);
+    public static readonly Setting<float> ColonistChitChatWeight = new(nameof(ColonistChitChatWeight), 0.5f);
+    public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 0.5f);
+    public static readonly Setting<float> ApparelChitChatWeight = new(nameof(ApparelChitChatWeight), 0.5f);
+    public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 0.5f);
+    public static readonly Setting<float> FamilyChitChatWeight = new(nameof(FamilyChitChatWeight), 0.5f);
+    public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 0.5f);
+    public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 0.5f);
+    public static readonly Setting<float> WeaponChitChatWeight = new(nameof(WeaponChitChatWeight), 0.5f);
+    public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 0.5f);
+    public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 0.5f);
+    public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 0.5f);
+    public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 0.5f);
         
     public static readonly Setting<float> MeleeCombatQuipChance = new(nameof(MeleeCombatQuipChance), .1f);
     public static readonly Setting<float> RangedFireQuipChance = new(nameof(RangedFireQuipChance), .1f);
     public static readonly Setting<float> RangedImpactQuipChance = new(nameof(RangedImpactQuipChance), .25f);
     public static readonly Setting<float> DamageTakenQuipChance = new(nameof(DamageTakenQuipChance), .25f);
     public static readonly Setting<float> ImHitChance = new(nameof(ImHitChance), .333f);
+    public static readonly Setting<float> ThoughtChance = new(nameof(ThoughtChance), .25f);
 
     public static readonly Setting<int> DialogueMessageInterface = new(nameof(DialogueMessageInterface), 1);
-
     public static readonly Setting<int> MessageScrollSpeed = new(nameof(MessageScrollSpeed), 12);
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;

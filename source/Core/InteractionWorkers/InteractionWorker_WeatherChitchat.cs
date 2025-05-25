@@ -13,9 +13,7 @@ namespace RimDialogue.Core.InteractionWorkers
         if (
           !IsEnabled ||
           initiator.Inhumanized() ||
-          recipient.Inhumanized() ||
-          !initiator.IsOutside() ||
-          !recipient.IsOutside())
+          recipient.Inhumanized())
         {
           return 0f;
         }

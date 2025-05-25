@@ -29,6 +29,7 @@ namespace RimDialogue.Core.InteractionData
       data.WeaponLabel = Weapon.def?.label ?? string.Empty;
       data.WeaponDescription = H.RemoveWhiteSpace(Weapon.def?.description) ?? string.Empty;
       data.WeaponQuality = Weapon.TryGetQuality(out var quality) ? quality.GetLabel() : string.Empty;
+      base.BuildData(data);
     }
 
     public override string? Action => "WeaponChitchat";

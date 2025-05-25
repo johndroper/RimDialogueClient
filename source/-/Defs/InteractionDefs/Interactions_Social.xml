@@ -10,11 +10,11 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] '**recent_incident**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] '**recent_incident**' with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] '**recent_incident**' to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about '**recent_incident**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about '**recent_incident**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **recent_incident**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] **recent_incident** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **recent_incident** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **recent_incident**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about **recent_incident**.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -222,7 +222,6 @@
         <li>that->the news that</li>
         <li>that->the idea that</li>
         <li>that->the fact that</li>
-        <li>that->the thought that</li>
         <li>that->the rumor that</li>
         <li>asked->asked</li>
         <li>asked->inquired of</li>

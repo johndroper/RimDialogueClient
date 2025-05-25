@@ -40,7 +40,7 @@ namespace RimDialogue.Core.InteractionDefs
         this.rulesRaw.AddRange(GrammarUtility.RulesForPawn("ORIGINAL_TARGET", originalTargetPawn));
       }
 
-      if (targetPawn != null)
+      if (targetPawn != null && targetPawn.RaceProps != null)
       {
         this.rulesRaw.AddRange(PlayLogEntryUtility.RulesForDamagedParts(
           "target_part",

@@ -48,12 +48,12 @@ namespace RimDialogue.Core.InteractionData
       data.TargetApparel = Target?.apparel?.WornApparel
         .Select(apparel => apparel.def.label)
         .ToArray() ?? Array.Empty<string>();
-      data.FactionName = Target?.Faction.Name;
-      data.FactionLeader = Target?.Faction.leader?.Name.ToStringFull ?? string.Empty;
-      data.FactionLeaderTitle = Target?.Faction.LeaderTitle;
-      data.FactionLabel = Target?.Faction.def?.label ?? string.Empty;
-      data.FactionDescription = Target?.Faction.def?.description ?? string.Empty;
-      data.FactionTechLevel = Target?.Faction.def?.techLevel.ToString() ?? string.Empty;
+      data.FactionName = Target?.Faction?.Name ?? string.Empty;
+      data.FactionLeader = Target?.Faction?.leader?.Name.ToStringFull ?? string.Empty;
+      data.FactionLeaderTitle = Target?.Faction?.LeaderTitle ?? string.Empty;
+      data.FactionLabel = Target?.Faction?.def?.label ?? string.Empty;
+      data.FactionDescription = Target?.Faction?.def?.description ?? string.Empty;
+      data.FactionTechLevel = Target?.Faction?.def?.techLevel.ToString() ?? string.Empty;
     }
   }
 }

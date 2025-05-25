@@ -33,16 +33,14 @@ namespace RimDialogue.Core.InteractionData
       Message = GameComponent_MessageTracker.Instance.TrackedMessages.RandomElement().Message;
       var tracker = H.GetTracker();
       _target = Message.lookTargets?.PrimaryTarget.Pawn;
+
+     //Message.lookTargets.PrimaryTarget.Thing 
     }
 
     public override string GetInteraction()
     {
-      if (_target == null)
-        return this.InteractionTemplate
-          .Replace(MessagePlaceholder, Message.text.TrimEnd('.'));
-      else
-        return this.InteractionTemplate
-          .Replace(MessagePlaceholder, _target.Name.ToStringShort + " is experiencing a " + Message.text.TrimEnd('.'));
+      return this.InteractionTemplate
+        .Replace(MessagePlaceholder, Message.text.TrimEnd('.'));
     }
 
     public override void BuildData(DialogueDataMessage data)

@@ -24,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
       Need = unsatisfiedNeeds.RandomElement();
     }
 
-    public override string Action => "NeedChitchat";
+    public override string Action => "NeedsChitchat";
 
     public override void BuildData(DataT data)
     {

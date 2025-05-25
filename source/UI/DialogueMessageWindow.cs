@@ -145,6 +145,8 @@ namespace RimDialogue.UI
 
       GameComponent_ConversationTracker.Instance.ConversationRemoved += (s, e) =>
       {
+        var removedHeight = ConversationLabels.Where(label => label.Conversation == e.Conversation).Sum(label => label.GetHeight(ContentRectWidth));
+        scrollPosition += removedHeight;
         ConversationLabels.RemoveAll(label => label.Conversation == e.Conversation);
       };
     }
@@ -201,12 +203,14 @@ namespace RimDialogue.UI
       if (this.windowRect.position != LastWindowPosition)
       {
         LastWindowPosition = this.windowRect.position;
+        //save the window position for later serialization
         GameComponent_ConversationTracker.Instance.MessageWindowPosition = new Vector2(this.windowRect.x, this.windowRect.y);
       }
 
       if (LastWindowSize != this.windowRect.size)
       {
         LastWindowSize = this.windowRect.size;
+        //save the window size for later serialization
         GameComponent_ConversationTracker.Instance.MessageWindowSize = new Vector2(this.windowRect.width, this.windowRect.height);
         if (this.windowRect.height < scrollPosition)
           scrollPosition = this.windowRect.height;
@@ -227,11 +231,20 @@ namespace RimDialogue.UI
         if (convoY < 0)
           break;
       }
-      GUI.color = previousColor;
       Widgets.EndGroup();
 
       if (!mouseOver && conversationContentRect.y + conversationContentRect.height > windowRect.height - 40)
         scrollPosition -= RealTime.deltaTime * Settings.MessageScrollSpeed.Value;
+
+      //var debugRect = new Rect(this.windowRect.width - 100, 10, 50, 50);
+      //Widgets.DrawBoxSolid(debugRect, Color.white.ToTransparent(.75f));
+      //GUI.color = Color.black;
+      //var debugInfoRect1 = new Rect(debugRect.x, debugRect.y, 50, 20);
+      //Widgets.Label(debugInfoRect1, scrollPosition.ToString("N0"));
+      //var debugInfoRect2 = new Rect(debugRect.x, debugRect.y + 20, 50, 20);
+      //Widgets.Label(debugInfoRect2, conversationContentRectHeight.ToString("N0"));
+
+      GUI.color = previousColor;
     }
 
     private void DrawTransparentBackground()

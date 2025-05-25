@@ -165,6 +165,33 @@ namespace RimDialogue.Core.InteractionData
       return dialogueRequest;
     }
 
+
+
+    public static DialogueRequest CreateThoughtRequest(PlayLogEntry_InteractionSinglePawn __instance, string interactionTemplate, Thought_InteractionDef thoughtInteractionDef)
+    {
+      Pawn? otherPawn = null;
+      Precept? sourcePrecept = thoughtInteractionDef.thought.sourcePrecept;
+
+      switch (thoughtInteractionDef.thought)
+      {
+        case Thought_Memory thoughtMemory:
+          otherPawn = thoughtMemory.otherPawn; 
+          break;
+        case Thought_Situational thoughtSituational:
+          break;
+      }
+
+      return new DialogueRequestThought(
+        __instance,
+        interactionTemplate,
+        thoughtInteractionDef.thought.LabelCap,
+        thoughtInteractionDef.thought.Description,
+        thoughtInteractionDef.thought.MoodOffset(),
+        sourcePrecept?.Label,
+        sourcePrecept?.Description,
+        otherPawn);
+    }
+
     public static DialogueRequest Create(PlayLogEntry_InteractionSinglePawn __instance, string interactionTemplate, InteractionDef interactionDef)
     {
       if (Requests.ContainsKey(__instance.LogID))
@@ -179,6 +206,9 @@ namespace RimDialogue.Core.InteractionData
             interactionTemplate,
             battleLogEntryInteractionDef.CombatLogText,
             battleLogEntryInteractionDef.Target);
+          break;
+        case Thought_InteractionDef thoughtInteractionDef:
+          dialogueRequest = CreateThoughtRequest(__instance, interactionTemplate, thoughtInteractionDef);
           break;
         default:
           if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
@@ -198,6 +228,34 @@ namespace RimDialogue.Core.InteractionData
       dialogueRequest.Execute();
       return dialogueRequest;
     }
+
+    public static DialogueRequest Create(PlayLogEntry_InteractionWithMany __instance, string interactionTemplate, InteractionDef interactionDef)
+    {
+      if (Requests.ContainsKey(__instance.LogID))
+        return Requests[__instance.LogID];
+      DialogueRequest dialogueRequest;
+      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest SinglePawn: '{interactionDef.defName}'");
+      switch (interactionDef)
+      {
+        default:
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
+          dialogueRequest = new DialogueRequestMany<DialogueData>(__instance, interactionTemplate);
+          break;
+      }
+      Requests.Add(__instance.LogID, dialogueRequest);
+
+      if (TooSoon(__instance.LogID))
+        return dialogueRequest;
+
+      if (TooSoonAll(__instance.LogID))
+        return dialogueRequest;
+
+      LastDialogue = DateTime.Now;
+
+      dialogueRequest.Execute();
+      return dialogueRequest;
+    }
+
 
     public static bool TooSoon(int entryId)
     {
