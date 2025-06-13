@@ -66,7 +66,7 @@ namespace RimDialogue.Access
     public static readonly FieldInfo RimWorld_Alert_AbandonedBaby_tmpAbandonedBabiesList = AccessTools.Field(typeof(RimWorld.Alert_AbandonedBaby), "tmpAbandonedBabiesList");
     public static readonly FieldInfo RimWorld_AlertsReadout_ActiveAlerts = AccessTools.Field(typeof(RimWorld.AlertsReadout), "activeAlerts");
     public static readonly FieldInfo RimWorld_Alert_ColonistsIdle_IdleColonistsResult = AccessTools.Field(typeof(RimWorld.Alert_ColonistsIdle), "idleColonistsResult");
-    public static readonly FieldInfo RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult = AccessTools.Field(typeof(RimWorld.Alert_HunterLacksRangedWeapon), "huntersWithoutRangedWeaponResult");
+//    public static readonly FieldInfo RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult = AccessTools.Field(typeof(RimWorld.Alert_HunterLacksRangedWeapon), "huntersWithoutRangedWeaponResult");
     public static readonly FieldInfo RimWorld_Alert_Heatstroke_HeatstrokePawnsResult = AccessTools.Field(typeof(RimWorld.Alert_Heatstroke), "heatstrokePawnsResult");
     public static readonly FieldInfo RimWorld_Alert_AnimalFilth_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalFilth), "targets");
     public static readonly FieldInfo RimWorld_Alert_AnimalPenNeeded_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalPenNeeded), "targets");

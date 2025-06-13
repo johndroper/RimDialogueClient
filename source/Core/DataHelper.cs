@@ -65,7 +65,7 @@ namespace RimDialogue.Core
         IsGhoul = pawn.IsGhoul,
         IsBloodFeeder = pawn.IsBloodfeeder(),
         IsSlave = pawn.IsSlave,
-        IsAnimal = pawn.IsNonMutantAnimal,
+        IsAnimal = pawn.IsAnimal,
         IdeologyName = pawn.Ideo?.name ?? string.Empty,
         IdeologyDescription = H.RemoveWhiteSpaceAndColor(pawn.Ideo?.description),
         IdeologyPrecepts = pawn.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + H.RemoveWhiteSpace(precept.Description)).ToArray() ?? [],

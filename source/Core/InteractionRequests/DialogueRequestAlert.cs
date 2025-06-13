@@ -329,15 +329,15 @@ namespace RimDialogue.Core.InteractionData
           _target = starvationColonist;
           Subject = $"{starvationColonist.Name.ToStringShort} is starving";
           break;
-        case Alert_HunterLacksRangedWeapon hunterAlert:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Alert_HunterLacksRangedWeapon");
-          var hunters = (List<Pawn>)Reflection.RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult.GetValue(hunterAlert);
-          var hunter = hunters.RandomElement();
-          _target = hunter;
-          Subject = $"our hunter {hunter.Name.ToStringShort} does not have a ranged weapon";
-          var weapon = hunter.equipment.Primary;
-          Explanation = weapon == null ? $"{hunter.Name.ToStringShort} has no weapon equipped." : $"{hunter.Name.ToStringShort} has a {weapon.Label} equipped.";
-          break;
+        //case Alert_HunterLacksRangedWeapon hunterAlert:
+        //  if (Settings.VerboseLogging.Value) Mod.Log($"Alert_HunterLacksRangedWeapon");
+        //  var hunters = (List<Pawn>)Reflection.RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult.GetValue(hunterAlert);
+        //  var hunter = hunters.RandomElement();
+        //  _target = hunter;
+        //  Subject = $"our hunter {hunter.Name.ToStringShort} does not have a ranged weapon";
+        //  var weapon = hunter.equipment.Primary;
+        //  Explanation = weapon == null ? $"{hunter.Name.ToStringShort} has no weapon equipped." : $"{hunter.Name.ToStringShort} has a {weapon.Label} equipped.";
+        //  break;
         case Alert_UnhappyNudity unhappyNudityAlert:
           if (Settings.VerboseLogging.Value) Mod.Log($"Alert_UnhappyNudity");
           var unhappyNudityPawns = (List<Pawn>)Reflection.RimWorld_Alert_UnhappyNudity_AffectedPawnsResult.GetValue(unhappyNudityAlert);

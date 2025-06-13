@@ -17,6 +17,9 @@ namespace RimDialogue.Core
 
     public static void ImitateInteractionWithNoPawn(Pawn initiator, BattleLogEntry_InteractionDef intDef)
     {
+      if (initiator == null || initiator.DeadOrDowned)
+        return;
+
       MoteMaker.MakeInteractionBubble(initiator, null, intDef.interactionMote, intDef.GetSymbol(), intDef.GetSymbolColor());
       Find.PlayLog.Add(new PlayLogEntry_InteractionBattle(intDef, initiator, null));
     }

@@ -5,6 +5,8 @@ using RimDialogue.Core.InteractionData;
 using RimDialogue.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -128,16 +130,18 @@ public class GameComponent_ConversationTracker : GameComponent
     if (initiator == null || text == null || string.IsNullOrWhiteSpace(text))
       return;
     Conversation conversation = new Conversation(initiator, recipient, interaction, text);
+    Conversation? removed = null;
     lock (conversations)
     {
       while (conversations.Count > Settings.MaxConversationsStored.Value)
       {
-        Conversation removed = conversations[0];
+        removed = conversations[0];
         conversations.RemoveAt(0);
-        ConversationRemoved?.Invoke(this, new ConversationArgs(removed));
       }
       conversations.Add(conversation);
     }
+    if (removed != null)
+      ConversationRemoved?.Invoke(this, new ConversationArgs(removed));
     ConversationAdded?.Invoke(this, new ConversationArgs(conversation));
   }
 
@@ -200,7 +204,19 @@ public class GameComponent_ConversationTracker : GameComponent
   }
 }
 
-public class Conversation : IExposable
+public class Line
+{
+  public string Text;
+  public string Name;
+  public Line(string name, string text)
+  {
+    this.Name = name;
+    this.Text = text;
+  }
+}
+
+
+public class Conversation : IExposable, IEquatable<Conversation>
 {
   private Pawn initiator;
   private Pawn? recipient;
@@ -230,6 +246,58 @@ public class Conversation : IExposable
   {
     return initiator != null && initiator.IsColonist || recipient != null && recipient.IsColonist;
   }
+
+  public override string ToString()
+  {
+    return $"{initiator.Name?.ToStringShort ?? "Unknown"}" + (recipient != null ? $" ↔ {recipient.Name?.ToStringShort ?? "Unknown"}" : "") + $" ({interaction ?? "No Interaction"}): {text}";
+  }
+
+  override public int GetHashCode()
+  {
+    return this.text?.GetHashCode() ?? base.GetHashCode();
+  }
+
+  public override bool Equals(object obj)
+  {
+    return this.text?.Equals((obj as Conversation)?.text) ?? base.Equals(obj);
+  }
+
+  static Regex regex = new Regex(@"^(?<name>\w+):\s*[""“*](?<line>.+)[""”*]\W*$", RegexOptions.Multiline);
+  public static Line[] ParseLines(string text)
+  {
+    if (string.IsNullOrEmpty(text))
+      return [];
+    var matches = regex.Matches(text);
+    if (matches.Count == 0)
+      return text
+        .Split(['\n'], StringSplitOptions.RemoveEmptyEntries)
+        .Select(fragment => new Line("unknown", fragment))
+        .ToArray();
+    var lines = new List<Line>();
+    foreach (Match match in matches)
+    {
+      if (match.Success)
+      {
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Parsed line: {match.Groups["name"].Value}: \"{match.Groups["line"].Value}\"");
+        lines.Add(new Line(match.Groups["name"].Value, match.Groups["line"].Value.Trim()));
+      }
+    }
+    return lines.ToArray();
+  }
+
+  Line[]? lines;
+  public Line[] Lines
+  {
+    get
+    {
+      if (text == null)
+        return [];
+      lines ??= ParseLines(text);
+      return lines;
+    }
+  }
+
   public void ExposeData()
   {
     Scribe_References.Look(ref initiator, "initiator");
@@ -237,5 +305,11 @@ public class Conversation : IExposable
     Scribe_Values.Look(ref text, "text");
     Scribe_Values.Look(ref interaction, "interaction");
     Scribe_Values.Look(ref timestamp, "timestamp");
+  }
+
+  public bool Equals(Conversation other)
+  {
+    if (other == null) return false;
+    return this.text?.Equals(other.text) ?? false;
   }
 }

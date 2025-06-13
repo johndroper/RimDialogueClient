@@ -31,7 +31,7 @@ namespace RimDialogue.Access
 
     public static bool IsValid(Pawn pawn)
     {
-      return !pawn.IsNonMutantAnimal && !pawn.Dead;
+      return pawn != null && !pawn.IsAnimal && !pawn.DeadOrDowned;
     }
 
     public static void Postfix(LogEntry entry)
@@ -125,7 +125,7 @@ namespace RimDialogue.Access
         var damagedParts = (List<BodyPartRecord>)Reflection.Verse_LogEntry_DamageResult_DamagedParts.GetValue(rangedImpactEntry);
         var damagedPartsDestroyed = (List<bool>)Reflection.Verse_LogEntry_DamageResult_DamagedPartsDestroyed.GetValue(rangedImpactEntry);
         var deflected = (bool)Reflection.Verse_LogEntry_DamageResult_Deflected.GetValue(rangedImpactEntry);
-        if (initiatorPawn == null || targetPawn == null)
+        if (initiatorPawn == null || initiatorPawn.DeadOrDowned || targetPawn == null || targetPawn.DeadOrDowned)
           return;
         if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Im Hit interaction.");
         Dictionary<string, string> constants = [];

@@ -33,7 +33,7 @@ namespace RimDialogue.Core.InteractionData
       data.Predator = Animal.RaceProps?.predator ?? false;
       data.HerdAnimal = Animal.RaceProps?.herdAnimal ?? false;
       data.PackAnimal = Animal.RaceProps?.packAnimal ?? false;
-      data.Wildness = Animal.RaceProps?.wildness ?? -1f;
+      //data.Wildness = Animal.RaceProps?.wildness ?? -1f;
       data.LifeExpectancy = Animal.RaceProps?.lifeExpectancy ?? -1;
       data.BaseHungerRate = Animal.RaceProps?.baseHungerRate ?? -1f;
       data.BaseBodySize = Animal.RaceProps?.baseBodySize ?? -1f;

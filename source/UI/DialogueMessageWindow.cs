@@ -10,6 +10,7 @@ namespace RimDialogue.UI
   using RimWorld;
   using UnityEngine;
   using Verse;
+  using Verse.Sound;
   using Mod = RimDialogue.Mod;
 
 
@@ -89,6 +90,20 @@ namespace RimDialogue.UI
         var periodRect = new Rect(0, currentY, contentRectWidth, LabelHeight);
         Widgets.Label(periodRect, (Find.TickManager.TicksGame - Conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
       }
+
+      var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
+      if (Widgets.ButtonText(copyButtonRect, "Copy"))
+      {
+        GUIUtility.systemCopyBuffer = Conversation.text ?? string.Empty;
+        SoundDefOf.Click.PlayOneShotOnCamera();
+      }
+
+      var memeButtonRect = new Rect(contentRectWidth - 40, currentY, 40, LabelHeight);
+      if (Widgets.ButtonText(memeButtonRect, "Meme"))
+      {
+        Find.WindowStack.Add(new Window_ComicPanelViewer(Conversation));
+      }
+
       currentY -= TopMargin;
       return currentY;
     }
@@ -109,7 +124,6 @@ namespace RimDialogue.UI
     private float scrollPosition = 0f;
 
     public List<ConversationLabel> ConversationLabels { get; set; }
-    private List<ConversationLabel> _newConversations = new List<ConversationLabel>();
 
     public DialogueMessageWindow()
     {
@@ -139,7 +153,7 @@ namespace RimDialogue.UI
       GameComponent_ConversationTracker.Instance.ConversationAdded += (s, e) =>
       {
         var newLabel = new ConversationLabel(e.Conversation);
-        _newConversations.Add(newLabel);
+        //_newConversations.Add(newLabel);
         ConversationLabels.Add(newLabel);
       };
 
@@ -234,15 +248,18 @@ namespace RimDialogue.UI
       Widgets.EndGroup();
 
       if (!mouseOver && conversationContentRect.y + conversationContentRect.height > windowRect.height - 40)
-        scrollPosition -= RealTime.deltaTime * Settings.MessageScrollSpeed.Value;
+        scrollPosition -= RealTime.deltaTime * Math.Max(1f, Find.TickManager.TickRateMultiplier) * Settings.MessageScrollSpeed.Value * (conversationContentRect.height > this.windowRect.height ? Math.Max(1f, (conversationContentRect.height + scrollPosition + 500) / 500) : 1) ;
 
-      //var debugRect = new Rect(this.windowRect.width - 100, 10, 50, 50);
-      //Widgets.DrawBoxSolid(debugRect, Color.white.ToTransparent(.75f));
-      //GUI.color = Color.black;
-      //var debugInfoRect1 = new Rect(debugRect.x, debugRect.y, 50, 20);
-      //Widgets.Label(debugInfoRect1, scrollPosition.ToString("N0"));
-      //var debugInfoRect2 = new Rect(debugRect.x, debugRect.y + 20, 50, 20);
-      //Widgets.Label(debugInfoRect2, conversationContentRectHeight.ToString("N0"));
+      var titleBarRect = new Rect(0, 0, this.windowRect.width, 30);
+      Widgets.DrawBoxSolid(titleBarRect, Color.white.ToTransparent(.85f));
+      GUI.color = Color.black;
+      var titleLabelRect = new Rect(titleBarRect.x, titleBarRect.y, 50, 20);
+      Widgets.Label(titleLabelRect, "RimDialogue");
+
+      var debugInfoRect1 = new Rect(titleBarRect.x + 50, titleBarRect.y, 30, 20);
+      Widgets.Label(debugInfoRect1, scrollPosition.ToString("N0"));
+      var debugInfoRect2 = new Rect(debugInfoRect1.x + debugInfoRect1.width + 10, titleBarRect.y, 30, 20);
+      Widgets.Label(debugInfoRect2, conversationContentRectHeight.ToString("N0"));
 
       GUI.color = previousColor;
     }

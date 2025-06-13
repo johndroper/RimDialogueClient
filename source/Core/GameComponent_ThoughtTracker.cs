@@ -54,10 +54,13 @@ namespace RimDialogue.Core
     }
 
     private List<Pawn>? _pawns;
-    public List<Pawn> Pawns
+    public List<Pawn>? Pawns
     {
       get
       {
+        if (Find.CurrentMap?.mapPawns == null)
+          return null;
+
         _pawns ??= (List<Pawn>)Reflection.Verse_MapPawns_HumanlikeSpawnedPawnsResult.GetValue(Find.CurrentMap.mapPawns);
         return _pawns;
       }
