@@ -34,7 +34,7 @@ namespace RimDialogue.Core.InteractionDefs
       if (otherPawn != null)
       {
         rulesRaw.AddRange(GrammarUtility.RulesForPawn("OTHER_PAWN", otherPawn, Constants));
-        if (Settings.VerboseLogging.Value) Mod.Log($"Rules added for '{otherPawn}'.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Rules added for '{otherPawn}'.");
       }
 
       this.rulesRaw.AddRange([

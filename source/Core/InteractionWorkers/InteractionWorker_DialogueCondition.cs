@@ -20,7 +20,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.GameConditionChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Condition ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.GameConditionChitChatWeight.Value}");
         return Settings.GameConditionChitChatWeight.Value * Settings.TimelyEventWeight.Value;
       }
       catch (Exception ex)

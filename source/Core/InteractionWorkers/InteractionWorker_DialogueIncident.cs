@@ -20,7 +20,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Incident ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.RecentIncidentChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Incident ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.RecentIncidentChitChatWeight.Value}");
         return Settings.RecentIncidentChitChatWeight.Value * Settings.TimelyEventWeight.Value;
       }
       catch (Exception ex)

@@ -58,7 +58,7 @@ namespace RimDialogue.Core
         request.IncludesBare.Add(intDef.logRulesInitiator);
         request.Rules.AddRange(GrammarUtility.RulesForPawn("INITIATOR", initiator, request.Constants));
         _Text = GrammarResolver.Resolve("r_logentry", request, "interaction from initiator", forceLog);
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New battle interaction text: '{_Text}'.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New battle interaction text: '{_Text}'.");
       }
       else
       {
@@ -84,7 +84,7 @@ namespace RimDialogue.Core
         this,
         _Text,
         InteractionDef);
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} interaction: '{_Text}'");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} interaction: '{_Text}'");
 
       return _Text;
     }

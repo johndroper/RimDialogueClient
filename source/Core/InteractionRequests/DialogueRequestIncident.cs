@@ -28,7 +28,7 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequestIncident(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
       var incidents = GameComponent_LetterTracker.Instance.RecentLetters;
       if (!incidents.Any())
       {

@@ -42,18 +42,18 @@ namespace RimDialogue.Core.InteractionWorkers
       {
         //if (Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value)
         //{
-        //  if (Settings.VerboseLogging.Value) Mod.Log($"Game speed is too high.");
+        //  // if (Settings.VerboseLogging.Value) Mod.Log($"Game speed is too high.");
         //  return false;
         //}
         int ticksAbs = Find.TickManager.TicksAbs;
         if (ticksAbs - LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * TicksPerMinute)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {LastUsedTicksAll}");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {LastUsedTicksAll}");
           return false;
         }
         if (ticksAbs - LastUsedTicks < Settings.MinDelayMinutes.Value * TicksPerMinute)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Too soon since last dialogue of type {this.GetType().Name}. Current ticks: '{ticksAbs}' Last used ticks: {LastUsedTicks}");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Too soon since last dialogue of type {this.GetType().Name}. Current ticks: '{ticksAbs}' Last used ticks: {LastUsedTicks}");
           return false;
         }
         return true;

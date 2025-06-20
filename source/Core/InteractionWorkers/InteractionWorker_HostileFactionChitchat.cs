@@ -21,7 +21,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Hostile Faction ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.FactionChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Hostile Faction ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.FactionChitChatWeight.Value}");
         return Settings.FactionChitChatWeight.Value;
       }
       catch (Exception ex)

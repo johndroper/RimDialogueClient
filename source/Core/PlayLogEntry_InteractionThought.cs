@@ -52,7 +52,7 @@ namespace RimDialogue.Core
             {
                 request.IncludesBare.Add(intDef.logRulesInitiator);
                 request.Rules.AddRange(GrammarUtility.RulesForPawn("INITIATOR", initiator, request.Constants));
-                if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - Generating thought interaction text for '{initiator.Name}' with thought interaction def '{InteractionDef.defName}'.");
+                // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - Generating thought interaction text for '{initiator.Name}' with thought interaction def '{InteractionDef.defName}'.");
                 _Text = GrammarResolver.Resolve("r_logentry", request, "thought interaction from initiator", forceLog);
             }
             else
@@ -75,12 +75,12 @@ namespace RimDialogue.Core
             if (Settings.OnlyColonists.Value && !initiator.IsColonist)
                 return _Text;
 
-            if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - Generating thought interaction text for '{initiator.Name}' with thought interaction def '{InteractionDef.defName}'.");
+            // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - Generating thought interaction text for '{initiator.Name}' with thought interaction def '{InteractionDef.defName}'.");
             var dialogueRequest = DialogueRequest.Create(
                 this,
                 _Text,
                 InteractionDef);
-            if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} thought interaction: '{_Text}'");
+            // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} thought interaction: '{_Text}'");
 
             return _Text;
         }

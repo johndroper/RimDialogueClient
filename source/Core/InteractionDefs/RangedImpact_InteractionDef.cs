@@ -36,7 +36,7 @@ namespace RimDialogue.Core.InteractionDefs
 
       if (originalTargetPawn != null)
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Added rules for '{originalTargetPawn}'.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Added rules for '{originalTargetPawn}'.");
         this.rulesRaw.AddRange(GrammarUtility.RulesForPawn("ORIGINAL_TARGET", originalTargetPawn));
       }
 

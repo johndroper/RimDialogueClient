@@ -27,7 +27,7 @@ namespace RimDialogue.Core
         DefDatabase<InteractionDef>.GetNamed("Thought"),
         thought,
         otherPawn);
-      if (Settings.VerboseLogging.Value) Mod.Log($"Created '{thought.GetType().Name}' interaction. Defname: '{thought.def.defName}' Label: '{thought.LabelCap}'");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Created '{thought.GetType().Name}' interaction. Defname: '{thought.def.defName}' Label: '{thought.LabelCap}'");
       return interaction;
     }
 
@@ -37,7 +37,7 @@ namespace RimDialogue.Core
     {
       try
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Imitating Interaction - {thoughtInteraction.label} ");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Imitating Interaction - {thoughtInteraction.label} ");
         PlayLogEntry_InteractionThought.ImitateInteractionWithNoPawn(
           initiator,
           thoughtInteraction);
@@ -76,7 +76,7 @@ namespace RimDialogue.Core
       if (Find.TickManager.TicksGame - LastThoughtTick < MinDelayTicks / Pawns.Count)
         return;
 
-      if (Settings.VerboseLogging.Value) Mod.Log($"Doing thought update.");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Doing thought update.");
 
       LastThoughtTick = Find.TickManager.TicksGame;
 
@@ -88,7 +88,7 @@ namespace RimDialogue.Core
         var thought = situational_thoughts.RandomElement();
         if (thought == null || thought.CurStageIndex < 0 || thought.CurStageIndex >= thought.def.stages.Count)
           return;
-        if (Settings.VerboseLogging.Value) Mod.Log($"Situational thought selected: {thought}.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Situational thought selected: {thought}.");
         var thoughtInteraction = CreateThoughtInteraction(thought);
         ImitateInteraction(thought.pawn, thoughtInteraction);
       }
@@ -97,7 +97,7 @@ namespace RimDialogue.Core
         var thought = thought_memories.RandomElement();
         if (thought == null || thought.CurStageIndex < 0 || thought.CurStageIndex >= thought.def.stages.Count)
           return;
-        if (Settings.VerboseLogging.Value) Mod.Log($"Memory thought selected: {thought}.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Memory thought selected: {thought}.");
         var thoughtInteraction = CreateThoughtInteraction(thought, thought.otherPawn);
         ImitateInteraction(thought.pawn, thoughtInteraction);
       }

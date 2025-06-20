@@ -19,7 +19,7 @@
 //      {
 //        if (dinfo.Weapon != null && __instance is Pawn targetPawn && dinfo.Instigator is Pawn attackerPawn && attackerPawn.Faction.HostileTo(targetPawn.Faction))
 //        {
-//          if (Settings.VerboseLogging.Value) Mod.Log($"{attackerPawn} damaged {targetPawn} with {dinfo.Weapon}");
+//          // if (Settings.VerboseLogging.Value) Mod.Log($"{attackerPawn} damaged {targetPawn} with {dinfo.Weapon}");
 //          if (Rand.Chance(Settings.HitQuipChance.Value))
 //            InteractionUtility.ImitateInteractionWithNoPawn(
 //              attackerPawn,

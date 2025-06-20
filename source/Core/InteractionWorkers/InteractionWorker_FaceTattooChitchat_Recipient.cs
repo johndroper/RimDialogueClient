@@ -20,7 +20,7 @@ namespace RimDialogue.Core.InteractionWorkers
           recipient.style.FaceTattoo.label == "none")
           return 0f;
 
-        if (Settings.VerboseLogging.Value) Mod.Log($"Face Tattoo Weight: {initiator.Name} -> {recipient.Name} = {Settings.AppearanceChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Face Tattoo Weight: {initiator.Name} -> {recipient.Name} = {Settings.AppearanceChitChatWeight.Value}");
         return Settings.AppearanceChitChatWeight.Value;
       }
       catch (Exception ex)

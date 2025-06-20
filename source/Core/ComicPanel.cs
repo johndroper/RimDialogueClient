@@ -9,32 +9,84 @@ using Verse;
 
 namespace RimDialogue.Core
 {
+
+  [StaticConstructorOnStartup]
   public abstract class ComicPanel
   {
-    private static readonly Color BubbleBackgroundColor = ColorUtility.TryParseHtmlString("#e7e8e8", out var col) ? col : new Color(0.91f, 0.91f, 0.91f, 1f);
     private static readonly float edgeWidth = Mathf.Ceil(78f / 2f);
     private static readonly float topEdgeHeight = Mathf.Ceil(77f / 2f);
     private static readonly float bottomEdgeHeight = Mathf.Ceil(122f / 2f);
-    private static readonly Texture2D CornerTL = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TL");
-    private static readonly Texture2D CornerTR = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TR");
-    private static readonly Texture2D CornerBL = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BL");
-    private static readonly Texture2D CornerBR = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BR");
-    private static readonly Texture2D TopCenter = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TC");
-    private static readonly Texture2D TopCenterWide = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TCW");
-    private static readonly Texture2D BottomCenter = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BC");
-    private static readonly Texture2D BottomCenterWide = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BCW");
-    private static readonly Texture2D BottomCenterReversed = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BCR");
-    private static readonly Texture2D CenterLeft = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CL");
-    private static readonly Texture2D CenterRight = ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CR");
 
-    public static readonly GUIStyle style = new GUIStyle(GUI.skin.label)
-    {
-      wordWrap = true,
-      alignment = TextAnchor.MiddleCenter,
-      fontSize = 16,
-      normal = { textColor = Color.black },
-      padding = new RectOffset(0, 0, 0, 0)
-    };
+    private static Texture2D _earth;
+    private static Texture2D Earth => _earth ??= ContentFinder<Texture2D>.Get("RimDialogue/earth_texture");
+
+    private static Texture2D _sky;
+    private static Texture2D Sky => _sky ??= ContentFinder<Texture2D>.Get("RimDialogue/sky_texture");
+
+    private static Texture2D _cornerTL;
+    private static Texture2D CornerTL => _cornerTL ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TL");
+
+    private static Texture2D _cornerTR;
+    private static Texture2D CornerTR => _cornerTR ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TR");
+
+    private static Texture2D _cornerBL;
+    private static Texture2D CornerBL => _cornerBL ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BL");
+
+    private static Texture2D _cornerBR;
+    private static Texture2D CornerBR => _cornerBR ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BR");
+
+    private static Texture2D _topCenter;
+    private static Texture2D TopCenter => _topCenter ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TC");
+
+    private static Texture2D _topCenterWide;
+    private static Texture2D TopCenterWide => _topCenterWide ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TCW");
+
+    private static Texture2D _bottomCenter;
+    private static Texture2D BottomCenter => _bottomCenter ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BC");
+
+    private static Texture2D _bottomCenterWide;
+    private static Texture2D BottomCenterWide => _bottomCenterWide ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BCW");
+
+    private static Texture2D _bottomCenterReversed;
+    private static Texture2D BottomCenterReversed => _bottomCenterReversed ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BCR");
+
+    private static Texture2D _centerLeft;
+    private static Texture2D CenterLeft => _centerLeft ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CL");
+
+    private static Texture2D _centerLeftSmall;
+    private static Texture2D CenterLeftSmall => _centerLeftSmall ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CLS");
+
+    private static Texture2D _centerRight;
+    private static Texture2D CenterRight => _centerRight ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CR");
+
+    private static Texture2D _centerRightSmall;
+    private static Texture2D CenterRightSmall => _centerRightSmall ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CRS");
+
+    private static Texture2D _calibriAtlas;
+    private static Texture2D CalibriAtlas => _calibriAtlas ??= ContentFinder<Texture2D>.Get("RimDialogue/Calibri_0");
+
+    private static Texture2D _bubbleBackground;
+    private static Texture2D BubbleBackground => _bubbleBackground ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_background");
+
+    private static readonly string calibriPath = Path.Combine(Mod.FontPath, "calibri.fnt");
+    private static readonly BitmapFont Calibri = BitmapFont.Load(calibriPath, CalibriAtlas);
+
+    private static GUIStyle _style;
+    public static GUIStyle style
+    { 
+      get
+      {
+        _style ??= new GUIStyle(GUI.skin.label)
+        {
+          wordWrap = true,
+          alignment = TextAnchor.MiddleCenter,
+          fontSize = 16,
+          normal = { textColor = Color.black },
+          padding = new RectOffset(0, 0, 0, 0)
+        };
+        return _style;
+      }
+    }
     public static Texture2D ConvertRenderTextureToTexture2D(RenderTexture rt)
     {
       RenderTexture currentRT = RenderTexture.active;
@@ -46,6 +98,35 @@ namespace RimDialogue.Core
 
       RenderTexture.active = currentRT;
       return tex;
+    }
+
+    private static readonly char[] ApostropheLikeCharacters = new[]
+    {
+        '\u2019', // ’ RIGHT SINGLE QUOTATION MARK
+        '\u02BC', // ʼ MODIFIER LETTER APOSTROPHE
+        '\u0060', // `  GRAVE ACCENT
+        '\u00B4', // ´  ACUTE ACCENT
+        '\u02BC', // ʼ  MODIFIER LETTER APOSTROPHE
+        '\u02BB', // ʻ  MODIFIER LETTER TURNED COMMA
+        '\u02BD', // ʽ  MODIFIER LETTER REVERSED COMMA
+        '\u02BE', // ʾ  MODIFIER LETTER RIGHT HALF RING
+        '\u02BF', // ʿ  MODIFIER LETTER LEFT HALF RING
+        '\u2018', // ‘  LEFT SINGLE QUOTATION MARK
+        '\u2019', // ’  RIGHT SINGLE QUOTATION MARK (often used as apostrophe)
+        '\u201B', // ‛  SINGLE HIGH-REVERSED-9 QUOTATION MARK
+        '\u2032', // ′  PRIME
+        '\u275B', // ❛  HEAVY SINGLE TURNED COMMA QUOTATION MARK ORNAMENT
+        '\u275C', // ❜  HEAVY SINGLE COMMA QUOTATION MARK ORNAMENT
+        '\uFF07'  // ＇ FULLWIDTH APOSTROPHE
+    };
+
+    /// <summary>
+    /// Replaces all apostrophe-like characters in the input string with the ASCII apostrophe (').
+    /// </summary>
+    public static string Clean(string input)
+    {
+      if (string.IsNullOrEmpty(input)) return input;
+      return new string(input.Select(c => ApostropheLikeCharacters.Contains(c) ? '\'' : c).ToArray());
     }
 
     public static void SaveScreenRegionAsPNG(Rect screenRect, string filename)
@@ -76,7 +157,7 @@ namespace RimDialogue.Core
 
     public static float GetTextHeight(string text, float textWidth)
     {
-      return style.CalcHeight(new GUIContent(text), textWidth);
+      return Calibri.GetTextHeight(text, textWidth);
     }
 
     public enum BubbleType
@@ -86,28 +167,28 @@ namespace RimDialogue.Core
       Wide
     }
 
-    public static Rect DrawSpeechBubble(Vector2 position, string text, float textHeight, float textWidth, BubbleType bubbleType)
+    public static void DrawSpeechBubble(Vector2 bubbleAPos, string text, float textHeight, float textWidth, BubbleType bubbleType)
     {
+      text = Clean(text);
+
       Vector2 bubbleSize = new Vector2(
           textWidth + edgeWidth * 0.333f * 2,
           textHeight + (topEdgeHeight + bottomEdgeHeight) * 0.75f);
 
-      Rect bubbleRect = new Rect(position, bubbleSize);
+      int width = Mathf.CeilToInt(bubbleSize.x);
+      int height = Mathf.CeilToInt(bubbleSize.y);
 
-      Rect centerRect = new Rect(
-          bubbleRect.x + (bubbleRect.width - textWidth) / 2,
-          bubbleRect.y + (bubbleRect.height - textHeight) / 2 - 12,
-          textWidth,
-          textHeight
-      );
+      Rect bubbleRect = new Rect(bubbleAPos.x, bubbleAPos.y, width, height);
 
-      GUI.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y, edgeWidth, topEdgeHeight), CornerTL);
-      GUI.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.y, edgeWidth, topEdgeHeight), CornerTR);
-      GUI.DrawTexture(new Rect(bubbleRect.x, bubbleRect.yMax - bottomEdgeHeight, edgeWidth, bottomEdgeHeight), CornerBL);
-      GUI.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.yMax - bottomEdgeHeight, edgeWidth, bottomEdgeHeight), CornerBR);
+       // Corners
+      Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y, edgeWidth + 1, topEdgeHeight + 1), CornerTL);
+      Graphics.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.y, edgeWidth + 1, topEdgeHeight + 1), CornerTR);
+      Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.yMax - bottomEdgeHeight, edgeWidth + 1, bottomEdgeHeight + 1), CornerBL);
+      Graphics.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.yMax - bottomEdgeHeight, edgeWidth + 1, bottomEdgeHeight + 1), CornerBR);
 
+      // Top/bottom edges
       Texture2D bottomCenter, topCenter;
-      switch(bubbleType)
+      switch (bubbleType)
       {
         case BubbleType.Wide:
           topCenter = TopCenterWide;
@@ -123,20 +204,47 @@ namespace RimDialogue.Core
           break;
       }
 
-      GUI.DrawTexture(new Rect(bubbleRect.x + edgeWidth, bubbleRect.y, bubbleRect.width - 2 * edgeWidth + 1, topEdgeHeight + 1), topCenter);
-      GUI.DrawTexture(new Rect(bubbleRect.x + edgeWidth, bubbleRect.yMax - bottomEdgeHeight, bubbleRect.width - 2 * edgeWidth + 1, bottomEdgeHeight + 1), bottomCenter);
-      GUI.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y + topEdgeHeight, edgeWidth, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), CenterLeft);
-      GUI.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.y + topEdgeHeight, edgeWidth, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), CenterRight);
+      //Top and Bottom
+      Graphics.DrawTexture(new Rect(bubbleRect.x + edgeWidth, bubbleRect.y, bubbleRect.width - 2 * edgeWidth + 1, topEdgeHeight + 1), topCenter);
+      Graphics.DrawTexture(new Rect(bubbleRect.x + edgeWidth, bubbleRect.yMax - bottomEdgeHeight, bubbleRect.width - 2 * edgeWidth + 1, bottomEdgeHeight + 1), bottomCenter);
 
-      Color prevColor = GUI.color;
-      GUI.color = BubbleBackgroundColor;
-      GUI.DrawTexture(centerRect, BaseContent.WhiteTex);
-      GUI.color = prevColor;
+      Texture2D leftSide, rightSide;
+      if (textHeight > 275)
+      {
+        leftSide = CenterLeft;
+        rightSide = CenterRight;
+      }
+      else
+      {
+        leftSide = CenterLeftSmall;
+        rightSide = CenterRightSmall;
+      }
 
-      GUI.Label(centerRect, text, style);
+        // Sides
+        Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y + topEdgeHeight, edgeWidth + 1, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), leftSide);
+      Graphics.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.y + topEdgeHeight, edgeWidth + 1, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), rightSide);
 
-      return bubbleRect;
+      //BubbleBackground
+      Graphics.DrawTexture(new Rect(bubbleRect.x + edgeWidth - 1, bubbleRect.y + topEdgeHeight - 1, bubbleRect.width - 2 * edgeWidth + 2, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight) + 2), BubbleBackground);
+
+      Calibri.DrawText(
+        text,
+        new Vector2(bubbleRect.x + edgeWidth - 20, bubbleRect.y + topEdgeHeight - 20),
+        textWidth);
     }
+
+    //Rect centerRect = new Rect(
+    //    (bubbleRect.width - textWidth) / 2,
+    //    (bubbleRect.height - textHeight) / 2 - 12,
+    //    textWidth,
+    //    textHeight
+    //);
+
+    //// Background fill
+    //SubDraw(centerRect, BaseContent.WhiteTex, BubbleBackgroundColor);
+
+    // OPTIONAL: render text here (bitmap font or other method)
+
 
     public const int PortraitWidth = 96;
     public const int PortraitHeight = 128;
@@ -150,112 +258,73 @@ namespace RimDialogue.Core
       BackgroundItems = backgroundItems;
     }
 
-    //public List<ComicPanelItem> GetBackgroundItems(Rect canvas, float skyHeight)
-    //{
-    //  List<ComicPanelItem> items = new List<ComicPanelItem>();
-    //  List<Thing> treeThings = new List<Thing>();
-    //  var trees = Find.CurrentMap.listerThings.AllThings
-    //    .Where(t => t.def.category == ThingCategory.Plant && t.def.plant.IsTree);
-    //  int treesToFetch = Rand.Range(10, 20);
-    //  while (treeThings.Count < treesToFetch)
-    //  {
-    //    treeThings.Add(trees.RandomElement());
-    //  }
-    //  float x = canvas.x + Rand.Range(-10, 100);
-    //  float y = canvas.y + skyHeight - 30f;
-    //  float size = 32;
-    //  for (var row = 0; row < 4; row++)
-    //  {
-    //    foreach (var tree in treeThings)
-    //    {
-    //      items.Add(new ComicPanelItem(
-    //        (Texture2D)tree.Graphic.MatSingle.mainTexture,
-    //        new Rect(x, y, size, size)));
-    //      x += Rand.Range(10, 100);
-    //      if (x > canvas.width)
-    //        x = Rand.Range(-20, 100);
-    //    }
-    //    y += 5;
-    //    size += 8;
-    //  }
-    //  return items;
-    //}
-    public static Color skyColor = new Color(0.5294f, 0.8078f, 0.9215f, 1f);
-    public static Color earthColor = new Color(0.5882f, 0.2941f, 0, 1f);
-
     public virtual void DrawBackground(Rect canvas)
     {
-      Color originalColor = GUI.color;
-      Widgets.DrawBoxSolid(new Rect(canvas.x, canvas.y, canvas.width, SkyHeight), skyColor);
-      Widgets.DrawBoxSolid(new Rect(canvas.x, canvas.y + SkyHeight, canvas.width, canvas.height - SkyHeight), earthColor);
-      GUI.color = originalColor;
+      // Draw sky area
+      Rect skyRect = new Rect(canvas.x, canvas.y, canvas.width, SkyHeight);
+      Graphics.DrawTexture(skyRect, Sky);
 
+      // Draw earth area
+      Rect earthRect = new Rect(canvas.x, canvas.y + SkyHeight, canvas.width, canvas.height - SkyHeight);
+      Graphics.DrawTexture(earthRect, Earth);
+
+      // Draw background items
       foreach (var item in BackgroundItems)
       {
         var rect = new Rect(
-          item.Rect.x + canvas.x,
-          item.Rect.y + canvas.y,
-          item.Rect.width,
-          item.Rect.width);
-        GUI.DrawTexture(rect, item.Texture);
+            item.Rect.x + canvas.x,
+            item.Rect.y + canvas.y,
+            item.Rect.width,
+            item.Rect.height
+        );
+        Graphics.DrawTexture(rect, item.Texture);
+      }
+    }
+
+    public Texture2D GetTexture(Rect canvas)
+    {
+      Mod.Log($"Getting texture for {canvas}");
+
+      int texWidth = Mathf.CeilToInt(canvas.width);
+      int texHeight = Mathf.CeilToInt(canvas.height);
+
+      RenderTexture rt = new RenderTexture(texWidth, texHeight, 0);
+      RenderTexture.active = rt;
+      GL.PushMatrix();
+      GL.LoadPixelMatrix(0, texWidth, texHeight, 0);
+      GL.Clear(true, true, Color.clear);
+
+      DrawBackground(canvas);
+      DrawInternal(canvas);
+
+      Texture2D finalTex = new Texture2D(texWidth, texHeight, TextureFormat.RGBA32, false);
+      finalTex.ReadPixels(new Rect(0, 0, texWidth, texHeight), 0, 0);
+      finalTex.Apply();
+
+      GL.PopMatrix();
+      RenderTexture.active = null;
+      rt.Release();
+      UnityEngine.Object.Destroy(rt);
+
+      return finalTex;
+    }
+
+    protected Texture2D _texture;
+    public Texture2D Texture
+    {
+      get
+      {
+        return _texture;
       }
     }
 
     public void Draw(Rect canvas)
     {
-      DrawBackground(canvas);
-      DrawInternal(canvas);
+      _texture ??= GetTexture(canvas);
+      GUI.DrawTexture(canvas, _texture, ScaleMode.StretchToFill, true, 1f);
     }
 
     protected abstract void DrawInternal(Rect canvas);
 
-    public virtual void DrawToTexture(Texture2D texture, Rect canvas)
-    {
-      // Set up a temporary RenderTexture and draw the panel into it, then copy to the provided Texture2D
-      RenderTexture rt = new RenderTexture((int)canvas.width, (int)canvas.height, 24);
-      RenderTexture.active = rt;
-      GL.Clear(true, true, Color.clear);
-
-      var oldMatrix = GUI.matrix;
-      try
-      {
-        GUIUtility.RotateAroundPivot(0, Vector2.zero);
-        Draw(canvas);
-        texture.ReadPixels(new Rect(0, 0, (int)canvas.width, (int)canvas.height), 0, 0);
-        texture.Apply();
-      }
-      finally
-      {
-        GUI.matrix = oldMatrix;
-        RenderTexture.active = null;
-        UnityEngine.Object.Destroy(rt);
-      }
-    }
-
-    public virtual Texture2D RenderToTexture(int width, int height)
-    {
-      // Create a RenderTexture and Texture2D
-      RenderTexture rt = new RenderTexture(width, height, 24);
-      RenderTexture.active = rt;
-      GL.Clear(true, true, Color.clear);
-
-      // Save and restore GUI matrix
-      var oldMatrix = GUI.matrix;
-      try
-      {
-        // Draw the panel as if on screen
-        Draw(new Rect(0, 0, width, height));
-        Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        tex.Apply();
-        return tex;
-      }
-      finally
-      {
-        GUI.matrix = oldMatrix;
-        RenderTexture.active = null;
-        UnityEngine.Object.Destroy(rt);
-      }
-    }
   }
 }

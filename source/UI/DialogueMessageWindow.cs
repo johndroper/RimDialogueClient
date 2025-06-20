@@ -8,6 +8,8 @@ namespace RimDialogue.UI
   using RimDialogue;
   using RimDialogue.Core;
   using RimWorld;
+  using System.Diagnostics;
+  using System.Security.Policy;
   using UnityEngine;
   using Verse;
   using Verse.Sound;
@@ -91,15 +93,15 @@ namespace RimDialogue.UI
         Widgets.Label(periodRect, (Find.TickManager.TicksGame - Conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
       }
 
-      var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
-      if (Widgets.ButtonText(copyButtonRect, "Copy"))
-      {
-        GUIUtility.systemCopyBuffer = Conversation.text ?? string.Empty;
-        SoundDefOf.Click.PlayOneShotOnCamera();
-      }
+      //var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
+      //if (Widgets.ButtonText(copyButtonRect, "Copy"))
+      //{
+      //  GUIUtility.systemCopyBuffer = Conversation.text ?? string.Empty;
+      //  SoundDefOf.Click.PlayOneShotOnCamera();
+      //}
 
       var memeButtonRect = new Rect(contentRectWidth - 40, currentY, 40, LabelHeight);
-      if (Widgets.ButtonText(memeButtonRect, "Meme"))
+      if (Widgets.ButtonText(memeButtonRect, "Save"))
       {
         Find.WindowStack.Add(new Window_ComicPanelViewer(Conversation));
       }
@@ -109,6 +111,7 @@ namespace RimDialogue.UI
     }
   }
 
+  [StaticConstructorOnStartup]
   public class DialogueMessageWindow : Window
   {
     public const float MinLifeTime = 2f;
@@ -170,7 +173,7 @@ namespace RimDialogue.UI
       var contentRectWidth = ContentRectWidth;
       var allHeight = conversationLabels
         .Sum(conversationLabel => conversationLabel.GetHeight(contentRectWidth));
-      //if (Settings.VerboseLogging.Value) Mod.Log($"All {conversations.Count} conversations height: {allHeight}");
+      //// if (Settings.VerboseLogging.Value) Mod.Log($"All {conversations.Count} conversations height: {allHeight}");
       return allHeight;
     }
 
@@ -196,9 +199,21 @@ namespace RimDialogue.UI
     Vector2? LastWindowSize;
     Vector2? LastWindowPosition;
 
+    private static Texture2D? _discordLogo;
+    public static Texture2D DiscordLogo
+    {
+      get
+      {
+        if (_discordLogo == null)
+        {
+          _discordLogo = ContentFinder<Texture2D>.Get("RimDialogue/discord_logo");
+        }
+        return _discordLogo;
+      }
+    }
+
     public override void DoWindowContents(Rect inRect)
     {
-      //Background
       var contents = new Rect(0, 0, windowRect.width, windowRect.height);
       bool mouseOver = Mouse.IsOver(contents);
       if (mouseOver)
@@ -208,60 +223,60 @@ namespace RimDialogue.UI
       if (Math.Abs(currentAlpha - targetAlpha) > 0.01f)
         currentAlpha = Mathf.Lerp(currentAlpha, targetAlpha, RealTime.deltaTime * fadeSpeed);
       DrawTransparentBackground();
-
       Text.Font = GameFont.Small;
       GUI.color = Color.white;
       var contentRectWidth = ContentRectWidth;
       var conversationContentRectHeight = GetAllHeight(ConversationLabels);
-
       if (this.windowRect.position != LastWindowPosition)
       {
         LastWindowPosition = this.windowRect.position;
-        //save the window position for later serialization
         GameComponent_ConversationTracker.Instance.MessageWindowPosition = new Vector2(this.windowRect.x, this.windowRect.y);
       }
-
       if (LastWindowSize != this.windowRect.size)
       {
         LastWindowSize = this.windowRect.size;
-        //save the window size for later serialization
         GameComponent_ConversationTracker.Instance.MessageWindowSize = new Vector2(this.windowRect.width, this.windowRect.height);
         if (this.windowRect.height < scrollPosition)
           scrollPosition = this.windowRect.height;
         if (this.windowRect.height > scrollPosition + conversationContentRectHeight)
           scrollPosition += this.windowRect.height - (scrollPosition + conversationContentRectHeight);
       }
-
-      if (!ConversationLabels.Any())
-        return;
-
-      var conversationContentRect = new Rect(10, scrollPosition - ConversationLabel.TopMargin, contentRectWidth, conversationContentRectHeight);
-      Widgets.BeginGroup(conversationContentRect);
-      float convoY = conversationContentRect.height;
       Color previousColor = GUI.color;
-      for (int i = ConversationLabels.Count - 1; i >= 0; i--)
+      if (ConversationLabels.Any())
       {
-        convoY = ConversationLabels[i].Draw(convoY, conversationContentRect.width);
-        if (convoY < 0)
-          break;
+        var conversationContentRect = new Rect(10, scrollPosition - ConversationLabel.TopMargin, contentRectWidth, conversationContentRectHeight);
+        Widgets.BeginGroup(conversationContentRect);
+        float convoY = conversationContentRect.height;
+        for (int i = ConversationLabels.Count - 1; i >= 0; i--)
+        {
+          convoY = ConversationLabels[i].Draw(convoY, conversationContentRect.width);
+          if (convoY < 0)
+            break;
+        }
+        Widgets.EndGroup();
+        if (!mouseOver && conversationContentRect.y + conversationContentRect.height > windowRect.height - 40)
+          scrollPosition -= RealTime.deltaTime * Math.Max(1f, Find.TickManager.TickRateMultiplier) * Settings.MessageScrollSpeed.Value * (conversationContentRect.height > this.windowRect.height ? Math.Max(1f, (conversationContentRect.height + scrollPosition + 500) / 500) : 1);
       }
-      Widgets.EndGroup();
-
-      if (!mouseOver && conversationContentRect.y + conversationContentRect.height > windowRect.height - 40)
-        scrollPosition -= RealTime.deltaTime * Math.Max(1f, Find.TickManager.TickRateMultiplier) * Settings.MessageScrollSpeed.Value * (conversationContentRect.height > this.windowRect.height ? Math.Max(1f, (conversationContentRect.height + scrollPosition + 500) / 500) : 1) ;
-
       var titleBarRect = new Rect(0, 0, this.windowRect.width, 30);
       Widgets.DrawBoxSolid(titleBarRect, Color.white.ToTransparent(.85f));
       GUI.color = Color.black;
-      var titleLabelRect = new Rect(titleBarRect.x, titleBarRect.y, 50, 20);
+      var titleLabelRect = new Rect(titleBarRect.x + 5, titleBarRect.y + 5, 150, titleBarRect.height);
       Widgets.Label(titleLabelRect, "RimDialogue");
-
-      var debugInfoRect1 = new Rect(titleBarRect.x + 50, titleBarRect.y, 30, 20);
-      Widgets.Label(debugInfoRect1, scrollPosition.ToString("N0"));
-      var debugInfoRect2 = new Rect(debugInfoRect1.x + debugInfoRect1.width + 10, titleBarRect.y, 30, 20);
-      Widgets.Label(debugInfoRect2, conversationContentRectHeight.ToString("N0"));
-
+      var discordRect = new Rect(titleBarRect.xMax - 40 - 24 - 2, titleBarRect.y + 3, 24, 24);
+      if (Widgets.ButtonImage(discordRect, DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
+      {
+        Process.Start(new ProcessStartInfo
+        {
+          FileName = "https://discord.gg/KavBmswUen",
+          UseShellExecute = true
+        });
+      }
       GUI.color = previousColor;
+
+      //var debugInfoRect1 = new Rect(titleBarRect.x + 50, titleBarRect.y, 30, 20);
+      //Widgets.Label(debugInfoRect1, scrollPosition.ToString("N0"));
+      //var debugInfoRect2 = new Rect(debugInfoRect1.x + debugInfoRect1.width + 10, titleBarRect.y, 30, 20);
+      //Widgets.Label(debugInfoRect2, conversationContentRectHeight.ToString("N0"));
     }
 
     private void DrawTransparentBackground()

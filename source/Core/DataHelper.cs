@@ -20,7 +20,7 @@ namespace RimDialogue.Core
     public static GameComponent_ConversationTracker GetTracker()
     {
       var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
-      //if (Settings.VerboseLogging.Value) Mod.Log($"Tracker fetched.");
+      //// if (Settings.VerboseLogging.Value) Mod.Log($"Tracker fetched.");
       return tracker;
     }
 
@@ -43,41 +43,47 @@ namespace RimDialogue.Core
         }
       }
 
+      bool? isAnimal = null;
+      if (VersionControl.CurrentVersion.Major == 1 && VersionControl.CurrentVersion.Minor >= 6)
+        isAnimal = (bool)Reflection.IsAnimal.GetValue(pawn);
+      else
+        isAnimal = pawn.IsNonMutantAnimal;
+
       return new PawnData
-      {
-        ThingID = pawn.ThingID,
-        Instructions = instructions,
-        FullName = pawn.Name?.ToStringFull ?? String.Empty,
-        Personality = personality ?? string.Empty,
-        PersonalityDescription = H.RemoveWhiteSpaceAndColor(personalityDescription),
-        NickName = pawn.Name?.ToStringShort ?? pawn.Label ?? String.Empty,
-        Gender = pawn.GetGenderLabel(),
-        FactionName = pawn.Faction?.Name ?? String.Empty,
-        FactionLabel = H.RemoveWhiteSpace(pawn.Faction?.def?.LabelCap),
-        FactionDescription = H.RemoveWhiteSpace(pawn.Faction?.def?.description),
-        Description = H.RemoveWhiteSpace(pawn.DescriptionDetailed).TrimEnd('.').ToLower(),
-        Race = pawn.def?.defName ?? String.Empty,
-        IsColonist = pawn.IsColonist,
-        IsPrisoner = pawn.IsPrisoner,
-        IsHostile = pawn.HostileTo(Faction.OfPlayer),
-        RoyaltyTitle = pawn.royalty?.MostSeniorTitle?.Label ?? string.Empty,
-        IsCreepJoiner = pawn.IsCreepJoiner,
-        IsGhoul = pawn.IsGhoul,
-        IsBloodFeeder = pawn.IsBloodfeeder(),
-        IsSlave = pawn.IsSlave,
-        IsAnimal = pawn.IsAnimal,
-        IdeologyName = pawn.Ideo?.name ?? string.Empty,
-        IdeologyDescription = H.RemoveWhiteSpaceAndColor(pawn.Ideo?.description),
-        IdeologyPrecepts = pawn.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + H.RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
-        Age = pawn.ageTracker?.AgeBiologicalYears ?? -1,
-        Childhood = pawn.story?.Childhood?.title != null ? pawn.story?.Childhood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Childhood)) : string.Empty,
-        Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
-        MoodString = pawn.needs?.mood?.MoodString ?? string.Empty,
-        JobReport = RemoveParentheses(pawn.GetJobReport()?.ToLower()),
-        Carrying = RemoveWhiteSpaceAndColor(pawn.carryTracker?.CarriedThing?.Label),
-        Skills = pawn.skills?.skills.Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {H.RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
-        Traits = pawn.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + H.RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve())).ToArray() ?? [],
-      };
+        {
+          ThingID = pawn.ThingID,
+          Instructions = instructions,
+          FullName = pawn.Name?.ToStringFull ?? String.Empty,
+          Personality = personality ?? string.Empty,
+          PersonalityDescription = H.RemoveWhiteSpaceAndColor(personalityDescription),
+          NickName = pawn.Name?.ToStringShort ?? pawn.Label ?? String.Empty,
+          Gender = pawn.GetGenderLabel(),
+          FactionName = pawn.Faction?.Name ?? String.Empty,
+          FactionLabel = H.RemoveWhiteSpace(pawn.Faction?.def?.LabelCap),
+          FactionDescription = H.RemoveWhiteSpace(pawn.Faction?.def?.description),
+          Description = H.RemoveWhiteSpace(pawn.DescriptionDetailed).TrimEnd('.').ToLower(),
+          Race = pawn.def?.defName ?? String.Empty,
+          IsColonist = pawn.IsColonist,
+          IsPrisoner = pawn.IsPrisoner,
+          IsHostile = pawn.HostileTo(Faction.OfPlayer),
+          RoyaltyTitle = pawn.royalty?.MostSeniorTitle?.Label ?? string.Empty,
+          IsCreepJoiner = pawn.IsCreepJoiner,
+          IsGhoul = pawn.IsGhoul,
+          IsBloodFeeder = pawn.IsBloodfeeder(),
+          IsSlave = pawn.IsSlave,
+          IsAnimal = isAnimal ?? false,
+          IdeologyName = pawn.Ideo?.name ?? string.Empty,
+          IdeologyDescription = H.RemoveWhiteSpaceAndColor(pawn.Ideo?.description),
+          IdeologyPrecepts = pawn.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + H.RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
+          Age = pawn.ageTracker?.AgeBiologicalYears ?? -1,
+          Childhood = pawn.story?.Childhood?.title != null ? pawn.story?.Childhood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Childhood)) : string.Empty,
+          Adulthood = pawn.story?.Adulthood?.title != null ? pawn.story?.Adulthood?.title + " - " + H.RemoveWhiteSpaceAndColor(H.GetBackstory(pawn, pawn.story?.Adulthood)) : string.Empty,
+          MoodString = pawn.needs?.mood?.MoodString ?? string.Empty,
+          JobReport = RemoveParentheses(pawn.GetJobReport()?.ToLower()),
+          Carrying = RemoveWhiteSpaceAndColor(pawn.carryTracker?.CarriedThing?.Label),
+          Skills = pawn.skills?.skills.Select(skill => $"{skill.LevelDescriptor} {skill.def?.label} - {H.RemoveWhiteSpace(skill.def?.description)}").ToArray() ?? [],
+          Traits = pawn.story?.traits?.allTraits?.Select(trait => trait.Label + " - " + H.RemoveWhiteSpaceAndColor(trait.CurrentData.description.Formatted(pawn.Named("PAWN")).AdjustedFor(pawn).Resolve())).ToArray() ?? [],
+        };
     }
 
     public static string UncapitalizeFirst(this TaggedString input)

@@ -6,6 +6,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Verse;
@@ -22,16 +23,23 @@ namespace RimDialogue.Access
       if (_lastInteractionTicks.TryGetValue(thing, out int lastInteraction)
         && Find.TickManager.TicksGame - lastInteraction < Settings.MinDelayMinutes.Value * InteractionWorker_Dialogue.TicksPerMinute)
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {thing} - Too soon to add interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {thing} - Too soon to add interaction.");
         _lastInteractionTicks[thing] = Find.TickManager.TicksGame;
         return true;
       }
       return false;
     }
 
-    public static bool IsValid(Pawn pawn)
+
+
+     public static bool IsValid(Pawn pawn)
     {
-      return pawn != null && !pawn.IsAnimal && !pawn.DeadOrDowned;
+      if (VersionControl.CurrentVersion.Major  == 1 && VersionControl.CurrentVersion.Minor >= 6)
+      {
+        return pawn != null && !(bool)Reflection.IsAnimal.GetValue(pawn) && !pawn.DeadOrDowned;
+      }
+
+      return pawn != null && !pawn.IsNonMutantAnimal && !pawn.DeadOrDowned;
     }
 
     public static void Postfix(LogEntry entry)
@@ -86,7 +94,7 @@ namespace RimDialogue.Access
         var damagedPartsDestroyed = (List<bool>)Reflection.Verse_LogEntry_DamageResult_DamagedPartsDestroyed.GetValue(damageTakenEntry);
         var deflected = (bool)Reflection.Verse_LogEntry_DamageResult_Deflected.GetValue(damageTakenEntry);
 
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Im Hit interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Im Hit interaction.");
         PlayLogEntry_InteractionBattle.ImitateInteractionWithNoPawn(
           recipient,
           new DamageTaken_InteractionDef(
@@ -127,7 +135,7 @@ namespace RimDialogue.Access
         var deflected = (bool)Reflection.Verse_LogEntry_DamageResult_Deflected.GetValue(rangedImpactEntry);
         if (initiatorPawn == null || initiatorPawn.DeadOrDowned || targetPawn == null || targetPawn.DeadOrDowned)
           return;
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Im Hit interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Im Hit interaction.");
         Dictionary<string, string> constants = [];
         constants.Add("hit_target", (targetPawn == originalTargetPawn).ToString());
         PlayLogEntry_InteractionBattle.ImitateInteractionWithNoPawn(
@@ -165,14 +173,14 @@ namespace RimDialogue.Access
         Pawn recipient = (Pawn)Reflection.Verse_BattleLogEntry_DamageTaken_RecipientPawn.GetValue(damageTakenEntry);
         if (recipient == null)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {damageTakenEntry.LogID} - Recipient is null.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {damageTakenEntry.LogID} - Recipient is null.");
           return;
         }
         var damagedParts = (List<BodyPartRecord>)Reflection.Verse_LogEntry_DamageResult_DamagedParts.GetValue(damageTakenEntry);
         var damagedPartsDestroyed = (List<bool>)Reflection.Verse_LogEntry_DamageResult_DamagedPartsDestroyed.GetValue(damageTakenEntry);
         var deflected = (bool)Reflection.Verse_LogEntry_DamageResult_Deflected.GetValue(damageTakenEntry);
 
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Damage taken interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Damage taken interaction.");
         PlayLogEntry_InteractionBattle.ImitateInteractionWithNoPawn(
           initiator,
           new DamageTaken_InteractionDef(
@@ -199,7 +207,7 @@ namespace RimDialogue.Access
 
         if (!Rand.Chance(Settings.RangedImpactQuipChance.Value))
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {rangedImpactEntry.LogID} - Ranged Impact interaction - no chance.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {rangedImpactEntry.LogID} - Ranged Impact interaction - no chance.");
           return;
         }
         Pawn initiatorPawn = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_InitiatorPawn.GetValue(rangedImpactEntry);
@@ -220,7 +228,7 @@ namespace RimDialogue.Access
 
         Dictionary<string, string> constants = [];
         constants.Add("hit_target", (targetPawn == originalTargetPawn).ToString());
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Ranged Impact interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Ranged Impact interaction.");
         if (initiatorPawn != null)
         {
           if (!IsValid(initiatorPawn) || TooSoon(initiatorPawn))
@@ -261,13 +269,13 @@ namespace RimDialogue.Access
         Pawn recipient = (Pawn)Reflection.Verse_BattleLogEntry_MeleeCombat_RecipientPawn.GetValue(meleeEntry);
         if (recipient == null)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {meleeEntry.LogID} - Recipient is null.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {meleeEntry.LogID} - Recipient is null.");
           return;
         }
         var damagedParts = (List<BodyPartRecord>)Reflection.Verse_LogEntry_DamageResult_DamagedParts.GetValue(meleeEntry);
         var damagedPartsDestroyed = (List<bool>)Reflection.Verse_LogEntry_DamageResult_DamagedPartsDestroyed.GetValue(meleeEntry);
         var deflected = (bool)Reflection.Verse_LogEntry_DamageResult_Deflected.GetValue(meleeEntry);
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Melee Combat interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Melee Combat interaction.");
         PlayLogEntry_InteractionBattle.ImitateInteractionWithNoPawn(
           initiator,
           new MeleeCombat_InteractionDef(
@@ -299,12 +307,12 @@ namespace RimDialogue.Access
         Pawn recipient = (Pawn)Reflection.Verse_BattleLogEntry_RangedFire_RecipientPawn.GetValue(rangedEntry);
         if (recipient == null)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {rangedEntry.LogID} - Recipient is null.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {rangedEntry.LogID} - Recipient is null.");
           return;
         }
         ThingDef weaponDef = (ThingDef)Reflection.Verse_BattleLogEntry_RangedFire_WeaponDef.GetValue(rangedEntry);
         ThingDef projectileDef = (ThingDef)Reflection.Verse_BattleLogEntry_RangedFire_ProjectileDef.GetValue(rangedEntry);
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Ranged Fire interaction.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Ranged Fire interaction.");
         PlayLogEntry_InteractionBattle.ImitateInteractionWithNoPawn(
           initiator,
           new RangedFire_InteractionDef(

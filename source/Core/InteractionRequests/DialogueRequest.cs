@@ -28,7 +28,7 @@ namespace RimDialogue.Core.InteractionData
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
       DialogueRequest dialogueRequest;
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest: '{interactionDef.defName}'");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest: '{interactionDef.defName}'");
       switch (interactionDef.defName)
       {
         case "RecentIncidentChitchat":
@@ -147,7 +147,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = DialogueRequestBattle_Recipient.BuildFrom(__instance, interactionTemplate);
           break;
         default:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
           dialogueRequest = new DialogueRequestTwoPawn<DialogueData>(__instance, interactionTemplate);
           break;
       }
@@ -197,7 +197,7 @@ namespace RimDialogue.Core.InteractionData
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
       DialogueRequest dialogueRequest;
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest SinglePawn: '{interactionDef.defName}'");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest SinglePawn: '{interactionDef.defName}'");
       switch (interactionDef)
       {
         case BattleLogEntry_InteractionDef battleLogEntryInteractionDef:
@@ -211,7 +211,7 @@ namespace RimDialogue.Core.InteractionData
           dialogueRequest = CreateThoughtRequest(__instance, interactionTemplate, thoughtInteractionDef);
           break;
         default:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
           dialogueRequest = new DialogueRequestSinglePawn<DialogueData>(__instance, interactionTemplate);
           break;
       }
@@ -234,11 +234,11 @@ namespace RimDialogue.Core.InteractionData
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
       DialogueRequest dialogueRequest;
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest SinglePawn: '{interactionDef.defName}'");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - DialogueRequest SinglePawn: '{interactionDef.defName}'");
       switch (interactionDef)
       {
         default:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
           dialogueRequest = new DialogueRequestMany<DialogueData>(__instance, interactionTemplate);
           break;
       }
@@ -261,7 +261,7 @@ namespace RimDialogue.Core.InteractionData
     {
       if (DateTime.Now.Subtract(LastDialogue) < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - too soon since last dialogue. Current time: '{DateTime.Now}' Last dialogue time: {LastDialogue}.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - too soon since last dialogue. Current time: '{DateTime.Now}' Last dialogue time: {LastDialogue}.");
         return true;
       }
       return false;
@@ -273,7 +273,7 @@ namespace RimDialogue.Core.InteractionData
       int ticksAbs = Find.TickManager.TicksAbs;
       if (ticksAbs - InteractionWorker_Dialogue.LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * InteractionWorker_Dialogue.TicksPerMinute)
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {InteractionWorker_Dialogue.LastUsedTicksAll}.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {InteractionWorker_Dialogue.LastUsedTicksAll}.");
         return true;
       }
       return false;
@@ -285,12 +285,12 @@ namespace RimDialogue.Core.InteractionData
       var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + "/" + action;
       try
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Server URL: '{serverUrl}'.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Server URL: '{serverUrl}'.");
         using (UnityWebRequest request = UnityWebRequest.Post(serverUrl, form))
         {
           var asyncOperation = request.SendWebRequest();
 
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Web request sent to {serverUrl}.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Web request sent to {serverUrl}.");
           while (!asyncOperation.isDone)
           {
             await Task.Yield();
@@ -303,7 +303,7 @@ namespace RimDialogue.Core.InteractionData
           {
             while (!request.downloadHandler.isDone) { await Task.Yield(); }
             var body = request.downloadHandler.text;
-            if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Body: '{body}'.");
+            // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Body: '{body}'.");
             return JsonUtility.FromJson<DialogueResponse>(body);
           }
         }
@@ -345,7 +345,7 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequest(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Dialogue Request started: {this.GetType().Name}");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Dialogue Request started: {this.GetType().Name}");
       clientId = Settings.ClientId.Value;
       maxWords = Settings.MaxWords.Value;
       minWords = Settings.MinWords.Value;
@@ -398,7 +398,7 @@ namespace RimDialogue.Core.InteractionData
           if (data.Value != null)
             form.AddField(data.Key, JsonUtility.ToJson(data.Value));
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - Dialogue data fetched.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - Dialogue data fetched.");
         if (action == null)
           action = InteractionDef.defName;
         var interaction = GetInteraction();
@@ -418,12 +418,12 @@ namespace RimDialogue.Core.InteractionData
           if (dialogueResponse.text != null)
             AddConversation(interaction, dialogueResponse.text);
 
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - Conversation added.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - Conversation added.");
           if (dialogueResponse.text == null)
             throw new Exception("Response text is null.");
           if (Settings.ShowDialogueBubbles.Value)
             Bubbles_Bubbler_Add.AddBubble(Initiator, Entry, dialogueResponse.text);
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - GetChitChat Complete.");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - GetChitChat Complete.");
         }
       }
       catch (Exception ex)

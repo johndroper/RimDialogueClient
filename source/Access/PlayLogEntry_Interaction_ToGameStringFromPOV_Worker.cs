@@ -17,13 +17,13 @@ namespace RimDialogue.Access
       {
         if (Settings.OnlyColonists.Value && !pov.IsColonist)
           return;
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_Interaction Original interaction: '{__result}'");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_Interaction Original interaction: '{__result}'");
         var dialogueRequest = DialogueRequest.Create(
         __instance, 
         __result,
         (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
         __result = dialogueRequest.GetInteraction();
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
       }
       catch (Exception ex)
       {

@@ -18,10 +18,10 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.style.BodyTattoo.defName == "NoTattoo_Body" ||
           initiator.style.BodyTattoo.label == "none")
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Body Tattoo ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Body Tattoo ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Body Tattoo ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AppearanceChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Body Tattoo ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AppearanceChitChatWeight.Value}");
         return Settings.AppearanceChitChatWeight.Value;
       }
       catch (Exception ex)

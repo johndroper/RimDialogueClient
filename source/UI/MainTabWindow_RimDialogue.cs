@@ -1,8 +1,10 @@
 #nullable enable
 
+using RimDialogue.UI;
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -49,7 +51,18 @@ namespace RimDialogue
       float y = 0;
 
       Text.Font = GameFont.Medium;
-      Widgets.Label(new Rect(0, y, inRect.width - 300f, 30f), "RimDialogue");
+      var titleRect = new Rect(0, y, 200f, 30f);
+      Widgets.Label(titleRect, "RimDialogue");
+
+      var discordRect = new Rect(titleRect.x + titleRect.width, titleRect.y, 24, 24);
+      if (Widgets.ButtonImage(discordRect, DialogueMessageWindow.DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
+      {
+        Process.Start(new ProcessStartInfo
+        {
+          FileName = "https://discord.gg/KavBmswUen",
+          UseShellExecute = true
+        });
+      }
 
       Text.Font = GameFont.Small;
       // Filter Dropdown
@@ -58,7 +71,7 @@ namespace RimDialogue
       {
         FilterMode.All => allPawnsText,
         FilterMode.Colonist => colonistsText,
-        FilterMode.Pawn => selectedPawn?.Name.ToStringShort ?? throw new Exception("selectedPawn is null"),
+        FilterMode.Pawn => selectedPawn?.Name?.ToStringShort ?? unknownText,
         _ => allPawnsText
       };
 
@@ -72,14 +85,12 @@ namespace RimDialogue
             filterMode = FilterMode.All;
           })
         };
-
         options.Add(
           new FloatMenuOption(colonistsText, () =>
           {
             selectedPawn = null;
             filterMode = FilterMode.Colonist;
           }));
-
         options.AddRange(Find.CurrentMap.mapPawns.FreeColonists.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
           new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
           {
@@ -178,7 +189,7 @@ namespace RimDialogue
           break;
         case FilterMode.Pawn:
           if (selectedPawn == null)
-            throw new System.InvalidOperationException("SelectedPawn is null but filter mode is set to SelectedPawn.");
+            selectedPawn = Find.CurrentMap.mapPawns.FreeColonists.FirstOrDefault();
           filteredConversations = tracker.Conversations
             .Where(c => c.InvolvesPawn(selectedPawn))
             .OrderByDescending(c => c.timestamp)
@@ -188,7 +199,6 @@ namespace RimDialogue
           filteredConversations = tracker.Conversations.OrderByDescending(c => c.timestamp).ToArray();
           break;
       }
-
       float conversationContentRectWidth = conversationsScrollRect.width - 16f;
       const float labelHeight = 20f;
       const float topMargin = 15f;
@@ -202,6 +212,11 @@ namespace RimDialogue
         convoY += topMargin;
         var headerRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
         Widgets.Label(headerRect, conversation.Participants);
+        var memeButtonRect = new Rect(headerRect.width - 40, convoY, 40, headerRect.height);
+        if (Widgets.ButtonText(memeButtonRect, "Save"))
+        {
+          Find.WindowStack.Add(new Window_ComicPanelViewer(conversation));
+        }
         convoY += labelHeight;
         if (conversation.timestamp != null)
         {
@@ -209,7 +224,6 @@ namespace RimDialogue
           Widgets.Label(periodRect, (Find.TickManager.TicksGame - conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
           convoY += labelHeight;
         }
-
         string displayText = conversation.text ?? string.Empty;
         float textHeight = Text.CalcHeight(displayText, conversationContentRectWidth);
         var convoRect = new Rect(0, convoY, conversationContentRectWidth, textHeight);

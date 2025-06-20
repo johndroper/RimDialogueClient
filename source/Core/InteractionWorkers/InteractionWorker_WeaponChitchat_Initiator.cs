@@ -16,10 +16,10 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.equipment == null ||
           initiator.equipment.Primary == null)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Weapon ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Weapon ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Weapon ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.WeaponChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Weapon ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.WeaponChitChatWeight.Value}");
         return Settings.WeaponChitChatWeight.Value;
       }
       catch (Exception ex)

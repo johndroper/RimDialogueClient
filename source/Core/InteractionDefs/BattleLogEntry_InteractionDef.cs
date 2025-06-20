@@ -53,9 +53,9 @@ namespace RimDialogue.Core.InteractionDefs
       if (target != null)
       {
         rulesRaw.AddRange(GrammarUtility.RulesForPawn("TARGET", target));
-        if (Settings.VerboseLogging.Value) Mod.Log($"Rules added for '{target}'.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Rules added for '{target}'.");
       }
-      else if (Settings.VerboseLogging.Value) Mod.Log("Target is null.");
+      else // if (Settings.VerboseLogging.Value) Mod.Log("Target is null.");
       Reflection.Verse_RulePack_RulesRaw.SetValue(this.logRulesInitiator, rulesRaw);
 
       var symbol = (string)Reflection.RimWorld_InteractionDef_Symbol.GetValue(baseDef);

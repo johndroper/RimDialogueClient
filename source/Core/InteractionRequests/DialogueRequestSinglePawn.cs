@@ -31,7 +31,7 @@ namespace RimDialogue.Core.InteractionRequests
       else
         Mod.Log($"Entry {entry.LogID} - Initiator is {_initiator}.");
       _initiatorData = Initiator.MakeData(_tracker.GetInstructions(Initiator), entry.LogID);
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - pawn data built.");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - pawn data built.");
       _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist)
         _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);

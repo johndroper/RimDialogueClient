@@ -26,7 +26,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Colonists ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.ColonistChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Colonists ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.ColonistChitChatWeight.Value}");
         return Settings.ColonistChitChatWeight.Value;
       }
       catch (Exception ex)

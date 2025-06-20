@@ -17,10 +17,10 @@ namespace RimDialogue.Core.InteractionWorkers
           initiator.story.hairDef == null ||
           initiator.story.hairDef.defName == HairDefOf.Bald.defName)
         {
-          if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Hair ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Hair ChitChat Weight: {initiator.Name} -> {recipient.Name} = 0");
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Hair ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AppearanceChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Initiator Hair ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AppearanceChitChatWeight.Value}");
         return Settings.AppearanceChitChatWeight.Value;
       }
       catch (Exception ex)

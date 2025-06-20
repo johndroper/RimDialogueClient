@@ -262,25 +262,69 @@ public class Conversation : IExposable, IEquatable<Conversation>
     return this.text?.Equals((obj as Conversation)?.text) ?? base.Equals(obj);
   }
 
+  private static string[] SplitLine(string line, int wordPerLine)
+  {
+    var words = line.Split([' ', '\n'], StringSplitOptions.RemoveEmptyEntries);
+    int lineCount = (int)Math.Ceiling((float)words.Length / (float)wordPerLine);
+    List<string> fragments = [];
+    for (int i = 0; i < lineCount; i++)
+    {
+      var fragment = string.Join(" ", words.Skip(i * wordPerLine).Take(wordPerLine));
+      if (i > 0)
+        fragment = "..." + fragment;
+      if (i < lineCount - 1)
+        fragment += "...";
+      fragments.Add(fragment);
+    }
+    return fragments.ToArray();
+  }
+
+
   static Regex regex = new Regex(@"^(?<name>\w+):\s*[""“*](?<line>.+)[""”*]\W*$", RegexOptions.Multiline);
   public static Line[] ParseLines(string text)
   {
     if (string.IsNullOrEmpty(text))
       return [];
+    var lines = new List<Line>();
     var matches = regex.Matches(text);
     if (matches.Count == 0)
-      return text
-        .Split(['\n'], StringSplitOptions.RemoveEmptyEntries)
-        .Select(fragment => new Line("unknown", fragment))
-        .ToArray();
-    var lines = new List<Line>();
+    {
+      var soloLines = text
+        .Split(['\n'], StringSplitOptions.RemoveEmptyEntries);
+      foreach(var soloLine in soloLines)
+      {
+        if (soloLine.Length > 300)
+        {
+          var splitLines = SplitLine(soloLine, 40);
+          
+          for(int i = 0; i < splitLines.Length; i++)
+          {
+            var splitLine = splitLines[i];
+            lines.Add(new Line("unknown", splitLine));
+          }
+        }
+        else
+          lines.Add(new Line("unknown", soloLine));
+      }
+      return lines.ToArray();
+    }
+    
     foreach (Match match in matches)
     {
       if (match.Success)
       {
-        if (Settings.VerboseLogging.Value)
-          Mod.Log($"Parsed line: {match.Groups["name"].Value}: \"{match.Groups["line"].Value}\"");
-        lines.Add(new Line(match.Groups["name"].Value, match.Groups["line"].Value.Trim()));
+        var name = match.Groups["name"].Value;
+        var line = match.Groups["line"].Value.Trim();
+        if (line.Length > 150)
+        {
+          var splitLines = SplitLine(line, 20);
+          foreach (var splitLine in splitLines)
+          {
+            lines.Add(new Line(name, splitLine));
+          }
+        }
+        else
+          lines.Add(new Line(name, line));
       }
     }
     return lines.ToArray();

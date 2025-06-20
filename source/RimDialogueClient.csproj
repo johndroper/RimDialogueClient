@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="-\BitmapFonts\Calibri.fnt" />
     <None Include="release.targets" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +119,7 @@
     <Compile Include="Core\PlayLogEntry_InteractionBattle.cs" />
     <Compile Include="Core\PlayLogEntry_InteractionThought.cs" />
     <Compile Include="Core\ThingData.cs" />
+    <Compile Include="UI\BitmapFont.cs" />
     <Compile Include="UI\DialogueMessagesFixed.cs" />
     <Compile Include="Core\GameComponent_LetterTracker.cs" />
     <Compile Include="Core\GameComponent_MessageTracker.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Core\PromptResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\DialogueMessageWindow.cs" />
+    <Compile Include="UI\Glyph.cs" />
     <Compile Include="UI\MainTabWindow_RimDialogue.cs" />
     <Compile Include="UI\Window_ComicPanelViewer.cs" />
   </ItemGroup>
@@ -273,21 +276,28 @@
     <Content Include="-\About\About.xml" />
     <Content Include="-\About\Preview.png" />
     <Content Include="-\Languages\English\Keyed\Keys.xml" />
+    <Content Include="-\Textures\RimDialogue\Calibri_0.png" />
+    <Content Include="-\Textures\RimDialogue\dialogue_bubble_background.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_BC.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_BCR.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_BCW.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_BL.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_BR.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_CL.png" />
+    <Content Include="-\Textures\RimDialogue\dialogue_bubble_CLS.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_CR.png" />
+    <Content Include="-\Textures\RimDialogue\dialogue_bubble_CRS.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_TC.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_TCW.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_TL.png" />
     <Content Include="-\Textures\RimDialogue\dialogue_bubble_TR.png" />
+    <Content Include="-\Textures\RimDialogue\discord_logo.png" />
+    <Content Include="-\Textures\RimDialogue\earth_texture.png" />
     <Content Include="-\Textures\RimDialogue\Icon.png" />
     <Content Include="-\Textures\RimDialogue\Inner.png" />
     <Content Include="-\Textures\RimDialogue\Outer.png" />
     <Content Include="-\LoadFolders.xml" />
+    <Content Include="-\Textures\RimDialogue\sky_texture.png" />
     <Content Include="-\Textures\Things\Mote\SpeechSymbols\Axe.png" />
     <Content Include="-\Textures\Things\Mote\SpeechSymbols\Bullseye.png" />
     <Content Include="-\Textures\Things\Mote\SpeechSymbols\Gears.png" />

@@ -28,18 +28,18 @@ namespace RimDialogue.Access
       switch (entry)
       {
         case PlayLogEntry_Interaction interaction:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
           break;
         case PlayLogEntry_InteractionSinglePawn interaction:
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
           break;
         default:
           return false;
       }
       var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction text is '{logEntryText}'.");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction text is '{logEntryText}'.");
       return false;
     }
 
@@ -68,10 +68,10 @@ namespace RimDialogue.Access
       if (!bubbleDictionary.ContainsKey(initiator))
       {
         bubbleDictionary[initiator] = new List<Bubble>();
-        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - New bubble dictionary created for pawn {initiator.thingIDNumber}.");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - New bubble dictionary created for pawn {initiator.thingIDNumber}.");
       }
       bubbleDictionary[initiator].Add(bubble);
-      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Bubble added for pawn {initiator.thingIDNumber}.");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Bubble added for pawn {initiator.thingIDNumber}.");
     }
 
     //public static async void GetDialogue(Pawn initiator, Pawn? recipient, string logEntryText, LogEntry entry, InteractionDef? interactionDef)
@@ -119,7 +119,7 @@ namespace RimDialogue.Access
     //  #endregion
 
 
-    //  if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Getting dialogue.");
+    //  // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Getting dialogue.");
 
     //  try
     //  {
@@ -131,7 +131,7 @@ namespace RimDialogue.Access
     //      .ToList() ?? [];
 
 
-    //    if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Text: '{logEntryText}'.");
+    //    // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Text: '{logEntryText}'.");
 
     //    var currentWeather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
     //    Room room = initiator.GetRoom();
@@ -144,7 +144,7 @@ namespace RimDialogue.Access
     //    {
     //      try
     //      {
-    //        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Trying to get personality.");
+    //        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Trying to get personality.");
     //        Reflection.GetPersonality(initiator, out initiatorPersonality, out initiatorPersonalityDescription);
     //        Reflection.GetPersonality(recipient, out recipientPersonality, out recipientPersonalityDescription);
     //      }
@@ -157,7 +157,7 @@ namespace RimDialogue.Access
     //    var additionalInstructions = tracker.GetInstructions(InstructionsSet.ALL_PAWNS);
     //    if (initiator.IsColonist || (recipient != null && recipient.IsColonist))
     //      additionalInstructions += "\r\n" + tracker.GetInstructions(InstructionsSet.COLONISTS);
-    //    if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Instructions fetched: '{additionalInstructions}.");
+    //    // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Instructions fetched: '{additionalInstructions}.");
     //    var dialogueData = new Core.DialogueData
     //    {
     //      clientId = Settings.ClientId.Value,
@@ -289,17 +289,17 @@ namespace RimDialogue.Access
     //      recipientCombatLog = H.GetCombatLogEntries(recipient, 10).Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(recipient))).ToArray(),
     //    };
     //    string jsonData = JsonUtility.ToJson(dialogueData);
-    //    if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - DialogueData fetched for entry.");
+    //    // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - DialogueData fetched for entry.");
     //    WWWForm form = new WWWForm();
     //    form.AddField("dialogueDataJSON", jsonData);
     //    var dialogueResponse = await DialogueRequest.Post("home/GetDialogue", form, entry.LogID);
     //    if (dialogueResponse.rateLimited)
     //    {
-    //      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Rate limited.");
+    //      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Rate limited.");
     //      return;
     //    }
     //    tracker.AddConversation(initiator, recipient, logEntryText, dialogueResponse.text);
-    //    if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Conversation added.");
+    //    // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Conversation added.");
     //    if (dialogueResponse.text == null)
     //      throw new Exception("Entry {entry.LogID} - Response text is null.");
     //    AddBubble(initiator, entry, dialogueResponse.text);

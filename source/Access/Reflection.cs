@@ -93,6 +93,11 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_MapPawns_HumanlikeSpawnedPawnsResult = AccessTools.Field(typeof(Verse.MapPawns), "humanlikeSpawnedPawnsResult");
     public static readonly FieldInfo RimWorld_SituationalThoughtHandler_CachedThoughts = AccessTools.Field(typeof(RimWorld.SituationalThoughtHandler), "cachedThoughts");
 
+    public static PropertyInfo IsAnimal = AccessTools.Property(typeof(Pawn), nameof(Pawn.IsNonMutantAnimal));
+
+
+
+
     private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
 
 

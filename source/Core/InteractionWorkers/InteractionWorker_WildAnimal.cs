@@ -21,7 +21,7 @@ namespace RimDialogue.Core.InteractionWorkers
         {
           return 0f;
         }
-        if (Settings.VerboseLogging.Value) Mod.Log($"Wild Animal ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AnimalChitChatWeight.Value}");
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Wild Animal ChitChat Weight: {initiator.Name} -> {recipient.Name} = {Settings.AnimalChitChatWeight.Value}");
         return Settings.AnimalChitChatWeight.Value;
       }
       catch (Exception ex)

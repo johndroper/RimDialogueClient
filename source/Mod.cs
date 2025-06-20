@@ -1,5 +1,7 @@
 using HarmonyLib;
 using RimDialogue.Configuration;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -9,9 +11,20 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.77.1";
+    public const string Version = "0.78.0";
 
     public static Mod Instance = null!;
+
+    public static string FontPath
+    {
+      get
+      {
+        return Path.Combine(
+          Instance.Content.RootDir,
+          "BitmapFonts");
+      }
+    }
+
 
     public Mod(ModContentPack content) : base(content)
     {

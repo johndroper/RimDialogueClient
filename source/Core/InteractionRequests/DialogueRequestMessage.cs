@@ -28,7 +28,7 @@ namespace RimDialogue.Core.InteractionData
 
     public DialogueRequestMessage(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
     {
-      if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
+      // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for message {entry.LogID} with template {interactionTemplate}.");
 
       Message = GameComponent_MessageTracker.Instance.TrackedMessages.RandomElement().Message;
       var tracker = H.GetTracker();
