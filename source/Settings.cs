@@ -1,5 +1,6 @@
 using HarmonyLib;
 using RimDialogue.Configuration;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,7 @@ namespace RimDialogue
     public static readonly Setting<int> MinWords = new(nameof(MinWords), 15);
     public static readonly SettingString SpecialInstructions = new(nameof(SpecialInstructions), string.Empty);
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());
-    public static readonly SettingString ServerUrl = new(nameof(ServerUrl), "http://rimdialogue.proceduralproducts.com/");
-    //public static readonly Setting<int> MaxSpeed = new(nameof(MaxSpeed), 3);
+    public static readonly SettingString ServerUrl = new(nameof(ServerUrl), "https://rimdialogue.proceduralproducts.com/");
     public static readonly Setting<int> MaxConversationsStored = new(nameof(MaxConversationsStored), 25);
     public static readonly Setting<bool> VerboseLogging = new(nameof(VerboseLogging), false);
     public static readonly Setting<bool> OnlyColonists = new(nameof(OnlyColonists), false);

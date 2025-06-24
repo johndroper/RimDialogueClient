@@ -47,6 +47,9 @@ namespace RimDialogue
     // Main UI rendering
     public override void DoWindowContents(Rect inRect)
     {
+      if (Find.CurrentMap == null || !Find.CurrentMap.mapPawns.FreeColonists.Any())
+        return;
+
       var tracker = Current.Game.GetComponent<GameComponent_ConversationTracker>();
       float y = 0;
 
@@ -91,27 +94,51 @@ namespace RimDialogue
             selectedPawn = null;
             filterMode = FilterMode.Colonist;
           }));
-        options.AddRange(Find.CurrentMap.mapPawns.FreeColonists.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
-          new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
-          {
-            selectedPawn = pawn;
-            filterMode = FilterMode.Pawn;
-          })
-        ));
-        options.AddRange(Find.CurrentMap.mapPawns.PrisonersOfColony.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
-          new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
-          {
-            selectedPawn = pawn;
-            filterMode = FilterMode.Pawn;
-          })
-        ));
-        options.AddRange(Find.CurrentMap.mapPawns.SpawnedColonyAnimals.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
-          new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
-          {
-            selectedPawn = pawn;
-            filterMode = FilterMode.Pawn;
-          })
-        ));
+        try
+        {
+          options.AddRange(Find.CurrentMap.mapPawns.FreeColonists.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
+            new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
+            {
+              selectedPawn = pawn;
+              filterMode = FilterMode.Pawn;
+            })
+          ));
+        }
+        catch (Exception ex)
+        {
+          Log.ErrorOnce($"Failed to get colonists for filter menu: {ex.Message}", 87985);
+        }
+
+        try
+        {
+          options.AddRange(Find.CurrentMap.mapPawns.PrisonersOfColony.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
+            new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
+            {
+              selectedPawn = pawn;
+              filterMode = FilterMode.Pawn;
+            })
+          ));
+        }
+        catch (Exception ex)
+        {
+          Log.ErrorOnce($"Failed to get prisoners for filter menu: {ex.Message}", 87984);
+        }
+
+        try
+        {
+          options.AddRange(Find.CurrentMap.mapPawns.SpawnedColonyAnimals.OrderBy(pawn => pawn?.Name?.ToStringShort ?? unknownText).Select(pawn =>
+            new FloatMenuOption(pawn?.Name?.ToStringShort ?? unknownText, () =>
+            {
+              selectedPawn = pawn;
+              filterMode = FilterMode.Pawn;
+            })
+          ));
+        }
+        catch (Exception ex)
+        {
+          Log.ErrorOnce($"Failed to get animals for filter menu: {ex.Message}", 87983);
+        }
+
         Find.WindowStack.Add(new FloatMenu(options));
       }
       y += 50f;
@@ -209,31 +236,38 @@ namespace RimDialogue
       float convoY = 0;
       foreach (var conversation in filteredConversations)
       {
-        convoY += topMargin;
-        var headerRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
-        Widgets.Label(headerRect, conversation.Participants);
-        var memeButtonRect = new Rect(headerRect.width - 40, convoY, 40, headerRect.height);
-        if (Widgets.ButtonText(memeButtonRect, "Save"))
+        try
         {
-          Find.WindowStack.Add(new Window_ComicPanelViewer(conversation));
-        }
-        convoY += labelHeight;
-        if (conversation.timestamp != null)
-        {
-          var periodRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
-          Widgets.Label(periodRect, (Find.TickManager.TicksGame - conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
+          convoY += topMargin;
+          var headerRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
+          Widgets.Label(headerRect, conversation.Participants);
+          var memeButtonRect = new Rect(headerRect.width - 40, convoY, 40, headerRect.height);
+          if (Widgets.ButtonText(memeButtonRect, "Save"))
+          {
+            Find.WindowStack.Add(new Window_ComicPanelViewer(conversation));
+          }
           convoY += labelHeight;
+          if (conversation.timestamp != null)
+          {
+            var periodRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
+            Widgets.Label(periodRect, (Find.TickManager.TicksGame - conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
+            convoY += labelHeight;
+          }
+          string displayText = conversation.text ?? string.Empty;
+          float textHeight = Text.CalcHeight(displayText, conversationContentRectWidth);
+          var convoRect = new Rect(0, convoY, conversationContentRectWidth, textHeight);
+          Widgets.Label(convoRect, displayText);
+          convoY += textHeight;
+          convoY += bottomMargin;
+          Color previousColor = GUI.color;
+          GUI.color = Widgets.SeparatorLineColor;
+          Widgets.DrawLineHorizontal(0, convoY + bottomMargin, conversationContentRectWidth);
+          GUI.color = previousColor;
         }
-        string displayText = conversation.text ?? string.Empty;
-        float textHeight = Text.CalcHeight(displayText, conversationContentRectWidth);
-        var convoRect = new Rect(0, convoY, conversationContentRectWidth, textHeight);
-        Widgets.Label(convoRect, displayText);
-        convoY += textHeight;
-        convoY += bottomMargin;
-        Color previousColor = GUI.color;
-        GUI.color = Widgets.SeparatorLineColor;
-        Widgets.DrawLineHorizontal(0, convoY + bottomMargin, conversationContentRectWidth);
-        GUI.color = previousColor;
+        catch (Exception ex)
+        {
+          Log.ErrorOnce($"Failed to draw conversation: {ex.Message}", 87987);
+        }
       }
       Widgets.EndScrollView();
     }

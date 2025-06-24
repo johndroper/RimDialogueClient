@@ -38,8 +38,12 @@ namespace RimDialogue.Access
       {
         return pawn != null && !(bool)Reflection.IsAnimal.GetValue(pawn) && !pawn.DeadOrDowned;
       }
+      else
+      {
+        return pawn != null && !(bool)Reflection.IsNonMutantAnimal.GetValue(pawn) && !pawn.DeadOrDowned;
+      }
 
-      return pawn != null && !pawn.IsNonMutantAnimal && !pawn.DeadOrDowned;
+        //return pawn != null && !pawn.IsNonMutantAnimal && !pawn.DeadOrDowned;
     }
 
     public static void Postfix(LogEntry entry)

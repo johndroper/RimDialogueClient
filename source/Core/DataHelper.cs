@@ -47,7 +47,7 @@ namespace RimDialogue.Core
       if (VersionControl.CurrentVersion.Major == 1 && VersionControl.CurrentVersion.Minor >= 6)
         isAnimal = (bool)Reflection.IsAnimal.GetValue(pawn);
       else
-        isAnimal = pawn.IsNonMutantAnimal;
+        isAnimal = (bool)Reflection.IsNonMutantAnimal.GetValue(pawn);
 
       return new PawnData
         {

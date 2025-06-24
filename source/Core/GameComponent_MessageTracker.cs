@@ -40,8 +40,8 @@ namespace RimDialogue.Core
       TrackedMessages.Clear();
     }
 
-    public static GameComponent_MessageTracker Instance =>
-        Current.Game.GetComponent<GameComponent_MessageTracker>();
+    public static GameComponent_MessageTracker? Instance =>
+        Current.Game != null ? Current.Game.GetComponent<GameComponent_MessageTracker>() : null;
   }
 
   public class MessageRecord : IExposable
