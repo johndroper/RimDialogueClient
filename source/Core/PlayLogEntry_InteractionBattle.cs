@@ -52,6 +52,13 @@ namespace RimDialogue.Core
       Rand.PushState();
       Rand.Seed = logID;
       GrammarRequest request = GenerateGrammarRequest();
+
+      var dialogueRequest = DialogueRequest.Create(
+        this,
+        InteractionDef);
+
+      request.Rules.AddRange(dialogueRequest.Rules);
+
       request.Constants.AddRange(InteractionDef.Constants);
       if (pov == initiator)
       {
@@ -77,13 +84,12 @@ namespace RimDialogue.Core
       }
       Rand.PopState();
 
+      if (!DialogueRequest.TooSoon() && !DialogueRequest.TooSoonAll())
+        dialogueRequest.Execute(_Text);
+
       if (Settings.OnlyColonists.Value && !initiator.IsColonist)
         return _Text;
 
-      var dialogueRequest = DialogueRequest.Create(
-        this,
-        _Text,
-        InteractionDef);
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} interaction: '{_Text}'");
 
       return _Text;

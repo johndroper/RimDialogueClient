@@ -10,11 +10,11 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **recent_incident**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] **recent_incident** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **recent_incident** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about **recent_incident**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about **recent_incident**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [recent_incident].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [recent_incident] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [recent_incident] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [recent_incident].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about [recent_incident].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -51,9 +51,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '**battle**'].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '**battle**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the recent battle, '**battle**', to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '[battle]'].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '[battle]', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the recent battle, '[battle]', to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->boasted about</li>
@@ -83,9 +83,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the battle, '**battle**', [INITIATOR_nameDef] was in.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_posessive] [performance] in the battle, '**battle**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the battle, '**battle**', [INITIATOR_pronoun] was in to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the battle, '[battle]', [INITIATOR_nameDef] was in.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_posessive] [performance] in the battle, '[battle]', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the battle, '[battle]', [INITIATOR_pronoun] was in to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->boasted about</li>
@@ -120,9 +120,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [performance] in the battle, '**battle**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [performance] in the battle, '**battle**', to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [performance] in the battle, '**battle**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [performance] in the battle, '[battle]'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [performance] in the battle, '[battle]', to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [performance] in the battle, '[battle]'.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -164,10 +164,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talked] about how '**game_condition**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talked] about how '**game_condition**' with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commented] about how '**game_condition**' to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about how '**game_condition**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talked] about how '[condition]'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talked] about how '[condition]' with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commented] about how '[condition]' to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about how '[condition]'.</li>
         <li>talked->chatted</li>
         <li>talked->shared a word</li>
         <li>talked->spoke</li>
@@ -199,11 +199,11 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [that] '**message**' just happened.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [that] '**message**' with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [that] '**message**' to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [that] '**message**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about [that] '**message**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [that] [message] just happened.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [that] [message] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [that] [message] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [that] [message].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about [that] [message].</li>
         <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
         <li>talkedabout->spoke about how</li>
@@ -246,10 +246,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] **alert**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] that **alert**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] that **alert**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] **alert** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [alert].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] that [alert].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] that [alert].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [alert] to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about how</li>
         <li>talkedabout->shared a word about how</li>
         <li>talkedabout->spoke about how</li>
@@ -296,9 +296,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [theytopic] '**INITIATOR_ideology**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [initiatortopic] '**INITIATOR_ideology**' with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] asked [RECIPIENT_nameDef] [recipienttopic] '**INITIATOR_ideology**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [theytopic] [INITIATOR_ideology].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [initiatortopic] [INITIATOR_ideology] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] asked [RECIPIENT_nameDef] [recipienttopic] [INITIATOR_ideology].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -395,10 +395,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] their skills in **skill**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] skills in **skill** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] skills in **skill** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s skills in **skill**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] their skills in [skill].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] skills in [skill] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] skills in [skill] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s skills in [skill].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -429,9 +429,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [best] skill, **skill**, with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [best] skill, **skill**, to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [INITIATOR_nameDef]'s [best] skill, **skill**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [best] skill, [skill], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [best] skill, [skill], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [INITIATOR_nameDef]'s [best] skill, [skill].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->boasted about</li>
         <li>talkedabout->bragged about</li>
@@ -468,8 +468,8 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [worst] skill, **skill**, with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [worst] skill, **skill**, to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [worst] skill, [skill], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [worst] skill, [skill], to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -504,10 +504,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] fellow colonist, **colonist**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] fellow colonist, **colonist**, with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] fellow colonist, **colonist**, to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about fellow colonist, **colonist**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] fellow colonist, [colonist].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] fellow colonist, [colonist], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] fellow colonist, [colonist], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about fellow colonist, [colonist].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -541,9 +541,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their **hediff** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hediff** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hediff** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] their [hediff] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [hediff] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [hediff] with [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -573,7 +573,7 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hediff**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [hediff].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -604,10 +604,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **apparel** [INITIATOR_pronoun] is wearing with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **apparel** [INITIATOR_pronoun] is wearing to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **apparel** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **apparel** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [apparel] [INITIATOR_pronoun] is wearing with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [apparel] [INITIATOR_pronoun] is wearing to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [apparel] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [apparel] to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -637,8 +637,8 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **apparel**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **apparel**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [apparel].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [apparel].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -672,7 +672,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **apparel**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [apparel].</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -699,9 +699,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] how [INITIATOR_nameDef]'s need for **need** is [unfufilled].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [unfufilled] need for **need** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [unfufilled] need for **need** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] how [INITIATOR_nameDef]'s need for [need] is [unfufilled].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [unfufilled] need for [need] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [unfufilled] need for [need] with [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -736,9 +736,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [INITIATOR_nameDef]'s **relation** **family**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **relation** **family** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **relation** **family** with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [INITIATOR_nameDef]'s [relation] [family].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [relation] [family] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [relation] [family] with [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -769,10 +769,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **relation** **family**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **relation** **family** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **relation** **family** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive]'s **relation** **family**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [relation] [family].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [relation] [family] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [relation] [family] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive]'s [relation] [family].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -805,7 +805,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **relation** **family**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [relation] [family].</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -832,22 +832,22 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **weather**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weather** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weather** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **weather**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **weather** in the **biome**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weather** in the **biome** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weather** in the **biome** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **weather** in the **biome**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **weather** in **season**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weather** in **season** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weather** in **season** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **weather** in **season**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **biome**'s **weather** in **season**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **biome**'s **weather** in **season** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **biome**'s **weather** in **season** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **biome**'s **weather** in **season**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the [weather].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [weather] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [weather] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the [weather].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the [weather] in the [biome].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [weather] in the [biome] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [weather] in the [biome] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the [weather] in the [biome].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the [weather] in [season].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [weather] in [season] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [weather] in [season] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the [weather] in [season].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the [biome]s [weather] in [season].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [biome]s [weather] in [season] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [biome]s [weather] in [season] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the [biome]s [weather] in [season].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -882,10 +882,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the hostile faction, '**faction**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the hostile faction, '**faction**', to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the hostile faction, '**faction**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the hostile faction, '**faction**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the hostile faction, [faction].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the hostile faction, [faction], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the hostile faction, [faction], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the hostile faction, [faction].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -920,10 +920,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the allied faction, '**faction**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the allied faction, '**faction**', to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the allied faction, '**faction**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the allied faction, '**faction**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the allied faction, [faction].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the allied faction, [faction], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the allied faction, [faction], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the allied faction, [faction].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -958,10 +958,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the royal faction, '**faction**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the royal faction, '**faction**', to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the royal faction, '**faction**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the royal faction, '**faction**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the royal faction, [faction].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the royal faction, [faction], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the royal faction, [faction], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the royal faction, [faction].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -996,10 +996,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the neutral faction, '**faction**'.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the neutral faction, '**faction**', to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the neutral faction, '**faction**', with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the neutral faction, '**faction**'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the neutral faction, [faction].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the neutral faction, [faction], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the neutral faction, [faction], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the neutral faction, [faction].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1034,10 +1034,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **weapon** [INITIATOR_pronoun] is using with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **weapon** [INITIATOR_pronoun] is using to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **weapon** with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **weapon** to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [weapon] [INITIATOR_pronoun] is using with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [weapon] [INITIATOR_pronoun] is using to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [weapon] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [weapon] to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1067,9 +1067,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **weapon**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **weapon** to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **weapon**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [weapon].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [weapon] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [weapon].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1101,7 +1101,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **weapon**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [weapon].</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -1128,10 +1128,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **beard** beard [INITIATOR_pronoun] is growing with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **beard** beard [INITIATOR_pronoun] is growing to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **beard** beard with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **beard** beard to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [beard] beard [INITIATOR_pronoun] is growing with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [beard] beard [INITIATOR_pronoun] is growing to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [beard] beard with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [beard] beard to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1161,9 +1161,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **beard** beard.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **beard** beard to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **beard** beard.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [beard] beard.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [beard] beard to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [beard] beard.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1191,7 +1191,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **beard** beard.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [beard] beard.</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -1220,10 +1220,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **body_tattoo** body tattoo [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **body_tattoo** body tattoo [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **body_tattoo** body tattoo with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **body_tattoo** body tattoo to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [body_tattoo] body tattoo [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [body_tattoo] body tattoo [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [body_tattoo] body tattoo with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [body_tattoo] body tattoo to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1253,9 +1253,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **body_tattoo** body tattoo.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **body_tattoo** body tattoo to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **body_tattoo** body tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [body_tattoo] body tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [body_tattoo] body tattoo to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [body_tattoo] body tattoo.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1283,7 +1283,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **body_tattoo** body tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [body_tattoo] body tattoo.</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -1310,10 +1310,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **face_tattoo** face tattoo [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **face_tattoo** face tattoo [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **face_tattoo** face tattoo with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **face_tattoo** face tattoo to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [face_tattoo] face tattoo [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [face_tattoo] face tattoo [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [face_tattoo] face tattoo with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [face_tattoo] face tattoo to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1343,9 +1343,9 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **face_tattoo** face tattoo.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **face_tattoo** face tattoo to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **face_tattoo** face tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [face_tattoo] face tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [face_tattoo] face tattoo to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [face_tattoo] face tattoo.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1373,7 +1373,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **face_tattoo** face tattoo.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [face_tattoo] face tattoo.</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -1400,18 +1400,18 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **hair** hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **hair** hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hair** hair with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hair** hair to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **hair_color** hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **hair_color** hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hair_color** hair with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hair_color** hair to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **hair** **hair_color** hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **hair** **hair_color** hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] **hair** **hair_color** hair with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] **hair** **hair_color** hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [hair] hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [hair] hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [hair] hair with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [hair] hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [hair_color] hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [hair_color] hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [hair_color] hair with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [hair_color] hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [hair] [hair_color] hair [INITIATOR_pronoun] has with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [hair] [hair_color] hair [INITIATOR_pronoun] has to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [hair] [hair_color] hair with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [INITIATOR_possessive] [hair] [hair_color] hair to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1441,15 +1441,15 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hair** hair.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **hair** hair to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **hair** hair.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hair_color** hair.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **hair_color** hair to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **hair_color** hair.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s **hair** **hair_color** hair.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s **hair** **hair_color** hair to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] **hair** **hair_color** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [hair] hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [hair] hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [hair] hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [hair_color] hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [hair_color] hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [hair_color] hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [RECIPIENT_nameDef]'s [hair] [hair_color] hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [RECIPIENT_nameDef]'s [hair] [hair_color] hair to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [RECIPIENT_possessive] [hair] [hair_color] hair.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1477,7 +1477,7 @@
     <recipientThought>Slighted</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s **hair** **hair_color** hair.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [madefunof] [RECIPIENT_nameDef]'s [hair] [hair_color] hair.</li>
         <li>madefunof->made fun of</li>
         <li>madefunof->disrespected</li>
         <li>madefunof->subtly scorned</li>
@@ -1504,10 +1504,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the colony's animal, **animal**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the colony's animal, **animal**, to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the colony's animal, **animal**, with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the colony's animal, **animal**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the colony's animal, [animal].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the colony's animal, [animal], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the colony's animal, [animal], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the colony's animal, [animal].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1542,10 +1542,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the nearby wild animal, **animal**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the nearby wild animal, **animal**, to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the nearby wild animal, **animal**, with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about nearby the wild animal, **animal**.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the nearby wild animal, [animal].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the nearby wild animal, [animal], to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the nearby wild animal, [animal], with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about nearby the wild animal, [animal].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1580,10 +1580,10 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the **room** they are in.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the **room** they are in to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the **room** they are in with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the **room** they are in.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the [room] they are in.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [room] they are in to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [room] they are in with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the [room] they are in.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -1684,8 +1684,8 @@
     <recipientThought>DeepTalk</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the death of fellow colonist, **pawn**.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the death of fellow colonist, **pawn**, with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the death of fellow colonist, [pawn].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the death of fellow colonist, [pawn], with [RECIPIENT_nameDef].</li>
         <li>talkedabout->communicated thoughts about</li>
         <li>talkedabout->exchanged thoughts about</li>
         <li>talkedabout->exchanged ideas about</li>

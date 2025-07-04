@@ -262,14 +262,50 @@ public class Conversation : IExposable, IEquatable<Conversation>
     return this.text?.Equals((obj as Conversation)?.text) ?? base.Equals(obj);
   }
 
-  private static string[] SplitLine(string line, int wordPerLine)
+  public static string[] BreakWord(string text, int maxChars)
   {
-    var words = line.Split([' ', '\n'], StringSplitOptions.RemoveEmptyEntries);
-    int lineCount = (int)Math.Ceiling((float)words.Length / (float)wordPerLine);
+    if (string.IsNullOrEmpty(text) || maxChars <= 0)
+      return new string[] { text };
+    List<string> words = new List<string>();
+    for (int i = 0; i < text.Length; i += maxChars)
+    {
+      int length = Math.Min(maxChars, text.Length - i);
+      words.Add(text.Substring(i, length));
+    }
+    return words.ToArray();
+  }
+
+  public static IEnumerable<string> BreakWords(IEnumerable<string> words, int maxCharsPerWord)
+  {
+    foreach (var line in words)
+    {
+      if (line.Length > maxCharsPerWord)
+      {
+        foreach (var wrappedLine in BreakWord(line, maxCharsPerWord))
+        {
+          yield return wrappedLine;
+        }
+      }
+      else
+      {
+        yield return line;
+      }
+    }
+  }
+
+  private static string[] SplitLine(string line, int maxWordsPerLine)
+  {
+    var words = line.Split([' ', '\n', '\u200B'], StringSplitOptions.RemoveEmptyEntries);
+    words = BreakWords(words, 10).ToArray();
+
+    int wordsPerLine = (int)Math.Floor(Math.Max(1, (maxWordsPerLine * 4) / words.Average(word => word.Length)));
+    if (wordsPerLine > maxWordsPerLine)
+      wordsPerLine = maxWordsPerLine;
+    int lineCount = (int)Math.Ceiling((float)words.Length / (float)wordsPerLine);
     List<string> fragments = [];
     for (int i = 0; i < lineCount; i++)
     {
-      var fragment = string.Join(" ", words.Skip(i * wordPerLine).Take(wordPerLine));
+      var fragment = string.Join(" ", words.Skip(i * wordsPerLine).Take(wordsPerLine));
       if (i > 0)
         fragment = "..." + fragment;
       if (i < lineCount - 1)

@@ -2,15 +2,16 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestApparel : DialogueRequestTwoPawn<DialogueDataApparel>
   {
-    const string Placeholder = "**apparel**";
+    const string Placeholder = "apparel";
 
 
-    public DialogueRequestApparel(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestApparel(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }
@@ -37,9 +38,6 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "ApparelChitchat";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate.Replace(Placeholder, Apparel.LabelNoParenthesis);
-    }
+    public override Rule[] Rules => [new Rule_String(Placeholder, Apparel.LabelNoParenthesis)];
   }
 }

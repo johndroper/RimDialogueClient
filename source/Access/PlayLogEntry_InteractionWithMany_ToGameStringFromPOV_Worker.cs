@@ -21,7 +21,7 @@ public static class PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker
       __instance,
       __result,
       (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
-      __result = dialogueRequest.GetInteraction();
+      dialogueRequest.Execute(__result);
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
     }
     catch (Exception ex)

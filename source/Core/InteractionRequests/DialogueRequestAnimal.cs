@@ -2,14 +2,15 @@
 using RimDialogue.Core.InteractionRequests;
 using System.Linq;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestAnimal : DialogueRequestTwoPawn<DialogueDataAnimal>
   {
-    const string Placeholder = "**animal**";
+    const string Placeholder = "animal";
 
-    public DialogueRequestAnimal(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestAnimal(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }
@@ -45,10 +46,8 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "AnimalChitchat";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate.Replace(Placeholder, Animal.LabelNoParenthesis);
-    }
+    public override Rule[] Rules => [new Rule_String(Placeholder, Animal.LabelNoParenthesis)];
+
   }
 }
 

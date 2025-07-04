@@ -4,6 +4,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using Verse;
 
 namespace RimDialogue
@@ -69,6 +70,23 @@ namespace RimDialogue
 
     public static readonly Setting<int> DialogueMessageInterface = new(nameof(DialogueMessageInterface), 1);
     public static readonly Setting<int> MessageScrollSpeed = new(nameof(MessageScrollSpeed), 12);
+
+    public static readonly Setting<int> DeepTalkCompensationFactor = new(nameof(DeepTalkCompensationFactor), 20);
+
+    public static readonly Setting<int> BitmapFont = new(nameof(BitmapFont), (int)GetDefaultFontFace());
+
+    public static readonly SettingString ModelName = new(nameof(ModelName), "Default");
+
+    public static FontFace GetDefaultFontFace()
+    {
+      switch(LanguageDatabase.activeLanguage?.folderName ?? LanguageDatabase.defaultLanguage?.folderName)
+      {
+        case "ChineseSimplified":
+          return FontFace.NotoSansSC;
+        default:
+          return FontFace.Calibri; 
+      }
+    }
 
     private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 

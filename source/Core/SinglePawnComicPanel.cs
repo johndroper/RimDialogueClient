@@ -12,9 +12,10 @@ public class SinglePawnComicPanel : ComicPanel
 {
   private readonly Pawn pawn;
   private readonly string dialogue;
+ 
 
-  public SinglePawnComicPanel(Pawn pawn, string dialogue, float skyHeight, List<ComicPanelItem> backgroundItems)
-      : base(skyHeight, backgroundItems)
+  public SinglePawnComicPanel(Pawn pawn, BitmapFont font, string dialogue, float skyHeight, List<ComicPanelItem> backgroundItems)
+      : base(skyHeight, font, backgroundItems)
   {
     this.pawn = pawn;
     this.dialogue = dialogue;
@@ -49,7 +50,7 @@ public class SinglePawnComicPanel : ComicPanel
     Graphics.DrawTexture(portraitRect, portraitTex);
 
     // --- Create and draw the speech bubble ---
-    float textHeight = GetTextHeight(dialogue, textWidth);
+    float textHeight = this.BitmapFont.GetTextHeight(dialogue, textWidth);
     Vector2 bubblePos = new Vector2(
       canvas.x + canvas.width * 0.5f - textWidth / 2,
       portraitY - textHeight - 50);

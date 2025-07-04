@@ -15,6 +15,7 @@ namespace RimDialogue.Access
       InteractionWorker_Dialogue.LastUsedTicksAll = 0;
       InteractionWorker_Dialogue.LastTicksByType = [];
       DialogueRequest.LastDialogue = DateTime.MinValue;
+      DialogueRequest.Requests.Clear();
     }
   }
 }

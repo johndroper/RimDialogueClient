@@ -62,14 +62,8 @@ namespace RimDialogue.Core
     private static Texture2D _centerRightSmall;
     private static Texture2D CenterRightSmall => _centerRightSmall ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CRS");
 
-    private static Texture2D _calibriAtlas;
-    private static Texture2D CalibriAtlas => _calibriAtlas ??= ContentFinder<Texture2D>.Get("RimDialogue/Calibri_0");
-
     private static Texture2D _bubbleBackground;
     private static Texture2D BubbleBackground => _bubbleBackground ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_background");
-
-    private static readonly string calibriPath = Path.Combine(Mod.FontPath, "calibri.fnt");
-    private static readonly BitmapFont Calibri = BitmapFont.Load(calibriPath, CalibriAtlas);
 
     private static GUIStyle _style;
     public static GUIStyle style
@@ -155,10 +149,10 @@ namespace RimDialogue.Core
     }
 
 
-    public static float GetTextHeight(string text, float textWidth)
-    {
-      return Calibri.GetTextHeight(text, textWidth);
-    }
+    //public static float GetTextHeight(string text, float textWidth)
+    //{
+    //  return BitmapFont.Calibri.GetTextHeight(text, textWidth);
+    //}
 
     public enum BubbleType
     {
@@ -220,14 +214,15 @@ namespace RimDialogue.Core
         rightSide = CenterRightSmall;
       }
 
-        // Sides
-        Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y + topEdgeHeight, edgeWidth + 1, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), leftSide);
+      // Sides
+      Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y + topEdgeHeight, edgeWidth + 1, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), leftSide);
       Graphics.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.y + topEdgeHeight, edgeWidth + 1, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight)), rightSide);
 
       //BubbleBackground
       Graphics.DrawTexture(new Rect(bubbleRect.x + edgeWidth - 1, bubbleRect.y + topEdgeHeight - 1, bubbleRect.width - 2 * edgeWidth + 2, bubbleRect.height - (topEdgeHeight + bottomEdgeHeight) + 2), BubbleBackground);
 
-      Calibri.DrawText(
+      var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
+      bitmapFont.DrawText(
         text,
         new Vector2(bubbleRect.x + edgeWidth - 20, bubbleRect.y + topEdgeHeight - 20),
         textWidth);
@@ -252,10 +247,13 @@ namespace RimDialogue.Core
     protected float SkyHeight;
     protected List<ComicPanelItem> BackgroundItems = null;
 
-    public ComicPanel(float skyHeight, List<ComicPanelItem> backgroundItems)
+    public readonly BitmapFont BitmapFont;
+
+    public ComicPanel(float skyHeight, BitmapFont bitmapFont, List<ComicPanelItem> backgroundItems)
     {
       SkyHeight = skyHeight;
       BackgroundItems = backgroundItems;
+      BitmapFont = bitmapFont;
     }
 
     public virtual void DrawBackground(Rect canvas)

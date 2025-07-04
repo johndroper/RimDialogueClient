@@ -8,7 +8,7 @@ namespace RimDialogue.Core.InteractionRequests
   public abstract class DialogueRequestTarget<DataT> : DialogueRequestTwoPawn<DataT> where DataT : DialogueTargetData, new()
   {
 
-    public DialogueRequestTarget(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestTarget(PlayLogEntry_Interaction entry) : base(entry)
     {
     }
 

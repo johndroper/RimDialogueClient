@@ -82,22 +82,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="-\BitmapFonts\Calibri.fnt" />
+    <None Include="-\BitmapFonts\Noto_Sans_SC.fnt" />
     <None Include="release.targets" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access\Bubbles_Bubbler_Add.cs" />
     <Compile Include="Access\Bubbles_Bubble_GetText.cs" />
-    <Compile Include="Access\Patch_ThoughtMaker_MakeThought.cs" />
+    <Compile Include="Access\Patch_InteractionWorker_DeepTalk.cs" />
     <Compile Include="Access\PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\PlayLogEntry_InteractionSinglePawn_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
     <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
     <Compile Include="Access\Verse_BattleLog_Add.cs" />
     <Compile Include="Access\Verse_LaunchProjectile_TryCastShot.cs" />
-    <Compile Include="Access\Verse_MeleeAttack_TryCastShot.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
-    <Compile Include="Access\Verse_Pawn_Kill.cs" />
-    <Compile Include="Access\Verse_Thing_TakeDamage.cs" />
     <Compile Include="Core\ComicPanel.cs" />
     <Compile Include="Core\SinglePawnComicPanel.cs" />
     <Compile Include="Core\TwoPawnComicPanel.cs" />
@@ -295,6 +293,7 @@
     <Content Include="-\Textures\RimDialogue\earth_texture.png" />
     <Content Include="-\Textures\RimDialogue\Icon.png" />
     <Content Include="-\Textures\RimDialogue\Inner.png" />
+    <Content Include="-\Textures\RimDialogue\Noto_Sans_SC_0.png" />
     <Content Include="-\Textures\RimDialogue\Outer.png" />
     <Content Include="-\LoadFolders.xml" />
     <Content Include="-\Textures\RimDialogue\sky_texture.png" />

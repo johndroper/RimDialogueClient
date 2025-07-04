@@ -5,13 +5,13 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestHealthInitiator : DialogueRequestHealth
   {
-    public static new DialogueRequestHealthInitiator BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestHealthInitiator BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestHealthInitiator(entry, interactionTemplate);
+      return new DialogueRequestHealthInitiator(entry);
     }
 
-    public DialogueRequestHealthInitiator(PlayLogEntry_Interaction entry, string interactionTemplate) :
-      base(entry, interactionTemplate)
+    public DialogueRequestHealthInitiator(PlayLogEntry_Interaction entry) :
+      base(entry)
     {
 
     }

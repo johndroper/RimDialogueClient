@@ -10,14 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestMany<DataT> : DialogueRequest<DataT> where DataT : InteractionData.DialogueData, new()
   {
-    public static DialogueRequestMany<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static DialogueRequestMany<DataT> BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestMany<DataT>(entry, interactionTemplate);
+      return new DialogueRequestMany<DataT>(entry);
     }
 
     protected InteractionDef _interactionDef;
@@ -25,7 +26,7 @@ namespace RimDialogue.Core.InteractionRequests
     protected Pawn _initiator;
     protected PawnData _initiatorData;
 
-    public DialogueRequestMany(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestMany(PlayLogEntry_Interaction entry) : base(entry)
     {
       _interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry);
       _initiator = (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(entry);
@@ -40,6 +41,7 @@ namespace RimDialogue.Core.InteractionRequests
     public override PawnData InitiatorData => _initiatorData;
     public override InteractionDef InteractionDef => _interactionDef;
     public override string Instructions => _instructions;
+    public override Rule[] Rules => [];
 
     public override void BuildData(DataT data)
     {

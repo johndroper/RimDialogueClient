@@ -6,12 +6,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestApparel_Initiator : DialogueRequestApparel
   {
-    public static new DialogueRequestApparel_Initiator BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestApparel_Initiator BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestApparel_Initiator(entry, interactionTemplate);
+      return new DialogueRequestApparel_Initiator(entry);
     }
 
-    public DialogueRequestApparel_Initiator(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestApparel_Initiator(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }

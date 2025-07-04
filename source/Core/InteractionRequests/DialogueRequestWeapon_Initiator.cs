@@ -5,12 +5,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestWeapon_Initiator : DialogueRequestWeapon
   {
-    public static new DialogueRequestWeapon_Initiator BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestWeapon_Initiator BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestWeapon_Initiator(entry, interactionTemplate);
+      return new DialogueRequestWeapon_Initiator(entry);
     }
 
-    public DialogueRequestWeapon_Initiator(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestWeapon_Initiator(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }

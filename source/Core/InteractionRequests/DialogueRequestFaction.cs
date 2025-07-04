@@ -2,15 +2,13 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestFaction : DialogueRequestTwoPawn<DialogueDataFaction>
   {
-    const string FactionPlaceholder = "**faction**";
-
-
-    public DialogueRequestFaction(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestFaction(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }
@@ -35,9 +33,15 @@ namespace RimDialogue.Core.InteractionData
       data.TechLevel = Faction.def?.techLevel.ToString() ?? string.Empty;
     }
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate.Replace(FactionPlaceholder, Faction?.Name ?? "a nearby faction");
-    }
+    public override Rule[] Rules => [
+      new Rule_String("faction", Faction?.Name ?? "a nearby faction"),
+      new Rule_String("faction_leader", Faction?.leader?.Name.ToStringFull ?? string.Empty),
+      new Rule_String("faction_leader_title", Faction?.LeaderTitle ?? string.Empty),
+      new Rule_String("faction_goodwill", Faction?.GoodwillWith(Faction.OfPlayer).ToString() ?? "0"),
+      new Rule_String("faction_relation_kind", Faction?.PlayerRelationKind.ToString() ?? "None"),
+      new Rule_String("faction_label", Faction?.def?.label ?? string.Empty),
+      new Rule_String("faction_description", Faction?.def?.description ?? string.Empty),
+      new Rule_String("faction_tech_level", Faction?.def?.techLevel.ToString() ?? string.Empty)
+    ];
   }
 }

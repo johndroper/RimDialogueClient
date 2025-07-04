@@ -9,10 +9,12 @@ using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Verse;
+using Verse.Grammar;
 using DialogueData = RimDialogue.Core.InteractionData.DialogueData;
 
 namespace RimDialogue.Core.InteractionData
@@ -21,9 +23,9 @@ namespace RimDialogue.Core.InteractionData
   public abstract class DialogueRequest
   {
     public static DateTime LastDialogue = DateTime.MinValue;
-    static Dictionary<int, DialogueRequest> Requests { get; set; } = [];
+    public static Dictionary<int, DialogueRequest> Requests { get; set; } = [];
 
-    public static DialogueRequest Create(PlayLogEntry_Interaction __instance, string interactionTemplate, InteractionDef interactionDef)
+    public static DialogueRequest Create(PlayLogEntry_Interaction __instance, string interaction, InteractionDef interactionDef)
     {
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
@@ -32,100 +34,100 @@ namespace RimDialogue.Core.InteractionData
       switch (interactionDef.defName)
       {
         case "RecentIncidentChitchat":
-          dialogueRequest = DialogueRequestIncident<DialogueDataIncident>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestIncident<DialogueDataIncident>.BuildFrom(__instance);
           break;
         case "RecentBattleChitchat":
-          dialogueRequest = DialogueRequestBattle_Recent.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestBattle_Recent.BuildFrom(__instance);
           break;
         case "GameConditionChitchat":
-          dialogueRequest = DialogueRequestCondition.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestCondition.BuildFrom(__instance);
           break;
         case "MessageChitchat":
-          dialogueRequest = DialogueRequestMessage.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestMessage.BuildFrom(__instance);
           break;
         case "AlertChitchat":
-          dialogueRequest = DialogueRequestAlert<DialogueDataAlert>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestAlert<DialogueDataAlert>.BuildFrom(__instance);
           break;
         case "SameIdeologyChitchat":
-          dialogueRequest = DialogueRequestIdeology<DialogueData>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestIdeology<DialogueData>.BuildFrom(__instance);
           break;
         case "SkillChitchat":
-          dialogueRequest = DialogueRequestSkill.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestSkill.BuildFrom(__instance);
           break;
         case "BestSkillChitchat":
-          dialogueRequest = DialogueRequestBestSkill.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestBestSkill.BuildFrom(__instance);
           break;
         case "WorstSkillChitchat":
-          dialogueRequest = DialogueRequestWorstSkill.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestWorstSkill.BuildFrom(__instance);
           break;
         case "ColonistChitchat":
-          dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestColonist<DialogueTargetData>.BuildFrom(__instance);
           break;
         case "ColonyAnimalChitchat":
-          dialogueRequest = DialogueRequestAnimal_Colony.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestAnimal_Colony.BuildFrom(__instance);
           break;
         case "WildAnimalChitchat":
-          dialogueRequest = DialogueRequestAnimal_Wild.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestAnimal_Wild.BuildFrom(__instance);
           break;
         case "InitiatorHealthChitchat":
-          dialogueRequest = DialogueRequestHealthInitiator.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestHealthInitiator.BuildFrom(__instance);
           break;
         case "RecipientHealthChitchat":
-          dialogueRequest = DialogueRequestHealthRecipient.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestHealthRecipient.BuildFrom(__instance);
           break;
         case "InitiatorApparelChitchat":
-          dialogueRequest = DialogueRequestApparel_Initiator.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestApparel_Initiator.BuildFrom(__instance);
           break;
         case "RecipientApparelChitchat":
         case "SlightApparel":
-          dialogueRequest = DialogueRequestApparel_Recipient.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestApparel_Recipient.BuildFrom(__instance);
           break;
         case "UnsatisfiedNeedChitchat":
-          dialogueRequest = DialogueRequestNeed<DialogueDataNeed>.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestNeed<DialogueDataNeed>.BuildFrom(__instance);
           break;
         case "InitiatorFamilyChitchat":
-          dialogueRequest = DialogueRequestInitiatorFamily.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestInitiatorFamily.BuildFrom(__instance);
           break;
         case "RecipientFamilyChitchat":
         case "SlightFamily":
-          dialogueRequest = DialogueRequestRecipientFamily.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestRecipientFamily.BuildFrom(__instance);
           break;
         case "WeatherChitchat":
-          dialogueRequest = DialogueRequestWeather.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestWeather.BuildFrom(__instance);
           break;
         case "RoomChitchat":
-          dialogueRequest = DialogueRequestRoom.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestRoom.BuildFrom(__instance);
           break;
         case "InitiatorBedroomChitchat":
-          dialogueRequest = DialogueRequestRoom_InitiatorBedroom.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestRoom_InitiatorBedroom.BuildFrom(__instance);
           break;
         case "RecipientBedroomChitchat":
-          dialogueRequest = DialogueRequestRoom_RecipientBedroom.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestRoom_RecipientBedroom.BuildFrom(__instance);
           break;
         case "HostileFactionChitchat":
-          dialogueRequest = DialogueRequestHostileFaction.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestHostileFaction.BuildFrom(__instance);
           break;
         case "AlliedFactionChitchat":
-          dialogueRequest = DialogueRequestAlliedFaction.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestAlliedFaction.BuildFrom(__instance);
           break;
         case "RoyalFactionChitchat":
-          dialogueRequest = DialogueRequestRoyalFaction.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestRoyalFaction.BuildFrom(__instance);
           break;
         case "NeutralFactionChitchat":
-          dialogueRequest = DialogueRequestNeutralFaction.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestNeutralFaction.BuildFrom(__instance);
           break;
         case "InitiatorWeaponChitchat":
-          dialogueRequest = DialogueRequestWeapon_Initiator.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestWeapon_Initiator.BuildFrom(__instance);
           break;
         case "RecipientWeaponChitchat":
         case "SlightWeapon":
-          dialogueRequest = DialogueRequestWeapon_Recipient.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestWeapon_Recipient.BuildFrom(__instance);
           break;
         case "InitiatorBeardChitchat":
         case "InitiatorBodyTattooChitchat":
         case "InitiatorFaceTattooChitchat":
         case "InitiatorHairChitchat":
-          dialogueRequest = DialogueRequestAppearance_Initiator.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestAppearance_Initiator.BuildFrom(__instance);
           break;
         case "RecipientBeardChitchat":
         case "RecipientBodyTattooChitchat":
@@ -135,41 +137,30 @@ namespace RimDialogue.Core.InteractionData
         case "SlightBodyTattoo":
         case "SlightFaceTattoo":
         case "SlightHair":
-          dialogueRequest = DialogueRequestAppearance_Recipient.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestAppearance_Recipient.BuildFrom(__instance);
           break;
         case "DeadColonistDeepTalk":
-          dialogueRequest = DialogueRequestDeadColonist.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestDeadColonist.BuildFrom(__instance);
           break;
         case "InitiatorBattleChitchat":
-          dialogueRequest = DialogueRequestBattle_Initiator.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestBattle_Initiator.BuildFrom(__instance);
           break;
         case "RecipientBattleChitchat":
-          dialogueRequest = DialogueRequestBattle_Recipient.BuildFrom(__instance, interactionTemplate);
+          dialogueRequest = DialogueRequestBattle_Recipient.BuildFrom(__instance);
           break;
         default:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
-          dialogueRequest = new DialogueRequestTwoPawn<DialogueData>(__instance, interactionTemplate);
+          dialogueRequest = new DialogueRequestTwoPawn<DialogueData>(__instance);
           break;
       }
       Requests.Add(__instance.LogID, dialogueRequest);
 
-      if (TooSoon(__instance.LogID))
-        return dialogueRequest;
-
-      if (TooSoonAll(__instance.LogID))
-        return dialogueRequest;
-
-      LastDialogue = DateTime.Now;
-
-      dialogueRequest.Execute();
       return dialogueRequest;
     }
 
-
-
-    public static DialogueRequest CreateThoughtRequest(PlayLogEntry_InteractionSinglePawn __instance, string interactionTemplate, Thought_InteractionDef thoughtInteractionDef)
+    public static DialogueRequest CreateThoughtRequest(PlayLogEntry_InteractionSinglePawn __instance, Thought_InteractionDef thoughtInteractionDef)
     {
-      Pawn? otherPawn = null;
+      Pawn ? otherPawn = null;
       Precept? sourcePrecept = thoughtInteractionDef.thought.sourcePrecept;
 
       switch (thoughtInteractionDef.thought)
@@ -183,7 +174,6 @@ namespace RimDialogue.Core.InteractionData
 
       return new DialogueRequestThought(
         __instance,
-        interactionTemplate,
         thoughtInteractionDef.thought.LabelCap,
         thoughtInteractionDef.thought.Description,
         thoughtInteractionDef.thought.MoodOffset(),
@@ -192,7 +182,7 @@ namespace RimDialogue.Core.InteractionData
         otherPawn);
     }
 
-    public static DialogueRequest Create(PlayLogEntry_InteractionSinglePawn __instance, string interactionTemplate, InteractionDef interactionDef)
+    public static DialogueRequest Create(PlayLogEntry_InteractionSinglePawn __instance, InteractionDef interactionDef)
     {
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
@@ -203,33 +193,23 @@ namespace RimDialogue.Core.InteractionData
         case BattleLogEntry_InteractionDef battleLogEntryInteractionDef:
           dialogueRequest = new DialogueRequestBattleLogEntry(
             __instance,
-            interactionTemplate,
             battleLogEntryInteractionDef.CombatLogText,
             battleLogEntryInteractionDef.Target);
           break;
         case Thought_InteractionDef thoughtInteractionDef:
-          dialogueRequest = CreateThoughtRequest(__instance, interactionTemplate, thoughtInteractionDef);
+          dialogueRequest = CreateThoughtRequest(__instance, thoughtInteractionDef);
           break;
         default:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
-          dialogueRequest = new DialogueRequestSinglePawn<DialogueData>(__instance, interactionTemplate);
+          dialogueRequest = new DialogueRequestSinglePawn<DialogueData>(__instance);
           break;
       }
       Requests.Add(__instance.LogID, dialogueRequest);
 
-      if (TooSoon(__instance.LogID)) 
-        return dialogueRequest;
-
-      if (TooSoonAll(__instance.LogID))
-        return dialogueRequest;
-
-      LastDialogue = DateTime.Now;
-
-      dialogueRequest.Execute();
       return dialogueRequest;
     }
 
-    public static DialogueRequest Create(PlayLogEntry_InteractionWithMany __instance, string interactionTemplate, InteractionDef interactionDef)
+    public static DialogueRequest Create(PlayLogEntry_InteractionWithMany __instance, InteractionDef interactionDef)
     {
       if (Requests.ContainsKey(__instance.LogID))
         return Requests[__instance.LogID];
@@ -239,41 +219,32 @@ namespace RimDialogue.Core.InteractionData
       {
         default:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Default interaction def '{interactionDef.defName}'.");
-          dialogueRequest = new DialogueRequestMany<DialogueData>(__instance, interactionTemplate);
+          dialogueRequest = new DialogueRequestMany<DialogueData>(__instance);
           break;
       }
       Requests.Add(__instance.LogID, dialogueRequest);
 
-      if (TooSoon(__instance.LogID))
-        return dialogueRequest;
-
-      if (TooSoonAll(__instance.LogID))
-        return dialogueRequest;
-
-      LastDialogue = DateTime.Now;
-
-      dialogueRequest.Execute();
       return dialogueRequest;
     }
 
 
-    public static bool TooSoon(int entryId)
+    public static bool TooSoon()
     {
       if (DateTime.Now.Subtract(LastDialogue) < TimeSpan.FromSeconds(Settings.MinTimeBetweenConversations.Value))
       {
-        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - too soon since last dialogue. Current time: '{DateTime.Now}' Last dialogue time: {LastDialogue}.");
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Too soon for dialogue. Last dialogue was {LastDialogue}.");
         return true;
       }
       return false;
     }
 
-    public static bool TooSoonAll(int entryId)
+    public static bool TooSoonAll()
     {
-
-      int ticksAbs = Find.TickManager.TicksAbs;
-      if (ticksAbs - InteractionWorker_Dialogue.LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * InteractionWorker_Dialogue.TicksPerMinute)
+      if (Find.TickManager.TicksAbs - InteractionWorker_Dialogue.LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * InteractionWorker_Dialogue.TicksPerMinute)
       {
-        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Too soon since last dialogue. Current ticks: '{ticksAbs}' Last used ticks: {InteractionWorker_Dialogue.LastUsedTicksAll}.");
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Too soon for dialogue for all. Last dialogue was {InteractionWorker_Dialogue.LastUsedTicksAll} ticks ago.");
         return true;
       }
       return false;
@@ -295,7 +266,7 @@ namespace RimDialogue.Core.InteractionData
           {
             await Task.Yield();
           }
-          if (request.isNetworkError || request.isHttpError)
+          if (request.isHttpError || request.isNetworkError)
           {
             throw new Exception($"Entry {entryId} - Network error: {request.error}");
           }
@@ -315,20 +286,21 @@ namespace RimDialogue.Core.InteractionData
     }
 
     public LogEntry Entry { get; set; }
-    public string InteractionTemplate { get; set; } = string.Empty;
 
-    public DialogueRequest(LogEntry entry, string interactionTemplate)
+    protected string _interaction = string.Empty;
+    public string Interaction => _interaction;
+
+    public DialogueRequest(LogEntry entry)
     {
       Entry = entry;
-      InteractionTemplate = interactionTemplate;
     }
 
-    public virtual string GetInteraction()
+    public abstract Rule[] Rules
     {
-      return InteractionTemplate;
+      get;
     }
 
-    public abstract void Execute();
+    public abstract void Execute(string interaction);
   }
 
   public abstract class DialogueRequest<DataT> : DialogueRequest where DataT : DialogueData, new()
@@ -343,7 +315,7 @@ namespace RimDialogue.Core.InteractionData
 
     protected GameComponent_ConversationTracker _tracker = H.GetTracker();
 
-    public DialogueRequest(LogEntry entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequest(LogEntry entry) : base(entry)
     {
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Dialogue Request started: {this.GetType().Name}");
       clientId = Settings.ClientId.Value;
@@ -353,11 +325,14 @@ namespace RimDialogue.Core.InteractionData
 
     public virtual void BuildData(DataT data)
     {
-      data.Interaction = H.RemoveWhiteSpaceAndColor(GetInteraction());
+      data.Interaction = H.RemoveWhiteSpaceAndColor(Interaction);
       data.ClientId = clientId;
       data.Instructions = Instructions;
       data.MaxWords = maxWords;
       data.MinWords = minWords;
+      data.LanguageEnglish = LanguageDatabase.activeLanguage?.FriendlyNameEnglish ?? LanguageDatabase.defaultLanguage?.FriendlyNameEnglish ?? "English";
+      data.LanguageNative = LanguageDatabase.activeLanguage?.FriendlyNameNative ?? LanguageDatabase.defaultLanguage?.FriendlyNameNative ?? "English";
+      data.ModelName = Settings.ModelName.Value;
     }
 
     public virtual void BuildForm(WWWForm form)
@@ -395,13 +370,20 @@ namespace RimDialogue.Core.InteractionData
 
         foreach (var data in datae)
         {
-          if (data.Value != null)
-            form.AddField(data.Key, JsonUtility.ToJson(data.Value));
+          try
+          {
+            if (data.Value != null)
+              form.AddField(data.Key, JsonUtility.ToJson(data.Value));
+          }
+          catch (Exception ex)
+          {
+            Mod.ErrorV($"Entry {Entry.LogID} - Error adding field '{data.Key}' to form: {ex}");
+          }
         }
         // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - Dialogue data fetched.");
         if (action == null)
           action = InteractionDef.defName;
-        var interaction = GetInteraction();
+        var interaction = Interaction;
         var dialogueResponse = await Post($"home/{action}", form, this.Entry.LogID);
         if (dialogueResponse != null)
         {
@@ -443,8 +425,14 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void Execute()
+    private static Regex CleanInteraction = new(@"\(\*Name\)(\w+)\(\/Name\)", RegexOptions.Compiled);
+    public override void Execute(string interaction)
     {
+      LastDialogue = DateTime.Now;
+      var match = CleanInteraction.Match(interaction);
+      if (match.Success && match.Groups.Count > 1)
+        interaction = CleanInteraction.Replace(interaction, match.Groups[0].Value);
+      _interaction = interaction;
       var dialogueData = new DataT();
       BuildData(dialogueData);
       Send(

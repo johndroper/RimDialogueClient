@@ -103,7 +103,8 @@ namespace RimDialogue.UI
       var memeButtonRect = new Rect(contentRectWidth - 40, currentY, 40, LabelHeight);
       if (Widgets.ButtonText(memeButtonRect, "Save"))
       {
-        Find.WindowStack.Add(new Window_ComicPanelViewer(Conversation));
+        var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
+        Find.WindowStack.Add(new Window_ComicPanelViewer(bitmapFont, Conversation));
       }
 
       currentY -= TopMargin;

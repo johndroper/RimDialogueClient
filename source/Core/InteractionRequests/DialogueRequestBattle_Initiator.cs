@@ -6,12 +6,12 @@ namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestBattle_Initiator : DialogueRequestBattle
   {
-    public static new DialogueRequestBattle_Initiator BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestBattle_Initiator BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestBattle_Initiator(entry, interactionTemplate);
+      return new DialogueRequestBattle_Initiator(entry);
     }
 
-    public DialogueRequestBattle_Initiator(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestBattle_Initiator(PlayLogEntry_Interaction entry) : base(entry)
     {
       _battle = Find.BattleLog.Battles
         .Where(battle => battle.Concerns(Initiator))

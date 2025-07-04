@@ -42,7 +42,7 @@
 
     <ItemGroup>
       <AssetsIncluded Include="$(AssetsDir)**" />
-      <BuiltBinaries Include="$(OutputPath)**\*.dll;$(OutputPath)**\*.exe;$(OutputPath)**\*.pdb" />
+      <BuiltBinaries Include="$(OutputPath)RimDialogueClient.dll" />
     </ItemGroup>
 
     <FileRegexCapture Filename="$(ProjectDir)$(ProjectFileName)" Match="&lt;Reference Include=&quot;Assembly-CSharp, Version=(\d+.\d+)">

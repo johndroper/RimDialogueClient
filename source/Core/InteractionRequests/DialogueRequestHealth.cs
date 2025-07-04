@@ -1,14 +1,13 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestHealth : DialogueRequestTwoPawn<DialogueDataHealth>
   {
-    const string Placeholder = "**hediff**";
-
-    public DialogueRequestHealth(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestHealth(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }
@@ -30,13 +29,12 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "HealthChitchat";
 
-    public override string GetInteraction()
-    {
-      if (Hediff.Part != null)
-        return this.InteractionTemplate.Replace(Placeholder, $"{Hediff.LabelBase} {Hediff.Part.LabelShort}");
-      else
-        return this.InteractionTemplate.Replace(Placeholder, $"{Hediff.LabelBase}");
-    }
+    public override Rule[] Rules => [
+      new Rule_String("hediff", Hediff.Part != null ? $"{Hediff.LabelBase} {Hediff.Part.LabelShort}" : $"{Hediff.LabelBase}"),
+      new Rule_String("severity", this.Hediff.Severity.ToString()),
+      new Rule_String("source", this.Hediff.sourceLabel ?? string.Empty),
+      new Rule_String("part", this.Hediff.Part?.Label ?? string.Empty)
+    ];
   }
 }
 

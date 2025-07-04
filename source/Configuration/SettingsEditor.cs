@@ -2,6 +2,7 @@ using Bubbles;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using Verse;
@@ -19,7 +20,7 @@ namespace RimDialogue.Configuration
     private static Vector2 _scrollPosition = Vector2.zero;
     private static Rect _viewRect;
 
-    private static string DropdownLabel(int value)
+    private static string InterfaceDropdownLabel(int value)
     {
       return value switch
       {
@@ -28,6 +29,11 @@ namespace RimDialogue.Configuration
         3 => "None",
         _ => "Unknown"
       };
+    }
+
+    private static string BitmapFontDropdownLabel(int value)
+    {
+      return ((FontFace)value).ToString();
     }
 
     public static void SliderLabeled(this Listing_Standard listing, string label, ref int value, int min, int max, int roundTo = -1, string? display = null)
@@ -70,6 +76,34 @@ namespace RimDialogue.Configuration
         if (string.IsNullOrWhiteSpace(Settings.ServerUrl.Value))
           Settings.ServerUrl.Value = "http://rimdialogue.proceduralproducts.com/home/getdialogue";
         Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
+        var bitmapFontRow = l.GetRect(30f);
+        Widgets.Label(bitmapFontRow.LeftPart(0.8f), "BitmapFont");
+        Widgets.Dropdown<int, int>(
+            bitmapFontRow.RightPart(0.2f),
+            Settings.BitmapFont.Value,
+            val => val,
+            val => new List<DropdownMenuElement<int>>
+            {
+              new DropdownMenuElement<int> { option = new FloatMenuOption(FontFace.Calibri.ToString(), () => Settings.BitmapFont.Value = (int)FontFace.Calibri), payload = (int)FontFace.Calibri },
+              new DropdownMenuElement<int> { option = new FloatMenuOption(FontFace.NotoSansSC.ToString(), () => Settings.BitmapFont.Value = (int)FontFace.NotoSansSC), payload = (int)FontFace.NotoSansSC },
+            },
+            BitmapFontDropdownLabel(Settings.BitmapFont.Value)
+        );
+
+        var modelNameRow = l.GetRect(30f);
+        Widgets.Label(modelNameRow.LeftPart(0.8f), "Model");
+        Widgets.Dropdown<int, int>(
+            modelNameRow.RightPart(0.2f),
+            Settings.BitmapFont.Value,
+            val => val,
+            val => Mod.LoginData.Models.Select((modelName, index) => new DropdownMenuElement<int>
+            {
+              option = new FloatMenuOption(modelName ?? "Unknown",
+              () => Settings.ModelName.Value = modelName),
+              payload = index
+            }).ToList(),
+            Settings.ModelName.Value
+        );
 
         l.Gap();
 
@@ -90,7 +124,7 @@ namespace RimDialogue.Configuration
               new DropdownMenuElement<int> { option = new FloatMenuOption("Top Center", () => Settings.DialogueMessageInterface.Value = 2), payload = 2 },
               new DropdownMenuElement<int> { option = new FloatMenuOption("None", () => Settings.DialogueMessageInterface.Value = 3), payload = 3 }
             },
-            DropdownLabel(Settings.DialogueMessageInterface.Value)
+            InterfaceDropdownLabel(Settings.DialogueMessageInterface.Value)
         );
         if (Settings.DialogueMessageInterface.Value == 1)
           messageListing.SliderLabeled("RimDialogue.MessageScrollSpeed".Translate(), ref Settings.MessageScrollSpeed.Value, 1, 50);
@@ -105,7 +139,7 @@ namespace RimDialogue.Configuration
 
         l.Gap();
 
-        var dialogueListing = l.BeginSection(30f * 14);
+        var dialogueListing = l.BeginSection(30f * 15);
         dialogueListing.ColumnWidth = listingRect.width - 50f;
         dialogueListing.Label("RimDialogue.DialogueSettings".Translate());
         dialogueListing.Indent();
@@ -115,11 +149,11 @@ namespace RimDialogue.Configuration
         dialogueListing.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
         dialogueListing.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
         dialogueListing.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, 100);
-        //l.SliderLabeled("RimDialogue.MaxSpeed".Translate(), ref Settings.MaxSpeed.Value, 1, 4);
         dialogueListing.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
         dialogueListing.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
+        dialogueListing.SliderLabeled("RimDialogue.DeepTalkCompensationFactor".Translate(), ref Settings.DeepTalkCompensationFactor.Value, 1, 100);
         dialogueListing.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
         dialogueListing.Outdent();
         l.EndSection(dialogueListing);

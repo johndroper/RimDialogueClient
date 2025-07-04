@@ -1,14 +1,15 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestWeather : DialogueRequestTwoPawn<DialogueDataWeather>
   {
-    public static new DialogueRequestWeather BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestWeather BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestWeather(entry, interactionTemplate);
+      return new DialogueRequestWeather(entry);
     }
 
     public WeatherDef Weather { get; set; }
@@ -16,7 +17,7 @@ namespace RimDialogue.Core.InteractionData
     public Season Season { get; set; }
     public float OutdoorTemp { get; set; }
 
-    public DialogueRequestWeather(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestWeather(PlayLogEntry_Interaction entry) : base(entry)
     {
       Weather = Find.CurrentMap.weatherManager.CurWeatherPerceived;
       Biome = Find.CurrentMap.Biome;
@@ -37,13 +38,12 @@ namespace RimDialogue.Core.InteractionData
 
     public override string Action => "WeatherChitchat";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-          .Replace("**weather**", this.Weather.label)
-          .Replace("**biome**", this.Biome.label)
-          .Replace("**season**", this.Season.ToString())
-          .Replace("**outdoor_temp**", OutdoorTemp.ToString("F0"));
-    }
+    public override Rule[] Rules => [
+      new Rule_String("weather", this.Weather.label),
+      new Rule_String("biome", this.Biome.label),
+      new Rule_String("season", this.Season.ToString()),
+      new Rule_String("outdoor_temp", OutdoorTemp.ToString("F0"))
+    ];
+
   }
 }

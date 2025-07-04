@@ -12,10 +12,9 @@ namespace RimDialogue.Core.InteractionData
   {
     public DialogueRequestBattleLogEntry(
       PlayLogEntry_InteractionSinglePawn entry,
-      string interactionTemplate,
       string battleLogEntry,
       Pawn? target) :
-        base(entry, interactionTemplate)
+        base(entry)
     {
       Target = target;
       BattleLogEntry = battleLogEntry;

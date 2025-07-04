@@ -2,6 +2,7 @@
 using RimDialogue.Core.InteractionData;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionRequests
 {
@@ -10,7 +11,7 @@ namespace RimDialogue.Core.InteractionRequests
     private const string Placeholder = "**pawn**";
     private static string agoText = "RimDialogue.Ago".Translate().ToString();
 
-    public DialogueRequestDeadPawn(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestDeadPawn(PlayLogEntry_Interaction entry) : base(entry)
     {
     }
 
@@ -38,9 +39,7 @@ namespace RimDialogue.Core.InteractionRequests
 
     public override string? Action => "DeadPawn";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate.Replace(Placeholder, Record.Pawn.Name?.ToStringShort ?? Record.Pawn.LabelCap ?? "Unknown");
-    }
+    public override Rule[] Rules => [new Rule_String(Placeholder, Record.Pawn.Name?.ToStringShort ?? Record.Pawn.LabelCap ?? "Unknown")];
+
   }
 }

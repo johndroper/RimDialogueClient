@@ -2,6 +2,7 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
@@ -23,16 +24,16 @@ namespace RimDialogue.Core.InteractionData
       SkillDefOf.Crafting
     };
 
-    const string Placeholder = "**skill**";
-    public static new DialogueRequestSkill BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    const string Placeholder = "skill";
+    public static new DialogueRequestSkill BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestSkill(entry, interactionTemplate);
+      return new DialogueRequestSkill(entry);
     }
 
     public SkillRecord InitiatorSkillRecord { get; set; }
     public SkillRecord RecipientSkillRecord { get; set; }
 
-    public DialogueRequestSkill(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestSkill(PlayLogEntry_Interaction entry) : base(entry)
     {
       InitiatorSkillRecord = Initiator.skills.GetSkill(SkillDef);
       RecipientSkillRecord = Recipient.skills.GetSkill(SkillDef);
@@ -62,9 +63,7 @@ namespace RimDialogue.Core.InteractionData
       base.BuildData(data);
     }
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate.Replace(Placeholder, SkillDef.label);
-    }
+    public override Rule[] Rules => [new Rule_String(Placeholder, SkillDef.label)];
+
   }
 }

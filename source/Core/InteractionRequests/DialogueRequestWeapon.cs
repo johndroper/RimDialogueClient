@@ -2,6 +2,7 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
@@ -9,7 +10,7 @@ namespace RimDialogue.Core.InteractionData
   {
     const string Placeholder = "**weapon**";
 
-    public DialogueRequestWeapon(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestWeapon(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }
@@ -34,9 +35,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "WeaponChitchat";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate.Replace(Placeholder, Weapon.LabelNoParenthesis);
-    }
+    public override Rule[] Rules => [new Rule_String(Placeholder, Weapon.LabelNoParenthesis)];
+
   }
 }

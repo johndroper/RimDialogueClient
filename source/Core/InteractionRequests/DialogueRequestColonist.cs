@@ -3,16 +3,17 @@ using RimDialogue.Core.InteractionRequests;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestColonist<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueTargetData, new()
   {
-    const string colonistPlaceholder = "**colonist**";
+    const string colonistPlaceholder = "colonist";
 
-    public static new DialogueRequestColonist<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestColonist<DataT> BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestColonist<DataT>(entry, interactionTemplate);
+      return new DialogueRequestColonist<DataT>(entry);
     }
 
     private Pawn _target;
@@ -24,7 +25,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public DialogueRequestColonist(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestColonist(PlayLogEntry_Interaction entry) : base(entry)
     {
       var colonists = Reflection.RimWorld_ColonistBar_TmpColonistsInOrder.GetValue(Find.ColonistBar) as List<Pawn>;
       if (colonists != null && colonists.Any())
@@ -37,10 +38,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string Action => "ColonistChitchat";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-        .Replace(colonistPlaceholder, this.Target.Name.ToStringShort);
-    }
+    public override Rule[] Rules => [new Rule_String(colonistPlaceholder, this.Target.Name.ToStringShort)];
+
   }
 }

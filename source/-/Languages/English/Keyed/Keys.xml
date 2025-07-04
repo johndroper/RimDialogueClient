@@ -73,5 +73,10 @@
   <RimDialogue.PawnTip>Enter custom instructions that apply only to this pawn’s dialogue. Use this to define unique personality traits, speech patterns, or quirks (e.g., “Always speaks in rhyme” or “Uses military jargon”).</RimDialogue.PawnTip>
   <RimDialogue.Characters>characters</RimDialogue.Characters>
 
+  <RimDialogue.DeepTalkCompensationFactor>DeepTalk Compensation Factor</RimDialogue.DeepTalkCompensationFactor>
+  <RimDialogue.FilterButtonLabel>Press this button to set more custom prompts-></RimDialogue.FilterButtonLabel>
 
+  <RimDialogue.Alert_AnimalFilth>the animal {0} is making a mess inside</RimDialogue.Alert_AnimalFilth>
+
+  
 </LanguageData>

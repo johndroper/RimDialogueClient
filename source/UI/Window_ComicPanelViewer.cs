@@ -34,11 +34,9 @@ namespace RimDialogue.UI
 
     public float SkyHeight { get; private set; } = PanelHeight - ComicPanel.PortraitHeight;
 
-    //try using screencapture instead of RenderTexture
-    //automate scrolling the box and capturing the scrollview
-    BitmapFont font;
+    private BitmapFont BitmapFont;
 
-    public Window_ComicPanelViewer(Conversation conversation)
+    public Window_ComicPanelViewer(BitmapFont bitmapFont, Conversation conversation)
     {
       this.Conversation = conversation;
       this.closeOnClickedOutside = false;
@@ -47,8 +45,8 @@ namespace RimDialogue.UI
       this.doCloseX = true;
       this.absorbInputAroundWindow = false;
       this.preventCameraMotion = false;
+      this.BitmapFont = bitmapFont;
 
-      // Initialize default file path
       InitializeDefaultFilePath();
 
       List<ComicPanelItem> backgroundItems = GetBackgroundItems(PanelWidth, PanelHeight - ComicPanel.PortraitHeight);
@@ -60,7 +58,7 @@ namespace RimDialogue.UI
         if (Settings.VerboseLogging.Value) Mod.Log($"Creating single pawn comic panels for conversation with initiator {Conversation.Initiator.Name} ({Conversation.Initiator.thingIDNumber})");
         for (int i = 0; i < Conversation.Lines.Length; i++)
         {
-          _Panels.Add(new SinglePawnComicPanel(Conversation.Initiator, Conversation.Lines[i].Text, SkyHeight, backgroundItems));
+          _Panels.Add(new SinglePawnComicPanel(Conversation.Initiator, bitmapFont, Conversation.Lines[i].Text, SkyHeight, backgroundItems));
           if (Settings.VerboseLogging.Value) Mod.Log($"SinglePawnComicPanel panel added for line {i}.");
         }
       }
@@ -80,6 +78,7 @@ namespace RimDialogue.UI
                 Conversation.Recipient,
                 Conversation.Lines[i].Text,
                 SkyHeight,
+                bitmapFont,
                 backgroundItems));
           }
           else
@@ -95,6 +94,7 @@ namespace RimDialogue.UI
                     Conversation.Recipient,
                     null,
                     SkyHeight,
+                    bitmapFont,
                     backgroundItems));
               }
               else
@@ -106,6 +106,7 @@ namespace RimDialogue.UI
                     Conversation.Recipient,
                     Conversation.Lines[i + 1].Text,
                     SkyHeight,
+                    bitmapFont,
                     backgroundItems));
                 i++;
               }
@@ -118,6 +119,7 @@ namespace RimDialogue.UI
                   Conversation.Recipient,
                   null,
                   SkyHeight,
+                  bitmapFont,
                   backgroundItems));
           }
         }

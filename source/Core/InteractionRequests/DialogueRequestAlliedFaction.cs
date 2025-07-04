@@ -8,13 +8,13 @@ namespace RimDialogue.Core.InteractionData
   {
     const string FactionPlaceholder = "**faction**";
 
-    public static new DialogueRequestAlliedFaction BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestAlliedFaction BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestAlliedFaction(entry, interactionTemplate);
+      return new DialogueRequestAlliedFaction(entry);
     }
 
-    public DialogueRequestAlliedFaction(PlayLogEntry_Interaction entry, string interactionTemplate) :
-      base(entry, interactionTemplate)
+    public DialogueRequestAlliedFaction(PlayLogEntry_Interaction entry) :
+      base(entry)
     {
 
     }

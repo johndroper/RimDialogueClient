@@ -7,15 +7,13 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestBestSkill : DialogueRequestSkill
   {
-    public static new DialogueRequestBestSkill BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestBestSkill BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestBestSkill(entry, interactionTemplate);
+      return new DialogueRequestBestSkill(entry);
     }
 
-    public DialogueRequestBestSkill(PlayLogEntry_Interaction entry, string interactionTemplate) :
-      base(
-        entry,
-        interactionTemplate)
+    public DialogueRequestBestSkill(PlayLogEntry_Interaction entry) :
+      base(entry)
     {
 
     }

@@ -2,16 +2,17 @@
 
 using RimDialogue.Core.InteractionRequests;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestIncident<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataIncident, new()
   {
-    const string IncidentPlaceholder = "**recent_incident**";
+    const string IncidentPlaceholder = "recent_incident";
 
-    public static new DialogueRequestIncident<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestIncident<DataT> BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestIncident<DataT>(entry, interactionTemplate);
+      return new DialogueRequestIncident<DataT>(entry);
     }
 
     public override Pawn? Target
@@ -26,7 +27,7 @@ namespace RimDialogue.Core.InteractionData
     public string Subject { get; set; } = string.Empty;
     public string Explanation { get; set; } = string.Empty;
 
-    public DialogueRequestIncident(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestIncident(PlayLogEntry_Interaction entry) : base(entry)
     {
       // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
       var incidents = GameComponent_LetterTracker.Instance.RecentLetters;
@@ -63,11 +64,9 @@ namespace RimDialogue.Core.InteractionData
       base.BuildData(data);
     }
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-        .Replace(IncidentPlaceholder, Subject);
-    }
+    public override Rule[] Rules => [
+      new Rule_String(IncidentPlaceholder, Subject)
+    ];
   }
 }
 

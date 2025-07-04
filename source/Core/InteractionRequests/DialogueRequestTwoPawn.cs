@@ -10,14 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestTwoPawn<DataT> : DialogueRequest<DataT> where DataT : InteractionData.DialogueData, new()
   {
-    public static DialogueRequestTwoPawn<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static DialogueRequestTwoPawn<DataT> BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestTwoPawn<DataT>(entry, interactionTemplate);
+      return new DialogueRequestTwoPawn<DataT>(entry);
     }
 
     protected InteractionDef _interactionDef;
@@ -31,7 +32,7 @@ namespace RimDialogue.Core.InteractionRequests
     public int initiatorOpinionOfRecipient;
     public int recipientOpinionOfInitiator;
 
-    public DialogueRequestTwoPawn(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestTwoPawn(PlayLogEntry_Interaction entry) : base(entry)
     {
       _interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry);
       Recipient = (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(entry);
@@ -68,5 +69,6 @@ namespace RimDialogue.Core.InteractionRequests
     {
       _tracker.AddConversation(Initiator, Recipient, interaction, text);
     }
+    public override Rule[] Rules => [];
   }
 }

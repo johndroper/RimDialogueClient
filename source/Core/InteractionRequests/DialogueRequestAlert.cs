@@ -8,16 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestAlert<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataAlert, new()
   {
-    const string AlertPlaceholder = "**alert**";
-
-    public static new DialogueRequestAlert<DataT> BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestAlert<DataT> BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestAlert<DataT>(entry, interactionTemplate);
+      return new DialogueRequestAlert<DataT>(entry);
     }
 
 
@@ -35,7 +34,7 @@ namespace RimDialogue.Core.InteractionData
 
     public PawnData? targetData;
 
-    public DialogueRequestAlert(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestAlert(PlayLogEntry_Interaction entry) : base(entry)
     {
       // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for alert {entry.LogID} with template {interactionTemplate}.");
       var alerts = (List<Alert>)Reflection.RimWorld_AlertsReadout_ActiveAlerts.GetValue(Find.Alerts);
@@ -55,7 +54,6 @@ namespace RimDialogue.Core.InteractionData
             var room = abandonedBaby.GetRoom();
             Explanation = $"The baby {abandonedBaby.Name.ToStringShort} is in the {room.GetRoomRoleLabel()}.";
           }
-          ;
           break;
         case Alert_AnimalFilth animalFilthAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_AnimalFilth");
@@ -63,7 +61,7 @@ namespace RimDialogue.Core.InteractionData
           var animalFilthTarget = animalFilthTargets.RandomElement();
           var animalFilthPawn = animalFilthTarget.Pawn;
           _target = animalFilthPawn;
-          Subject = $"the animal {animalFilthPawn.Name.ToStringShort} is making a mess inside";
+          Subject = string.Format($"RimDialogue.Alert_AnimalFilth".Translate(), animalFilthPawn.Name.ToStringShort);
           break;
         case Alert_AnimalPenNeeded animalPenAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_AnimalPenNeeded");
@@ -377,10 +375,6 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => null;
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-        .Replace(AlertPlaceholder, Subject);
-    }
+    public override Rule[] Rules => [new Rule_String("alert", Subject)];
   }
 }

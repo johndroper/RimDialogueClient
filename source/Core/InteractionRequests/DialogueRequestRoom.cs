@@ -2,18 +2,19 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestRoom : DialogueRequestTwoPawn<DialogueDataRoom>
   {
-    public static new DialogueRequestRoom BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestRoom BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestRoom(entry, interactionTemplate);
+      return new DialogueRequestRoom(entry);
     }
 
 
-    public DialogueRequestRoom(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestRoom(PlayLogEntry_Interaction entry) : base(entry)
     {
 
     }
@@ -41,10 +42,6 @@ namespace RimDialogue.Core.InteractionData
 
     public override string Action => "RoomChitchat";
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-          .Replace("**room**", Room.GetRoomRoleLabel());
-    }
+    public override Rule[] Rules => [new Rule_String("room", Room.GetRoomRoleLabel())];
   }
 }

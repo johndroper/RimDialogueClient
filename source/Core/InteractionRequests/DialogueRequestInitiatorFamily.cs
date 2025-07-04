@@ -1,22 +1,23 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestInitiatorFamily : DialogueRequestTarget<DialogueDataFamily>
   {
-    const string RelationPlaceholder = "**relation**";
-    const string FamilyPlaceholder = "**family**";
+    const string RelationPlaceholder = "relation";
+    const string FamilyPlaceholder = "family";
 
     public DirectPawnRelation Relation { get; set; }
 
-    public static new DialogueRequestInitiatorFamily BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestInitiatorFamily BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestInitiatorFamily(entry, interactionTemplate);
+      return new DialogueRequestInitiatorFamily(entry);
     }
 
-    public DialogueRequestInitiatorFamily(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestInitiatorFamily(PlayLogEntry_Interaction entry) : base(entry)
     {
       Relation = this.Initiator.relations.DirectRelations.RandomElement();
     }
@@ -37,12 +38,10 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-        .Replace(RelationPlaceholder, Relation.def.GetGenderSpecificLabel(Relation.otherPawn))
-        .Replace(FamilyPlaceholder, Relation.otherPawn.Name.ToStringShort);
-    }
+    public override Rule[] Rules => [
+      new Rule_String(RelationPlaceholder, Relation.def.GetGenderSpecificLabel(Relation.otherPawn) ?? string.Empty),
+      new Rule_String(FamilyPlaceholder, Relation.otherPawn.Name.ToStringShort)
+    ];
   }
 }
 

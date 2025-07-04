@@ -13,14 +13,13 @@ namespace RimDialogue.Core.InteractionData
   {
     public DialogueRequestThought(
       PlayLogEntry_InteractionSinglePawn entry,
-      string interactionTemplate,
       string label,
       string description,
       float moodOffset,
       string? preceptLabel,
       string? preceptDescription,
       Pawn? target) :
-        base(entry, interactionTemplate)
+        base(entry)
     {
       Label = label;
       Description = description;

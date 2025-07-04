@@ -54,10 +54,14 @@ namespace RimDialogue
       float y = 0;
 
       Text.Font = GameFont.Medium;
-      var titleRect = new Rect(0, y, 200f, 30f);
-      Widgets.Label(titleRect, "RimDialogue");
+      
+      var titleText = "RimDialogue";
+      var titleSize = Text.CalcSize(titleText);
+      var titleRect = new Rect(0, y, titleSize.x, 30f);
 
-      var discordRect = new Rect(titleRect.x + titleRect.width, titleRect.y, 24, 24);
+      Widgets.Label(titleRect, titleText);
+
+      var discordRect = new Rect(titleRect.x + titleRect.width + 3, titleRect.y, 24, 24);
       if (Widgets.ButtonImage(discordRect, DialogueMessageWindow.DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
       {
         Process.Start(new ProcessStartInfo
@@ -66,10 +70,17 @@ namespace RimDialogue
           UseShellExecute = true
         });
       }
-
       Text.Font = GameFont.Small;
+      const float filterButtonWidth = 100f;
+
+      var filterButtonLabelText = "RimDialogue.FilterButtonLabel".Translate();
+      var filterButtonLabelSize = Text.CalcSize(filterButtonLabelText);
+
+      var filterButtonLabelRect = new Rect(inRect.width - filterButtonWidth - filterButtonLabelSize.x, titleRect.y, filterButtonLabelSize.x, 30f);
+      Widgets.Label(filterButtonLabelRect, filterButtonLabelText);
+
       // Filter Dropdown
-      var filterRect = new Rect(inRect.width - 300f, y, 300f, 30f);
+      var filterRect = new Rect(inRect.width - filterButtonWidth, y, filterButtonWidth, 30f);
       var filterButtonText = filterMode switch
       {
         FilterMode.All => allPawnsText,
@@ -138,7 +149,6 @@ namespace RimDialogue
         {
           Log.ErrorOnce($"Failed to get animals for filter menu: {ex.Message}", 87983);
         }
-
         Find.WindowStack.Add(new FloatMenu(options));
       }
       y += 50f;
@@ -244,7 +254,8 @@ namespace RimDialogue
           var memeButtonRect = new Rect(headerRect.width - 40, convoY, 40, headerRect.height);
           if (Widgets.ButtonText(memeButtonRect, "Save"))
           {
-            Find.WindowStack.Add(new Window_ComicPanelViewer(conversation));
+            var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
+            Find.WindowStack.Add(new Window_ComicPanelViewer(bitmapFont, conversation));
           }
           convoY += labelHeight;
           if (conversation.timestamp != null)

@@ -6,12 +6,12 @@ namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestBattle_Recent : DialogueRequestBattle
   {
-    public static new DialogueRequestBattle_Recent BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestBattle_Recent BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestBattle_Recent(entry, interactionTemplate);
+      return new DialogueRequestBattle_Recent(entry);
     }
 
-    public DialogueRequestBattle_Recent(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestBattle_Recent(PlayLogEntry_Interaction entry) : base(entry)
     {
       _battle = Find.BattleLog.Battles
         .OrderByDescending(battle => battle.CreationTimestamp)

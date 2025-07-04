@@ -1,9 +1,15 @@
 using HarmonyLib;
 using RimDialogue.Configuration;
+using RimDialogue.Core;
+using RimDialogue.Core.InteractionData;
+using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 using Verse;
+using static RimWorld.ColonistBar;
 
 namespace RimDialogue
 {
@@ -11,7 +17,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.78.2";
+    public const string Version = "0.79.1";
 
     public static Mod Instance = null!;
 
@@ -33,7 +39,42 @@ namespace RimDialogue
       GetSettings<Settings>();
 
       new Harmony(Id).PatchAll();
+
+      Login();
+
       Log("Initialized");
+    }
+
+    public static LoginData LoginData { get; private set; } = null;
+
+    public static async void Login()
+    {
+      var serverUri = new Uri(Settings.ServerUrl.Value);
+      var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + "/Login";
+      try
+      {
+        using (UnityWebRequest request = UnityWebRequest.Get(serverUrl))
+        {
+          var asyncOperation = request.SendWebRequest();
+          while (!asyncOperation.isDone)
+          {
+            await Task.Yield();
+          }
+          if (request.isHttpError || request.isNetworkError)
+            throw new Exception($"Network error logging in: {request.error}");
+          else
+          {
+            while (!request.downloadHandler.isDone) { await Task.Yield(); }
+            var body = request.downloadHandler.text;
+            // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Body: '{body}'.");
+            LoginData = JsonUtility.FromJson<LoginData>(body);
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        Error($"Error logging in: {ex.Message}");
+      }
     }
 
     public static void Log(string message) => Verse.Log.Message(PrefixMessage(message));

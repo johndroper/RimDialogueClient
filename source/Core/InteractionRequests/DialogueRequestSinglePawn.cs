@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestSinglePawn<DataT> : DialogueRequest<DataT> where DataT : InteractionData.DialogueData, new()
   {
-    public static DialogueRequestSinglePawn<DataT> BuildFrom(PlayLogEntry_InteractionSinglePawn entry, string interactionTemplate)
+    public static DialogueRequestSinglePawn<DataT> BuildFrom(PlayLogEntry_InteractionSinglePawn entry)
     {
-      return new DialogueRequestSinglePawn<DataT>(entry, interactionTemplate);
+      return new DialogueRequestSinglePawn<DataT>(entry);
     }
 
     protected InteractionDef _interactionDef;
@@ -22,7 +23,7 @@ namespace RimDialogue.Core.InteractionRequests
     protected Pawn _initiator;
     protected PawnData _initiatorData;
 
-    public DialogueRequestSinglePawn(PlayLogEntry_InteractionSinglePawn entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestSinglePawn(PlayLogEntry_InteractionSinglePawn entry) : base(entry)
     {
       _interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef.GetValue(entry);
       _initiator = (Pawn)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(entry);
@@ -49,6 +50,6 @@ namespace RimDialogue.Core.InteractionRequests
     }
 
     public override string Action => "DialogueSinglePawn";
-
+    public override Rule[] Rules => [];
   }
 }

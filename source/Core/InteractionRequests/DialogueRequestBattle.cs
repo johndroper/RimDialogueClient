@@ -3,6 +3,7 @@ using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Linq;
 using Verse;
+using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
@@ -15,7 +16,7 @@ namespace RimDialogue.Core.InteractionData
       return (Find.TickManager.TicksGame - battle.CreationTimestamp).TicksToDays();
     }
 
-    public DialogueRequestBattle(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestBattle(PlayLogEntry_Interaction entry) : base(entry)
     {
     }
 
@@ -24,11 +25,7 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override string GetInteraction()
-    {
-      return this.InteractionTemplate
-        .Replace(BattlePlaceholder, Battle.GetName() ?? "an unnamed battle");
-    }
+    public override Rule[] Rules => [new Rule_String(BattlePlaceholder, Battle.GetName() ?? "an unnamed battle")];
 
     public override void BuildData(DialogueDataBattle data)
     {

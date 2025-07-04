@@ -1,12 +1,42 @@
 using Bubbles;
 using RimDialogue.UI;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using Verse;
 
+public enum FontFace
+{
+  Calibri,
+  NotoSansSC
+}
+
+[StaticConstructorOnStartup]
 public class BitmapFont
 {
+  private static Texture2D _calibriAtlas;
+  private static Texture2D CalibriAtlas => _calibriAtlas ??= ContentFinder<Texture2D>.Get("RimDialogue/Calibri_0");
+  private static readonly string calibriPath = Path.Combine(RimDialogue.Mod.FontPath, "calibri.fnt");
+  public static readonly BitmapFont Calibri = BitmapFont.Load(calibriPath, CalibriAtlas);
+
+  private static Texture2D _notoSansSCAtlas;
+  private static Texture2D NotoSansSCAtlas => _notoSansSCAtlas ??= ContentFinder<Texture2D>.Get("RimDialogue/Noto_Sans_SC_0");
+  private static readonly string notoSansSCPath = Path.Combine(RimDialogue.Mod.FontPath, "Noto_Sans_SC.fnt");
+  public static readonly BitmapFont NotoSansSC = BitmapFont.Load(notoSansSCPath, NotoSansSCAtlas);
+
+  public static BitmapFont Get(FontFace fontFace)
+  {
+    return fontFace switch
+    {
+      FontFace.Calibri => Calibri,
+      FontFace.NotoSansSC => NotoSansSC,
+      _ => Calibri
+    };
+  }
+
   public Dictionary<int, Glyph> glyphs = new();
   public int lineHeight;
   public Texture2D atlas;
@@ -65,6 +95,20 @@ public class BitmapFont
     return font;
   }
 
+  public float GetWordWidth(string word)
+  {
+    float wordWidth = 0f;
+    foreach (char c in word)
+    {
+      if (glyphs.TryGetValue(c, out var glyph))
+      {
+        wordWidth += glyph.xAdvance;
+      }
+    }
+    return wordWidth;
+  }
+
+
   public float GetTextHeight(
       string text,
       float maxWidth)
@@ -73,20 +117,14 @@ public class BitmapFont
 
     float spaceWidth = glyphs.TryGetValue(' ', out var spaceGlyph) ? spaceGlyph.xAdvance : 4f;
 
-    string[] words = text.Split(' ');
+    string[] words = text.Split([' ', '\n', '\u200B'], StringSplitOptions.RemoveEmptyEntries);
+    words = Conversation.BreakWords(words, 10).ToArray();
     float currentLineWidth = 0f;
     int lineCount = 1;
 
     foreach (string word in words)
     {
-      float wordWidth = 0f;
-      foreach (char c in word)
-      {
-        if (glyphs.TryGetValue(c, out var glyph))
-        {
-          wordWidth += glyph.xAdvance;
-        }
-      }
+      float wordWidth = GetWordWidth(word);
 
       if (currentLineWidth + wordWidth + spaceWidth > maxWidth)
       {
@@ -99,7 +137,7 @@ public class BitmapFont
       }
     }
 
-    Mod.Log($"Calculated text height with max width {maxWidth}: {lineCount} lines, line height {lineHeight}.");
+    RimDialogue.Mod.Log($"Calculated text height with max width {maxWidth}: {lineCount} lines, line height {lineHeight}.");
 
     return lineCount * lineHeight;
   }
@@ -112,7 +150,8 @@ public class BitmapFont
     if (string.IsNullOrEmpty(text)) return;
 
     Vector2 cursor = startPos;
-    string[] words = text.Split(' ');
+    string[] words = text.Split([' ', '\n', '\u200B'], StringSplitOptions.RemoveEmptyEntries);
+    words = Conversation.BreakWords(words, 10).ToArray();
     float spaceWidth = glyphs.TryGetValue(' ', out var spaceGlyph) ? spaceGlyph.xAdvance : 4f;
 
     List<string> lines = new List<string>();
@@ -153,7 +192,7 @@ public class BitmapFont
       {
         if (!glyphs.TryGetValue(c, out var glyph))
         {
-          Mod.Warning($"Character '{c}' {(int)c} not found.");
+          RimDialogue.Mod.Warning($"Character '{c}' {(int)c} not found.");
           glyph = spaceGlyph;
         }
 

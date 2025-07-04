@@ -6,12 +6,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestRoom_InitiatorBedroom : DialogueRequestRoom
   {
-    public static new DialogueRequestRoom_InitiatorBedroom BuildFrom(PlayLogEntry_Interaction entry, string interactionTemplate)
+    public static new DialogueRequestRoom_InitiatorBedroom BuildFrom(PlayLogEntry_Interaction entry)
     {
-      return new DialogueRequestRoom_InitiatorBedroom(entry, interactionTemplate);
+      return new DialogueRequestRoom_InitiatorBedroom(entry);
     }
 
-    public DialogueRequestRoom_InitiatorBedroom(PlayLogEntry_Interaction entry, string interactionTemplate) : base(entry, interactionTemplate)
+    public DialogueRequestRoom_InitiatorBedroom(PlayLogEntry_Interaction entry) : base(entry)
     {
     }
 
