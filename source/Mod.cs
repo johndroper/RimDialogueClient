@@ -5,6 +5,7 @@ using RimDialogue.Core.InteractionData;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,7 +18,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.79.1";
+    public const string Version = "0.80.0";
 
     public static Mod Instance = null!;
 
@@ -50,7 +51,7 @@ namespace RimDialogue
     public static async void Login()
     {
       var serverUri = new Uri(Settings.ServerUrl.Value);
-      var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + "/Login";
+      var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + $"/Home/Login?clientId={ UnityWebRequest.EscapeURL(Settings.ClientId.Value) }";
       try
       {
         using (UnityWebRequest request = UnityWebRequest.Get(serverUrl))
@@ -61,13 +62,17 @@ namespace RimDialogue
             await Task.Yield();
           }
           if (request.isHttpError || request.isNetworkError)
-            throw new Exception($"Network error logging in: {request.error}");
+            throw new Exception($"Network error logging in: {request.error} Url: {serverUrl}");
           else
           {
             while (!request.downloadHandler.isDone) { await Task.Yield(); }
             var body = request.downloadHandler.text;
-            // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entryId} - Body: '{body}'.");
+            //if (Settings.VerboseLogging.Value) Log($"Login Body: '{body}'.");
             LoginData = JsonUtility.FromJson<LoginData>(body);
+            Mod.Log($"You are logged in.");
+            Mod.Log($"Tier: {LoginData.Tier}");
+            Mod.Log($"Max Requests Per Minute: {LoginData.RateLimit * 60}");
+            Mod.Log($"Max Prompt Length: {LoginData.MaxPromptLength:N0} characters");
           }
         }
       }

@@ -70,19 +70,23 @@ namespace RimDialogue.Core
     {
       base.GameComponentUpdate();
 
-      if (Pawns == null || !Pawns.Any())
-        return;
-
-      if (Find.TickManager.TicksGame - LastThoughtTick < MinDelayTicks / Pawns.Count)
-        return;
+      if (
+        Pawns == null ||
+        !Pawns.Any() ||
+        Find.TickManager == null ||
+        Find.TickManager.TicksGame - LastThoughtTick < MinDelayTicks / Pawns.Count)
+      return;
 
       // if (Settings.VerboseLogging.Value) Mod.Log($"Doing thought update.");
 
       LastThoughtTick = Find.TickManager.TicksGame;
 
       var pawn = Pawns.RandomElement();
-      var situational_thoughts = (List<Thought_Situational>)Reflection.RimWorld_SituationalThoughtHandler_CachedThoughts.GetValue(pawn.needs.mood.thoughts.situational);
-      var thought_memories = pawn.needs.mood.thoughts.memories.Memories;
+      var situationalThoughtHandler = pawn?.needs?.mood?.thoughts?.situational;
+      List<Thought_Situational>? situational_thoughts = null;
+      if (situationalThoughtHandler != null)
+        situational_thoughts = (List<Thought_Situational>)Reflection.RimWorld_SituationalThoughtHandler_CachedThoughts.GetValue(situationalThoughtHandler);
+      var thought_memories = pawn?.needs?.mood?.thoughts?.memories?.Memories;
       if (situational_thoughts != null && situational_thoughts.Any() && Rand.Chance(Settings.ThoughtChance.Value))
       {
         var thought = situational_thoughts.RandomElement();

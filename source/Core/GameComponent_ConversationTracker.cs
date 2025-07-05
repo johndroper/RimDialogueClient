@@ -103,6 +103,7 @@ public class GameComponent_ConversationTracker : GameComponent
     WWWForm form = new WWWForm();
     form.AddField("clientId", Settings.ClientId.Value);
     form.AddField("pawnJson", JsonUtility.ToJson(pawnData));
+    form.AddField("modelName", Settings.ModelName.Value);
     var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form, -1);
     if (dialogueResponse.text != null)
       additionalInstructions[pawn.ThingID] = dialogueResponse.text;
@@ -115,6 +116,7 @@ public class GameComponent_ConversationTracker : GameComponent
       WWWForm form = new WWWForm();
       form.AddField("clientId", Settings.ClientId.Value);
       form.AddField("scenarioText", scenarioText);
+      form.AddField("modelName", Settings.ModelName.Value);
       var dialogueResponse = await DialogueRequest.Post("home/GetScenarioPrompt", form, -1);
       if (dialogueResponse.text != null)
         additionalInstructions[InstructionsSet.COLONISTS] = dialogueResponse.text;

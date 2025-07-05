@@ -29,19 +29,25 @@ namespace RimDialogue.Core.InteractionData
 
     public override void BuildData(DialogueDataBattle data)
     {
+      if (Battle == null)
+      {
+        Log.Warning($"DialogueRequestBattle: Battle is null for entry.");
+        return;
+      }
+
       data.Name = Battle.GetName();
       data.Entries = Battle.Entries
-        .OrderBy(entry => entry.Timestamp)
+        ?.OrderBy(entry => entry.Timestamp)
         .Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(this.Initiator))).ToArray();
       data.TimeSinceBattle = (Find.TickManager.TicksGame - Battle.CreationTimestamp).ToStringTicksToPeriod();
       data.Importance = Battle.Importance.ToString();
       data.Participants = Battle.Entries
-        .SelectMany(entry => entry.GetConcerns()
+        ?.SelectMany(entry => entry.GetConcerns()
           .Select(thing => H.RemoveWhiteSpaceAndColor(thing != null ? thing.ToString() : "RimDialogue.Unknown".Translate()) + thing?.Faction != null ? $" ({thing?.Faction?.Name ?? "RimDialogue.None".Translate()})" : string.Empty))
         .Distinct()
         .ToArray();
       data.Factions = Battle.Entries
-        .SelectMany(entry => entry.GetConcerns().Select(thing => thing.Faction))
+        ?.SelectMany(entry => entry.GetConcerns().Select(thing => thing.Faction))
         .Distinct()
         .Where(faction => faction != null)
         .Select(faction => (faction.Name ?? "RimDialogue.Unknown".Translate()) + $" ({faction.def.label}) - " + faction.def.description)

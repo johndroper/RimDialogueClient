@@ -1,4 +1,5 @@
 using Bubbles;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using Verse;
+using static UnityEngine.Scripting.GarbageCollector;
 using static Verse.Widgets;
 
 namespace RimDialogue.Configuration
@@ -70,13 +72,35 @@ namespace RimDialogue.Configuration
         l.BeginScrollView(listingRect, ref _scrollPosition, ref _viewRect);
         l.Label("RimDialogue.SpecialInstructions".Translate());
         Settings.SpecialInstructions.Value = l.TextEntry(Settings.SpecialInstructions.Value, 10);
+        var modelNameRow = l.GetRect(40f);
+        Widgets.Label(modelNameRow.LeftPart(0.6f), "Model");
+        if (Widgets.ButtonText(modelNameRow.RightPart(0.4f), Settings.ModelName.Value))
+        {
+          List<FloatMenuOption> options = new List<FloatMenuOption>();
+          options.Add(new FloatMenuOption("Default", delegate
+          {
+            Settings.ModelName.Value = "Default";
+          }));
+          if (Mod.LoginData.models != null)
+          {
+            foreach (string model in Mod.LoginData.models.OrderBy(model => model))
+            {
+              options.Add(new FloatMenuOption(model, delegate
+              {
+                Settings.ModelName.Value = model;
+              }));
+            }
+          }
+          Find.WindowStack.Add(new FloatMenu(options));
+        }
         l.Label("RimDialogue.ClientId".Translate());
         Settings.ClientId.Value = l.TextEntry(Settings.ClientId.Value, 1);
         l.Label("RimDialogue.ServerUrl".Translate());
         if (string.IsNullOrWhiteSpace(Settings.ServerUrl.Value))
           Settings.ServerUrl.Value = "http://rimdialogue.proceduralproducts.com/home/getdialogue";
         Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
-        var bitmapFontRow = l.GetRect(30f);
+
+        var bitmapFontRow = l.GetRect(40f);
         Widgets.Label(bitmapFontRow.LeftPart(0.8f), "BitmapFont");
         Widgets.Dropdown<int, int>(
             bitmapFontRow.RightPart(0.2f),
@@ -90,20 +114,18 @@ namespace RimDialogue.Configuration
             BitmapFontDropdownLabel(Settings.BitmapFont.Value)
         );
 
-        var modelNameRow = l.GetRect(30f);
-        Widgets.Label(modelNameRow.LeftPart(0.8f), "Model");
-        Widgets.Dropdown<int, int>(
-            modelNameRow.RightPart(0.2f),
-            Settings.BitmapFont.Value,
-            val => val,
-            val => Mod.LoginData.Models.Select((modelName, index) => new DropdownMenuElement<int>
-            {
-              option = new FloatMenuOption(modelName ?? "Unknown",
-              () => Settings.ModelName.Value = modelName),
-              payload = index
-            }).ToList(),
-            Settings.ModelName.Value
-        );
+        //Widgets.Dropdown<int, int>(
+        //    modelNameRow.RightPart(0.2f),
+        //    Settings.ModelName.Value,
+        //    val => val,
+        //    val => Mod.LoginData.Models.Select((modelName, index) => new DropdownMenuElement<string>
+        //    {
+        //      option = new FloatMenuOption(modelName ?? "Unknown",
+        //      () => Settings.ModelName.Value = modelName),
+        //      payload = modelName
+        //    }).ToList(),
+        //    Settings.ModelName.Value
+        //);
 
         l.Gap();
 
