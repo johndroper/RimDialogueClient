@@ -1,3 +1,4 @@
+#nullable enable
 using RimWorld;
 using System.Linq;
 using Verse;
@@ -6,8 +7,6 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestAlliedFaction : DialogueRequestFaction
   {
-    const string FactionPlaceholder = "**faction**";
-
     public static new DialogueRequestAlliedFaction BuildFrom(PlayLogEntry_Interaction entry)
     {
       return new DialogueRequestAlliedFaction(entry);

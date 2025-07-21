@@ -41,25 +41,25 @@ namespace RimDialogue
 
     public static readonly Setting<float> TimelyEventWeight = new(nameof(TimelyEventWeight), 5f);
 
-    public static readonly Setting<float> MessageChitChatWeight = new(nameof(MessageChitChatWeight), 0.5f);
-    public static readonly Setting<float> GameConditionChitChatWeight = new(nameof(GameConditionChitChatWeight), 0.5f);
-    public static readonly Setting<float> BattleChitChatWeight = new(nameof(BattleChitChatWeight), 0.5f);
-    public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 0.5f);
-    public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 0.5f);
-    public static readonly Setting<float> SameIdeologyChitChatWeight = new(nameof(SameIdeologyChitChatWeight), 0.5f);
-    public static readonly Setting<float> SkillChitChatWeight = new(nameof(SkillChitChatWeight), 0.5f);
-    public static readonly Setting<float> ColonistChitChatWeight = new(nameof(ColonistChitChatWeight), 0.5f);
-    public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 0.5f);
-    public static readonly Setting<float> ApparelChitChatWeight = new(nameof(ApparelChitChatWeight), 0.5f);
-    public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 0.5f);
-    public static readonly Setting<float> FamilyChitChatWeight = new(nameof(FamilyChitChatWeight), 0.5f);
-    public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 0.5f);
-    public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 0.5f);
-    public static readonly Setting<float> WeaponChitChatWeight = new(nameof(WeaponChitChatWeight), 0.5f);
-    public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 0.5f);
-    public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 0.5f);
-    public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 0.5f);
-    public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 0.5f);
+    public static readonly Setting<float> MessageChitChatWeight = new(nameof(MessageChitChatWeight), 0.05f);
+    public static readonly Setting<float> GameConditionChitChatWeight = new(nameof(GameConditionChitChatWeight), 0.05f);
+    public static readonly Setting<float> BattleChitChatWeight = new(nameof(BattleChitChatWeight), 0.05f);
+    public static readonly Setting<float> RecentIncidentChitChatWeight = new(nameof(RecentIncidentChitChatWeight), 0.05f);
+    public static readonly Setting<float> AlertChitChatWeight = new(nameof(AlertChitChatWeight), 0.05f);
+    public static readonly Setting<float> SameIdeologyChitChatWeight = new(nameof(SameIdeologyChitChatWeight), 0.05f);
+    public static readonly Setting<float> SkillChitChatWeight = new(nameof(SkillChitChatWeight), 0.05f);
+    public static readonly Setting<float> ColonistChitChatWeight = new(nameof(ColonistChitChatWeight), 0.05f);
+    public static readonly Setting<float> HealthChitChatWeight = new(nameof(HealthChitChatWeight), 0.05f);
+    public static readonly Setting<float> ApparelChitChatWeight = new(nameof(ApparelChitChatWeight), 0.05f);
+    public static readonly Setting<float> NeedChitChatWeight = new(nameof(NeedChitChatWeight), 0.05f);
+    public static readonly Setting<float> FamilyChitChatWeight = new(nameof(FamilyChitChatWeight), 0.05f);
+    public static readonly Setting<float> WeatherChitChatWeight = new(nameof(WeatherChitChatWeight), 0.05f);
+    public static readonly Setting<float> FactionChitChatWeight = new(nameof(FactionChitChatWeight), 0.05f);
+    public static readonly Setting<float> WeaponChitChatWeight = new(nameof(WeaponChitChatWeight), 0.05f);
+    public static readonly Setting<float> AppearanceChitChatWeight = new(nameof(AppearanceChitChatWeight), 0.05f);
+    public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 0.05f);
+    public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 0.05f);
+    public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 0.05f);
         
     public static readonly Setting<float> MeleeCombatQuipChance = new(nameof(MeleeCombatQuipChance), .1f);
     public static readonly Setting<float> RangedFireQuipChance = new(nameof(RangedFireQuipChance), .1f);
@@ -76,6 +76,31 @@ namespace RimDialogue
     public static readonly Setting<int> BitmapFont = new(nameof(BitmapFont), (int)GetDefaultFontFace());
 
     public static readonly SettingString ModelName = new(nameof(ModelName), "Default");
+    public static readonly SettingString FilterWords = new(nameof(FilterWords), string.Empty);
+
+    public static HashSet<string> filterWords = [];
+
+    public static char[] splitChars = [' ', '\t', '\r', '\n', '.', ',', '!', '?', ';', ':', '-', '_', '(', ')', '[', ']', '{', '}', '"', '\''];
+
+    public static void SetFilterWords(string words)
+    {
+      FilterWords.Value = words;
+      filterWords.Clear();
+      filterWords.AddRange(words.Split([' '], StringSplitOptions.RemoveEmptyEntries)
+        .Select(word => word.Trim())
+        .Where(word => !string.IsNullOrWhiteSpace(word)));
+    }
+
+    public static bool IsFiltered(string text)
+    {
+      if (!filterWords.Any())
+        return false;
+      var isFiltered = text.Split(splitChars, StringSplitOptions.RemoveEmptyEntries)
+        .Select(word => word.Trim())
+        .Where(word => !string.IsNullOrWhiteSpace(word))
+        .Any(word => filterWords.Contains(word, StringComparer.OrdinalIgnoreCase));
+      return isFiltered;
+    }
 
     public static FontFace GetDefaultFontFace()
     {
@@ -128,6 +153,8 @@ namespace RimDialogue
       var version = Scribe.mode is LoadSaveMode.Saving ? RimDialogue.Mod.Version : null;
       Scribe_Values.Look(ref version, "Version");
       AllSettings.Do(static setting => setting.Scribe());
+      if (Scribe.mode is LoadSaveMode.PostLoadInit)
+        SetFilterWords(FilterWords.Value);
     }
   }
 }

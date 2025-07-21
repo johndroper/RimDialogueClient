@@ -16,6 +16,12 @@ public static class PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker
     {
       if (Settings.OnlyColonists.Value && !pov.IsColonist)
         return;
+
+      if (DialogueRequest.TooSoon() ||
+        DialogueRequest.TooSoonAll() ||
+        Settings.IsFiltered(__result))
+      return;
+
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_InteractionWithMany Original interaction: '{__result}'");
       var dialogueRequest = DialogueRequest.Create(
       __instance,

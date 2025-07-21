@@ -8,7 +8,6 @@ namespace RimDialogue.Core.InteractionRequests
 {
   public abstract class DialogueRequestDeadPawn : DialogueRequestTarget<DialogueDataDeadPawn>
   {
-    private const string Placeholder = "**pawn**";
     private static string agoText = "RimDialogue.Ago".Translate().ToString();
 
     public DialogueRequestDeadPawn(PlayLogEntry_Interaction entry) : base(entry)
@@ -39,7 +38,7 @@ namespace RimDialogue.Core.InteractionRequests
 
     public override string? Action => "DeadPawn";
 
-    public override Rule[] Rules => [new Rule_String(Placeholder, Record.Pawn.Name?.ToStringShort ?? Record.Pawn.LabelCap ?? "Unknown")];
+    public override Rule[] Rules => [new Rule_String("pawn", Record.Pawn.Name?.ToStringShort ?? Record.Pawn.LabelCap ?? "Unknown")];
 
   }
 }

@@ -1,4 +1,5 @@
 using Bubbles;
+using RimDialogue.Core;
 using RimDialogue.UI;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,6 @@ public class BitmapFont
   public int lineHeight;
   public Texture2D atlas;
   public int atlasWidth, atlasHeight;
-  private BitmapFont font;
 
   public static BitmapFont Load(string fntPath, Texture2D atlas)
   {

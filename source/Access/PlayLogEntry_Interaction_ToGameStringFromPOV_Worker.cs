@@ -100,7 +100,8 @@ namespace RimDialogue.Access
 
       if (dialogueRequest != null &&
         !DialogueRequest.TooSoon() &&
-        !DialogueRequest.TooSoonAll())
+        !DialogueRequest.TooSoonAll() &&
+        !Settings.IsFiltered(text))
       dialogueRequest.Execute(text);  
 
       return false;

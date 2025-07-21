@@ -1,4 +1,5 @@
 using Bubbles;
+using Bubbles.Configuration;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -114,18 +115,8 @@ namespace RimDialogue.Configuration
             BitmapFontDropdownLabel(Settings.BitmapFont.Value)
         );
 
-        //Widgets.Dropdown<int, int>(
-        //    modelNameRow.RightPart(0.2f),
-        //    Settings.ModelName.Value,
-        //    val => val,
-        //    val => Mod.LoginData.Models.Select((modelName, index) => new DropdownMenuElement<string>
-        //    {
-        //      option = new FloatMenuOption(modelName ?? "Unknown",
-        //      () => Settings.ModelName.Value = modelName),
-        //      payload = modelName
-        //    }).ToList(),
-        //    Settings.ModelName.Value
-        //);
+        l.Label("RimDialogue.FilterWords".Translate());
+        Settings.SetFilterWords(l.TextEntry(Settings.FilterWords.Value, 5));
 
         l.Gap();
 
@@ -169,8 +160,8 @@ namespace RimDialogue.Configuration
         dialogueListing.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
         dialogueListing.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
         dialogueListing.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
-        dialogueListing.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, 100);
-        dialogueListing.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, 100);
+        dialogueListing.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, Mod.LoginData?.maxOutputWords ?? 50);
+        dialogueListing.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, Mod.LoginData?.maxOutputWords ?? 50);
         dialogueListing.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);

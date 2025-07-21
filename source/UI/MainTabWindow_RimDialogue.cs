@@ -1,5 +1,6 @@
 #nullable enable
 
+using RimDialogue.Core;
 using RimDialogue.UI;
 using RimWorld;
 using System;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace RimDialogue
 {
@@ -41,10 +43,13 @@ namespace RimDialogue
     private static string pawnTip = "RimDialogue.PawnTip".Translate().ToString();
     private static string agoText = "RimDialogue.Ago".Translate().ToString();
 
-    // Set the initial window size
     public override Vector2 RequestedTabSize => new Vector2(800f, 400f);
 
-    // Main UI rendering
+    public override void OnAcceptKeyPressed()
+    {
+      // Don't do anything on Enter
+    }
+
     public override void DoWindowContents(Rect inRect)
     {
       if (Find.CurrentMap == null || !Find.CurrentMap.mapPawns.FreeColonists.Any())
@@ -70,13 +75,20 @@ namespace RimDialogue
           UseShellExecute = true
         });
       }
+
+      DrawnPawnTab(inRect, tracker, y + titleRect.height + 5f);
+
+    }
+
+    public void DrawnPawnTab(Rect inRect, GameComponent_ConversationTracker tracker, float y)
+    {
       Text.Font = GameFont.Small;
       const float filterButtonWidth = 100f;
 
       var filterButtonLabelText = "RimDialogue.FilterButtonLabel".Translate();
       var filterButtonLabelSize = Text.CalcSize(filterButtonLabelText);
 
-      var filterButtonLabelRect = new Rect(inRect.width - filterButtonWidth - filterButtonLabelSize.x, titleRect.y, filterButtonLabelSize.x, 30f);
+      var filterButtonLabelRect = new Rect(inRect.width - filterButtonWidth - filterButtonLabelSize.x, y, filterButtonLabelSize.x, 30f);
       Widgets.Label(filterButtonLabelRect, filterButtonLabelText);
 
       // Filter Dropdown
@@ -188,12 +200,14 @@ namespace RimDialogue
       switch (filterMode)
       {
         case FilterMode.All:
-          tracker.AddAdditionalInstructions(InstructionsSet.ALL_PAWNS,
+          tracker.AddAdditionalInstructions(
+            InstructionsSet.ALL_PAWNS,
             Widgets.TextArea(instructionsContentRect, instructions));
           TooltipHandler.TipRegion(instructionsScrollRect, allPawnsTip);
           break;
         case FilterMode.Colonist:
-          tracker.AddAdditionalInstructions(InstructionsSet.COLONISTS,
+          tracker.AddAdditionalInstructions(
+            InstructionsSet.COLONISTS,
             Widgets.TextArea(instructionsContentRect, instructions));
           TooltipHandler.TipRegion(instructionsScrollRect, colonistsTip);
           break;
@@ -257,6 +271,13 @@ namespace RimDialogue
             var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
             Find.WindowStack.Add(new Window_ComicPanelViewer(bitmapFont, conversation));
           }
+          var copyButtonRect = new Rect(headerRect.width - 90, convoY, 40, headerRect.height);
+          if (Widgets.ButtonText(copyButtonRect, "Copy"))
+          {
+            GUIUtility.systemCopyBuffer = conversation.text ?? string.Empty;
+            SoundDefOf.Click.PlayOneShotOnCamera();
+          }
+
           convoY += labelHeight;
           if (conversation.timestamp != null)
           {
@@ -281,6 +302,10 @@ namespace RimDialogue
         }
       }
       Widgets.EndScrollView();
+
+
     }
+
+
   }
 }

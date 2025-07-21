@@ -9,8 +9,6 @@ namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestBattle : DialogueRequestTwoPawn<DialogueDataBattle>
   {
-    const string BattlePlaceholder = "**battle**";
-
     public static float AgeDays(Battle battle)
     {
       return (Find.TickManager.TicksGame - battle.CreationTimestamp).TicksToDays();
@@ -25,7 +23,7 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override Rule[] Rules => [new Rule_String(BattlePlaceholder, Battle.GetName() ?? "an unnamed battle")];
+    public override Rule[] Rules => [new Rule_String("battle", Battle?.GetName() ?? "an unnamed battle")];
 
     public override void BuildData(DialogueDataBattle data)
     {
@@ -38,6 +36,7 @@ namespace RimDialogue.Core.InteractionData
       data.Name = Battle.GetName();
       data.Entries = Battle.Entries
         ?.OrderBy(entry => entry.Timestamp)
+        .Take(25)
         .Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(this.Initiator))).ToArray();
       data.TimeSinceBattle = (Find.TickManager.TicksGame - Battle.CreationTimestamp).ToStringTicksToPeriod();
       data.Importance = Battle.Importance.ToString();

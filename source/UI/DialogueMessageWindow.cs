@@ -93,12 +93,12 @@ namespace RimDialogue.UI
         Widgets.Label(periodRect, (Find.TickManager.TicksGame - Conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
       }
 
-      //var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
-      //if (Widgets.ButtonText(copyButtonRect, "Copy"))
-      //{
-      //  GUIUtility.systemCopyBuffer = Conversation.text ?? string.Empty;
-      //  SoundDefOf.Click.PlayOneShotOnCamera();
-      //}
+      var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
+      if (Widgets.ButtonText(copyButtonRect, "Copy"))
+      {
+        GUIUtility.systemCopyBuffer = Conversation.text ?? string.Empty;
+        SoundDefOf.Click.PlayOneShotOnCamera();
+      }
 
       var memeButtonRect = new Rect(contentRectWidth - 40, currentY, 40, LabelHeight);
       if (Widgets.ButtonText(memeButtonRect, "Save"))

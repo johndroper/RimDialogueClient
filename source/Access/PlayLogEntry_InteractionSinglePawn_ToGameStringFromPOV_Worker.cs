@@ -5,6 +5,7 @@ using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using Verse;
+using static System.Net.Mime.MediaTypeNames;
 using Mod = RimDialogue.Mod;
 
 [HarmonyPatch(typeof(PlayLogEntry_InteractionSinglePawn), "ToGameStringFromPOV_Worker")]
@@ -17,8 +18,10 @@ public static class PlayLogEntry_Interaction_ToGameStringFromPOV_Worker
       if (Settings.OnlyColonists.Value && !pov.IsColonist)
         return;
 
-      if (DialogueRequest.TooSoon() || DialogueRequest.TooSoonAll())
-        return;
+      if (DialogueRequest.TooSoon() ||
+        DialogueRequest.TooSoonAll() ||
+        Settings.IsFiltered(__result))
+      return;
 
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_InteractionSinglePawn Original interaction: '{__result}'");
       var dialogueRequest = DialogueRequest.Create(

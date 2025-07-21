@@ -8,8 +8,6 @@ namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestWeapon : DialogueRequestTwoPawn<DialogueDataWeapon>
   {
-    const string Placeholder = "**weapon**";
-
     public DialogueRequestWeapon(PlayLogEntry_Interaction entry) : base(entry)
     {
 
@@ -35,7 +33,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "WeaponChitchat";
 
-    public override Rule[] Rules => [new Rule_String(Placeholder, Weapon.LabelNoParenthesis)];
+    public override Rule[] Rules => [new Rule_String("weapon", Weapon.LabelNoParenthesis)];
 
   }
 }

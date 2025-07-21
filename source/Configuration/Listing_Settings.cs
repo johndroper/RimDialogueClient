@@ -22,6 +22,20 @@ namespace RimDialogue.Configuration
       viewRect.height = CurHeight;
     }
 
+    public string TextEntry(string text, int lineCount = 1, string toolTip = null)
+    {
+      Rect rect = GetRect(Text.LineHeight * (float)lineCount);
+      string result = ((lineCount != 1) ? Widgets.TextArea(rect, text) : Widgets.TextField(rect, text));
+      if (toolTip != null)
+      {
+        
+
+      }
+
+      Gap(verticalSpacing);
+      return result;
+    }
+
     public void SliderLabeled(string label, ref float value, float min, float max, float roundTo = -1f, string? display = null)
     {
       var rect = GetRect(Text.LineHeight);

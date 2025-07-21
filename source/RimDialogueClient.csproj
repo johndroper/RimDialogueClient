@@ -97,6 +97,7 @@
     <Compile Include="Access\Verse_LaunchProjectile_TryCastShot.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
     <Compile Include="Core\ComicPanel.cs" />
+    <Compile Include="Core\Conversation.cs" />
     <Compile Include="Core\LoginData.cs" />
     <Compile Include="Core\SinglePawnComicPanel.cs" />
     <Compile Include="Core\TwoPawnComicPanel.cs" />

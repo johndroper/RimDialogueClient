@@ -18,7 +18,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.80.0";
+    public const string Version = "0.80.1";
 
     public static Mod Instance = null!;
 
@@ -73,6 +73,7 @@ namespace RimDialogue
             Mod.Log($"Tier: {LoginData.Tier}");
             Mod.Log($"Max Requests Per Minute: {LoginData.RateLimit * 60}");
             Mod.Log($"Max Prompt Length: {LoginData.MaxPromptLength:N0} characters");
+            Mod.Log($"Max Output Words: {LoginData.maxOutputWords:N0} words");
           }
         }
       }
