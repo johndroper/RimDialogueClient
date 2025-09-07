@@ -1,6 +1,8 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
+using RimWorld;
 using System.Linq;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -10,7 +12,11 @@ namespace RimDialogue.Core.InteractionData
   {
     const string Placeholder = "animal";
 
-    public DialogueRequestAnimal(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestAnimal(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }
@@ -25,7 +31,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void BuildData(DialogueDataAnimal data)
+    public override async Task BuildData(DialogueDataAnimal data)
     {
       data.AnimalName = Animal.Name?.ToStringShort ?? Animal.LabelNoParenthesis ?? string.Empty;
       data.AnimalId = Animal.ThingID;
@@ -41,7 +47,7 @@ namespace RimDialogue.Core.InteractionData
       data.BaseHealthScale = Animal.RaceProps?.baseHealthScale ?? -1f;
       data.Trainability = Animal.RaceProps?.trainability?.label ?? string.Empty;
 
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override string? Action => "AnimalChitchat";

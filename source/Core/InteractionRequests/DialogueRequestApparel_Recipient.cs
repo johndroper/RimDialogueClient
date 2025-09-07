@@ -6,12 +6,16 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestApparel_Recipient : DialogueRequestApparel
   {
-    public static new DialogueRequestApparel_Recipient BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestApparel_Recipient(entry);
-    }
+    //public static new DialogueRequestApparel_Recipient BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestApparel_Recipient(entry);
+    //}
 
-    public DialogueRequestApparel_Recipient(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestApparel_Recipient(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }

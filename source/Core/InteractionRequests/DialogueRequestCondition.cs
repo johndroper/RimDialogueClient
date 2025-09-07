@@ -1,6 +1,8 @@
+#nullable enable
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -10,17 +12,24 @@ namespace RimDialogue.Core.InteractionData
   {
     static Dictionary<int, DialogueRequestCondition> recentConditions = new();
 
-    public static new DialogueRequestCondition BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestCondition(entry);
-    }
+    //public static new DialogueRequestCondition BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestCondition(entry);
+    //}
 
-    public GameCondition GameCondition { get; set; }
+    public GameCondition? GameCondition { get; set; }
     public string Condition { get; set; }
-    public string Explanation { get; set; }
-    public string Duration { get; set; }
+    public string? Explanation { get; set; }
+    public string? Duration { get; set; }
 
-    public DialogueRequestCondition(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestCondition(PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(
+        entry,
+        interactionDef,
+        initiator,
+        recipient)
     {
       // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for condition {entry.LogID} with template {interactionTemplate}.");
       if (!Find.CurrentMap.GameConditionManager.ActiveConditions.Any())
@@ -94,18 +103,18 @@ namespace RimDialogue.Core.InteractionData
       new Rule_String("duration", Duration)
     ];
 
-    public override void BuildData(DialogueDataCondition data)
+    public override async Task BuildData(DialogueDataCondition data)
     {
       data.Explanation = Explanation;
-      data.LabelCap = GameCondition.LabelCap;
-      data.TooltipString = H.RemoveWhiteSpaceAndColor(GameCondition.TooltipString);
+      data.LabelCap = GameCondition?.LabelCap ?? "RimDialogue.Unknown".Translate();
+      data.TooltipString = H.RemoveWhiteSpaceAndColor(GameCondition?.TooltipString);
       data.Duration = Duration;
-      data.DurationTicks = GameCondition.TicksPassed;
-      data.Permanent = GameCondition.Permanent;
-      base.BuildData(data);
+      data.DurationTicks = GameCondition?.TicksPassed ?? 0;
+      data.Permanent = GameCondition?.Permanent ?? false;
+      await base.BuildData(data);
     }
 
-    public override string Action => null;
+    public override string? Action => null;
 
   }
 }

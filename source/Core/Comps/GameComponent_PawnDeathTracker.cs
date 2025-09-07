@@ -4,6 +4,7 @@ namespace RimDialogue.Core
   using RimDialogue.UI;
   using RimWorld;
   using System.Collections.Generic;
+  using System.Linq;
   using Verse;
 
   public class GameComponent_PawnDeathTracker : GameComponent
@@ -47,7 +48,7 @@ namespace RimDialogue.Core
         return;
 
       string cause = GenerateCauseString(dinfo, exactCulprit);
-      int timestamp = GenTicks.TicksGame;
+      int timestamp = Find.TickManager.TicksAbs;
       var record = new PawnDeathRecord(pawn, cause, timestamp);
 
       if (pawn.Faction == Faction.OfPlayer)
@@ -59,6 +60,11 @@ namespace RimDialogue.Core
         else if (pawn.IsColonist)
         {
           DeadColonists.Add(record);
+          GameComponent_ContextTracker.Instance.Add(
+            record.ToString(),
+            "death",
+            timestamp,
+            10f);
         }
       }
       else
@@ -136,6 +142,10 @@ namespace RimDialogue.Core
       Pawn = pawn;
       Cause = cause;
       TimeStamp = ticksAtDeath;
+    }
+    public override string ToString()
+    {
+      return $"{Pawn} died of {Cause}.";
     }
 
     public void ExposeData()

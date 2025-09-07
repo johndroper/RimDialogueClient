@@ -1,5 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
+using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -8,7 +10,11 @@ namespace RimDialogue.Core.InteractionData
   public abstract class DialogueRequestAppearance : DialogueRequestTwoPawn<DialogueDataAppearance>
   {
 
-    public DialogueRequestAppearance(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestAppearance(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }
@@ -18,7 +24,7 @@ namespace RimDialogue.Core.InteractionData
       get;
     }
 
-    public override void BuildData(DialogueDataAppearance data)
+    public override async Task BuildData(DialogueDataAppearance data)
     {
       var style = this.Pawn.style;
       var story = this.Pawn.story;
@@ -32,8 +38,7 @@ namespace RimDialogue.Core.InteractionData
       data.BodyTattooCategory = style.BodyTattoo?.StyleItemCategory.label ?? "None";
       data.FaceTattoo = style.FaceTattoo?.label ?? "None";
       data.FaceTattooCategory = style.FaceTattoo?.StyleItemCategory.label ?? "None";
-
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override string? Action => "AppearanceChitchat";

@@ -1,6 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -11,7 +12,11 @@ namespace RimDialogue.Core.InteractionData
     const string Placeholder = "apparel";
 
 
-    public DialogueRequestApparel(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestApparel(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }
@@ -26,14 +31,14 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void BuildData(DialogueDataApparel data)
+    public override async Task BuildData(DialogueDataApparel data)
     {
       data.ApparelLabel = Apparel?.def.label ?? string.Empty;
       data.ApparelDescription = H.RemoveWhiteSpace(Apparel?.def.description) ?? string.Empty;
       data.WornByCorpse = Apparel?.WornByCorpse ?? false;
       this.Apparel.TryGetQuality(out var quality);
       data.ApparelQuality = quality.GetLabel();
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override string? Action => "ApparelChitchat";

@@ -1,6 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -8,13 +9,17 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestRoom : DialogueRequestTwoPawn<DialogueDataRoom>
   {
-    public static new DialogueRequestRoom BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestRoom(entry);
-    }
+    //public static new DialogueRequestRoom BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestRoom(entry);
+    //}
 
 
-    public DialogueRequestRoom(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestRoom(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }
@@ -29,7 +34,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override void BuildData(DialogueDataRoom data)
+    public override async Task BuildData(DialogueDataRoom data)
     {
       data.RoomLabel = Room.GetRoomRoleLabel();
       data.RoomCleanliness = RoomStatDefOf.Cleanliness.GetScoreStage(Room.GetStat(RoomStatDefOf.Cleanliness)).label;
@@ -37,7 +42,7 @@ namespace RimDialogue.Core.InteractionData
       data.RoomWealth = RoomStatDefOf.Wealth.GetScoreStage(Room.GetStat(RoomStatDefOf.Wealth)).label;
       data.RoomSpace = RoomStatDefOf.Space.GetScoreStage(Room.GetStat(RoomStatDefOf.Space)).label;
       data.RoomBeauty = RoomStatDefOf.Beauty.GetScoreStage(Room.GetStat(RoomStatDefOf.Beauty)).label;
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override string Action => "RoomChitchat";

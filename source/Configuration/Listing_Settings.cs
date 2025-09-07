@@ -1,3 +1,4 @@
+#nullable enable
 using System.Globalization;
 using UnityEngine;
 using Verse;
@@ -22,7 +23,7 @@ namespace RimDialogue.Configuration
       viewRect.height = CurHeight;
     }
 
-    public string TextEntry(string text, int lineCount = 1, string toolTip = null)
+    public string TextEntry(string text, int lineCount = 1, string? toolTip = null)
     {
       Rect rect = GetRect(Text.LineHeight * (float)lineCount);
       string result = ((lineCount != 1) ? Widgets.TextArea(rect, text) : Widgets.TextField(rect, text));

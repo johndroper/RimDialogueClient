@@ -1,7 +1,7 @@
 using RimDialogue;
 using System.Reflection;
 
-[assembly: AssemblyTitle(Mod.Name)]
+[assembly: AssemblyTitle("RimDialogue Client")]
 [assembly: AssemblyProduct("Rimworld AI Interactions")]
 [assembly: AssemblyCopyright("© Jaxe, © John Roper")]
 

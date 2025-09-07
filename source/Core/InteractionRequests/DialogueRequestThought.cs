@@ -4,6 +4,7 @@ using RimWorld;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -13,13 +14,14 @@ namespace RimDialogue.Core.InteractionData
   {
     public DialogueRequestThought(
       PlayLogEntry_InteractionSinglePawn entry,
+      InteractionDef interactionDef,
       string label,
       string description,
       float moodOffset,
       string? preceptLabel,
       string? preceptDescription,
       Pawn? target) :
-        base(entry)
+        base(entry, interactionDef)
     {
       Label = label;
       Description = description;
@@ -39,16 +41,16 @@ namespace RimDialogue.Core.InteractionData
 
     public Pawn? Target { get; set; }
 
-    public override string? Action => "Thought";
+    public override string Action => "Thought";
 
-    public override void BuildData(ThoughtData data)
+    public override async Task BuildData(ThoughtData data)
     {
       data.Label = Label;
       data.Description = Description;
       data.PreceptLabel = PreceptLabel ?? string.Empty;
       data.PreceptDescription = PreceptDescription ?? string.Empty;
       data.MoodOffset = MoodOffset;
-      base.BuildData(data);
+      await base.BuildData(data);
     }
     public override void BuildForm(WWWForm form)
     {

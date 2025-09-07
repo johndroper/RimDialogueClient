@@ -4,6 +4,7 @@ using RimWorld;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core.InteractionData
@@ -12,9 +13,10 @@ namespace RimDialogue.Core.InteractionData
   {
     public DialogueRequestBattleLogEntry(
       PlayLogEntry_InteractionSinglePawn entry,
+      InteractionDef interactionDef,
       string battleLogEntry,
       Pawn? target) :
-        base(entry)
+        base(entry, interactionDef)
     {
       Target = target;
       BattleLogEntry = battleLogEntry;
@@ -32,11 +34,11 @@ namespace RimDialogue.Core.InteractionData
       private set;
     }
 
-    public override string? Action => "BattleLog";
+    public override string Action => "BattleLog";
 
-    public override void BuildData(BattleLogData data)
+    public override async Task BuildData(BattleLogData data)
     {
-      base.BuildData(data);
+      await base.BuildData(data);
       data.BattleLogEntry = BattleLogEntry;
       data.IdeologyName = Target?.Ideo?.name ?? string.Empty;
       data.IdeologyDescription = H.RemoveWhiteSpaceAndColor(Target?.Ideo?.description);

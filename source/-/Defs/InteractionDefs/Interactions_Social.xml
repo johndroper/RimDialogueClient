@@ -10,11 +10,11 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [recent_incident].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [recent_incident] with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [recent_incident] to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about [recent_incident].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about [recent_incident].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the [incident_type], [incident], that occurred [period] ago.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the [incident_type], [incident], that occurred [period] ago with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the [incident_type], [incident], that occurred [period] ago to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the [incident_type], [incident], that occurred [period] ago.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [informed] [RECIPIENT_nameDef] about the [incident_type], [incident], that occurred [period] ago.</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>
@@ -51,7 +51,7 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '[battle]'].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the recent battle, '[battle]'.</li>
         <li>r_logentry->[INITIATOR_nameDef] [talkedabout] the recent battle, '[battle]', with [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the recent battle, '[battle]', to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
@@ -84,7 +84,7 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] the battle, '[battle]', [INITIATOR_nameDef] was in.</li>
-        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_posessive] [performance] in the battle, '[battle]', with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [INITIATOR_possessive] [performance] in the battle, '[battle]', with [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] [commentedabout] the battle, '[battle]', [INITIATOR_pronoun] was in to [RECIPIENT_nameDef].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>

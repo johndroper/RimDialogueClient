@@ -19,41 +19,49 @@ namespace RimDialogue.Access
         Pawn pov,
         bool forceLog)
     {
+      if (GameComponent_ConversationTracker.Instance != null && GameComponent_ConversationTracker.Instance.InteractionCache.TryGetValue(__instance.LogID, out var cached))
+      {
+        __result = cached;
+        return false;
+      }
+
+      if (GameComponent_ConversationTracker.ExecutedLogEntries.Contains(__instance.LogID))
+      {
+        __result = string.Empty;
+        return false;
+      }
+
       var initiator = Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(__instance) as Pawn;
       var recipient = Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(__instance) as Pawn;
       var intDef = Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance) as InteractionDef;
 
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"Entry {__instance.LogID} - {__instance.GetType().Name} {initiator} -> {recipient}");
+
       if (intDef == null)
-      {
-        Log.ErrorOnce("PlayLogEntry_Interaction has a null InteractionDef reference.", 34421);
-        __result = "[InteractionDef error: null reference]";
-        return false;
-      }
+        throw new Exception($"Entry {__instance.LogID} - PlayLogEntry_Interaction has a null InteractionDef reference.");
 
       if (initiator == null || recipient == null)
-      {
-        Log.ErrorOnce("PlayLogEntry_Interaction has a null pawn reference.", 34422);
-        __result = "[" + intDef.label + " error: null pawn reference]";
-      }
+        throw new Exception($"Entry {__instance.LogID} - PlayLogEntry_Interaction has a null pawn reference.");
 
       GrammarRequest request = (GrammarRequest)Reflection.Verse_PlayLogEntry_Interaction_GenerateGrammarRequest.Invoke(__instance, null);
 
       DialogueRequest? dialogueRequest = null;
-      if (!Settings.OnlyColonists.Value ||
-        (Settings.OnlyColonists.Value && pov.IsColonist))
+      try
       {
-        try
-        {
-          dialogueRequest = DialogueRequest.Create(
-            __instance,
-            __result,
-            (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
-          request.Rules.AddRange(dialogueRequest.Rules);
-        }
-        catch(Exception ex)
-        {
-          Mod.Error($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
-        }
+        dialogueRequest = DialogueRequest.Create(
+          __instance,
+          initiator,
+          recipient,
+          __result,
+          intDef);
+        if (dialogueRequest == null)
+          throw new Exception("DialogueRequest.Create returned null.");
+        request.Rules.AddRange(dialogueRequest.Rules);
+      }
+      catch(Exception ex)
+      {
+        Mod.Error($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
       }
 
       Rand.PushState();
@@ -64,6 +72,7 @@ namespace RimDialogue.Access
       {
         request.IncludesBare.Add(intDef.logRulesInitiator);
         request.Rules.AddRange(GrammarUtility.RulesForPawn("INITIATOR", initiator, request.Constants));
+        
         request.Rules.AddRange(GrammarUtility.RulesForPawn("RECIPIENT", recipient, request.Constants));
         text = GrammarResolver.Resolve("r_logentry", request, "interaction from initiator", forceLog);
       }
@@ -98,15 +107,11 @@ namespace RimDialogue.Access
 
       Rand.PopState();
 
-      if (dialogueRequest != null &&
-        !DialogueRequest.TooSoon() &&
-        !DialogueRequest.TooSoonAll() &&
-        !Settings.IsFiltered(text))
-      dialogueRequest.Execute(text);  
+      if (dialogueRequest != null)
+        dialogueRequest.Execute(text);  
 
       return false;
     }
-
 
     //public static void Postfix(PlayLogEntry_Interaction __instance, ref string __result, ref Pawn pov, ref bool forceLog)
     //{

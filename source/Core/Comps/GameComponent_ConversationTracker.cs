@@ -1,5 +1,6 @@
 #nullable enable
 using RimDialogue;
+using RimDialogue.Access;
 using RimDialogue.Core;
 using RimDialogue.Core.InteractionData;
 using RimDialogue.UI;
@@ -28,6 +29,9 @@ public class GameComponent_ConversationTracker : GameComponent
   public static GameComponent_ConversationTracker Instance =>
     Current.Game.GetComponent<GameComponent_ConversationTracker>();
 
+  public static HashSet<int> ExecutedLogEntries = new HashSet<int>();
+  public Dictionary<int, string> InteractionCache = new Dictionary<int, string>();
+
   public event EventHandler<ConversationArgs>? ConversationAdded;
   public event EventHandler<ConversationArgs>? ConversationRemoved;
 
@@ -55,6 +59,11 @@ public class GameComponent_ConversationTracker : GameComponent
       DialogueMessagesFixed = new DialogueMessagesFixed();
   }
 
+  //public override void LoadedGame()
+  //{
+  //  base.LoadedGame();
+  //}
+
   public override void StartedNewGame()
   {
     base.StartedNewGame();
@@ -80,16 +89,26 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  private async void GetInstructions()
+  private void GetInstructions()
+  {
+    List<PawnData> pawns = new List<PawnData>();
+    var colonists = Find.CurrentMap.mapPawns.FreeColonists.ListFullCopy();
+    foreach (var pawn in colonists)
+    {
+      if (!String.IsNullOrWhiteSpace(GetInstructions(pawn)))
+        continue; // Already have instructions for this pawn
+      pawns.Add(pawn.MakeData(null, -1));
+    }
+    GetInstructions(pawns);
+  }
+
+  private async void GetInstructions(IEnumerable<PawnData> pawns)
   {
     try
     {
-      var colonists = Find.CurrentMap.mapPawns.FreeColonists.ListFullCopy();
-      foreach (var pawn in colonists)
+      foreach (var pawnData in pawns)
       {
-        if (!String.IsNullOrWhiteSpace(GetInstructions(pawn)))
-          continue; // Already have instructions for this pawn
-        await GetPawnInstructions(pawn);
+        await GetPawnInstructions(pawnData);
         await Task.Delay(5000);
       }
     }
@@ -99,18 +118,16 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  private async Task GetPawnInstructions(Pawn pawn)
+  private async Task GetPawnInstructions(PawnData pawnData)
   {
-    var pawnData = pawn.MakeData(null, -1);
     WWWForm form = new WWWForm();
     form.AddField("clientId", Settings.ClientId.Value);
     form.AddField("pawnJson", JsonUtility.ToJson(pawnData));
     form.AddField("modelName", Settings.ModelName.Value);
     var dialogueResponse = await DialogueRequest.Post("home/GetCharacterPrompt", form, -1);
     if (dialogueResponse.text != null)
-      additionalInstructions[pawn.ThingID] = dialogueResponse.text;
+      additionalInstructions[pawnData.ThingID] = dialogueResponse.text;
   }
-
   private async void GetScenarioInstructions(string scenarioText)
   {
     try
@@ -132,22 +149,30 @@ public class GameComponent_ConversationTracker : GameComponent
 
   public void AddConversation(Pawn initiator, Pawn? recipient, string? interaction, string? text)
   {
-    if (initiator == null || text == null || string.IsNullOrWhiteSpace(text))
-      return;
-    Conversation conversation = new Conversation(initiator, recipient, interaction, text);
-    Conversation? removed = null;
-    lock (conversations)
+    try
     {
-      while (conversations.Count > Settings.MaxConversationsStored.Value)
+      if (initiator == null || text == null || string.IsNullOrWhiteSpace(text))
+        return;
+      Conversation conversation = new Conversation(initiator, recipient, interaction, text);
+      GameComponent_ContextTracker.Instance.Add(conversation);
+      Conversation? removed = null;
+      lock (conversations)
       {
-        removed = conversations[0];
-        conversations.RemoveAt(0);
+        while (conversations.Count > Settings.MaxConversationsStored.Value)
+        {
+          removed = conversations[0];
+          conversations.RemoveAt(0);
+        }
+        conversations.Add(conversation);
       }
-      conversations.Add(conversation);
+      if (removed != null)
+        ConversationRemoved?.Invoke(this, new ConversationArgs(removed));
+      ConversationAdded?.Invoke(this, new ConversationArgs(conversation));
     }
-    if (removed != null)
-      ConversationRemoved?.Invoke(this, new ConversationArgs(removed));
-    ConversationAdded?.Invoke(this, new ConversationArgs(conversation));
+    catch (Exception ex)
+    {
+      Mod.Error("Error adding conversation: " + ex.ToString());
+    }
   }
 
   public void AddAdditionalInstructions(Pawn pawn, string value)
@@ -183,7 +208,7 @@ public class GameComponent_ConversationTracker : GameComponent
       return new List<Conversation>();
     lock (conversations)
     {
-      return conversations.FindAll(convo => convo.InvolvesPawn(pawn));
+      return conversations.FindAll(convo => convo.Involves(pawn));
     }
   }
 
@@ -202,10 +227,15 @@ public class GameComponent_ConversationTracker : GameComponent
     base.ExposeData();
     _version = Scribe.mode is LoadSaveMode.Saving ? RimDialogue.Mod.Version : null;
     Scribe_Values.Look(ref _version, "Version");
-    Scribe_Collections.Look(ref conversations, "conversations", LookMode.Deep);
+    Scribe_Collections.Look(ref conversations, "conversations_v2", LookMode.Deep);
+    if (conversations == null)
+      conversations = new List<Conversation>();
     Scribe_Collections.Look(ref additionalInstructions, "additionalInstructions", LookMode.Value, LookMode.Value);
     Scribe_Values.Look(ref MessageWindowSize, "messageWindowSize", new Vector2(200f, 400f));
     Scribe_Values.Look(ref MessageWindowPosition, "messageWindowPosition", new Vector2(100f, 50f));
+    Scribe_Collections.Look(ref InteractionCache, "interactionCache", LookMode.Value, LookMode.Value);
+    if (InteractionCache == null)
+      InteractionCache = new Dictionary<int, string>();
   }
 }
 

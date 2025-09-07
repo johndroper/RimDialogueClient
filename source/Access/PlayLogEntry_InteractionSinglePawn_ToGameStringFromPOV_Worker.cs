@@ -15,14 +15,6 @@ public static class PlayLogEntry_Interaction_ToGameStringFromPOV_Worker
   {
     try
     {
-      if (Settings.OnlyColonists.Value && !pov.IsColonist)
-        return;
-
-      if (DialogueRequest.TooSoon() ||
-        DialogueRequest.TooSoonAll() ||
-        Settings.IsFiltered(__result))
-      return;
-
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_InteractionSinglePawn Original interaction: '{__result}'");
       var dialogueRequest = DialogueRequest.Create(
       __instance,
@@ -30,7 +22,8 @@ public static class PlayLogEntry_Interaction_ToGameStringFromPOV_Worker
       dialogueRequest.Execute(__result);
 
       //__result = dialogueRequest.GetInteraction();
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
+      //if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
+
 
 
     }

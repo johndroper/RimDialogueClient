@@ -1,3 +1,4 @@
+#nullable enable
 using Bubbles.Core;
 using RimDialogue.Core;
 using System;
@@ -14,6 +15,7 @@ namespace RimDialogue.UI
 {
   public class Window_ComicPanelViewer : Window
   {
+    List<Texture2D>? panelTextures;
     private readonly Conversation Conversation;
     private Vector2 scrollPosition = Vector2.zero;
 
@@ -27,7 +29,7 @@ namespace RimDialogue.UI
     private const float SaveButtonHeight = 30f;
     private const float SaveButtonWidth = 120f;
     private const float TextFieldHeight = 25f;
-    private const float BottomUIHeight = 70f; // Space for textfield + button + margins
+    private const float BottomUIHeight = 70f;
 
     private string customFilePath = "";
     private string filePathBuffer = "";
@@ -47,82 +49,93 @@ namespace RimDialogue.UI
       this.preventCameraMotion = false;
       this.BitmapFont = bitmapFont;
 
-      InitializeDefaultFilePath();
-
-      List<ComicPanelItem> backgroundItems = GetBackgroundItems(PanelWidth, PanelHeight - ComicPanel.PortraitHeight);
-
-      if (!Conversation.Lines.Any())
-        Mod.Error("Conversation has no lines.");
-      if (Conversation.Recipient == null)
+      try
       {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Creating single pawn comic panels for conversation with initiator {Conversation.Initiator.Name} ({Conversation.Initiator.thingIDNumber})");
-        for (int i = 0; i < Conversation.Lines.Length; i++)
-        {
-          _Panels.Add(new SinglePawnComicPanel(Conversation.Initiator, bitmapFont, Conversation.Lines[i].Text, SkyHeight, backgroundItems));
-          if (Settings.VerboseLogging.Value) Mod.Log($"SinglePawnComicPanel panel added for line {i}.");
-        }
-      }
-      else
-      {
-        if (Settings.VerboseLogging.Value) Mod.Log($"Creating two pawn comic panels for conversation between {Conversation.Initiator.Name} ({Conversation.Initiator.thingIDNumber}) and {Conversation.Recipient.Name} ({Conversation.Recipient.thingIDNumber})");
+        var initiator = Conversation.Initiator;
+        var recipient = Conversation.Recipient;
 
+        if (initiator == null)
+          throw new Exception("Conversation has no initiator.");
 
-        for (int i = 0; i < Conversation.Lines.Length; i++)
+        InitializeDefaultFilePath();
+
+        List<ComicPanelItem> backgroundItems = GetBackgroundItems(PanelWidth, PanelHeight - ComicPanel.PortraitHeight);
+
+        if (!Conversation.Lines.Any())
+          Mod.Error("Conversation has no lines.");
+        if (recipient == null)
         {
-          if (Conversation.Lines[i].Name == Conversation.Recipient.Name.ToStringShort)
+          if (Settings.VerboseLogging.Value) Mod.Log($"Creating single pawn comic panels for conversation with initiator {initiator.ToString() ?? "Unknown"} ({initiator.thingIDNumber.ToString() ?? "Unknown"})");
+          for (int i = 0; i < Conversation.Lines.Length; i++)
           {
-            _Panels.Add(
-              new TwoPawnComicPanel(
-                Conversation.Initiator,
-                null,
-                Conversation.Recipient,
-                Conversation.Lines[i].Text,
-                SkyHeight,
-                bitmapFont,
-                backgroundItems));
+            _Panels.Add(new SinglePawnComicPanel(initiator, bitmapFont, Conversation.Lines[i].Text, SkyHeight, backgroundItems));
+            if (Settings.VerboseLogging.Value) Mod.Log($"SinglePawnComicPanel panel added for line {i}.");
           }
-          else
+        }
+        else
+        {
+          if (Settings.VerboseLogging.Value) Mod.Log($"Creating two pawn comic panels for conversation between {Conversation.Initiator?.ToString() ?? "Unknown"} ({Conversation.Initiator?.thingIDNumber.ToString() ?? "Unknown"}) and {Conversation.Recipient?.ToString() ?? "Unknown"} ({Conversation.Recipient?.thingIDNumber.ToString() ?? "Unknown"})");
+          for (int i = 0; i < Conversation.Lines.Length; i++)
           {
-            if (i + 1 < Conversation.Lines.Length)
+            if (Conversation.Lines[i].Name == recipient.Name.ToStringShort)
             {
-              if (Conversation.Lines[i].Name == Conversation.Lines[i + 1].Name)
+              _Panels.Add(
+                new TwoPawnComicPanel(
+                  initiator,
+                  null,
+                  recipient,
+                  Conversation.Lines[i].Text,
+                  SkyHeight,
+                  bitmapFont,
+                  backgroundItems));
+            }
+            else
+            {
+              if (i + 1 < Conversation.Lines.Length)
               {
+                if (Conversation.Lines[i].Name == Conversation.Lines[i + 1].Name)
+                {
+                  _Panels.Add(
+                    new TwoPawnComicPanel(
+                      initiator,
+                      Conversation.Lines[i].Text,
+                      recipient,
+                      null,
+                      SkyHeight,
+                      bitmapFont,
+                      backgroundItems));
+                }
+                else
+                {
+                  _Panels.Add(
+                    new TwoPawnComicPanel(
+                      initiator,
+                      Conversation.Lines[i].Text,
+                      recipient,
+                      Conversation.Lines[i + 1].Text,
+                      SkyHeight,
+                      bitmapFont,
+                      backgroundItems));
+                  i++;
+                }
+              }
+              else
                 _Panels.Add(
                   new TwoPawnComicPanel(
-                    Conversation.Initiator,
+                    initiator,
                     Conversation.Lines[i].Text,
-                    Conversation.Recipient,
+                    recipient,
                     null,
                     SkyHeight,
                     bitmapFont,
                     backgroundItems));
-              }
-              else
-              {
-                _Panels.Add(
-                  new TwoPawnComicPanel(
-                    Conversation.Initiator,
-                    Conversation.Lines[i].Text,
-                    Conversation.Recipient,
-                    Conversation.Lines[i + 1].Text,
-                    SkyHeight,
-                    bitmapFont,
-                    backgroundItems));
-                i++;
-              }
             }
-            else
-              _Panels.Add(
-                new TwoPawnComicPanel(
-                  Conversation.Initiator,
-                  Conversation.Lines[i].Text,
-                  Conversation.Recipient,
-                  null,
-                  SkyHeight,
-                  bitmapFont,
-                  backgroundItems));
           }
         }
+      }
+      catch (Exception ex)
+      {
+        Mod.Error($"Failed to create comic panels: {ex}");
       }
     }
 
@@ -163,8 +176,8 @@ namespace RimDialogue.UI
       {
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         string participantNames = Conversation.Recipient != null
-          ? $"{Conversation.Initiator.Name.ToStringShort}_{Conversation.Recipient.Name.ToStringShort}"
-          : Conversation.Initiator.Name.ToStringShort;
+          ? $"{Conversation.Initiator?.Name.ToStringShort ?? "RimDialogue.Unknown".Translate()}_{Conversation.Recipient?.Name.ToStringShort ?? "RimDialogue.Unknown".Translate()}"
+          : Conversation.Initiator?.Name.ToStringShort ?? "RimDialogue.Unknown".Translate();
 
         foreach (char c in Path.GetInvalidFileNameChars())
         {
@@ -185,7 +198,6 @@ namespace RimDialogue.UI
       }
     }
 
-    List<Texture2D> panelTextures;
     public override void WindowOnGUI()
     {
       if (panelTextures == null)

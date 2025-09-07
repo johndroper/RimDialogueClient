@@ -7,13 +7,16 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestAlliedFaction : DialogueRequestFaction
   {
-    public static new DialogueRequestAlliedFaction BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestAlliedFaction(entry);
-    }
+    //public static new DialogueRequestAlliedFaction BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestAlliedFaction(entry);
+    //}
 
-    public DialogueRequestAlliedFaction(PlayLogEntry_Interaction entry) :
-      base(entry)
+    public DialogueRequestAlliedFaction(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }

@@ -1,3 +1,4 @@
+#nullable enable
 using Bubbles;
 using RimDialogue.Core;
 using RimWorld;
@@ -12,7 +13,7 @@ public class SinglePawnComicPanel : ComicPanel
 {
   private readonly Pawn pawn;
   private readonly string dialogue;
- 
+  private Texture2D? portraitTex;
 
   public SinglePawnComicPanel(Pawn pawn, BitmapFont font, string dialogue, float skyHeight, List<ComicPanelItem> backgroundItems)
       : base(skyHeight, font, backgroundItems)
@@ -20,8 +21,6 @@ public class SinglePawnComicPanel : ComicPanel
     this.pawn = pawn;
     this.dialogue = dialogue;
   }
-
-  private Texture2D portraitTex;
 
   protected override void DrawInternal(Rect canvas)
   {

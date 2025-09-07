@@ -1,3 +1,4 @@
+#nullable enable
 using Bubbles;
 using RimDialogue.Core;
 using RimDialogue.UI;
@@ -18,12 +19,12 @@ public enum FontFace
 [StaticConstructorOnStartup]
 public class BitmapFont
 {
-  private static Texture2D _calibriAtlas;
+  private static Texture2D? _calibriAtlas;
   private static Texture2D CalibriAtlas => _calibriAtlas ??= ContentFinder<Texture2D>.Get("RimDialogue/Calibri_0");
   private static readonly string calibriPath = Path.Combine(RimDialogue.Mod.FontPath, "calibri.fnt");
   public static readonly BitmapFont Calibri = BitmapFont.Load(calibriPath, CalibriAtlas);
 
-  private static Texture2D _notoSansSCAtlas;
+  private static Texture2D? _notoSansSCAtlas;
   private static Texture2D NotoSansSCAtlas => _notoSansSCAtlas ??= ContentFinder<Texture2D>.Get("RimDialogue/Noto_Sans_SC_0");
   private static readonly string notoSansSCPath = Path.Combine(RimDialogue.Mod.FontPath, "Noto_Sans_SC.fnt");
   public static readonly BitmapFont NotoSansSC = BitmapFont.Load(notoSansSCPath, NotoSansSCAtlas);
@@ -40,7 +41,7 @@ public class BitmapFont
 
   public Dictionary<int, Glyph> glyphs = new();
   public int lineHeight;
-  public Texture2D atlas;
+  public Texture2D? atlas;
   public int atlasWidth, atlasHeight;
 
   public static BitmapFont Load(string fntPath, Texture2D atlas)

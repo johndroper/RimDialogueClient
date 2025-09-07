@@ -74,12 +74,12 @@ namespace RimDialogue.Core
         Pawns == null ||
         !Pawns.Any() ||
         Find.TickManager == null ||
-        Find.TickManager.TicksGame - LastThoughtTick < MinDelayTicks / Pawns.Count)
+        Find.TickManager.TicksAbs - LastThoughtTick < MinDelayTicks / Pawns.Count)
       return;
 
       // if (Settings.VerboseLogging.Value) Mod.Log($"Doing thought update.");
 
-      LastThoughtTick = Find.TickManager.TicksGame;
+      LastThoughtTick = Find.TickManager.TicksAbs;
 
       var pawn = Pawns.RandomElement();
       var situationalThoughtHandler = pawn?.needs?.mood?.thoughts?.situational;
@@ -89,8 +89,8 @@ namespace RimDialogue.Core
       var thought_memories = pawn?.needs?.mood?.thoughts?.memories?.Memories;
       if (situational_thoughts != null && situational_thoughts.Any() && Rand.Chance(Settings.ThoughtChance.Value))
       {
-        var thought = situational_thoughts.RandomElement();
-        if (thought == null || thought.CurStageIndex < 0 || thought.CurStageIndex >= thought.def.stages.Count)
+        var thought = situational_thoughts.RandomElementByWeight(thought => thought.CurStageIndex >= 0 ? Math.Abs(thought.MoodOffset()): 0);
+        if (thought == null || thought.CurStageIndex < 0 || thought.CurStageIndex >= thought.def.stages.Count || thought.MoodOffset() == 0)
           return;
         // if (Settings.VerboseLogging.Value) Mod.Log($"Situational thought selected: {thought}.");
         var thoughtInteraction = CreateThoughtInteraction(thought);
@@ -98,8 +98,8 @@ namespace RimDialogue.Core
       }
       else if (thought_memories != null && thought_memories.Any() && Rand.Chance(Settings.ThoughtChance.Value))
       {
-        var thought = thought_memories.RandomElement();
-        if (thought == null || thought.CurStageIndex < 0 || thought.CurStageIndex >= thought.def.stages.Count)
+        var thought = thought_memories.RandomElementByWeight(thought => Math.Max(thought.CurStageIndex >= 0 ? Math.Abs(thought.MoodOffset()) : 1f, 1f));
+        if (thought == null || thought.CurStageIndex < 0 || thought.CurStageIndex >= thought.def.stages.Count || thought.MoodOffset() == 0)
           return;
         // if (Settings.VerboseLogging.Value) Mod.Log($"Memory thought selected: {thought}.");
         var thoughtInteraction = CreateThoughtInteraction(thought, thought.otherPawn);

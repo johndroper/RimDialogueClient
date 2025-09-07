@@ -1,6 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -8,7 +9,11 @@ namespace RimDialogue.Core.InteractionData
 {
   public abstract class DialogueRequestFaction : DialogueRequestTwoPawn<DialogueDataFaction>
   {
-    public DialogueRequestFaction(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestFaction(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }
@@ -20,9 +25,9 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "FactionChitchat";
 
-    public override void BuildData(DialogueDataFaction data)
+    public override async Task BuildData(DialogueDataFaction data)
     {
-      base.BuildData(data);
+      await base.BuildData(data);
       data.FactionName = Faction.Name;
       data.FactionLeader = Faction.leader?.Name.ToStringFull ?? string.Empty;
       data.LeaderTitle = Faction.LeaderTitle;

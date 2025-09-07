@@ -20,9 +20,10 @@ namespace RimDialogue
     public static readonly SettingString SpecialInstructions = new(nameof(SpecialInstructions), string.Empty);
     public static readonly SettingString ClientId = new(nameof(ClientId), Guid.NewGuid().ToString());
     public static readonly SettingString ServerUrl = new(nameof(ServerUrl), "https://rimdialogue.proceduralproducts.com/");
-    public static readonly Setting<int> MaxConversationsStored = new(nameof(MaxConversationsStored), 25);
+    public static readonly Setting<int> MaxConversationsStored = new(nameof(MaxConversationsStored), 100);
     public static readonly Setting<bool> VerboseLogging = new(nameof(VerboseLogging), false);
     public static readonly Setting<bool> OnlyColonists = new(nameof(OnlyColonists), false);
+    public static readonly Setting<bool> HideDiscordButton = new(nameof(HideDiscordButton), false);
 
     public static readonly Setting<bool> EnableCaravans = new(nameof(EnableCaravans), false);
 
@@ -77,6 +78,9 @@ namespace RimDialogue
 
     public static readonly SettingString ModelName = new(nameof(ModelName), "Default");
     public static readonly SettingString FilterWords = new(nameof(FilterWords), string.Empty);
+
+    public static readonly Setting<int> MaxContextItems = new(nameof(MaxContextItems), 500);
+    public static readonly Setting<int> MaxContextAgeDays = new(nameof(MaxContextAgeDays), 100);
 
     public static HashSet<string> filterWords = [];
 

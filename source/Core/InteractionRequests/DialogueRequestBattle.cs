@@ -2,6 +2,7 @@
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Linq;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -11,10 +12,18 @@ namespace RimDialogue.Core.InteractionData
   {
     public static float AgeDays(Battle battle)
     {
-      return (Find.TickManager.TicksGame - battle.CreationTimestamp).TicksToDays();
+      return (Find.TickManager.TicksAbs  - battle.CreationTimestamp).TicksToDays();
     }
 
-    public DialogueRequestBattle(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestBattle(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(
+        entry,
+        interactionDef,
+        initiator,
+        recipient)
     {
     }
 
@@ -25,7 +34,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override Rule[] Rules => [new Rule_String("battle", Battle?.GetName() ?? "an unnamed battle")];
 
-    public override void BuildData(DialogueDataBattle data)
+    public override async Task BuildData(DialogueDataBattle data)
     {
       if (Battle == null)
       {
@@ -38,7 +47,7 @@ namespace RimDialogue.Core.InteractionData
         ?.OrderBy(entry => entry.Timestamp)
         .Take(25)
         .Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(this.Initiator))).ToArray();
-      data.TimeSinceBattle = (Find.TickManager.TicksGame - Battle.CreationTimestamp).ToStringTicksToPeriod();
+      data.TimeSinceBattle = (Find.TickManager.TicksAbs - Battle.CreationTimestamp).ToStringTicksToPeriod();
       data.Importance = Battle.Importance.ToString();
       data.Participants = Battle.Entries
         ?.SelectMany(entry => entry.GetConcerns()
@@ -51,7 +60,7 @@ namespace RimDialogue.Core.InteractionData
         .Where(faction => faction != null)
         .Select(faction => (faction.Name ?? "RimDialogue.Unknown".Translate()) + $" ({faction.def.label}) - " + faction.def.description)
         .ToArray();
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override string Action => "Battle";

@@ -5,13 +5,16 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestHostileFaction : DialogueRequestFaction
   {
-    public static new DialogueRequestHostileFaction BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestHostileFaction(entry);
-    }
+    //public static new DialogueRequestHostileFaction BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestHostileFaction(entry);
+    //}
 
-    public DialogueRequestHostileFaction(PlayLogEntry_Interaction entry) :
-      base(entry)
+    public DialogueRequestHostileFaction(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }

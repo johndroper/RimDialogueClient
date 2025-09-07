@@ -66,14 +66,17 @@ namespace RimDialogue
 
       Widgets.Label(titleRect, titleText);
 
-      var discordRect = new Rect(titleRect.x + titleRect.width + 3, titleRect.y, 24, 24);
-      if (Widgets.ButtonImage(discordRect, DialogueMessageWindow.DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
+      if (!Settings.HideDiscordButton.Value)
       {
-        Process.Start(new ProcessStartInfo
+        var discordRect = new Rect(titleRect.x + titleRect.width + 3, titleRect.y, 24, 24);
+        if (Widgets.ButtonImage(discordRect, DialogueMessageWindow.DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
         {
-          FileName = "https://discord.gg/KavBmswUen",
-          UseShellExecute = true
-        });
+          Process.Start(new ProcessStartInfo
+          {
+            FileName = "https://discord.gg/KavBmswUen",
+            UseShellExecute = true
+          });
+        }
       }
 
       DrawnPawnTab(inRect, tracker, y + titleRect.height + 5f);
@@ -235,26 +238,26 @@ namespace RimDialogue
         case FilterMode.Colonist:
           filteredConversations = tracker.Conversations
             .Where(c => c.InvolvesColonist())
-            .OrderByDescending(c => c.timestamp)
+            .OrderByDescending(c => c.Timestamp)
             .ToArray();
           break;
         case FilterMode.Pawn:
           if (selectedPawn == null)
             selectedPawn = Find.CurrentMap.mapPawns.FreeColonists.FirstOrDefault();
           filteredConversations = tracker.Conversations
-            .Where(c => c.InvolvesPawn(selectedPawn))
-            .OrderByDescending(c => c.timestamp)
+            .Where(c => c.Involves(selectedPawn))
+            .OrderByDescending(c => c.Timestamp)
             .ToArray();
           break;
         default:
-          filteredConversations = tracker.Conversations.OrderByDescending(c => c.timestamp).ToArray();
+          filteredConversations = tracker.Conversations.OrderByDescending(c => c.Timestamp).ToArray();
           break;
       }
       float conversationContentRectWidth = conversationsScrollRect.width - 16f;
       const float labelHeight = 20f;
       const float topMargin = 15f;
       const float bottomMargin = 4f;
-      float conversationContentRectHeight = filteredConversations.Sum(conversation => topMargin + labelHeight + (conversation.timestamp != null ? labelHeight : 0) + Text.CalcHeight(conversation.text, conversationContentRectWidth) + bottomMargin);
+      float conversationContentRectHeight = filteredConversations.Sum(conversation => topMargin + labelHeight + (conversation.Timestamp != null ? labelHeight : 0) + Text.CalcHeight(conversation.Text, conversationContentRectWidth) + bottomMargin);
       var conversationContentRect = new Rect(0, 0, conversationContentRectWidth, conversationContentRectHeight);
       Widgets.BeginScrollView(conversationsScrollRect, ref conversationScrollPosition, conversationContentRect);
       float convoY = 0;
@@ -274,18 +277,18 @@ namespace RimDialogue
           var copyButtonRect = new Rect(headerRect.width - 90, convoY, 40, headerRect.height);
           if (Widgets.ButtonText(copyButtonRect, "Copy"))
           {
-            GUIUtility.systemCopyBuffer = conversation.text ?? string.Empty;
+            GUIUtility.systemCopyBuffer = conversation.Text ?? string.Empty;
             SoundDefOf.Click.PlayOneShotOnCamera();
           }
 
           convoY += labelHeight;
-          if (conversation.timestamp != null)
+          if (conversation.Timestamp != null)
           {
             var periodRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
-            Widgets.Label(periodRect, (Find.TickManager.TicksGame - conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
+            Widgets.Label(periodRect, (Find.TickManager.TicksAbs - conversation.Timestamp ?? 0).ToStringTicksToPeriod() + agoText);
             convoY += labelHeight;
           }
-          string displayText = conversation.text ?? string.Empty;
+          string displayText = conversation.FormattedText ?? string.Empty;
           float textHeight = Text.CalcHeight(displayText, conversationContentRectWidth);
           var convoRect = new Rect(0, convoY, conversationContentRectWidth, textHeight);
           Widgets.Label(convoRect, displayText);
@@ -302,10 +305,6 @@ namespace RimDialogue
         }
       }
       Widgets.EndScrollView();
-
-
     }
-
-
   }
 }

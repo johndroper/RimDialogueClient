@@ -1,6 +1,8 @@
 #nullable enable
 
 using RimDialogue.Core.InteractionRequests;
+using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -8,12 +10,10 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestIncident<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataIncident, new()
   {
-    const string IncidentPlaceholder = "recent_incident";
-
-    public static new DialogueRequestIncident<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestIncident<DataT>(entry);
-    }
+    //public static new DialogueRequestIncident<DataT> BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestIncident<DataT>(entry);
+    //}
 
     public override Pawn? Target
     {
@@ -24,48 +24,64 @@ namespace RimDialogue.Core.InteractionData
     }
 
     private Pawn? _target { get; set; }
-    public string Subject { get; set; } = string.Empty;
+    public string IncidentType { get; set; } = string.Empty;
     public string Explanation { get; set; } = string.Empty;
+    public int Ticks { get; set; }
+    public RecentLetter Incident { get; set; }
 
-    public DialogueRequestIncident(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestIncident(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
       // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for incident {entry.LogID} with template {interactionTemplate}.");
       var incidents = GameComponent_LetterTracker.Instance.RecentLetters;
       if (!incidents.Any())
-      {
-        Mod.Warning("No recent incidents found.");
-        return;
-      }
-      var incident = incidents.RandomElement();
-      Explanation = incident.Text;
-      switch (incident.Def.defName)
+        throw new System.Exception("No recent incidents found for DialogueRequestIncident.");
+      var now = Find.TickManager.TicksAbs;
+      Incident = incidents.RandomElementByWeight(incident => (float)incident.Ticks / now);
+      Explanation = Incident.Text ?? string.Empty;
+      Ticks = Incident.Ticks;
+      switch (Incident.Type)
       {
         case "ThreatBig":
-          Subject = $"a major threat has that just occurred, '{incident.Label.ToLower()}'";
+          IncidentType = "RimDialogue.ThreatBig".Translate();
           break;
         case "ThreatSmall":
-          Subject = $"a minor threat has that just occurred, '{incident.Label.ToLower()}'";
+          IncidentType = "RimDialogue.ThreatSmall".Translate();
           break;
         case "PositiveEvent":
-          Subject = $"something positive that has just happened, '{incident.Label.ToLower()}'";
+          IncidentType = "RimDialogue.PositiveEvent".Translate();
           break;
         case "NeutralEvent":
-          Subject = $"something that just occurred, '{incident.Label.ToLower()}'";
+          IncidentType = "RimDialogue.NeutralEvent".Translate();
           break;
         default:
-          Subject = $"{incident.Label} that has just occurred";
+          IncidentType = "RimDialogue.DefaultEvent".Translate();
           break;
       }
     }
 
-    public override void BuildData(DataT data)
+    public string Period
+      {
+      get
+      {
+        var now = Find.TickManager.TicksAbs;
+        return (now - Ticks).ToStringTicksToPeriod();
+      }
+    }
+
+    public override async Task BuildData(DataT data)
     {
       data.Explanation = Explanation;
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override Rule[] Rules => [
-      new Rule_String(IncidentPlaceholder, Subject)
+      new Rule_String("incident", Incident.Label),
+      new Rule_String("incident_type", IncidentType),
+      new Rule_String("period", Period)
     ];
   }
 }

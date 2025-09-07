@@ -106,7 +106,7 @@
         <li>r_logentry(target_part_damaged_count>=1, weapon_exists==true)->[INITIATOR_nameDef] [said_something] after hitting [target] in the [damaged_targets] with [INITIATOR_possessive] [WEAPON_label].</li>
         <li>r_logentry(target_part_damaged_count==0, weapon_exists==true)->After hitting [target] with [INITIATOR_possessive] [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
         <li>r_logentry(target_part_damaged_count>=1, weapon_exists==true)->After hitting [target] in the [damaged_targets] with [INITIATOR_possessive] [WEAPON_label], [INITIATOR_nameDef] [said_something].</li>
-        <li>target->an enemy [ORIGINAL_TARGET_kind]</li>
+        <li>target(TARGET_isanimal==false)->an enemy [ORIGINAL_TARGET_kind]</li>
         <li>target->[ORIGINAL_TARGET_nameDef]</li>
         <li>said_something->quipped</li>
         <li>said_something->said something badass</li>

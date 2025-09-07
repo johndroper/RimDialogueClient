@@ -7,6 +7,7 @@ using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -14,11 +15,12 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestAlert<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataAlert, new()
   {
-    public static new DialogueRequestAlert<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestAlert<DataT>(entry);
-    }
+    //public static new DialogueRequestAlert<DataT> BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestAlert<DataT>(entry);
+    //}
 
+    public static List<Alert> Alerts = (List<Alert>)Reflection.RimWorld_AlertsReadout_ActiveAlerts.GetValue(Find.Alerts);
 
     public override Pawn? Target
     {
@@ -34,11 +36,16 @@ namespace RimDialogue.Core.InteractionData
 
     public PawnData? targetData;
 
-    public DialogueRequestAlert(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestAlert(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Creating dialogue request for alert {entry.LogID} with template {interactionTemplate}.");
-      var alerts = (List<Alert>)Reflection.RimWorld_AlertsReadout_ActiveAlerts.GetValue(Find.Alerts);
-      var alert = alerts.RandomElement();
+      if (Alerts == null || !Alerts.Any())
+        throw new System.Exception("Alerts are null or empty.");
+      var alert = Alerts.RandomElementByWeight(alert => (float)alert.Priority + 1f);
+      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Creating dialogue request for alert '{alert.GetType().Name}'.");
       switch (alert)
       {
         case Alert_AbandonedBaby abandonedBabyAlert:
@@ -46,13 +53,13 @@ namespace RimDialogue.Core.InteractionData
           var abandonedBabies = (List<Pawn>)Reflection.RimWorld_Alert_AbandonedBaby_tmpAbandonedBabiesList.GetValue(abandonedBabyAlert);
           var abandonedBaby = abandonedBabies.RandomElement();
           _target = abandonedBaby;
-          Subject = $"the baby {abandonedBaby.Name.ToStringShort} has been abandoned";
+          Subject = string.Format("RimDialogue.Alert_AbandonedBaby".Translate(), abandonedBaby.Name.ToStringShort);
           if (abandonedBaby.IsOutside())
-            Explanation = $"{abandonedBaby.Name.ToStringShort} is outside.";
+            Explanation = string.Format("RimDialogue.Alert_AbandonedBaby_Outside".Translate(), abandonedBaby.Name.ToStringShort);
           else
           {
             var room = abandonedBaby.GetRoom();
-            Explanation = $"The baby {abandonedBaby.Name.ToStringShort} is in the {room.GetRoomRoleLabel()}.";
+            Explanation = string.Format("RimDialogue.Alert_AbandonedBaby_InRoom".Translate(), abandonedBaby.Name.ToStringShort, room.GetRoomRoleLabel());
           }
           break;
         case Alert_AnimalFilth animalFilthAlert:
@@ -61,7 +68,7 @@ namespace RimDialogue.Core.InteractionData
           var animalFilthTarget = animalFilthTargets.RandomElement();
           var animalFilthPawn = animalFilthTarget.Pawn;
           _target = animalFilthPawn;
-          Subject = string.Format($"RimDialogue.Alert_AnimalFilth".Translate(), animalFilthPawn.Name.ToStringShort);
+          Subject = string.Format("RimDialogue.Alert_AnimalFilth".Translate(), animalFilthPawn.Name.ToStringShort);
           break;
         case Alert_AnimalPenNeeded animalPenAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_AnimalPenNeeded");
@@ -69,12 +76,12 @@ namespace RimDialogue.Core.InteractionData
           var animalPenTarget = animalPenTargets.RandomElement();
           var animalPenPawn = animalPenTarget.Pawn;
           _target = animalPenPawn;
-          Subject = $"the animal '{animalPenPawn.Label}' needs a pen";
+          Subject = string.Format("RimDialogue.Alert_AnimalPenNeeded".Translate(), animalPenPawn.Label);
           break;
         case Alert_AnimalPenNotEnclosed animalPenNotEnclosedAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_AnimalPenNotEnclosed");
-          Subject = $"an animal pen is not enclosed";
-          Explanation = $"If the animal pen is not fixed the animals inside may escape.";
+          Subject = "RimDialogue.Alert_AnimalPenNotEnclosed".Translate();
+          Explanation = "RimDialogue.Alert_AnimalPenNotEnclosed_Explanation".Translate();
           break;
         case Alert_AnimalRoaming animalRoamingAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_AnimalRoaming");
@@ -82,22 +89,22 @@ namespace RimDialogue.Core.InteractionData
           var animalRoamingTarget = animalRoamingTargets.RandomElement();
           var animalRoamingPawn = animalRoamingTarget.Pawn;
           _target = animalRoamingPawn;
-          Subject = $"the animal '{animalRoamingPawn.Label}' is not in a pen and may run away";
+          Subject = string.Format("RimDialogue.Alert_AnimalRoaming".Translate(), animalRoamingPawn.Label);
           break;
         case Alert_Boredom boredomAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_Boredom");
           var boredomPawns = (List<Pawn>)Reflection.RimWorld_Alert_Boredom_BoredPawnsResult.GetValue(boredomAlert);
           var boredomPawn = boredomPawns.RandomElement();
           _target = boredomPawn;
-          Subject = $"{boredomPawn.Name.ToStringShort} is bored.";
+          Subject = string.Format("RimDialogue.Alert_Boredom".Translate(), boredomPawn.Name.ToStringShort);
           break;
         case Alert_BrawlerHasRangedWeapon brawlerAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_BrawlerHasRangedWeapon");
           var brawlerPawns = (List<Pawn>)Reflection.RimWorld_Alert_BrawlerHasRangedWeapon_BrawlersWithRangedWeaponResult.GetValue(brawlerAlert);
           var brawlerPawn = brawlerPawns.RandomElement();
           _target = brawlerPawn;
-          Subject = $"{brawlerPawn.Name.ToStringShort} is a brawler and has a ranged weapon";
-          Explanation = $"{brawlerPawn.Name.ToStringShort} is a melee fighter and is equipped with ranged weapon.  This will make {brawlerPawn.Name.ToStringShort} unhappy.";
+          Subject = string.Format("RimDialogue.Alert_BrawlerHasRangedWeapon".Translate(), brawlerPawn.Name.ToStringShort);
+          Explanation = string.Format("RimDialogue.Alert_BrawlerHasRangedWeapon_Explanation".Translate(), brawlerPawn.Name.ToStringShort, brawlerPawn.Name.ToStringShort);
           break;
         case RimWorld.Alert_ColonistLeftUnburied colonistLeftUnburiedAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_ColonistLeftUnburied");
@@ -105,38 +112,38 @@ namespace RimDialogue.Core.InteractionData
           var colonistLeftUnburiedCorpse = (Corpse)colonistLeftUnburiedThings.RandomElement();
           var colonistLeftUnburiedPawn = colonistLeftUnburiedCorpse.InnerPawn;
           _target = colonistLeftUnburiedPawn;
-          Subject = $"{colonistLeftUnburiedPawn.Name.ToStringShort}'s corpse has been left unburied";
-          Explanation = $"{colonistLeftUnburiedPawn.Name.ToStringShort} has died and their corpse has been left out in the open.";
+          Subject = string.Format("RimDialogue.Alert_ColonistLeftUnburied".Translate(), colonistLeftUnburiedPawn.Name.ToStringShort);
+          Explanation = string.Format("RimDialogue.Alert_ColonistLeftUnburied_Explanation".Translate(), colonistLeftUnburiedPawn.Name.ToStringShort);
           break;
         case Alert_ColonistNeedsRescuing colonistNeedsRescuingAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_ColonistNeedsRescuing");
           var colonistNeedsRescuingThings = (List<Pawn>)Reflection.RimWorld_Alert_ColonistNeedsRescuing_ColonistsNeedingRescueResult.GetValue(colonistNeedsRescuingAlert);
           var colonistNeedsRescuingPawn = colonistNeedsRescuingThings.RandomElement();
           _target = colonistNeedsRescuingPawn;
-          Subject = $"{colonistNeedsRescuingPawn.Name.ToStringShort} is down and needs rescuing";
+          Subject = string.Format("RimDialogue.Alert_ColonistNeedsRescuing".Translate(), colonistNeedsRescuingPawn.Name.ToStringShort);
           var colonistNeedsRescuingHediffs = colonistNeedsRescuingPawn.health.hediffSet.hediffs
             .Where(hediff => hediff.Severity > 0)
             .OrderByDescending(hediff => hediff.Severity)
             .ToArray();
-          Explanation = $"{colonistNeedsRescuingPawn.Name.ToStringShort} has the following injuries: {string.Join(", ", colonistNeedsRescuingHediffs.Select(hediff => hediff.LabelCap))}.";
+          Explanation = string.Format("RimDialogue.Alert_ColonistNeedsRescuing_Explanation".Translate(), colonistNeedsRescuingPawn.Name.ToStringShort, string.Join(", ", colonistNeedsRescuingHediffs.Select(hediff => hediff.LabelCap)));
           break;
         case Alert_ColonistNeedsTend colonistNeedsTendAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_ColonistNeedsTend");
           var colonistNeedsTendThings = (List<Pawn>)Reflection.RimWorld_Alert_ColonistNeedsTend_NeedingColonistsResult.GetValue(colonistNeedsTendAlert);
           var colonistNeedsTendPawn = colonistNeedsTendThings.RandomElement();
           _target = colonistNeedsTendPawn;
-          Subject = $"{colonistNeedsTendPawn.Name.ToStringShort} needs tending";
+          Subject = string.Format("RimDialogue.Alert_ColonistNeedsTend".Translate(), colonistNeedsTendPawn.Name.ToStringShort);
           var colonistNeedsTendHediffs = colonistNeedsTendPawn.health.hediffSet.GetHediffsTendable()
             .OrderByDescending(hediff => hediff.Severity)
             .ToArray();
-          Explanation = $"{colonistNeedsTendPawn.Name.ToStringShort} has the following injuries that need medical attention: {string.Join(", ", colonistNeedsTendHediffs.Select(hediff => hediff.LabelCap))}.";
+          Explanation = string.Format("RimDialogue.Alert_ColonistNeedsTend_Explanation".Translate(), colonistNeedsTendPawn.Name.ToStringShort, string.Join(", ", colonistNeedsTendHediffs.Select(hediff => hediff.LabelCap)));
           break;
         case Alert_ColonistsIdle idleAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_ColonistsIdle");
           var idlePawns = (List<Pawn>)Reflection.RimWorld_Alert_ColonistsIdle_IdleColonistsResult.GetValue(idleAlert);
           var idlePawn = idlePawns.RandomElement();
           _target = idlePawn;
-          Subject = $"{idlePawn.Name.ToStringShort} does not have any work to do";
+          Subject = string.Format("RimDialogue.Alert_ColonistsIdle".Translate(), idlePawn.Name.ToStringShort);
           var workPriorities = DefDatabase<WorkTypeDef>.AllDefsListForReading
             .Select(workType => new
             {
@@ -147,17 +154,17 @@ namespace RimDialogue.Core.InteractionData
             .Take(5)
             .Select(workPriority => workPriority.workType.labelShort)
             .ToArray();
-          Explanation = $"Types of work {idlePawn.Name.ToStringShort} is assigned to but has no work to do: {string.Join(", ", workPriorities)}";
+          Explanation = string.Format("RimDialogue.Alert_ColonistsIdle_Explanation".Translate(), idlePawn.Name.ToStringShort, string.Join(", ", workPriorities));
           break;
         case Alert_DateRitualComing dateRitualComingAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_DateRitualComing");
           var rituals = (List<string>)Reflection.RimWorld_Alert_DateRitualComing_RitualEntries.GetValue(dateRitualComingAlert);
           var ritual = rituals.RandomElement();
-          Subject = $"this ritual is coming soon: {ritual}";
+          Subject = string.Format("RimDialogue.Alert_DateRitualComing".Translate(), ritual);
           break;
         case Alert_FireInHomeArea fireInHomeAreaAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_FireInHomeArea");
-          Subject = $"a fire has started in the home area";
+          Subject = "RimDialogue.Alert_FireInHomeArea".Translate();
           break;
         case Alert_Heatstroke heatstrokeAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_Heatstroke");
@@ -165,18 +172,18 @@ namespace RimDialogue.Core.InteractionData
           var heatstrokePawns = (List<Pawn>)Reflection.RimWorld_Alert_Heatstroke_HeatstrokePawnsResult.GetValue(heatstrokeAlert);
           var heatstrokePawn = heatstrokePawns.RandomElement();
           _target = heatstrokePawn;
-          Subject = $"{heatstrokePawn.Name.ToStringShort} is suffering from heatstroke";
+          Subject = string.Format("RimDialogue.Alert_Heatstroke".Translate(), heatstrokePawn.Name.ToStringShort);
           var heatstrokeHediff = heatstrokePawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Heatstroke, mustBeVisible: true);
-          sb.AppendLine($"{heatstrokePawn.Name.ToStringShort}'s heatstroke is in the {heatstrokeHediff.CurStage.label} stage.");
+          sb.AppendLine(string.Format("RimDialogue.Alert_Heatstroke_Stage".Translate(), heatstrokePawn.Name.ToStringShort, heatstrokeHediff.CurStage.label));
           if (heatstrokePawn.IsOutside())
-            sb.AppendLine($"The current temperature outside is {H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)} ");
+            sb.AppendLine(string.Format("RimDialogue.Alert_Heatstroke_Outside".Translate(), H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)));
           else
           {
             var room = heatstrokePawn.GetRoom();
-            sb.AppendLine($"The current temperature of the room {heatstrokePawn.Name.ToStringShort} is in is {H.TemperatureFeel(room.Temperature)}");
+            sb.AppendLine(string.Format("RimDialogue.Alert_Heatstroke_Room".Translate(), heatstrokePawn.Name.ToStringShort, H.TemperatureFeel(room.Temperature)));
           }
-          sb.AppendLine($"{heatstrokePawn.Name.ToStringShort}'s comfortable temperature range is {heatstrokePawn.ComfortableTemperatureRange()}");
-          sb.AppendLine($"{heatstrokePawn.Name.ToStringShort}'s heatstroke is {(heatstrokeHediff.IsCurrentlyLifeThreatening ? "life threatening" : "not life threatening")}.");
+          sb.AppendLine(string.Format("RimDialogue.Alert_Heatstroke_ComfortRange".Translate(), heatstrokePawn.Name.ToStringShort, heatstrokePawn.ComfortableTemperatureRange()));
+          sb.AppendLine(string.Format("RimDialogue.Alert_Heatstroke_LifeThreatening".Translate(), heatstrokePawn.Name.ToStringShort, (heatstrokeHediff.IsCurrentlyLifeThreatening ? "RimDialogue.LifeThreatening".Translate() : "RimDialogue.NotLifeThreatening".Translate())));
           Explanation = sb.ToString();
           break;
         case Alert_Hypothermia hypothermiaAlert:
@@ -184,19 +191,19 @@ namespace RimDialogue.Core.InteractionData
           var hypothermiaPawns = (List<Pawn>)Reflection.RimWorld_Alert_Hypothermia_HypothermiaPawnsResult.GetValue(hypothermiaAlert);
           var hypothermiaPawn = hypothermiaPawns.RandomElement();
           _target = hypothermiaPawn;
-          Subject = $"{hypothermiaPawn.Name.ToStringShort} is suffering from hypothermia";
+          Subject = string.Format("RimDialogue.Alert_Hypothermia".Translate(), hypothermiaPawn.Name.ToStringShort);
           var hypothermiaHediff = hypothermiaPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Hypothermia, mustBeVisible: true);
           StringBuilder hypothermiaSb = new StringBuilder();
-          hypothermiaSb.AppendLine($"{hypothermiaPawn.Name.ToStringShort}'s hypothermia is in the {hypothermiaHediff.CurStage.label} stage.");
+          hypothermiaSb.AppendLine(string.Format("RimDialogue.Alert_Hypothermia_Stage".Translate(), hypothermiaPawn.Name.ToStringShort, hypothermiaHediff.CurStage.label));
           if (hypothermiaPawn.IsOutside())
-            hypothermiaSb.AppendLine($"The current temperature outside is {H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)} ");
+            hypothermiaSb.AppendLine(string.Format("RimDialogue.Alert_Hypothermia_Outside".Translate(), H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)));
           else
           {
             var room = hypothermiaPawn.GetRoom();
-            hypothermiaSb.AppendLine($"The current temperature of the room {hypothermiaPawn.Name.ToStringShort} is in is {H.TemperatureFeel(room.Temperature)}");
+            hypothermiaSb.AppendLine(string.Format("RimDialogue.Alert_Hypothermia_Room".Translate(), hypothermiaPawn.Name.ToStringShort, H.TemperatureFeel(room.Temperature)));
           }
-          hypothermiaSb.AppendLine($"{hypothermiaPawn.Name.ToStringShort}'s comfortable temperature range is {hypothermiaPawn.ComfortableTemperatureRange()}");
-          hypothermiaSb.AppendLine($"{hypothermiaPawn.Name.ToStringShort}'s hypothermia is {(hypothermiaHediff.IsCurrentlyLifeThreatening ? "life threatening" : "not life threatening")}.");
+          hypothermiaSb.AppendLine(string.Format("RimDialogue.Alert_Hypothermia_ComfortRange".Translate(), hypothermiaPawn.Name.ToStringShort, hypothermiaPawn.ComfortableTemperatureRange()));
+          hypothermiaSb.AppendLine(string.Format("RimDialogue.Alert_Hypothermia_LifeThreatening".Translate(), hypothermiaPawn.Name.ToStringShort, (hypothermiaHediff.IsCurrentlyLifeThreatening ? "RimDialogue.LifeThreatening".Translate() : "RimDialogue.NotLifeThreatening".Translate())));
           Explanation = hypothermiaSb.ToString();
           break;
         case Alert_HypothermicAnimals hypothermicAnimalsAlert:
@@ -204,29 +211,29 @@ namespace RimDialogue.Core.InteractionData
           var hypothermicAnimals = (List<Pawn>)Reflection.RimWorld_Alert_HypothermicAnimals_HypothermicAnimalsResult.GetValue(hypothermicAnimalsAlert);
           var hypothermicAnimal = hypothermicAnimals.RandomElement();
           _target = hypothermicAnimal;
-          Subject = $"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label} is suffering from hypothermia";
+          Subject = string.Format("RimDialogue.Alert_HypothermicAnimals".Translate(), hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label);
           var hypothermicAnimalHediff = hypothermicAnimal.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Hypothermia, mustBeVisible: true);
           StringBuilder hypothermicAnimalSb = new StringBuilder();
-          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label}'s hypothermia is in the {hypothermicAnimalHediff.CurStage.label} stage");
-          hypothermicAnimalSb.AppendLine($"The current temperature outside is {H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)} ");
-          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label}'s comfortable temperature range is {hypothermicAnimal.ComfortableTemperatureRange()}");
-          hypothermicAnimalSb.AppendLine($"{hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label}'s hypothermia is {(hypothermicAnimalHediff.IsCurrentlyLifeThreatening ? "life threatening" : "not life threatening")}.");
+          hypothermicAnimalSb.AppendLine(string.Format("RimDialogue.Alert_HypothermicAnimals_Stage".Translate(), hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label, hypothermicAnimalHediff.CurStage.label));
+          hypothermicAnimalSb.AppendLine(string.Format("RimDialogue.Alert_HypothermicAnimals_Outside".Translate(), H.TemperatureFeel(Find.CurrentMap.mapTemperature.OutdoorTemp)));
+          hypothermicAnimalSb.AppendLine(string.Format("RimDialogue.Alert_HypothermicAnimals_ComfortRange".Translate(), hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label, hypothermicAnimal.ComfortableTemperatureRange()));
+          hypothermicAnimalSb.AppendLine(string.Format("RimDialogue.Alert_HypothermicAnimals_LifeThreatening".Translate(), hypothermicAnimal.Name?.ToStringShort ?? hypothermicAnimal.def.label, (hypothermicAnimalHediff.IsCurrentlyLifeThreatening ? "RimDialogue.LifeThreatening".Translate() : "RimDialogue.NotLifeThreatening".Translate())));
           Explanation = hypothermicAnimalSb.ToString();
           break;
         case Alert_IdeoBuildingDisrespected ideoBuildingDisrespectedAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_IdeoBuildingDisrespected");
           var demand = (IdeoBuildingPresenceDemand)Reflection.RimWorld_Alert_IdeoBuildingDisrespected_Demand.GetValue(ideoBuildingDisrespectedAlert);
-          Subject = $"the temple of {demand.parent.ideo.name} has been disrespected";
-          Explanation = $"The temple of {demand.parent.ideo.name} requires {demand.RoomRequirementsInfo.ToLineList(" - ")}.";
+          Subject = string.Format("RimDialogue.Alert_IdeoBuildingDisrespected".Translate(), demand.parent.ideo.name);
+          Explanation = string.Format("RimDialogue.Alert_IdeoBuildingDisrespected_Explanation".Translate(), demand.parent.ideo.name, demand.RoomRequirementsInfo.ToLineList(" - "));
           break;
         case Alert_IdeoBuildingMissing ideoBuildingMissingAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_IdeoBuildingMissing");
           var demand2 = (IdeoBuildingPresenceDemand)Reflection.RimWorld_Alert_IdeoBuildingMissing_Demand.GetValue(ideoBuildingMissingAlert);
-          Subject = $"we need a temple of {demand2.parent.ideo.name}.";
+          Subject = string.Format("RimDialogue.Alert_IdeoBuildingMissing".Translate(), demand2.parent.ideo.name);
           break;
         case Alert_LowFood lowFoodAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_LowFood");
-          Subject = $"the colony is running low on food";
+          Subject = "RimDialogue.Alert_LowFood".Translate();
           var huntableAnimals = Find.CurrentMap.mapPawns.AllPawnsSpawned
             .Where(pawn => !pawn.RaceProps.Humanlike && !pawn.IsColonist)
             .Select(pawn => pawn.def.label)
@@ -239,78 +246,83 @@ namespace RimDialogue.Core.InteractionData
             .Distinct()
             .ToArray();
           StringBuilder sbLowFoodAlert = new StringBuilder();
-          sbLowFoodAlert.AppendLine($"The following animals are available for hunting: {string.Join(", ", huntableAnimals)}");
-          sbLowFoodAlert.AppendLine($"The following food sources are available for harvesting: {string.Join(", ", harvestableFood)}");
+          sbLowFoodAlert.AppendLine(string.Format("RimDialogue.Alert_LowFood_Animals".Translate(), string.Join(", ", huntableAnimals)));
+          sbLowFoodAlert.AppendLine(string.Format("RimDialogue.Alert_LowFood_Harvestable".Translate(), string.Join(", ", harvestableFood)));
           Explanation = sbLowFoodAlert.ToString();
           break;
         case Alert_LowMedicine lowMedicineAlert:
-          Subject = $"the colony is running low on medicine";
+          Subject = "RimDialogue.Alert_LowMedicine".Translate();
           break;
         case Alert_MajorOrExtremeBreakRisk majorBreakRiskAlert:
           var majorBreakRiskPawns = (List<Pawn>)Reflection.RimWorld_Alert_BreakRiskAlertUtility_PawnsAtRiskMajorResult.GetValue(null);
           var majorBreakRiskPawn = majorBreakRiskPawns.RandomElement();
-          Subject = $"{majorBreakRiskPawn.Name.ToStringShort} is at risk of a serious metal break";
+          Subject = string.Format("RimDialogue.Alert_MajorBreakRisk".Translate(), majorBreakRiskPawn.Name.ToStringShort);
           _target = majorBreakRiskPawn;
           List<Thought> allMoodThoughts2 = [];
           majorBreakRiskPawn.needs.mood.thoughts.GetAllMoodThoughts(allMoodThoughts2);
           var negativeThoughts2 = allMoodThoughts2.Where(thought => thought.MoodOffset() < 0).OrderByDescending(thought => thought.MoodOffset()).ToArray();
           if (negativeThoughts2.Any())
-            Explanation = $"'{negativeThoughts2[0].LabelCap}' is affecting {majorBreakRiskPawn.Name.ToStringShort} the most. {negativeThoughts2[0].Description}";
+            Explanation = string.Format("RimDialogue.Alert_MajorBreakRisk_ThoughtExplanation".Translate(), negativeThoughts2[0].LabelCap, majorBreakRiskPawn.Name.ToStringShort, negativeThoughts2[0].Description);
           else
-            Explanation = $"{majorBreakRiskPawn.Name.ToStringShort} is feeling very depressed.";
+            Explanation = string.Format("RimDialogue.Alert_MajorBreakRisk_GenericExplanation".Translate(), majorBreakRiskPawn.Name.ToStringShort);
           break;
         case Alert_MinorBreakRisk minorBreakRiskAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_MinorBreakRisk");
           var minorBreakRiskPawns = (List<Pawn>)Reflection.RimWorld_Alert_BreakRiskAlertUtility_PawnsAtRiskMinorResult.GetValue(null);
           var minorBreakRiskPawn = minorBreakRiskPawns.RandomElement();
-          Subject = $"{minorBreakRiskPawn.Name.ToStringShort} is at risk of a metal break";
+          Subject = string.Format("RimDialogue.Alert_MinorBreakRisk".Translate(), minorBreakRiskPawn.Name.ToStringShort);
           _target = minorBreakRiskPawn;
           List<Thought> allMoodThoughts = [];
           minorBreakRiskPawn.needs.mood.thoughts.GetAllMoodThoughts(allMoodThoughts);
           var negativeThoughts = allMoodThoughts.Where(thought => thought.MoodOffset() < 0).OrderByDescending(thought => thought.MoodOffset()).ToArray();
           if (negativeThoughts.Any())
-            Explanation = $"'{negativeThoughts[0].LabelCap}' is affecting {minorBreakRiskPawn.Name.ToStringShort} the most. {negativeThoughts[0].Description}";
+            Explanation = string.Format("RimDialogue.Alert_MinorBreakRisk_ThoughtExplanation".Translate(), negativeThoughts[0].LabelCap, minorBreakRiskPawn.Name.ToStringShort, negativeThoughts[0].Description);
           else
-            Explanation = $"{minorBreakRiskPawn.Name.ToStringShort} is feeling down.";
+            Explanation = string.Format("RimDialogue.Alert_MinorBreakRisk_GenericExplanation".Translate(), minorBreakRiskPawn.Name.ToStringShort);
           break;
         case Alert_NeedColonistBeds needColonistBedsAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedColonistBeds");
-          Subject = $"we need more beds for our colonists";
+          Subject = "RimDialogue.Alert_NeedColonistBeds".Translate();
           break;
         case Alert_NeedDefenses needDefensesAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedDefenses");
-          Subject = $"we need more defenses.";
-          Explanation = "The colony is vulnerable to attack";
+          Subject = "RimDialogue.Alert_NeedDefenses".Translate();
+          Explanation = "RimDialogue.Alert_NeedDefenses_Explanation".Translate();
           break;
         case Alert_NeedDoctor needDoctorAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedDoctor");
-          Subject = $"we a doctor.";
-          Explanation = "The colony does have any doctors";
+          Subject = "RimDialogue.Alert_NeedDoctor".Translate();
+          Explanation = "RimDialogue.Alert_NeedDoctor_Explanation".Translate();
+          break;
+        case Alert_NeedJoySources needJoySourcesAlert:
+          // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedJoySources");
+          Subject = "RimDialogue.Alert_NeedJoySources".Translate();
+          Explanation = "RimDialogue.Alert_NeedJoySources_Explanation".Translate();
           break;
         case Alert_NeedMealSource needMealSourceAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedMealSource");
-          Subject = $"we need some way to cook a meal";
-          Explanation = "The colony does not have any way to cook food.";
+          Subject = "RimDialogue.Alert_NeedMealSource".Translate();
+          Explanation = "RimDialogue.Alert_NeedMealSource_Explanation".Translate();
           break;
         case Alert_NeedResearchBench needResearchBenchAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedResearchBench");
-          Subject = $"we need a research bench";
-          Explanation = "The colony does not have any way to perform research.";
+          Subject = "RimDialogue.Alert_NeedResearchBench".Translate();
+          Explanation = "RimDialogue.Alert_NeedResearchBench_Explanation".Translate();
           break;
         case Alert_NeedResearchProject needResearchProjectAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedResearchProject");
-          Subject = $"we need a research project";
-          Explanation = "The colony does not have any research projects.";
+          Subject = "RimDialogue.Alert_NeedResearchProject".Translate();
+          Explanation = "RimDialogue.Alert_NeedResearchProject_Explanation".Translate();
           break;
         case Alert_NeedWarmClothes needWarmClothesAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedWarmClothes");
-          Subject = $"we need warm clothes";
-          Explanation = "The colony does not have enough warm clothes and it will soon get cold.";
+          Subject = "RimDialogue.Alert_NeedWarmClothes".Translate();
+          Explanation = "RimDialogue.Alert_NeedWarmClothes_Explanation".Translate();
           break;
         case Alert_QuestExpiresSoon questExpiresSoonAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_QuestExpiresSoon");
           var quest = (Quest)Reflection.RimWorld_Alert_QuestExpiresSoon_QuestExpiring.GetValue(questExpiresSoonAlert);
-          Subject = $"the quest '{quest.name}' is about to expire";
+          Subject = string.Format("RimDialogue.Alert_QuestExpiresSoon".Translate(), quest.name);
           Explanation = quest.description;
           break;
         case Alert_StarvationAnimals starvationAnimalsAlert:
@@ -318,14 +330,14 @@ namespace RimDialogue.Core.InteractionData
           var starvationAnimals = (List<Pawn>)Reflection.RimWorld_Alert_StarvationAnimals_StarvingAnimalsResult.GetValue(starvationAnimalsAlert);
           var starvationAnimal = starvationAnimals.RandomElement();
           _target = starvationAnimal;
-          Subject = $"the animal {starvationAnimal.Name.ToStringShort} is starving";
+          Subject = string.Format("RimDialogue.Alert_StarvationAnimals".Translate(), starvationAnimal.Name.ToStringShort);
           break;
         case Alert_StarvationColonists starvationColonistsAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_StarvationColonists");
           var starvationColonists = (List<Pawn>)Reflection.RimWorld_Alert_StarvationColonists_StarvingColonistsResult.GetValue(starvationColonistsAlert);
           var starvationColonist = starvationColonists.RandomElement();
           _target = starvationColonist;
-          Subject = $"{starvationColonist.Name.ToStringShort} is starving";
+          Subject = string.Format("RimDialogue.Alert_StarvationColonists".Translate(), starvationColonist.Name.ToStringShort);
           break;
         //case Alert_HunterLacksRangedWeapon hunterAlert:
         //  // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_HunterLacksRangedWeapon");
@@ -341,19 +353,19 @@ namespace RimDialogue.Core.InteractionData
           var unhappyNudityPawns = (List<Pawn>)Reflection.RimWorld_Alert_UnhappyNudity_AffectedPawnsResult.GetValue(unhappyNudityAlert);
           var unhappyNudityPawn = unhappyNudityPawns.RandomElement();
           _target = unhappyNudityPawn;
-          Subject = $"{unhappyNudityPawn.Name.ToStringShort} is unhappy about being naked";
+          Subject = string.Format("RimDialogue.Alert_UnhappyNudity".Translate(), unhappyNudityPawn.Name.ToStringShort);
           break;
         case Alert_LifeThreateningHediff lifeThreateningHediffAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_LifeThreateningHediff");
           var sickPawns = (List<Pawn>)Reflection.RimWorld_Alert_LifeThreateningHediff_SickPawnsResult.GetValue(lifeThreateningHediffAlert);
           var sickPawn = sickPawns.RandomElement();
           _target = sickPawn;
-          Subject = $"{sickPawn.Name.ToStringShort} is suffering from a life-threatening condition";
+          Subject = string.Format("RimDialogue.Alert_LifeThreateningHediff".Translate(), sickPawn.Name.ToStringShort);
           var criticalHediffs = sickPawn.health.hediffSet.hediffs
             .Where(hediff => hediff.IsCurrentlyLifeThreatening)
             .OrderByDescending(hediff => hediff.Severity)
             .ToArray();
-          Explanation = $"{sickPawn.Name.ToStringShort} has the following critical conditions: {string.Join(", ", criticalHediffs.Select(hediff => hediff.LabelCap))}.";
+          Explanation = string.Format("RimDialogue.Alert_LifeThreateningHediff_Explanation".Translate(), sickPawn.Name.ToStringShort, string.Join(", ", criticalHediffs.Select(hediff => hediff.LabelCap)));
           break;
         default:
           if (alert != null)
@@ -361,16 +373,16 @@ namespace RimDialogue.Core.InteractionData
           else
           {
             Mod.Warning($"Entry {entry.LogID} - No alerts to choose from.");
-            Subject = "an alert";
+            Subject = "RimDialogue.Alert_Generic".Translate();
           }
           break;
       }
     }
 
-    public override void BuildData(DataT data)
+    public override async Task BuildData(DataT data)
     {
       data.Explanation = Explanation;
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override string? Action => null;

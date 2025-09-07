@@ -1,3 +1,4 @@
+#nullable enable
 using HarmonyLib;
 using RimDialogue.Configuration;
 using RimDialogue.Core;
@@ -18,7 +19,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.81.0";
+    public const string Version = "0.82.0";
 
     public static Mod Instance = null!;
 
@@ -46,14 +47,14 @@ namespace RimDialogue
       Log("Initialized");
     }
 
-    public static LoginData LoginData { get; private set; } = null;
+    public static LoginData? LoginData { get; private set; } = null;
 
     public static async void Login()
     {
-      var serverUri = new Uri(Settings.ServerUrl.Value);
-      var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + $"/Home/Login?clientId={ UnityWebRequest.EscapeURL(Settings.ClientId.Value) }";
       try
       {
+        var serverUri = new Uri(Settings.ServerUrl.Value);
+        var serverUrl = serverUri.GetLeftPart(UriPartial.Authority) + $"/Home/Login?clientId={UnityWebRequest.EscapeURL(Settings.ClientId.Value)}";
         using (UnityWebRequest request = UnityWebRequest.Get(serverUrl))
         {
           var asyncOperation = request.SendWebRequest();

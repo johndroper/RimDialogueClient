@@ -14,21 +14,14 @@ public static class PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker
   {
     try
     {
-      if (Settings.OnlyColonists.Value && !pov.IsColonist)
-        return;
-
-      if (DialogueRequest.TooSoon() ||
-        DialogueRequest.TooSoonAll() ||
-        Settings.IsFiltered(__result))
-      return;
-
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_InteractionWithMany Original interaction: '{__result}'");
+      //if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - PlayLogEntry_InteractionWithMany Original interaction: '{__result}'");
       var dialogueRequest = DialogueRequest.Create(
       __instance,
       __result,
       (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(__instance));
-      dialogueRequest.Execute(__result);
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
+      if (dialogueRequest != null)
+        dialogueRequest.Execute(__result);
+      //if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - New {dialogueRequest.GetType().Name} interaction: '{__result}'");
     }
     catch (Exception ex)
     {

@@ -82,7 +82,7 @@ namespace RimDialogue.Configuration
           {
             Settings.ModelName.Value = "Default";
           }));
-          if (Mod.LoginData.models != null)
+          if (Mod.LoginData?.models != null)
           {
             foreach (string model in Mod.LoginData.models.OrderBy(model => model))
             {
@@ -98,7 +98,7 @@ namespace RimDialogue.Configuration
         Settings.ClientId.Value = l.TextEntry(Settings.ClientId.Value, 1);
         l.Label("RimDialogue.ServerUrl".Translate());
         if (string.IsNullOrWhiteSpace(Settings.ServerUrl.Value))
-          Settings.ServerUrl.Value = "http://rimdialogue.proceduralproducts.com/home/getdialogue";
+          Settings.ServerUrl.Value = "https://rimdialogue.proceduralproducts.com";
         Settings.ServerUrl.Value = l.TextEntry(Settings.ServerUrl.Value, 1);
 
         var bitmapFontRow = l.GetRect(40f);
@@ -152,27 +152,29 @@ namespace RimDialogue.Configuration
 
         l.Gap();
 
-        var dialogueListing = l.BeginSection(30f * 15);
+        var dialogueListing = l.BeginSection(30f * 6f + 45f * 8f);
         dialogueListing.ColumnWidth = listingRect.width - 50f;
         dialogueListing.Label("RimDialogue.DialogueSettings".Translate());
         dialogueListing.Indent();
         dialogueListing.CheckboxLabeled("RimDialogue.ShowInteractionBubbles".Translate(), ref Settings.ShowInteractionBubbles.Value);
         dialogueListing.CheckboxLabeled("RimDialogue.ShowDialogueBubbles".Translate(), ref Settings.ShowDialogueBubbles.Value);
+        dialogueListing.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
         dialogueListing.CheckboxLabeled("RimDialogue.EnableCaravans".Translate(), ref Settings.EnableCaravans.Value);
         dialogueListing.CheckboxLabeled("RimDialogue.VerboseLogging".Translate(), ref Settings.VerboseLogging.Value);
+        dialogueListing.CheckboxLabeled("RimDialogue.HideDiscordButton".Translate(), ref Settings.HideDiscordButton.Value);
+
         dialogueListing.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, Mod.LoginData?.maxOutputWords ?? 50);
         dialogueListing.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, Mod.LoginData?.maxOutputWords ?? 50);
-        dialogueListing.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 100);
+        dialogueListing.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 1000);
+        dialogueListing.SliderLabeled("RimDialogue.MaxContextStored".Translate(), ref Settings.MaxContextItems.Value, 0, 5000);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
-        dialogueListing.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 60);
+        dialogueListing.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 600);
         dialogueListing.SliderLabeled("RimDialogue.DeepTalkCompensationFactor".Translate(), ref Settings.DeepTalkCompensationFactor.Value, 1, 100);
-        dialogueListing.CheckboxLabeled("RimDialogue.OnlyColonists".Translate(), ref Settings.OnlyColonists.Value);
         dialogueListing.Outdent();
         l.EndSection(dialogueListing);
 
         l.Gap();
-
 
         var weights = l.BeginSection(45f * 20f + 50f);
         weights.ColumnWidth = listingRect.width - 50f;

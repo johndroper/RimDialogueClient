@@ -1,7 +1,9 @@
 #nullable enable
+using RimDialogue.Core.Comps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -9,51 +11,111 @@ using Verse;
 
 namespace RimDialogue.Core
 {
-  public class Conversation : IExposable, IEquatable<Conversation>
+  public class Conversation :  IExposable
   {
-    private Pawn initiator;
+
+
+    private Pawn? initiator;
     private Pawn? recipient;
-    public string? text;
-    public string? interaction;
-    public int? timestamp;
+
+    private int? initiatorId;
+    private int? recipientId;
+
+    public string? Text;
+    public string? Interaction;
+    public int? Timestamp;
 #pragma warning disable CS8618
     public Conversation() { }
 #pragma warning restore CS8618
 
-    public Conversation(Pawn initiator, Pawn? recipient, string? interaction, string text)
+    public Conversation(
+      Pawn initiator,
+      Pawn? recipient,
+      string? interaction,
+      string text)
     {
+      //Mod.Log($"New conversation: {initiator}");
+      if (initiator == null)
+        throw new ArgumentNullException(nameof(initiator), "Initiator cannot be null.");
       this.initiator = initiator;
+      initiatorId = initiator.thingIDNumber;
       this.recipient = recipient;
-      this.text = text;
-      this.interaction = interaction;
-      timestamp = Find.TickManager.TicksGame;
+      if (recipient != null)
+        recipientId = recipient.thingIDNumber;
+      Text = text;
+      Interaction = interaction;
+      Timestamp = Find.TickManager.TicksAbs;
     }
-    public Pawn Initiator => initiator;
-    public Pawn? Recipient => recipient;
-    public string Participants => $"{Initiator.Name?.ToStringShort ?? "Unknown"}" + Recipient != null ? $" ↔ {Recipient?.Name?.ToStringShort ?? "Unknown"}" : "";
-    public bool InvolvesPawn(Pawn pawn)
+
+    public Pawn? Initiator
     {
-      return pawn.thingIDNumber == initiator.thingIDNumber || pawn.thingIDNumber == recipient?.thingIDNumber;
+      get
+      {
+        initiator ??= TrackerUtils.GetPawnById(initiatorId);
+        return initiator;
+      }
+    }
+
+    public Pawn? Recipient
+    {
+      get
+      {
+        if (recipient == null && recipientId != null)
+          recipient = TrackerUtils.GetPawnById(recipientId.Value);
+        return recipient;
+      }
+    }
+
+    public string Participants => $"{Initiator?.Name?.ToStringShort ?? "Unknown"}" + (Recipient != null ? $" ↔ {Recipient?.Name?.ToStringShort ?? "Unknown"}" : "");
+    public bool Involves(Thing thing)
+    {
+      return thing.thingIDNumber == initiatorId || thing.thingIDNumber == recipientId;
     }
     public bool InvolvesColonist()
     {
-      return initiator != null && initiator.IsColonist || recipient != null && recipient.IsColonist;
+      return (Initiator != null && Initiator.IsColonist) || (Recipient != null && Recipient.IsColonist);
     }
 
     public override string ToString()
     {
-      return $"{initiator?.Name?.ToStringShort ?? "Unknown"}" + (recipient != null ? $" ↔ {recipient.Name?.ToStringShort ?? "Unknown"}" : "") + $" ({interaction ?? "No Interaction"}): {text}";
+      return $"{Initiator?.Name?.ToStringShort ?? "Unknown"}" + (Recipient != null ? $" ↔ {Recipient.Name?.ToStringShort ?? "Unknown"}" : "") + $" ({Interaction ?? "No Interaction"}): {Text}";
     }
 
-    override public int GetHashCode()
+    private string? _formattedText;
+    public string? FormattedText
     {
-      return this.text?.GetHashCode() ?? base.GetHashCode();
+      get
+      {
+        if (Text == null || Initiator == null)
+          return null;
+        if (_formattedText == null)
+        {
+          var initiatorName = Initiator.Name?.ToStringShort ?? Initiator.Label;
+          _formattedText = Text.Replace(
+            initiatorName,
+            initiatorName.Colorize(ColoredText.NameColor));
+          if (Recipient != null)
+          {
+            var recipientName = Recipient.Name?.ToStringShort ?? Recipient.Label;
+            _formattedText = _formattedText.Replace(
+              recipientName,
+              recipientName.Colorize(ColoredText.NameColor));
+          }
+        }
+        return _formattedText;
+      }
     }
 
-    public override bool Equals(object obj)
-    {
-      return this.text?.Equals((obj as Conversation)?.text) ?? base.Equals(obj);
-    }
+
+    //override public int GetHashCode()
+    //{
+    //  return this.Text?.GetHashCode() ?? base.GetHashCode();
+    //}
+
+    //public override bool Equals(object obj)
+    //{
+    //  return this.Text?.Equals((obj as Conversation)?.Text) ?? base.Equals(obj);
+    //}
 
     public static string[] BreakWord(string text, int maxChars)
     {
@@ -163,26 +225,22 @@ namespace RimDialogue.Core
     {
       get
       {
-        if (text == null)
+        if (Text == null)
           return [];
-        lines ??= ParseLines(text);
+        lines ??= ParseLines(Text);
         return lines;
       }
     }
 
+
+
     public void ExposeData()
     {
-      Scribe_References.Look(ref initiator, "initiator");
-      Scribe_References.Look(ref recipient, "recipient");
-      Scribe_Values.Look(ref text, "text");
-      Scribe_Values.Look(ref interaction, "interaction");
-      Scribe_Values.Look(ref timestamp, "timestamp");
-    }
-
-    public bool Equals(Conversation other)
-    {
-      if (other == null) return false;
-      return this.text?.Equals(other.text) ?? false;
+      Scribe_Values.Look(ref initiatorId, "initiatorId");
+      Scribe_Values.Look(ref recipientId, "recipientId");
+      Scribe_Values.Look(ref Text, "text");
+      Scribe_Values.Look(ref Interaction, "interaction");
+      Scribe_Values.Look(ref Timestamp, "timestamp");
     }
   }
 

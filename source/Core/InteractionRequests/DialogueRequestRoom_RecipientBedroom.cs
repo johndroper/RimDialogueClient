@@ -1,4 +1,5 @@
 #nullable enable
+using RimWorld;
 using System;
 using Verse;
 
@@ -6,12 +7,16 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestRoom_RecipientBedroom : DialogueRequestRoom
   {
-    public static new DialogueRequestRoom_RecipientBedroom BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestRoom_RecipientBedroom(entry);
-    }
+    //public static new DialogueRequestRoom_RecipientBedroom BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestRoom_RecipientBedroom(entry);
+    //}
 
-    public DialogueRequestRoom_RecipientBedroom(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestRoom_RecipientBedroom(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
     }
 

@@ -1,6 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -25,15 +26,19 @@ namespace RimDialogue.Core.InteractionData
     };
 
     const string Placeholder = "skill";
-    public static new DialogueRequestSkill BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestSkill(entry);
-    }
+    //public static new DialogueRequestSkill BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestSkill(entry);
+    //}
 
     public SkillRecord InitiatorSkillRecord { get; set; }
     public SkillRecord RecipientSkillRecord { get; set; }
 
-    public DialogueRequestSkill(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestSkill(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
       InitiatorSkillRecord = Initiator.skills.GetSkill(SkillDef);
       RecipientSkillRecord = Recipient.skills.GetSkill(SkillDef);
@@ -52,7 +57,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string? Action => "SkillChitchat";
 
-    public override void BuildData(DialogueDataSkill data)
+    public override async Task BuildData(DialogueDataSkill data)
     {
       data.SkillName = SkillDef.label ?? string.Empty;
       data.SkillDescription = SkillDef.description ?? string.Empty;
@@ -60,7 +65,7 @@ namespace RimDialogue.Core.InteractionData
       data.RecipientSkillLevel = RecipientSkillRecord?.LevelDescriptor.ToLower() ?? string.Empty;
       data.InitiatorPassion = InitiatorSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
       data.RecipientPassion = RecipientSkillRecord?.passion.ToString().ToLower() ?? string.Empty;
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override Rule[] Rules => [new Rule_String(Placeholder, SkillDef.label)];

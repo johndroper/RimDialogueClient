@@ -16,17 +16,20 @@ namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestMany<DataT> : DialogueRequest<DataT> where DataT : InteractionData.DialogueData, new()
   {
-    public static DialogueRequestMany<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestMany<DataT>(entry);
-    }
+    //public static DialogueRequestMany<DataT> BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestMany<DataT>(entry);
+    //}
 
     protected InteractionDef _interactionDef;
     protected string _instructions;
     protected Pawn _initiator;
     protected PawnData _initiatorData;
 
-    public DialogueRequestMany(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestMany(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef
+      ) : base(entry)
     {
       _interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry);
       _initiator = (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(entry);
@@ -43,9 +46,9 @@ namespace RimDialogue.Core.InteractionRequests
     public override string Instructions => _instructions;
     public override Rule[] Rules => [];
 
-    public override void BuildData(DataT data)
+    public override async Task BuildData(DataT data)
     {
-      base.BuildData(data);
+      await base.BuildData(data);
     }
 
     public override void AddConversation(string interaction, string text)

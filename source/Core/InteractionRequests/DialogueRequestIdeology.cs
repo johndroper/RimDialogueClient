@@ -1,4 +1,5 @@
 using RimDialogue.Core.InteractionRequests;
+using RimWorld;
 using Verse;
 using Verse.Grammar;
 
@@ -9,12 +10,16 @@ namespace RimDialogue.Core.InteractionData
     const string InitiatorIdeologyPlaceholder = "INITIATOR_ideology";
     const string RecipientIdeologyPlaceholder = "RECIPIENT_ideology";
 
-    public static new DialogueRequestIdeology<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestIdeology<DataT>(entry);
-    }
+    //public static new DialogueRequestIdeology<DataT> BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestIdeology<DataT>(entry);
+    //}
 
-    public DialogueRequestIdeology(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestIdeology(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }

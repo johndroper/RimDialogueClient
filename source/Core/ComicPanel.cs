@@ -1,3 +1,4 @@
+ #nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,55 +18,55 @@ namespace RimDialogue.Core
     private static readonly float topEdgeHeight = Mathf.Ceil(77f / 2f);
     private static readonly float bottomEdgeHeight = Mathf.Ceil(122f / 2f);
 
-    private static Texture2D _earth;
+    private static Texture2D? _earth;
     private static Texture2D Earth => _earth ??= ContentFinder<Texture2D>.Get("RimDialogue/earth_texture");
 
-    private static Texture2D _sky;
+    private static Texture2D? _sky;
     private static Texture2D Sky => _sky ??= ContentFinder<Texture2D>.Get("RimDialogue/sky_texture");
 
-    private static Texture2D _cornerTL;
+    private static Texture2D? _cornerTL;
     private static Texture2D CornerTL => _cornerTL ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TL");
 
-    private static Texture2D _cornerTR;
+    private static Texture2D? _cornerTR;
     private static Texture2D CornerTR => _cornerTR ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TR");
 
-    private static Texture2D _cornerBL;
+    private static Texture2D? _cornerBL;
     private static Texture2D CornerBL => _cornerBL ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BL");
 
-    private static Texture2D _cornerBR;
+    private static Texture2D? _cornerBR;
     private static Texture2D CornerBR => _cornerBR ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BR");
 
-    private static Texture2D _topCenter;
+    private static Texture2D? _topCenter;
     private static Texture2D TopCenter => _topCenter ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TC");
 
-    private static Texture2D _topCenterWide;
+    private static Texture2D? _topCenterWide;
     private static Texture2D TopCenterWide => _topCenterWide ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_TCW");
 
-    private static Texture2D _bottomCenter;
+    private static Texture2D? _bottomCenter;
     private static Texture2D BottomCenter => _bottomCenter ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BC");
 
-    private static Texture2D _bottomCenterWide;
+    private static Texture2D? _bottomCenterWide;
     private static Texture2D BottomCenterWide => _bottomCenterWide ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BCW");
 
-    private static Texture2D _bottomCenterReversed;
+    private static Texture2D? _bottomCenterReversed;
     private static Texture2D BottomCenterReversed => _bottomCenterReversed ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_BCR");
 
-    private static Texture2D _centerLeft;
+    private static Texture2D? _centerLeft;
     private static Texture2D CenterLeft => _centerLeft ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CL");
 
-    private static Texture2D _centerLeftSmall;
+    private static Texture2D? _centerLeftSmall;
     private static Texture2D CenterLeftSmall => _centerLeftSmall ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CLS");
 
-    private static Texture2D _centerRight;
+    private static Texture2D? _centerRight;
     private static Texture2D CenterRight => _centerRight ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CR");
 
-    private static Texture2D _centerRightSmall;
+    private static Texture2D? _centerRightSmall;
     private static Texture2D CenterRightSmall => _centerRightSmall ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_CRS");
 
-    private static Texture2D _bubbleBackground;
+    private static Texture2D? _bubbleBackground;
     private static Texture2D BubbleBackground => _bubbleBackground ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_background");
 
-    private static GUIStyle _style;
+    private static GUIStyle? _style;
     public static GUIStyle style
     { 
       get
@@ -126,7 +127,6 @@ namespace RimDialogue.Core
     public static void SaveScreenRegionAsPNG(Rect screenRect, string filename)
     {
       Texture2D screenTexture = ScreenCapture.CaptureScreenshotAsTexture();
-
       Texture2D regionTexture = new Texture2D((int)screenRect.width, (int)screenRect.height);
 
       Color[] pixels = screenTexture.GetPixels(
@@ -147,7 +147,6 @@ namespace RimDialogue.Core
       UnityEngine.Object.Destroy(screenTexture);
       UnityEngine.Object.Destroy(regionTexture);
     }
-
 
     //public static float GetTextHeight(string text, float textWidth)
     //{
@@ -245,9 +244,10 @@ namespace RimDialogue.Core
     public const int PortraitHeight = 128;
 
     protected float SkyHeight;
-    protected List<ComicPanelItem> BackgroundItems = null;
+    protected List<ComicPanelItem> BackgroundItems;
 
     public readonly BitmapFont BitmapFont;
+    protected Texture2D? _texture;
 
     public ComicPanel(float skyHeight, BitmapFont bitmapFont, List<ComicPanelItem> backgroundItems)
     {
@@ -307,8 +307,7 @@ namespace RimDialogue.Core
       return finalTex;
     }
 
-    protected Texture2D _texture;
-    public Texture2D Texture
+    public Texture2D? Texture
     {
       get
       {

@@ -28,12 +28,12 @@ namespace RimDialogue.Access
       switch (entry)
       {
         case PlayLogEntry_Interaction interaction:
-          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Add Bubble Interaction: '{interaction.GetType().Name}' initiator: {initiator}");
           break;
         case PlayLogEntry_InteractionSinglePawn interaction:
-          // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction type is '{interaction.GetType().Name}'");
           initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Add Bubble Interaction: '{interaction.GetType().Name}' initiator: {initiator}");
           break;
         default:
           return false;
@@ -62,7 +62,11 @@ namespace RimDialogue.Access
     public static void AddBubble(Pawn initiator, LogEntry entry, string bubbleText)
     {
       if (bubbleDictionary == null)
+      {
+        Mod.Warning($"Entry {entry.LogID} - Bubble dictionary is null. Cannot add bubble for pawn {initiator}.");
         return;
+      } 
+
       var bubble = new Bubble(initiator, entry);
       dialogueDictionary.Add(bubble, bubbleText);
       if (!bubbleDictionary.ContainsKey(initiator))
@@ -71,7 +75,7 @@ namespace RimDialogue.Access
         // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - New bubble dictionary created for pawn {initiator.thingIDNumber}.");
       }
       bubbleDictionary[initiator].Add(bubble);
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Bubble added for pawn {initiator.thingIDNumber}.");
+      if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Bubble added for pawn {initiator}.");
     }
 
     //public static async void GetDialogue(Pawn initiator, Pawn? recipient, string logEntryText, LogEntry entry, InteractionDef? interactionDef)

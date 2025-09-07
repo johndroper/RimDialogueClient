@@ -42,7 +42,7 @@ namespace RimDialogue.UI
         _textHeight = null;
       }
       _height ??= TopMargin
-        + (Conversation.timestamp != null ? LabelHeight : 0)
+        + (Conversation.Timestamp != null ? LabelHeight : 0)
         + GetInteractionHeight(contentRectWidth)
         + GetTextHeight(contentRectWidth)
         + BottomMargin;
@@ -53,9 +53,9 @@ namespace RimDialogue.UI
     public float GetInteractionHeight(float contentRectWidth)
     {
       Text.Font = GameFont.Small;
-      if (Conversation.interaction == null)
+      if (Conversation.Interaction == null)
         return 0f;
-        _interactionHeight ??= Text.CalcHeight(Conversation.interaction, contentRectWidth) + 3f;
+        _interactionHeight ??= Text.CalcHeight(Conversation.Interaction, contentRectWidth) + 3f;
       return _interactionHeight.Value;
     }
 
@@ -63,7 +63,7 @@ namespace RimDialogue.UI
     public float GetTextHeight(float contentRectWidth)
     {
       Text.Font = GameFont.Small;
-      _textHeight ??= Text.CalcHeight(Conversation.text, contentRectWidth);
+      _textHeight ??= Text.CalcHeight(Conversation.Text, contentRectWidth);
       return _textHeight.Value;
     }
 
@@ -74,37 +74,41 @@ namespace RimDialogue.UI
       Text.Font = GameFont.Small;
       GUI.color = Color.white;
 
-      string text = Conversation.text ?? string.Empty;
+      string text = Conversation.FormattedText ?? string.Empty;
       float textHeight = GetTextHeight(contentRectWidth);
       currentY -= textHeight + BottomMargin;
       var textRect = new Rect(0, currentY, contentRectWidth, textHeight);
       Widgets.Label(textRect, text);
-      if (Conversation.interaction != null)
+      if (Conversation.Interaction != null)
       {
         var interactionLabelHeight = GetInteractionHeight(contentRectWidth);
         currentY -= interactionLabelHeight;
         var interactionRect = new Rect(0, currentY, contentRectWidth, interactionLabelHeight);
-        Widgets.Label(interactionRect, Conversation.interaction);
+        Widgets.Label(interactionRect, Conversation.Interaction);
       }
-      if (Conversation.timestamp != null)
+      if (Conversation.Timestamp != null)
       {
         currentY -= LabelHeight;
         var periodRect = new Rect(0, currentY, contentRectWidth, LabelHeight);
-        Widgets.Label(periodRect, (Find.TickManager.TicksGame - Conversation.timestamp ?? 0).ToStringTicksToPeriod() + agoText);
+        Widgets.Label(periodRect, (Find.TickManager.TicksAbs - Conversation.Timestamp ?? 0).ToStringTicksToPeriod() + agoText);
       }
 
       var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
       if (Widgets.ButtonText(copyButtonRect, "Copy"))
       {
-        GUIUtility.systemCopyBuffer = Conversation.text ?? string.Empty;
+        //Mod.Log("Copy button press");
+        GUIUtility.systemCopyBuffer = Conversation.Text ?? string.Empty;
         SoundDefOf.Click.PlayOneShotOnCamera();
+        //Mod.Log("Copy press end");
       }
 
       var memeButtonRect = new Rect(contentRectWidth - 40, currentY, 40, LabelHeight);
       if (Widgets.ButtonText(memeButtonRect, "Save"))
       {
+        //Mod.Log("Save button press");
         var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
         Find.WindowStack.Add(new Window_ComicPanelViewer(bitmapFont, Conversation));
+        //Mod.Log("Save press end");
       }
 
       currentY -= TopMargin;
@@ -263,14 +267,18 @@ namespace RimDialogue.UI
       GUI.color = Color.black;
       var titleLabelRect = new Rect(titleBarRect.x + 5, titleBarRect.y + 5, 150, titleBarRect.height);
       Widgets.Label(titleLabelRect, "RimDialogue");
-      var discordRect = new Rect(titleBarRect.xMax - 40 - 24 - 2, titleBarRect.y + 3, 24, 24);
-      if (Widgets.ButtonImage(discordRect, DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
+
+      if (!Settings.HideDiscordButton.Value)
       {
-        Process.Start(new ProcessStartInfo
+        var discordRect = new Rect(titleBarRect.xMax - 40 - 24 - 2, titleBarRect.y + 3, 24, 24);
+        if (Widgets.ButtonImage(discordRect, DiscordLogo, true, "Discord - Get Help, Give Feedback, Post Memes"))
         {
-          FileName = "https://discord.gg/KavBmswUen",
-          UseShellExecute = true
-        });
+          Process.Start(new ProcessStartInfo
+          {
+            FileName = "https://discord.gg/KavBmswUen",
+            UseShellExecute = true
+          });
+        }
       }
       GUI.color = previousColor;
 

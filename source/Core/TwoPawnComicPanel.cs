@@ -1,3 +1,4 @@
+#nullable enable
 using RimDialogue.Core;
 using RimWorld;
 using System;
@@ -10,11 +11,11 @@ using Verse;
 public class TwoPawnComicPanel : ComicPanel
 {
   private readonly Pawn pawnA;
-  private readonly string dialogueA;
-  private readonly Pawn pawnB;
-  private readonly string dialogueB;
+  private readonly string? dialogueA;
+  private readonly Pawn? pawnB;
+  private readonly string? dialogueB;
 
-  public TwoPawnComicPanel(Pawn pawnA, string dialogueA, Pawn pawnB, string dialogueB, float skyHeight, BitmapFont font, List<ComicPanelItem> BackgroundItems) : base(skyHeight, font, BackgroundItems)
+  public TwoPawnComicPanel(Pawn pawnA, string? dialogueA, Pawn? pawnB, string? dialogueB, float skyHeight, BitmapFont font, List<ComicPanelItem> BackgroundItems) : base(skyHeight, font, BackgroundItems)
   {
     this.pawnA = pawnA;
     this.dialogueA = dialogueA;
@@ -22,8 +23,8 @@ public class TwoPawnComicPanel : ComicPanel
     this.dialogueB = dialogueB;
   }
 
-  Texture2D portraitATex;
-  Texture2D portraitBTex;
+  Texture2D? portraitATex;
+  Texture2D? portraitBTex;
   protected override void DrawInternal(Rect canvas)
   {
     const float textWidth = 200f;
@@ -51,8 +52,7 @@ public class TwoPawnComicPanel : ComicPanel
     // --- Portrait B ---
     if (portraitBTex == null)
     {
-      RimDialogue.Mod.Log($"Fetching portrait for {pawnB.Name} ({pawnB.thingIDNumber})");
-
+      //RimDialogue.Mod.Log($"Fetching portrait for {pawnB?.Name?.ToStringShort ?? "Null"} ({pawnB?.thingIDNumber.ToString() ?? "Null"})");
       RenderTexture portraitBRT = PortraitsCache.Get(pawnB, ColonistBarColonistDrawer.PawnTextureSize, Rot4.West);
       portraitBTex = ConvertRenderTextureToTexture2D(portraitBRT);
     }

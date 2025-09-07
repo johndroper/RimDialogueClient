@@ -15,4 +15,7 @@ _*
 /build
 /source/obj
 /source/obj
-source/RimDialogueClient.dll
+*.dll
+source/0Harmony.dll
+source/Context/model.onnx
+source/Context/vocab.txt

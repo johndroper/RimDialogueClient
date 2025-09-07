@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
+using static UnityEngine.Networking.UnityWebRequest;
 
 namespace RimDialogue.Core
 {
@@ -33,7 +34,7 @@ namespace RimDialogue.Core
     {
     }
 
-    public PlayLogEntry_InteractionBattle(BattleLogEntry_InteractionDef interactionDef, Pawn initiator, List<RulePackDef> extraSentencePacks) :
+    public PlayLogEntry_InteractionBattle(BattleLogEntry_InteractionDef interactionDef, Pawn initiator, List<RulePackDef>? extraSentencePacks) :
       base(interactionDef, initiator, extraSentencePacks)
     {
       InteractionDef = interactionDef;
@@ -44,11 +45,21 @@ namespace RimDialogue.Core
       if (_Text != null)
         return _Text;
 
+      if (GameComponent_ConversationTracker.Instance.InteractionCache.TryGetValue(this.LogID, out var cached))
+        return cached;
+
+      if (GameComponent_ConversationTracker.ExecutedLogEntries.Contains(this.LogID))
+        return string.Empty;
+
+      if (Settings.VerboseLogging.Value)
+        Mod.Log($"Entry {LogID} - Generating InteractionBattle {InteractionDef?.GetType().Name} {initiator} -> {pov}");
+
       if (initiator == null)
-      {
-        Log.ErrorOnce("PlayLogEntry_InteractionBattle has a null pawn reference.", 34422);
-        return "[" + intDef.label + " error: null pawn reference]";
-      }
+        throw new Exception("Initiator is null.");
+
+      if (InteractionDef == null)
+        throw new Exception("InteractionDef is null.");
+
       Rand.PushState();
       Rand.Seed = logID;
       GrammarRequest request = GenerateGrammarRequest();
@@ -65,7 +76,7 @@ namespace RimDialogue.Core
         request.IncludesBare.Add(intDef.logRulesInitiator);
         request.Rules.AddRange(GrammarUtility.RulesForPawn("INITIATOR", initiator, request.Constants));
         _Text = GrammarResolver.Resolve("r_logentry", request, "interaction from initiator", forceLog);
-        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New battle interaction text: '{_Text}'.");
+        if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New battle interaction text: '{_Text}'.");
       }
       else
       {
@@ -84,13 +95,7 @@ namespace RimDialogue.Core
       }
       Rand.PopState();
 
-      if (!DialogueRequest.TooSoon() && !DialogueRequest.TooSoonAll())
-        dialogueRequest.Execute(_Text);
-
-      if (Settings.OnlyColonists.Value && !initiator.IsColonist)
-        return _Text;
-
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {LogID} - New {dialogueRequest.GetType().Name} interaction: '{_Text}'");
+      dialogueRequest.Execute(_Text);
 
       return _Text;
     }

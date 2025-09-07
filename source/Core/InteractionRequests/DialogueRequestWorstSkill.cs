@@ -7,12 +7,16 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestWorstSkill : DialogueRequestSkill
   {
-    public static new DialogueRequestWorstSkill BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestWorstSkill(entry);
-    }
+    //public static new DialogueRequestWorstSkill BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestWorstSkill(entry);
+    //}
 
-    public DialogueRequestWorstSkill(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestWorstSkill(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }

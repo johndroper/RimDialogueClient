@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -16,10 +17,10 @@ namespace RimDialogue.Core.InteractionRequests
 {
   public class DialogueRequestTwoPawn<DataT> : DialogueRequest<DataT> where DataT : InteractionData.DialogueData, new()
   {
-    public static DialogueRequestTwoPawn<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestTwoPawn<DataT>(entry);
-    }
+    //public static DialogueRequestTwoPawn<DataT> BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestTwoPawn<DataT>(entry);
+    //}
 
     protected InteractionDef _interactionDef;
     protected string _instructions;
@@ -32,12 +33,16 @@ namespace RimDialogue.Core.InteractionRequests
     public int initiatorOpinionOfRecipient;
     public int recipientOpinionOfInitiator;
 
-    public DialogueRequestTwoPawn(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestTwoPawn(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry)
     {
-      _interactionDef = (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry);
-      Recipient = (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(entry);
-      _initiator = (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(entry);
+      _interactionDef = interactionDef;
+      _initiator = initiator;
       _initiatorData = Initiator.MakeData(_tracker.GetInstructions(Initiator), entry.LogID);
+      Recipient = recipient;
       recipientData = Recipient.MakeData(_tracker.GetInstructions(Recipient), entry.LogID);
 
       initiatorOpinionOfRecipient = Initiator.relations.OpinionOf(Recipient);
@@ -48,16 +53,35 @@ namespace RimDialogue.Core.InteractionRequests
         _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
     }
 
+    //public DialogueRequestTwoPawn(PlayLogEntry_Interaction entry) : this(
+    //  entry,
+    //  (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry),
+    //  (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(entry),
+    //  (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(entry))
+    //{
+
+    //}
+
     public override Pawn Initiator => _initiator;
     public override PawnData InitiatorData => _initiatorData;
     public override InteractionDef InteractionDef => _interactionDef;
     public override string Instructions => _instructions;
 
-    public override void BuildData(DataT data)
+    public async override Task BuildData(DataT data)
     {
-      base.BuildData(data);
+      await base.BuildData(data);
       data.InitiatorOpinionOfRecipient = initiatorOpinionOfRecipient;
       data.RecipientOpinionOfInitiator = recipientOpinionOfInitiator;
+
+      if (this.Initiator.IsColonist)
+      {
+        var now = Find.TickManager.TicksAbs;
+        var contexts = await GameComponent_ContextTracker.Instance
+          .BlendedSearch(Initiator, Recipient, Interaction, 5);
+        data.Context = contexts
+            .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
+            .ToArray();
+      }
     }
 
     public override void BuildForm(WWWForm form)

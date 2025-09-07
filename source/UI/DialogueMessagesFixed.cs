@@ -27,8 +27,8 @@ namespace RimDialogue.UI
     {
       GameComponent_ConversationTracker.Instance.ConversationAdded += (s, e) =>
       {
-        if (Settings.DialogueMessageInterface.Value == 2 && e.Conversation.text != null)
-          AddMessage(e.Conversation.interaction + "\r\n" + e.Conversation.text, null);
+        if (Settings.DialogueMessageInterface.Value == 2 && e.Conversation.Text != null)
+          AddMessage(e.Conversation.Interaction + "\r\n" + e.Conversation.Text, null);
       };
     }
 

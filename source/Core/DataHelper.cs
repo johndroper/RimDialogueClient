@@ -12,10 +12,9 @@ namespace RimDialogue.Core
 {
   public static partial class H
   {
-    private static readonly Regex ColorTag = new("<\\/?color[^>]*>");
+    private static readonly Regex ColorTag = new("<\\/?color.*?>");
     private static readonly Regex WhiteSpace = new("\\s+");
     private static readonly Regex Parentheses = new(@"\s*\([^)]*\)\s*");
-
 
     public static GameComponent_ConversationTracker GetTracker()
     {
@@ -49,6 +48,8 @@ namespace RimDialogue.Core
       else
         isAnimal = (bool)Reflection.IsNonMutantAnimal.GetValue(pawn);
 
+      var role = pawn.Ideo?.GetRole(pawn);
+
       return new PawnData
         {
           ThingID = pawn.ThingID,
@@ -71,7 +72,10 @@ namespace RimDialogue.Core
           IsGhoul = pawn.IsGhoul,
           IsBloodFeeder = pawn.IsBloodfeeder(),
           IsSlave = pawn.IsSlave,
+          IsWildMan = pawn.IsWildMan(),
           IsAnimal = isAnimal ?? false,
+          Role = role?.Label ?? string.Empty,
+          RoleDescription = H.RemoveWhiteSpaceAndColor(role?.Description),
           IdeologyName = pawn.Ideo?.name ?? string.Empty,
           IdeologyDescription = H.RemoveWhiteSpaceAndColor(pawn.Ideo?.description),
           IdeologyPrecepts = pawn.Ideo?.PreceptsListForReading?.Where(precept => precept.GetType() == typeof(Precept)).Select(precept => precept.Label + " - " + H.RemoveWhiteSpace(precept.Description)).ToArray() ?? [],
@@ -104,6 +108,12 @@ namespace RimDialogue.Core
     {
       if (input == null) return string.Empty;
       return Parentheses.Replace(input, string.Empty);
+    }
+
+    public static string RemoveColor(string? input)
+    {
+      if (input == null) return string.Empty;
+      return ColorTag.Replace(input, string.Empty);
     }
 
     public static string RemoveWhiteSpaceAndColor(string? input)

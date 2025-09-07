@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Verse;
+using Verse.AI;
 using Verse.Grammar;
 
 namespace RimDialogue.Access
@@ -17,6 +18,7 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_Initiator = AccessTools.Field(typeof(PlayLogEntry_Interaction), "initiator");
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_Recipient = AccessTools.Field(typeof(PlayLogEntry_Interaction), "recipient");
     public static readonly FieldInfo Verse_PlayLogEntry_InteractionSinglePawn_Initiator = AccessTools.Field(typeof(PlayLogEntry_InteractionSinglePawn), "initiator");
+    public static readonly FieldInfo Verse_PlayLogEntry_InteractionWithMany_Recipients = AccessTools.Field(typeof(PlayLogEntry_InteractionWithMany), "recipients");
 
     public static readonly FieldInfo Verse_PlayLogEntry_Interaction_InteractionDef = AccessTools.Field(typeof(PlayLogEntry_Interaction), "intDef");
     public static readonly FieldInfo Verse_PlayLogEntry_InteractionSinglePawn_InteractionDef = AccessTools.Field(typeof(PlayLogEntry_InteractionSinglePawn), "intDef");
@@ -98,6 +100,8 @@ namespace RimDialogue.Access
 
     public static PropertyInfo IsAnimal = AccessTools.Property(typeof(Pawn), "IsAnimal");
     public static PropertyInfo IsNonMutantAnimal = AccessTools.Property(typeof(Pawn), "IsNonMutantAnimal");
+
+    public static FieldInfo Verse_Pawn_JobTracker_Pawn = AccessTools.Field(typeof(Pawn_JobTracker), "pawn");
 
     private static readonly Dictionary<string, bool> _isAssemblyLoaded = [];
 

@@ -1,5 +1,4 @@
 #nullable enable
-
 using HarmonyLib;
 using RimDialogue.Core;
 using RimWorld;
@@ -36,10 +35,13 @@ namespace RimDialogue.Access
       ref List<ThingDef> hyperlinkThingDefs)
     {
       if (Settings.VerboseLogging.Value)
-        Log.Message($"Creating LetterRecord {def.defName}");
+        Mod.Log($"Creating LetterRecord {def.defName}");
 
-      var record = new GameComponent_LetterTracker.RecentLetter(label, text, def, lookTargets, relatedFaction, quest, hyperlinkThingDefs);
-
+      var record = new RecentLetter(
+        H.RemoveWhiteSpaceAndColor(label),
+        H.RemoveWhiteSpaceAndColor(text),
+        def.defName,
+        lookTargets?.PrimaryTarget.Pawn);
       GameComponent_LetterTracker.Instance.RecordLetter(record);
     }
   }

@@ -7,13 +7,16 @@ namespace RimDialogue.Core.InteractionData
 {
   public class DialogueRequestBestSkill : DialogueRequestSkill
   {
-    public static new DialogueRequestBestSkill BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestBestSkill(entry);
-    }
+    //public static new DialogueRequestBestSkill BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestBestSkill(entry);
+    //}
 
-    public DialogueRequestBestSkill(PlayLogEntry_Interaction entry) :
-      base(entry)
+    public DialogueRequestBestSkill(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
 
     }
@@ -23,6 +26,8 @@ namespace RimDialogue.Core.InteractionData
     {
       get
       {
+        //TODO FIXME
+        //what happens if this is about recipient's best skill?
         if (_skillDef == null)
         {
           var skills = Initiator.skills?.skills;

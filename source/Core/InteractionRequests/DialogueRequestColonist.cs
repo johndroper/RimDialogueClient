@@ -1,5 +1,6 @@
 using RimDialogue.Access;
 using RimDialogue.Core.InteractionRequests;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -11,10 +12,10 @@ namespace RimDialogue.Core.InteractionData
   {
     const string colonistPlaceholder = "colonist";
 
-    public static new DialogueRequestColonist<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    {
-      return new DialogueRequestColonist<DataT>(entry);
-    }
+    //public static new DialogueRequestColonist<DataT> BuildFrom(PlayLogEntry_Interaction entry)
+    //{
+    //  return new DialogueRequestColonist<DataT>(entry);
+    //}
 
     private Pawn _target;
     public override Pawn Target
@@ -25,7 +26,11 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public DialogueRequestColonist(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestColonist(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
       var colonists = Reflection.RimWorld_ColonistBar_TmpColonistsInOrder.GetValue(Find.ColonistBar) as List<Pawn>;
       if (colonists != null && colonists.Any())

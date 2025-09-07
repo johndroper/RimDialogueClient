@@ -1,4 +1,5 @@
 using HarmonyLib;
+using RimDialogue.Context;
 using RimDialogue.Core;
 using RimDialogue.Core.InteractionDefs;
 using RimDialogue.Core.InteractionWorkers;
@@ -21,10 +22,10 @@ namespace RimDialogue.Access
     public static bool TooSoon(Thing thing)
     {
       if (_lastInteractionTicks.TryGetValue(thing, out int lastInteraction)
-        && Find.TickManager.TicksGame - lastInteraction < Settings.MinDelayMinutes.Value * InteractionWorker_Dialogue.TicksPerMinute)
+        && Find.TickManager.TicksAbs - lastInteraction < Settings.MinDelayMinutes.Value * InteractionWorker_Dialogue.TicksPerMinute)
       {
         // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {thing} - Too soon to add interaction.");
-        _lastInteractionTicks[thing] = Find.TickManager.TicksGame;
+        _lastInteractionTicks[thing] = Find.TickManager.TicksAbs;
         return true;
       }
       return false;
@@ -42,8 +43,6 @@ namespace RimDialogue.Access
       {
         return pawn != null && !(bool)Reflection.IsNonMutantAnimal.GetValue(pawn) && !pawn.DeadOrDowned;
       }
-
-        //return pawn != null && !pawn.IsNonMutantAnimal && !pawn.DeadOrDowned;
     }
 
     public static void Postfix(LogEntry entry)
@@ -51,6 +50,7 @@ namespace RimDialogue.Access
       if (entry == null) return;
       if (!Find.BattleLog.Battles.Any())
         return;
+      GameComponent_ContextTracker.Instance.Add(entry);
       Battle currentBattle = Find.BattleLog.Battles.First();
       switch (entry)
       {
@@ -104,7 +104,7 @@ namespace RimDialogue.Access
           new DamageTaken_InteractionDef(
             DefDatabase<InteractionDef>.GetNamed("ImHit"),
             initiator,
-            entry.ToGameStringFromPOV(recipient),
+            H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(recipient)),
             damagedParts,
             damagedPartsDestroyed,
             deflected));
@@ -148,7 +148,7 @@ namespace RimDialogue.Access
             DefDatabase<InteractionDef>.GetNamed("ImHit"),
             initiatorPawn,
             initiatorPawn,
-            entry.ToGameStringFromPOV(initiatorPawn),
+            H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiatorPawn)),
             damagedParts,
             damagedPartsDestroyed,
             deflected,
@@ -190,7 +190,7 @@ namespace RimDialogue.Access
           new DamageTaken_InteractionDef(
             DefDatabase<InteractionDef>.GetNamed("DamageTakenQuip"),
             recipient,
-            entry.ToGameStringFromPOV(initiator),
+            H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator)),
             damagedParts,
             damagedPartsDestroyed,
             deflected));
@@ -243,7 +243,7 @@ namespace RimDialogue.Access
               DefDatabase<InteractionDef>.GetNamed("RangedImpactQuip"),
               targetPawn,
               originalTargetPawn,
-              entry.ToGameStringFromPOV(initiatorPawn),
+              H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiatorPawn)),
               damagedParts,
               damagedPartsDestroyed,
               deflected,
@@ -285,7 +285,7 @@ namespace RimDialogue.Access
           new MeleeCombat_InteractionDef(
             DefDatabase<InteractionDef>.GetNamed("MeleeCombatQuip"),
             recipient,
-            entry.ToGameStringFromPOV(initiator),
+            H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator)),
             damagedParts,
             damagedPartsDestroyed,
             deflected));
@@ -322,7 +322,7 @@ namespace RimDialogue.Access
           new RangedFire_InteractionDef(
             DefDatabase<InteractionDef>.GetNamed("RangedFireQuip"),
             recipient,
-            entry.ToGameStringFromPOV(initiator),
+            H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator)),
             weaponDef,
             projectileDef));
       }

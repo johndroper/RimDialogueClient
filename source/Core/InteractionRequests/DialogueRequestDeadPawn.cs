@@ -1,6 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionData;
 using RimWorld;
+using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -10,22 +11,25 @@ namespace RimDialogue.Core.InteractionRequests
   {
     private static string agoText = "RimDialogue.Ago".Translate().ToString();
 
-    public DialogueRequestDeadPawn(PlayLogEntry_Interaction entry) : base(entry)
+    public DialogueRequestDeadPawn(
+      PlayLogEntry_Interaction entry,
+      InteractionDef interactionDef,
+      Pawn initiator,
+      Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
     }
-
 
     public abstract PawnDeathRecord Record
     {
       get;
     }
 
-    public override void BuildData(DialogueDataDeadPawn data)
+    public override async Task BuildData(DialogueDataDeadPawn data)
     {
       data.PawnName = Record.Pawn.Name.ToStringShort ?? Record.Pawn.LabelNoParenthesis ?? "Unknown";
       data.CauseOfDeath = Record.Cause;
-      data.TimeSinceDeath = (Find.TickManager.TicksGame - Record.TimeStamp).ToStringTicksToPeriod() + agoText;
-      base.BuildData(data);
+      data.TimeSinceDeath = (Find.TickManager.TicksAbs  - Record.TimeStamp).ToStringTicksToPeriod() + agoText;
+      await base.BuildData(data);
     }
 
     public override Pawn Target
