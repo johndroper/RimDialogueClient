@@ -37,7 +37,8 @@ namespace RimDialogue.Core
         if (RecentLetters.Count > MaxTrackedLetters)
           RecentLetters.RemoveAt(0);
 
-        GameComponent_ContextTracker.Instance.Add(letter);
+        if (GameComponent_ContextTracker.Instance != null)
+          GameComponent_ContextTracker.Instance.Add(letter);
 
         if (Settings.VerboseLogging.Value)
           Mod.Log($"Letter stored: '{letter.Label}'");

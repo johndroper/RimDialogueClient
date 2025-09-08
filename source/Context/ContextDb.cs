@@ -58,7 +58,7 @@ namespace RimDialogue.Context
   {
     private readonly ReaderWriterLockSlim _lock = new();
     List<ContextData> contexts = [];
-    VectorDb<ContextData> vectorDb = new ();
+    VectorDb<ContextData> vectorDb = new();
     BM25Index<ContextData> bm25Index = new ();
 
     public async Task Add(ContextData contextData)

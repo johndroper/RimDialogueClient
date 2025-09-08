@@ -87,9 +87,12 @@
   <RimDialogue.Characters>characters</RimDialogue.Characters>
 
   <RimDialogue.DeepTalkCompensationFactor>DeepTalk Compensation Factor</RimDialogue.DeepTalkCompensationFactor>
-  <RimDialogue.FilterButtonLabel>Press this button to set more custom prompts-></RimDialogue.FilterButtonLabel>
+  <RimDialogue.FilterButtonLabel>Press this button to set more custom prompts.</RimDialogue.FilterButtonLabel>
   <RimDialogue.HideDiscordButton>Hide Discord Button</RimDialogue.HideDiscordButton>
-  
+  <RimDialogue.AreYouSure>Are you sure you want to regenerate instructions?</RimDialogue.AreYouSure>
+  <RimDialogue.RegenerateButton>Regenerate</RimDialogue.RegenerateButton>
+  <RimDialogue.RegenerateButtonTip>Regenerate the custom instructions for this pawn. This will replace any existing instructions.</RimDialogue.RegenerateButtonTip>
+
   <RimDialogue.Alert_AbandonedBaby>the baby {0} has been abandoned</RimDialogue.Alert_AbandonedBaby>
   <RimDialogue.Alert_AbandonedBaby_Outside>{0} is outside.</RimDialogue.Alert_AbandonedBaby_Outside>
   <RimDialogue.Alert_AbandonedBaby_InRoom>The baby {0} is in the {1}.</RimDialogue.Alert_AbandonedBaby_InRoom>

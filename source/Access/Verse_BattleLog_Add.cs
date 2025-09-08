@@ -31,8 +31,6 @@ namespace RimDialogue.Access
       return false;
     }
 
-
-
      public static bool IsValid(Pawn pawn)
     {
       if (VersionControl.CurrentVersion.Major  == 1 && VersionControl.CurrentVersion.Minor >= 6)
@@ -50,7 +48,8 @@ namespace RimDialogue.Access
       if (entry == null) return;
       if (!Find.BattleLog.Battles.Any())
         return;
-      GameComponent_ContextTracker.Instance.Add(entry);
+      if (GameComponent_ContextTracker.Instance != null)
+        GameComponent_ContextTracker.Instance.Add(entry);
       Battle currentBattle = Find.BattleLog.Battles.First();
       switch (entry)
       {

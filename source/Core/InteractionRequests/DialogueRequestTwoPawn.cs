@@ -76,11 +76,14 @@ namespace RimDialogue.Core.InteractionRequests
       if (this.Initiator.IsColonist)
       {
         var now = Find.TickManager.TicksAbs;
-        var contexts = await GameComponent_ContextTracker.Instance
-          .BlendedSearch(Initiator, Recipient, Interaction, 5);
-        data.Context = contexts
-            .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
-            .ToArray();
+        if (GameComponent_ContextTracker.Instance != null)
+        {
+          var contexts = await GameComponent_ContextTracker.Instance
+            .BlendedSearch(Initiator, Recipient, Interaction, 5);
+          data.Context = contexts
+              .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
+              .ToArray();
+        }
       }
     }
 

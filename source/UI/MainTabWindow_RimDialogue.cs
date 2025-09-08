@@ -79,23 +79,23 @@ namespace RimDialogue
         }
       }
 
-      DrawnPawnTab(inRect, tracker, y + titleRect.height + 5f);
+      DrawnPawnTab(inRect, tracker, y);
 
     }
 
     public void DrawnPawnTab(Rect inRect, GameComponent_ConversationTracker tracker, float y)
     {
       Text.Font = GameFont.Small;
+
       const float filterButtonWidth = 100f;
-
-      var filterButtonLabelText = "RimDialogue.FilterButtonLabel".Translate();
-      var filterButtonLabelSize = Text.CalcSize(filterButtonLabelText);
-
-      var filterButtonLabelRect = new Rect(inRect.width - filterButtonWidth - filterButtonLabelSize.x, y, filterButtonLabelSize.x, 30f);
-      Widgets.Label(filterButtonLabelRect, filterButtonLabelText);
+      const float regenerateButtonWidth = 100f;
 
       // Filter Dropdown
-      var filterRect = new Rect(inRect.width - filterButtonWidth, y, filterButtonWidth, 30f);
+      var filterRect = new Rect(
+        inRect.width - filterButtonWidth - regenerateButtonWidth,
+        y,
+        filterButtonWidth,
+        30f);
       var filterButtonText = filterMode switch
       {
         FilterMode.All => allPawnsText,
@@ -166,10 +166,6 @@ namespace RimDialogue
         }
         Find.WindowStack.Add(new FloatMenu(options));
       }
-      y += 50f;
-      float colY = y;
-      float leftColWidth = inRect.width * 0.4f - 10;
-      float rightColWidth = inRect.width - leftColWidth - 20;
 
       string instructionsLabel = "RimDialogue.Unknown".Translate();
       string instructions = "RimDialogue.Unknown".Translate();
@@ -190,6 +186,47 @@ namespace RimDialogue
           instructionsLabel = additionalInstructionsText.Replace("[pawn]", selectedPawn != null ? selectedPawn.Name.ToStringShort : unknownText) + $" ({instructions.Length} {"RimDialogue.Characters".Translate()})";
           break;
       }
+
+      var filterButtonTip = "RimDialogue.FilterButtonLabel".Translate();
+      TooltipHandler.TipRegion(filterRect, filterButtonTip);
+
+      if (filterMode == FilterMode.Pawn || filterMode == FilterMode.Colonist)
+      {
+        //Regenerate Instructions Button
+        var regenerateButtonText = "RimDialogue.RegenerateButton".Translate();
+        var regenerateRect = new Rect(inRect.width - regenerateButtonWidth, y, regenerateButtonWidth, 30f);
+        if (Widgets.ButtonText(regenerateRect, regenerateButtonText))
+        {
+          Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+            "RimDialogue.AreYouSure".Translate(),
+            () =>
+            {
+              switch (filterMode)
+              {
+                case FilterMode.All:
+                  break;
+                case FilterMode.Colonist:
+                  tracker.GetScenarioInstructions(Find.Scenario?.name + "\r\n" + H.RemoveWhiteSpace(Find.Scenario?.description));
+                  break;
+                case FilterMode.Pawn:
+                  if (selectedPawn == null)
+                    throw new InvalidOperationException("SelectedPawn is null but filter mode is set to SelectedPawn.");
+                  tracker.GetInstructionsAsync(selectedPawn.MakeData(null, -1));
+                  break;
+              }
+            },
+            true));
+        }
+        var regenerateButtonTip = "RimDialogue.RegenerateButtonTip".Translate();
+        TooltipHandler.TipRegion(regenerateRect, regenerateButtonTip);
+      }
+
+      //y + titleRect.height + 5f
+
+      y += 50f;
+      float colY = y;
+      float leftColWidth = inRect.width * 0.4f - 10;
+      float rightColWidth = inRect.width - leftColWidth - 20;
 
       var instructionsLabelRect = new Rect(0, y, leftColWidth, 25f);
       Widgets.Label(instructionsLabelRect, instructionsLabel);
@@ -280,7 +317,6 @@ namespace RimDialogue
             GUIUtility.systemCopyBuffer = conversation.Text ?? string.Empty;
             SoundDefOf.Click.PlayOneShotOnCamera();
           }
-
           convoY += labelHeight;
           if (conversation.Timestamp != null)
           {

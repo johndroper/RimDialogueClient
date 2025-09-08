@@ -19,7 +19,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.82.0";
+    public const string Version = "0.90.3";
 
     public static Mod Instance = null!;
 

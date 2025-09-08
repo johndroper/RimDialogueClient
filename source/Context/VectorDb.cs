@@ -12,16 +12,19 @@ namespace RimDialogue.Context
 {
   public class VectorDb<T> where T : IDocument
   {
-    static OnnxSentenceEmbedder embedder = new OnnxSentenceEmbedder(
-      "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\RimDialogueClient\\Assemblies\\model.onnx",
-      "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\RimDialogueClient\\Assemblies\\vocab.txt");
+    static OnnxSentenceEmbedder embedder;
 
     private readonly List<(T metadata, float[] vec)> _items = new();
     private readonly ReaderWriterLockSlim _lock = new();
 
-    public VectorDb()
+    static VectorDb()
     {
+      embedder = new OnnxSentenceEmbedder(
+        "Mods//RimDialogueClient//Assemblies//model.onnx",
+        "Mods//RimDialogueClient//Assemblies//vocab.txt");
     }
+
+    public VectorDb() { }
 
     public VectorDb(IEnumerable<T> docs)
     {

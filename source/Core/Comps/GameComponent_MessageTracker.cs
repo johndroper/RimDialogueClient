@@ -40,11 +40,12 @@ namespace RimDialogue.Core
         TrackedMessages.Add(new MessageRecord(message, Find.TickManager.TicksAbs));
         if (TrackedMessages.Count > MaxTrackedMessages)
           TrackedMessages.RemoveAt(0);
-        GameComponent_ContextTracker.Instance.Add(
-          message.text,
-          message.def.defName,
-          message.startingTick,
-          1f);
+        if (GameComponent_ContextTracker.Instance != null)
+          GameComponent_ContextTracker.Instance.Add(
+            message.text,
+            message.def.defName,
+            message.startingTick,
+            1f);
       }
       catch (System.Exception ex)
       {

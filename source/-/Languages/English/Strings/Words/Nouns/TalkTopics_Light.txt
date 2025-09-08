@@ -15,10 +15,10 @@ where they are from
 their full name
 how old they are
 their adulthood
-the good things about thier adulthood
+the good things about their adulthood
 the bad things about their adulthood
 their childhood
-the good things about thier childhood
+the good things about their childhood
 the bad things about their childhood
 their current activity
 how their current activity is going

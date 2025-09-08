@@ -118,7 +118,12 @@ public class GameComponent_ConversationTracker : GameComponent
     }
   }
 
-  private async Task GetPawnInstructions(PawnData pawnData)
+  public async void GetInstructionsAsync(PawnData pawnData)
+  {
+    await GetPawnInstructions(pawnData);
+  }
+
+  public async Task GetPawnInstructions(PawnData pawnData)
   {
     WWWForm form = new WWWForm();
     form.AddField("clientId", Settings.ClientId.Value);
@@ -128,7 +133,8 @@ public class GameComponent_ConversationTracker : GameComponent
     if (dialogueResponse.text != null)
       additionalInstructions[pawnData.ThingID] = dialogueResponse.text;
   }
-  private async void GetScenarioInstructions(string scenarioText)
+
+  public async void GetScenarioInstructions(string scenarioText)
   {
     try
     {
@@ -154,7 +160,8 @@ public class GameComponent_ConversationTracker : GameComponent
       if (initiator == null || text == null || string.IsNullOrWhiteSpace(text))
         return;
       Conversation conversation = new Conversation(initiator, recipient, interaction, text);
-      GameComponent_ContextTracker.Instance.Add(conversation);
+      if (GameComponent_ContextTracker.Instance != null)
+        GameComponent_ContextTracker.Instance.Add(conversation);
       Conversation? removed = null;
       lock (conversations)
       {

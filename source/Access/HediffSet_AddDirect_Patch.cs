@@ -16,8 +16,12 @@ namespace RimDialogue.Access
     [HarmonyPostfix]
     public static void Postfix(Hediff hediff, DamageInfo? dinfo, HediffSet __instance)
     {
-      if (hediff != null && hediff.pawn != null && hediff.pawn.IsColonist)
-        GameComponent_ContextTracker.Instance.Add(hediff);
+      if (
+        hediff != null &&
+        hediff.pawn != null &&
+        (hediff.pawn != null && hediff.pawn.IsColonist) &&
+        GameComponent_ContextTracker.Instance != null)
+      GameComponent_ContextTracker.Instance.Add(hediff);
     }
   }
 }
