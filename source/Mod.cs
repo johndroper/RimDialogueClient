@@ -19,7 +19,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.90.3";
+    public const string Version = "0.90.7";
 
     public static Mod Instance = null!;
 
@@ -37,6 +37,15 @@ namespace RimDialogue
     public Mod(ModContentPack content) : base(content)
     {
       Instance = this;
+
+      try
+      {
+        OrtNativeBootstrap.Init();
+      }
+      catch (Exception ex)
+      {
+        Error($"Failed to load ONNX.{ ex }");
+      }
 
       GetSettings<Settings>();
 

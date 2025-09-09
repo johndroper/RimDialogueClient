@@ -22,8 +22,7 @@ namespace RimDialogue.Core
 {
   public class GameComponent_ContextTracker : GameComponent
   {
-    public static GameComponent_ContextTracker? Instance => null;
-      //Current.Game.GetComponent<GameComponent_ContextTracker>();
+    public static GameComponent_ContextTracker? Instance => Current.Game.GetComponent<GameComponent_ContextTracker>();
 
     private ContextDb globalDb = new ContextDb();
     private Dictionary<Pawn, ContextDb> pawnDb = [];

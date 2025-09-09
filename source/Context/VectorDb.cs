@@ -20,8 +20,8 @@ namespace RimDialogue.Context
     static VectorDb()
     {
       embedder = new OnnxSentenceEmbedder(
-        "Mods//RimDialogueClient//Assemblies//model.onnx",
-        "Mods//RimDialogueClient//Assemblies//vocab.txt");
+        Path.Combine(Mod.Instance.Content.RootDir, "Assemblies//model.onnx"),
+        Path.Combine(Mod.Instance.Content.RootDir, "Assemblies//vocab.txt"));
     }
 
     public VectorDb() { }

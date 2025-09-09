@@ -20,12 +20,12 @@ namespace RimDialogue.Core
       Scribe_Collections.Look(ref RecentLetters, "RecentLetters", LookMode.Deep);
     }
 
-    public override void GameComponentUpdate()
-    {
-      base.GameComponentUpdate();
-      //if (Find.TickManager.TicksAbs % 2500 == 0 ) 
-      //  RecentLetters.RemoveAll(letter => Find.TickManager.TicksAbs - letter.Ticks > LetterExpiryTicks);
-    }
+    //public override void GameComponentUpdate()
+    //{
+    //  base.GameComponentUpdate();
+    //  //if (Find.TickManager.TicksAbs % 2500 == 0 ) 
+    //  //  RecentLetters.RemoveAll(letter => Find.TickManager.TicksAbs - letter.Ticks > LetterExpiryTicks);
+    //}
 
     public void RecordLetter(RecentLetter letter)
     {

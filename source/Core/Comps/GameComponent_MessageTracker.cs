@@ -28,7 +28,8 @@ namespace RimDialogue.Core
     public override void GameComponentUpdate()
     {
       base.GameComponentUpdate();
-      TrackedMessages.RemoveAll(record => Find.TickManager.TicksAbs - record.Ticks > MaxMessageAgeTicks);
+      if (Find.TickManager.TicksAbs % 25000 == 0)
+        TrackedMessages.RemoveAll(record => Find.TickManager.TicksAbs - record.Ticks > MaxMessageAgeTicks);
     }
 
     public void AddMessage(Message message)
