@@ -74,18 +74,26 @@ public class GameComponent_ConversationTracker : GameComponent
 
   public override void GameComponentUpdate()
   {
-    // Wait until game is fully loaded and window hasn't been shown yet
-    if (Settings.DialogueMessageInterface.Value == 1 && !windowOpened && Current.ProgramState == ProgramState.Playing)
+    base.GameComponentUpdate();
+    try
     {
-      DialogueMessageWindow = new DialogueMessageWindow();
-      Find.WindowStack.Add(DialogueMessageWindow);
-      windowOpened = true;
+      //Wait until game is fully loaded and window hasn't been shown yet
+      if (Settings.DialogueMessageInterface.Value == 1 && !windowOpened && Current.ProgramState == ProgramState.Playing)
+      {
+        DialogueMessageWindow = new DialogueMessageWindow();
+        Find.WindowStack.Add(DialogueMessageWindow);
+        windowOpened = true;
+      }
+      else if (Settings.DialogueMessageInterface.Value != 1 && DialogueMessageWindow != null)
+      {
+        DialogueMessageWindow.Close();
+        DialogueMessageWindow = null;
+        windowOpened = false;
+      }
     }
-    else if (Settings.DialogueMessageInterface.Value != 1 && DialogueMessageWindow != null)
+    catch (Exception ex)
     {
-      DialogueMessageWindow.Close();
-      DialogueMessageWindow = null;
-      windowOpened = false;
+      Log.ErrorOnce($"Error updating ConversationTracker: {ex}", 87438564);
     }
   }
 

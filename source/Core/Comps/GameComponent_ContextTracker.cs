@@ -291,6 +291,14 @@ namespace RimDialogue.Core
         involvedPawns.ToArray());
     }
 
+    public override void StartedNewGame()
+    {
+      base.StartedNewGame();
+      globalDb = new ContextDb();
+      pawnDb.Clear();
+    }
+
+
     public void Add(
       string text,
       string type,
@@ -638,11 +646,6 @@ namespace RimDialogue.Core
       LoadAsync(contextDatae);
     }
 
-    public override void StartedNewGame()
-    {
-      base.StartedNewGame();
-    }
-
     public async void CleanUp()
     {
       try
@@ -671,8 +674,15 @@ namespace RimDialogue.Core
 
     public override void GameComponentUpdate()
     {
-      if (Find.TickManager.TicksGame % 25000 == 0)
-        CleanUp();
+      try
+      {
+        if (Find.TickManager.TicksGame % 25000 == 0)
+          CleanUp();
+      }
+      catch (Exception ex)
+      {
+        Log.ErrorOnce($"Error during ContextTracker.GameComponentUpdate: {ex}", 348975432);
+      }
     }
 
     //public override void ExposeData()

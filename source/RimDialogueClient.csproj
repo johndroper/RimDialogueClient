@@ -105,6 +105,7 @@
     <Compile Include="Access\OrtNativeBootstrap.cs" />
     <Compile Include="Access\Patch_LogEntry_ExposeData_Postfix.cs" />
     <Compile Include="Access\Patch_Pawn_JobTracker_EndCurrentJob.cs" />
+    <Compile Include="Access\Patch_Pawn_SetFaction_JoinColony.cs" />
     <Compile Include="Access\PlayLog_Add_Patch.cs" />
     <Compile Include="Access\Patch_InteractionWorker_DeepTalk.cs" />
     <Compile Include="Access\PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.cs" />

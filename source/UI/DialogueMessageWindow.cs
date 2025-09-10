@@ -40,6 +40,7 @@ namespace RimDialogue.UI
         _height = null;
         _interactionHeight = null;
         _textHeight = null;
+        lastContentRectWidth = contentRectWidth;
       }
       _height ??= TopMargin
         + (Conversation.Timestamp != null ? LabelHeight : 0)
@@ -156,6 +157,7 @@ namespace RimDialogue.UI
 
       ConversationLabels = GameComponent_ConversationTracker.Instance.Conversations
         .Select(conversation => new ConversationLabel(conversation))
+        .Take(20)
         .ToList();
 
       GameComponent_ConversationTracker.Instance.ConversationAdded += (s, e) =>
@@ -163,14 +165,20 @@ namespace RimDialogue.UI
         var newLabel = new ConversationLabel(e.Conversation);
         //_newConversations.Add(newLabel);
         ConversationLabels.Add(newLabel);
+        if (ConversationLabels.Count > 20)
+        {
+          var toBeRemoved = ConversationLabels[0];
+          scrollPosition += toBeRemoved.GetHeight(ContentRectWidth);
+          ConversationLabels.RemoveAt(0);
+        }
       };
 
-      GameComponent_ConversationTracker.Instance.ConversationRemoved += (s, e) =>
-      {
-        var removedHeight = ConversationLabels.Where(label => label.Conversation == e.Conversation).Sum(label => label.GetHeight(ContentRectWidth));
-        scrollPosition += removedHeight;
-        ConversationLabels.RemoveAll(label => label.Conversation == e.Conversation);
-      };
+      //GameComponent_ConversationTracker.Instance.ConversationRemoved += (s, e) =>
+      //{
+      //  var removedHeight = ConversationLabels.Where(label => label.Conversation == e.Conversation).Sum(label => label.GetHeight(ContentRectWidth));
+      //  scrollPosition += removedHeight;
+      //  ConversationLabels.RemoveAll(label => label.Conversation == e.Conversation);
+      //};
     }
 
     public float GetAllHeight(List<ConversationLabel> conversationLabels)

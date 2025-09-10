@@ -77,6 +77,8 @@ namespace RimDialogue.Context
       await Task.WhenAll(contextsTask, bm25Task, vectorTask);
     }
 
+
+
     public void Cleanup(int maxContextItems)
     {
       if (contexts.Count > maxContextItems)
