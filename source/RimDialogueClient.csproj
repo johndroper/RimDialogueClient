@@ -111,7 +111,6 @@
     <Compile Include="Access\PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\PlayLogEntry_InteractionSinglePawn_ToGameStringFromPOV_Worker.cs" />
     <Compile Include="Access\RimWorld_MapInterface_MapInterfaceOnGUI_BeforeMainTabs.cs" />
-    <Compile Include="Access\Incidents\RimWorld_IncidentWorker_RaidEnemy_TryExecuteWorker.cs" />
     <Compile Include="Access\Verse_BattleLog_Add.cs" />
     <Compile Include="Access\Verse_LaunchProjectile_TryCastShot.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />

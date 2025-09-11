@@ -17,7 +17,7 @@ namespace RimDialogue.Access
       }
       catch (Exception exception)
       {
-        Mod.Error($"Deactivated because draw failed with error: [{exception.Source}: {exception.Message}]\n\nTrace:\n{exception.StackTrace}");
+        Mod.ErrorOnce($"Deactivated because draw failed with error: [{exception.Source}: {exception.Message}]\n\nTrace:\n{exception.StackTrace}", 3531243);
         Settings.Activated = false;
       }
     }

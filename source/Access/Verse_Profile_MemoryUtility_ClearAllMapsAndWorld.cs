@@ -11,11 +11,18 @@ namespace RimDialogue.Access
   {
     private static void Prefix()
     {
-      Bubbles_Bubbler_Add.Clear();
-      InteractionWorker_Dialogue.LastUsedTicksAll = 0;
-      InteractionWorker_Dialogue.LastTicksByType = [];
-      DialogueRequest.LastDialogue = DateTime.MinValue;
-      DialogueRequest.Requests.Clear();
+      try
+      {
+        Bubbles_Bubbler_Add.Clear();
+        InteractionWorker_Dialogue.LastUsedTicksAll = 0;
+        InteractionWorker_Dialogue.LastTicksByType = [];
+        DialogueRequest.LastDialogue = DateTime.MinValue;
+        DialogueRequest.Requests.Clear();
+      }
+      catch (Exception ex)
+      {
+        Mod.ErrorOnce($"Error in Verse_Profile_MemoryUtility_ClearAllMapsAndWorld. {ex}", 3587101);
+      }
     }
   }
 }

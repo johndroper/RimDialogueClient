@@ -31,6 +31,9 @@
     </Task>
   </UsingTask>
 
+
+
+
   <Target Name="AfterBuild">
     <PropertyGroup>
       <AssetsDir>$(ProjectDir)-\</AssetsDir>
@@ -64,6 +67,8 @@
     <FileRegexReplace Filename="$(BuildDir)README.md" Match="{HarmonyVersion}" Replace="$(HarmonyVersion)" />
     <FileRegexReplace Filename="$(BuildDir)About\About.xml" Match="{ReleaseVersion}" Replace="$(ModVersion)" />
 
+
+
     <ItemGroup>
       <FilesToCopy Include="$(BuildDir)%(RecursiveDir)**\*" />
     </ItemGroup>
@@ -72,10 +77,18 @@
     <Copy SourceFiles="@(BuiltBinaries)" DestinationFiles="@(BuiltBinaries->'$(OutputTargetFolder)%(Filename)%(Extension)')" />
 
     <Copy SourceFiles="$(BuildDir)README.md" DestinationFolder="$(ProjectDir)\.." />
-    
+
+    <ItemGroup>
+      <FilesToDelete Include="$(OutputTargetFolder)UnityEngine.ImageConversionModule.dll" />
+      <FilesToDelete Include="$(OutputTargetFolder)UnityEngine.ScreenCaptureModule.dll" />
+      <FilesToDelete Include="$(OutputTargetFolder)0Harmony.dll" />
+    </ItemGroup>
+
+    <Delete Files="@(FilesToDelete)" />
+
     <MakeDir Directories="$(SolutionDir)releases" />
     <ZipDirectory SourceDirectory="$(BuildDir)" DestinationFile="$(ReleasesDir)$(AssemblyName)-v$(ModVersion).zip" Overwrite="true" />
-
+    
     <Message Importance="High" Text="Successful build for $(AssemblyName) v$(ModVersion) for RimWorld v$(GameVersion) with Harmony v$(HarmonyVersion)" />
   </Target>
 </Project>

@@ -25,7 +25,7 @@ public static class PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker
     }
     catch (Exception ex)
     {
-      Mod.Error($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.\r\n{ex}");
+      Mod.ErrorOnce($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.\r\n{ex}", 6756423);
     }
   }
 }

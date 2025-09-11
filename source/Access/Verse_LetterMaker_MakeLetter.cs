@@ -34,15 +34,21 @@ namespace RimDialogue.Access
       ref Quest quest,
       ref List<ThingDef> hyperlinkThingDefs)
     {
-      if (Settings.VerboseLogging.Value)
-        Mod.Log($"Creating LetterRecord {def.defName}");
-
-      var record = new RecentLetter(
-        H.RemoveWhiteSpaceAndColor(label),
-        H.RemoveWhiteSpaceAndColor(text),
-        def.defName,
-        lookTargets?.PrimaryTarget.Pawn);
-      GameComponent_LetterTracker.Instance.RecordLetter(record);
+      try
+      {
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Creating LetterRecord {def.defName}");
+        var record = new RecentLetter(
+          H.RemoveWhiteSpaceAndColor(label),
+          H.RemoveWhiteSpaceAndColor(text),
+          def.defName,
+          lookTargets?.PrimaryTarget.Pawn);
+        GameComponent_LetterTracker.Instance.RecordLetter(record);
+      }
+      catch (System.Exception ex)
+      {
+        Mod.ErrorOnce($"An error occurred in Verse_LetterMaker_MakeLetter.\r\n{ex}", 901823732);
+      }
     }
   }
 }

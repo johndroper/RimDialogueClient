@@ -19,7 +19,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.90.8";
+    public const string Version = "0.90.10";
 
     public static Mod Instance = null!;
 
@@ -96,6 +96,7 @@ namespace RimDialogue
     public static void Log(string message) => Verse.Log.Message(PrefixMessage(message));
     public static void Warning(string message) => Verse.Log.Warning(PrefixMessage(message));
     public static void Error(string message) => Verse.Log.Error(PrefixMessage(message));
+    public static void ErrorOnce(string message, int key) => Verse.Log.ErrorOnce(PrefixMessage(message), key);
     private static string PrefixMessage(string message) => $"[{Name} v{Version}] {message}";
 
     public override void DoSettingsWindowContents(Rect inRect)

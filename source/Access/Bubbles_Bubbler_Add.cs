@@ -21,25 +21,35 @@ namespace RimDialogue.Access
 
     public static bool Prefix(LogEntry entry)
     {
-      if (Settings.ShowInteractionBubbles.Value)
-        return true;
-
-      Pawn? initiator;
-      switch (entry)
+      try
       {
-        case PlayLogEntry_Interaction interaction:
-          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Add Bubble Interaction: '{interaction.GetType().Name}' initiator: {initiator}");
-          break;
-        case PlayLogEntry_InteractionSinglePawn interaction:
-          initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
-          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Add Bubble Interaction: '{interaction.GetType().Name}' initiator: {initiator}");
-          break;
-        default:
-          return false;
+
+        if (Settings.ShowInteractionBubbles.Value)
+          return true;
+
+        Pawn? initiator;
+        switch (entry)
+        {
+          case PlayLogEntry_Interaction interaction:
+            initiator = (Pawn?)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interaction);
+            if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Add Bubble Interaction: '{interaction.GetType().Name}' initiator: {initiator}");
+            break;
+          case PlayLogEntry_InteractionSinglePawn interaction:
+            initiator = (Pawn?)Reflection.Verse_PlayLogEntry_InteractionSinglePawn_Initiator.GetValue(interaction);
+            if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Add Bubble Interaction: '{interaction.GetType().Name}' initiator: {initiator}");
+            break;
+          default:
+            return false;
+        }
+        var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
+        // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction text is '{logEntryText}'.");
+
       }
-      var logEntryText = H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(initiator));
-      // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Interaction text is '{logEntryText}'.");
+      catch (Exception ex)
+      {
+        Mod.ErrorOnce($"Entry {entry.LogID} - An error occurred in Bubbles_Bubbler_Add.\r\n{ex}", 987342323);
+        return true;
+      }
       return false;
     }
 
@@ -65,7 +75,7 @@ namespace RimDialogue.Access
       {
         Mod.Warning($"Entry {entry.LogID} - Bubble dictionary is null. Cannot add bubble for pawn {initiator}.");
         return;
-      } 
+      }
 
       var bubble = new Bubble(initiator, entry);
       dialogueDictionary.Add(bubble, bubbleText);

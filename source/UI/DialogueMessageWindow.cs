@@ -157,7 +157,9 @@ namespace RimDialogue.UI
 
       ConversationLabels = GameComponent_ConversationTracker.Instance.Conversations
         .Select(conversation => new ConversationLabel(conversation))
+        .OrderByDescending(label => label.Conversation.Timestamp ?? 0)
         .Take(20)
+        .Reverse()
         .ToList();
 
       GameComponent_ConversationTracker.Instance.ConversationAdded += (s, e) =>
@@ -262,6 +264,8 @@ namespace RimDialogue.UI
         float convoY = conversationContentRect.height;
         for (int i = ConversationLabels.Count - 1; i >= 0; i--)
         {
+          //foreach(var conversationLabel in ConversationLabels)
+          //{ 
           convoY = ConversationLabels[i].Draw(convoY, conversationContentRect.width);
           if (convoY < 0)
             break;

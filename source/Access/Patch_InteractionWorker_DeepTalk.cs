@@ -14,7 +14,14 @@ namespace RimDialogue.Access
   {
     public static void Postfix(Pawn initiator, Pawn recipient, ref float __result)
     {
-      __result *= Settings.DeepTalkCompensationFactor.Value;
+      try
+      {
+        __result *= Settings.DeepTalkCompensationFactor.Value;
+      }
+      catch (Exception ex)
+      {
+        Mod.ErrorOnce($"An error occurred in Patch_InteractionWorker_DeepTalk.\r\n{ex}", 45345789);
+      }
     }
   }
 }

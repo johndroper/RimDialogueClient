@@ -16,12 +16,19 @@ namespace RimDialogue.Access
     [HarmonyPostfix]
     public static void Postfix(Hediff hediff, DamageInfo? dinfo, HediffSet __instance)
     {
-      if (
-        hediff != null &&
-        hediff.pawn != null &&
-        (hediff.pawn != null && hediff.pawn.IsColonist) &&
-        GameComponent_ContextTracker.Instance != null)
-      GameComponent_ContextTracker.Instance.Add(hediff);
+      try
+      {
+        if (
+          hediff != null &&
+          hediff.pawn != null &&
+          (hediff.pawn != null && hediff.pawn.IsColonist) &&
+          GameComponent_ContextTracker.Instance != null)
+        GameComponent_ContextTracker.Instance.Add(hediff);
+      }
+      catch (Exception ex)
+      {
+        Mod.ErrorOnce($"An error occurred in HediffSet_AddDirect_Patch.\r\n{ex}", 987234534);
+      }
     }
   }
 }

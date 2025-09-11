@@ -15,10 +15,17 @@ namespace RimDialogue.Access
   {
     static void Postfix(LogEntry entry)
     {
-      if (GameComponent_ContextTracker.Instance != null)
-        GameComponent_ContextTracker.Instance.Add(entry);
-      if (Settings.VerboseLogging.Value) 
-        Mod.Log($"Entry {entry.LogID} - Added to context DB.");
+      try
+      {         
+        if (GameComponent_ContextTracker.Instance != null)
+          GameComponent_ContextTracker.Instance.Add(entry);
+        if (Settings.VerboseLogging.Value) 
+          Mod.Log($"Entry {entry.LogID} - Added to context DB.");
+      }
+      catch (Exception ex)
+      {
+        Mod.ErrorOnce($"Entry {entry.LogID} - An error occurred in PlayLog_Add_Patch.\r\n{ex}", 345974);
+      }
     }
   }
 }

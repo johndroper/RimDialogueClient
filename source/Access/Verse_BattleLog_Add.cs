@@ -31,9 +31,9 @@ namespace RimDialogue.Access
       return false;
     }
 
-     public static bool IsValid(Pawn pawn)
+    public static bool IsValid(Pawn pawn)
     {
-      if (VersionControl.CurrentVersion.Major  == 1 && VersionControl.CurrentVersion.Minor >= 6)
+      if (VersionControl.CurrentVersion.Major == 1 && VersionControl.CurrentVersion.Minor >= 6)
       {
         return pawn != null && !(bool)Reflection.IsAnimal.GetValue(pawn) && !pawn.DeadOrDowned;
       }
@@ -45,38 +45,45 @@ namespace RimDialogue.Access
 
     public static void Postfix(LogEntry entry)
     {
-      if (entry == null) return;
-      if (!Find.BattleLog.Battles.Any())
-        return;
-      if (GameComponent_ContextTracker.Instance != null)
-        GameComponent_ContextTracker.Instance.Add(entry);
-      Battle currentBattle = Find.BattleLog.Battles.First();
-      switch (entry)
+      try
       {
-        case BattleLogEntry_MeleeCombat meleeEntry:
-          CreateMeleeCombatInteraction(entry, meleeEntry);
-          break;
-        case BattleLogEntry_RangedFire rangedFireEntry:
-          CreateRangedFireInteraction(entry, rangedFireEntry);
-          break;
-        case BattleLogEntry_RangedImpact rangedImpactEntry:
-          CreateRangedImpactInteraction(entry, rangedImpactEntry);
-          CreateImHitInteraction(entry, rangedImpactEntry);
-          break;
-        case BattleLogEntry_DamageTaken damageTakenEntry:
-          CreateDamageTakenInteraction(entry, damageTakenEntry);
-          CreateImHitInteraction(entry, damageTakenEntry);
-          break;
-        case BattleLogEntry_ExplosionImpact explosionImpact:
-          break;
-        case BattleLogEntry_StateTransition stateTransitionEntry:
-          break;
-        case BattleLogEntry_AbilityUsed abilityUsed:
-          break;
-        case BattleLogEntry_ItemUsed itemUsed:
-          break;
-        default:
-          break;
+        if (entry == null) return;
+        if (!Find.BattleLog.Battles.Any())
+          return;
+        if (GameComponent_ContextTracker.Instance != null)
+          GameComponent_ContextTracker.Instance.Add(entry);
+        Battle currentBattle = Find.BattleLog.Battles.First();
+        switch (entry)
+        {
+          case BattleLogEntry_MeleeCombat meleeEntry:
+            CreateMeleeCombatInteraction(entry, meleeEntry);
+            break;
+          case BattleLogEntry_RangedFire rangedFireEntry:
+            CreateRangedFireInteraction(entry, rangedFireEntry);
+            break;
+          case BattleLogEntry_RangedImpact rangedImpactEntry:
+            CreateRangedImpactInteraction(entry, rangedImpactEntry);
+            CreateImHitInteraction(entry, rangedImpactEntry);
+            break;
+          case BattleLogEntry_DamageTaken damageTakenEntry:
+            CreateDamageTakenInteraction(entry, damageTakenEntry);
+            CreateImHitInteraction(entry, damageTakenEntry);
+            break;
+          case BattleLogEntry_ExplosionImpact explosionImpact:
+            break;
+          case BattleLogEntry_StateTransition stateTransitionEntry:
+            break;
+          case BattleLogEntry_AbilityUsed abilityUsed:
+            break;
+          case BattleLogEntry_ItemUsed itemUsed:
+            break;
+          default:
+            break;
+        }
+      }
+      catch (Exception ex)
+      {
+        Mod.ErrorOnce($"Entry {entry?.LogID} - An error occurred in Patch_BattleLog_Add.Postfix.\r\n{ex}", 34534512);
       }
     }
 

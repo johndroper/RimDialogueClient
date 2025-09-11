@@ -29,7 +29,7 @@ public static class PlayLogEntry_Interaction_ToGameStringFromPOV_Worker
     }
     catch (Exception ex)
     {
-      Mod.Error($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
+      Mod.ErrorOnce($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}", 6542341);
     }
   }
 }

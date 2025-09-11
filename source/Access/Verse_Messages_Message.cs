@@ -19,8 +19,15 @@ namespace RimDialogue.Access
 
     public static void Prefix(Message msg, bool historical = true)
     {
-      if (GameComponent_MessageTracker.Instance != null)
-        GameComponent_MessageTracker.Instance.AddMessage(msg);
+      try
+      {
+        if (GameComponent_MessageTracker.Instance != null)
+          GameComponent_MessageTracker.Instance.AddMessage(msg);
+      }
+      catch (System.Exception ex)
+      {
+        Mod.ErrorOnce($"An error occurred in Verse_Messages_Message.\r\n{ex}", 901820232);
+      }
     }
   }
 }
