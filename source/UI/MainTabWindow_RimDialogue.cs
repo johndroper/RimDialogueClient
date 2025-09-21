@@ -391,8 +391,8 @@ namespace RimDialogue
       var conversationContentRect = new Rect(0, 0, conversationContentRectWidth, conversationContentRectHeight);
       Widgets.BeginScrollView(conversationsScrollRect, ref conversationScrollPosition, conversationContentRect);
       float convoY = 0;
-      const float rightMargin = 40;
-      const float buttonWidth = 40;
+      const float rightMargin = 50;
+      const float buttonWidth = 50;
       foreach (var ui in FilteredConversations)
       {
         try
