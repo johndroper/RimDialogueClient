@@ -16,11 +16,13 @@ namespace RimDialogue.Access
     static void Postfix(LogEntry entry)
     {
       try
-      {         
+      {
+#if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
           GameComponent_ContextTracker.Instance.Add(entry);
         if (Settings.VerboseLogging.Value) 
           Mod.Log($"Entry {entry.LogID} - Added to context DB.");
+#endif
       }
       catch (Exception ex)
       {

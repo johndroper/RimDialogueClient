@@ -3,6 +3,7 @@ using RimDialogue.Configuration;
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using Verse;
@@ -35,7 +36,7 @@ namespace RimDialogue
 
     public static readonly Setting<int> MinDelayMinutesAll = new(nameof(MinDelayMinutesAll), 1);
     public static readonly Setting<int> MinDelayMinutes = new(nameof(MinDelayMinutes), 5);
-    public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 1);
+    public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 5);
 
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 4);
     public static readonly Setting<int> RecentBattleHours = new(nameof(RecentBattleHours), 6);
@@ -61,7 +62,9 @@ namespace RimDialogue
     public static readonly Setting<float> AnimalChitChatWeight = new(nameof(AnimalChitChatWeight), 0.05f);
     public static readonly Setting<float> RoomChitChatWeight = new(nameof(RoomChitChatWeight), 0.05f);
     public static readonly Setting<float> DeadColonistWeight = new(nameof(DeadColonistWeight), 0.05f);
-        
+    public static readonly Setting<float> QuestWeight = new(nameof(QuestWeight), 0.05f);
+    public static readonly Setting<float> RecordWeight = new(nameof(RecordWeight), 0.05f);
+
     public static readonly Setting<float> MeleeCombatQuipChance = new(nameof(MeleeCombatQuipChance), .1f);
     public static readonly Setting<float> RangedFireQuipChance = new(nameof(RangedFireQuipChance), .1f);
     public static readonly Setting<float> RangedImpactQuipChance = new(nameof(RangedImpactQuipChance), .25f);
@@ -78,9 +81,22 @@ namespace RimDialogue
 
     public static readonly SettingString ModelName = new(nameof(ModelName), "Default");
     public static readonly SettingString FilterWords = new(nameof(FilterWords), string.Empty);
+    public static readonly SettingString DefaultSavePath = new(nameof(DefaultSavePath), Path.Combine(GenFilePaths.ScreenshotFolderPath, "RimDialogue"));
 
     public static readonly Setting<int> MaxContextItems = new(nameof(MaxContextItems), 500);
     public static readonly Setting<int> MaxContextAgeDays = new(nameof(MaxContextAgeDays), 100);
+
+    public static readonly Setting<float> JobContextWeight = new(nameof(JobContextWeight), 0.85f);
+    public static readonly Setting<float> LogEntryContextWeight = new(nameof(LogEntryContextWeight), 1f);
+    public static readonly Setting<float> BattleLogEntryContextWeight = new(nameof(BattleLogEntryContextWeight), 1.25f);
+    public static readonly Setting<float> ConversationContextWeight = new(nameof(ConversationContextWeight), 1f);
+    public static readonly Setting<float> ThreatBigLetterContextWeight = new(nameof(ThreatBigLetterContextWeight), 5f);
+    public static readonly Setting<float> NegativeLetterContextWeight = new(nameof(NegativeLetterContextWeight), 4f);
+    public static readonly Setting<float> PositiveLetterContextWeight = new(nameof(PositiveLetterContextWeight), 3f);
+    public static readonly Setting<float> NeutralLetterContextWeight = new(nameof(NeutralLetterContextWeight), 1.5f);
+    public static readonly Setting<float> MessageContextWeight = new(nameof(MessageContextWeight), 1f);
+    public static readonly Setting<float> BattleContextWeight = new(nameof(BattleContextWeight), 3f);
+    public static readonly Setting<float> HediffContextWeight = new(nameof(HediffContextWeight), 2f);
 
     public static HashSet<string> filterWords = [];
 

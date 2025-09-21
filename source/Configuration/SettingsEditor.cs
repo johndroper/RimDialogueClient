@@ -1,3 +1,4 @@
+#nullable enable
 using Bubbles;
 using Bubbles.Configuration;
 using HarmonyLib;
@@ -176,32 +177,34 @@ namespace RimDialogue.Configuration
 
         l.Gap();
 
-        var weights = l.BeginSection(45f * 20f + 50f);
+        var weights = l.BeginSection(45f * 23f + 50f);
         weights.ColumnWidth = listingRect.width - 50f;
         weights.Label("RimDialogue.DialogueWeights".Translate());
         weights.Indent();
         if (l.ButtonText("RimDialogue.ToggleAllChitchatWeights".Translate())) { ToggleAllChitChatWeights(); }
         weights.Gap();
-        weights.SliderLabeled("RimDialogue.TimelyEventWeight".Translate(), ref Settings.TimelyEventWeight.Value, 0, 10, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.BattleChitChatWeight".Translate(), ref Settings.BattleChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.RecentIncidentChitChatWeight".Translate(), ref Settings.RecentIncidentChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.AlertChitChatWeight".Translate(), ref Settings.AlertChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.SameIdeologyChitChatWeight".Translate(), ref Settings.SameIdeologyChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.SkillsChitChatWeight".Translate(), ref Settings.SkillChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.ApparelChitChatWeight".Translate(), ref Settings.ApparelChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.NeedChitChatWeight".Translate(), ref Settings.NeedChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.FamilyChitChatWeight".Translate(), ref Settings.FamilyChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.WeatherChitChatWeight".Translate(), ref Settings.WeatherChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.FactionChitChatWeight".Translate(), ref Settings.FactionChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.WeaponChitChatWeight".Translate(), ref Settings.WeaponChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.AppearanceChitChatWeight".Translate(), ref Settings.AppearanceChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.AnimalChitChatWeight".Translate(), ref Settings.AnimalChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.RoomChitChatWeight".Translate(), ref Settings.RoomChitChatWeight.Value, 0, 1, roundTo: .01f);
-        weights.SliderLabeled("RimDialogue.DeadColonistDeepTalk".Translate(), ref Settings.DeadColonistWeight.Value, 0, 1, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.TimelyEventWeight".Translate(), ref Settings.TimelyEventWeight.Value, 0, 10, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.MessageChitChatWeight".Translate(), ref Settings.MessageChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.GameConditionChitChatWeight".Translate(), ref Settings.GameConditionChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.BattleChitChatWeight".Translate(), ref Settings.BattleChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.RecentIncidentChitChatWeight".Translate(), ref Settings.RecentIncidentChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.AlertChitChatWeight".Translate(), ref Settings.AlertChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.SameIdeologyChitChatWeight".Translate(), ref Settings.SameIdeologyChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.SkillsChitChatWeight".Translate(), ref Settings.SkillChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.ColonistChitChatWeight".Translate(), ref Settings.ColonistChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.HealthChitChatWeight".Translate(), ref Settings.HealthChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.ApparelChitChatWeight".Translate(), ref Settings.ApparelChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.NeedChitChatWeight".Translate(), ref Settings.NeedChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.FamilyChitChatWeight".Translate(), ref Settings.FamilyChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.WeatherChitChatWeight".Translate(), ref Settings.WeatherChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.FactionChitChatWeight".Translate(), ref Settings.FactionChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.WeaponChitChatWeight".Translate(), ref Settings.WeaponChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.AppearanceChitChatWeight".Translate(), ref Settings.AppearanceChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.AnimalChitChatWeight".Translate(), ref Settings.AnimalChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.RoomChitChatWeight".Translate(), ref Settings.RoomChitChatWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.DeadColonistDeepTalk".Translate(), ref Settings.DeadColonistWeight.Value, 0, 5, roundTo: .05f);
+        weights.SliderLabeled("RimDialogue.Quest".Translate(), ref Settings.QuestWeight.Value, 0, 5, roundTo: .01f);
+        weights.SliderLabeled("RimDialogue.Record".Translate(), ref Settings.RecordWeight.Value, 0, 5, roundTo: .01f);
         weights.Outdent();
         l.EndSection(weights);
 
@@ -215,10 +218,31 @@ namespace RimDialogue.Configuration
         chances.SliderLabeled("RimDialogue.RangedImpactQuipChance".Translate(), ref Settings.RangedImpactQuipChance.Value, 0, 1, roundTo: .01f);
         chances.SliderLabeled("RimDialogue.DamageTakenQuipChance".Translate(), ref Settings.DamageTakenQuipChance.Value, 0, 1, roundTo: .01f);
         chances.SliderLabeled("RimDialogue.ThoughtChance".Translate(), ref Settings.ThoughtChance.Value, 0, 1, roundTo: .01f);
-
         chances.Outdent();
         l.EndSection(chances);
-        l.EndScrollView(ref _viewRect);
+  
+        l.Gap();
+
+        var contextWeights = l.BeginSection(45f * 11f + 50f);
+        contextWeights.ColumnWidth = listingRect.width - 50f;
+        contextWeights.Label("RimDialogue.ContextWeights".Translate());
+        contextWeights.Indent();
+        contextWeights.Gap();
+        contextWeights.SliderLabeled("RimDialogue.JobContextWeight".Translate(), ref Settings.JobContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.LogEntryContextWeight".Translate(), ref Settings.LogEntryContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.BattleLogEntryContextWeight".Translate(), ref Settings.BattleLogEntryContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.ConversationContextWeight".Translate(), ref Settings.ConversationContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.ThreatBigLetterContextWeight".Translate(), ref Settings.ThreatBigLetterContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.NegativeLetterContextWeight".Translate(), ref Settings.NegativeLetterContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.PositiveLetterContextWeight".Translate(), ref Settings.PositiveLetterContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.NeutralLetterContextWeight".Translate(), ref Settings.NeutralLetterContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.MessageContextWeight".Translate(), ref Settings.MessageContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.BattleContextWeight".Translate(), ref Settings.BattleContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.SliderLabeled("RimDialogue.HediffContextWeight".Translate(), ref Settings.HediffContextWeight.Value, 0, 10, roundTo: .05f);
+        contextWeights.Outdent();
+        l.EndSection(contextWeights);
+
+    l.EndScrollView(ref _viewRect);
       }
       catch(Exception ex)
       {

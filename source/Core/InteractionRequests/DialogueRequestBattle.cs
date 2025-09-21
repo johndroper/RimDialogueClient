@@ -46,20 +46,20 @@ namespace RimDialogue.Core.InteractionData
       data.Entries = Battle.Entries
         ?.OrderBy(entry => entry.Timestamp)
         .Take(25)
-        .Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(this.Initiator))).ToArray();
+        .Select(entry => H.RemoveWhiteSpaceAndColor(entry.ToGameStringFromPOV(this.Initiator))).ToArray() ?? [];
       data.TimeSinceBattle = (Find.TickManager.TicksAbs - Battle.CreationTimestamp).ToStringTicksToPeriod();
       data.Importance = Battle.Importance.ToString();
       data.Participants = Battle.Entries
         ?.SelectMany(entry => entry.GetConcerns()
           .Select(thing => H.RemoveWhiteSpaceAndColor(thing != null ? thing.ToString() : "RimDialogue.Unknown".Translate()) + thing?.Faction != null ? $" ({thing?.Faction?.Name ?? "RimDialogue.None".Translate()})" : string.Empty))
         .Distinct()
-        .ToArray();
+        .ToArray() ?? [];
       data.Factions = Battle.Entries
         ?.SelectMany(entry => entry.GetConcerns().Select(thing => thing.Faction))
         .Distinct()
         .Where(faction => faction != null)
         .Select(faction => (faction.Name ?? "RimDialogue.Unknown".Translate()) + $" ({faction.def.label}) - " + faction.def.description)
-        .ToArray();
+        .ToArray() ?? [];
       await base.BuildData(data);
     }
 

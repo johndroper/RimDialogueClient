@@ -1,3 +1,4 @@
+#if !RW_1_5
 #nullable enable
 using RimDialogue.Access;
 using RimDialogue.Context;
@@ -11,7 +12,6 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEngine.Pool;
 using Verse;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -161,3 +161,4 @@ namespace RimDialogue.Context
     }
   }
 }
+#endif

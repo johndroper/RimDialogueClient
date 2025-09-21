@@ -45,6 +45,8 @@ namespace RimDialogue.Core.InteractionRequests
     public override InteractionDef InteractionDef => _interactionDef;
     public override string Instructions => _instructions;
     public override Rule[] Rules => [];
+    public override IDictionary<string, string> Constants => new Dictionary<string, string>();
+    public override bool KnownType => true;
 
     public override async Task BuildData(DataT data)
     {

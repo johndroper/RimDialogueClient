@@ -18,8 +18,8 @@ namespace RimDialogue.Core.InteractionData
     }
 
     public override Rule[] Rules => [
-      new Rule_String("weather", this.Weather.label),
-      new Rule_String("biome", this.Biome.label),
+      new Rule_String("weather", this.Weather?.label ?? string.Empty),
+      new Rule_String("biome", this.Biome?.label ?? string.Empty),
       new Rule_String("season", this.Season.ToString()),
       new Rule_String("outdoor_temp", OutdoorTemp.ToString("F0"))
     ];

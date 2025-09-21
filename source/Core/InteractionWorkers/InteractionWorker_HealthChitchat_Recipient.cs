@@ -1,3 +1,5 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using System.Linq;
@@ -28,6 +30,16 @@ namespace RimDialogue.Core.InteractionWorkers
         Mod.Error($"Error in InteractionWorker_HealthChitchat_Recipient: {ex}");
         return 0f;
       }
+    }
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestHealthRecipient(entry, intDef, initiator, recipient);
     }
   }
 }

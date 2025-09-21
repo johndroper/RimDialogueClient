@@ -2,6 +2,10 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <PathMap>$(SolutionDir)=.</PathMap>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{61B57A41-B985-4C1C-9BED-D25689996E89}</ProjectGuid>
@@ -9,33 +13,51 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RimDialogue</RootNamespace>
     <AssemblyName>RimDialogueClient</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <BaseIntermediateOutputPath>..\build\.obj\$(ProjectName)\$(AssemblyName)</BaseIntermediateOutputPath>
-    <TargetFrameworkProfile />
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup>
-    <PathMap>$(SolutionDir)=.</PathMap>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 1.6|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\RimDialogueClient\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <DefineConstants>RW_1_6</DefineConstants>
+    <OutputPath>..\build\RimDialogueClient\1.6\Assemblies\</OutputPath>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <OutputPath>..\build\RimDialogueClient\Assemblies\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 1.5|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>RW_1_5</DefineConstants>
+    <OutputPath>..\build\RimDialogueClient\1.5\Assemblies\</OutputPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 1.6|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>RW_1_6</DefineConstants>
+    <OutputPath>..\build\RimDialogueClient\1.6\Assemblies\</OutputPath>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 1.5|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>RW_1_5</DefineConstants>
+    <RimWorldDir>$(UserProfile)\Games\RimWorld-1.5</RimWorldDir>
+    <OutputPath>..\build\RimDialogueClient\1.5\Assemblies\</OutputPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -54,6 +76,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
@@ -85,18 +108,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="-\runtimes\win-x64\native\onnxruntime.dll" />
-    <Content Include="-\runtimes\win-x64\native\onnxruntime_providers_shared.dll" />
-    <None Include="-\BitmapFonts\Calibri.fnt" />
-    <None Include="-\BitmapFonts\Noto_Sans_SC.fnt" />
-    <None Include="-\runtimes\linux-x64\native\libonnxruntime.so" />
-    <None Include="-\runtimes\linux-x64\native\libonnxruntime_providers_shared.so" />
-    <None Include="-\runtimes\osx-x64\native\libonnxruntime.dylib" />
+    <None Include="-\1.6\runtimes\win-x64\native\onnxruntime.dll" />
+    <None Include="-\1.6\runtimes\win-x64\native\onnxruntime_providers_shared.dll" />
+    <None Include="-\Common\BitmapFonts\Calibri.fnt" />
+    <None Include="-\Common\BitmapFonts\Noto_Sans_SC.fnt" />
+    <None Include="-\1.6\runtimes\linux-x64\native\libonnxruntime.so" />
+    <None Include="-\1.6\runtimes\linux-x64\native\libonnxruntime_providers_shared.so" />
+    <None Include="-\1.6\runtimes\osx-x64\native\libonnxruntime.dylib" />
+    <None Include="-\Common\Models\model.onnx" />
     <None Include="release.targets" />
-    <Content Include="-\Textures\Things\Mote\SpeechSymbols\thought_bubble.png" />
-    <Content Include="Context\model.onnx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="-\About\ModIcon.png" />
+    <Content Include="-\Common\Textures\RimDialogue\caption_box.png" />
+    <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\thought_bubble.png" />
+    <None Include="-\1.6\models\model.onnx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access\Bubbles_Bubbler_Add.cs" />
@@ -106,6 +130,7 @@
     <Compile Include="Access\Patch_LogEntry_ExposeData_Postfix.cs" />
     <Compile Include="Access\Patch_Pawn_JobTracker_EndCurrentJob.cs" />
     <Compile Include="Access\Patch_Pawn_SetFaction_JoinColony.cs" />
+    <Compile Include="Access\PlayLogEntryFactory.cs" />
     <Compile Include="Access\PlayLog_Add_Patch.cs" />
     <Compile Include="Access\Patch_InteractionWorker_DeepTalk.cs" />
     <Compile Include="Access\PlayLogEntry_InteractionWithMany_ToGameStringFromPOV_Worker.cs" />
@@ -123,6 +148,12 @@
     <Compile Include="Core\Conversation.cs" />
     <Compile Include="Core\EmbeddingGenerator.cs" />
     <Compile Include="Core\Comps\GameComponent_ContextTracker.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestRecord.cs" />
+    <Compile Include="Core\InteractionRequests\DialogueRequestQuest.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_RecordChitChat.cs" />
+    <Compile Include="Core\InteractionWorkers\InteractionWorker_ActiveQuestChitchat.cs" />
+    <Compile Include="Core\PlayLogEntries\PlayLogEntry_DialogueInteraction.cs" />
+    <Compile Include="Core\PlayLogEntries\PlayLogEntry_IncidentInteraction.cs" />
     <Compile Include="Core\SinglePawnComicPanel.cs" />
     <Compile Include="Core\TwoPawnComicPanel.cs" />
     <Compile Include="Core\ComicPanelItem.cs" />
@@ -248,6 +279,8 @@
     <Compile Include="UI\DialogueMessageWindow.cs" />
     <Compile Include="UI\Glyph.cs" />
     <Compile Include="UI\MainTabWindow_RimDialogue.cs" />
+    <Compile Include="UI\PlatformCheck.cs" />
+    <Compile Include="UI\WinClipboard.cs" />
     <Compile Include="UI\Window_ComicPanelViewer.cs" />
     <Compile Include="Context\BM25Index.cs" />
     <Compile Include="Context\VectorDb.cs" />
@@ -264,63 +297,69 @@
   <ItemGroup>
     <Content Include="-\About\PublishedFileId.txt" />
     <Content Include="-\About\steam_workshop.txt" />
-    <Content Include="-\Defs\InteractionDefs\Interactions_Thought.xml" />
-    <Content Include="-\Defs\InteractionDefs\Interactions_Combat.xml" />
-    <Content Include="-\Defs\InteractionDefs\Interactions_Social.xml" />
-    <Content Include="-\Defs\MainButtonDefs\RimDialogueMainButtonDef.xml" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\Animals.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\Apparel.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\Games.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\NaturalObject.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\TalkTopics_Heavy.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\TalkTopics_Light.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\Vegetables.txt" />
-    <Content Include="-\Languages\English\Strings\Words\Nouns\Weapons.txt" />
+    <Content Include="-\Common\Defs\InteractionDefs\Interactions_Thought.xml" />
+    <Content Include="-\Common\Defs\InteractionDefs\Interactions_Combat.xml" />
+    <Content Include="-\Common\Defs\InteractionDefs\Interactions_Social.xml" />
+    <Content Include="-\Common\Defs\MainButtonDefs\RimDialogueMainButtonDef.xml" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\Animals.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\Apparel.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\Games.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\NaturalObject.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\TalkTopics_Heavy.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\TalkTopics_Light.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\Vegetables.txt" />
+    <Content Include="-\Common\Languages\English\Strings\Words\Nouns\Weapons.txt" />
+    <Content Include="-\Common\Models\vocab.txt" />
     <Content Include="-\README.md" />
     <Content Include="-\About\About.xml" />
     <Content Include="-\About\Preview.png" />
-    <Content Include="-\Languages\English\Keyed\Keys.xml" />
-    <Content Include="-\Textures\RimDialogue\Calibri_0.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_background.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_BC.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_BCR.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_BCW.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_BL.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_BR.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_CL.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_CLS.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_CR.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_CRS.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_TC.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_TCW.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_TL.png" />
-    <Content Include="-\Textures\RimDialogue\dialogue_bubble_TR.png" />
-    <Content Include="-\Textures\RimDialogue\discord_logo.png" />
-    <Content Include="-\Textures\RimDialogue\earth_texture.png" />
-    <Content Include="-\Textures\RimDialogue\Icon.png" />
-    <Content Include="-\Textures\RimDialogue\Inner.png" />
-    <Content Include="-\Textures\RimDialogue\Noto_Sans_SC_0.png" />
-    <Content Include="-\Textures\RimDialogue\Outer.png" />
-    <Content Include="-\LoadFolders.xml" />
-    <Content Include="-\Textures\RimDialogue\sky_texture.png" />
-    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Axe.png" />
-    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Bullseye.png" />
-    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Gears.png" />
-    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Injury.png" />
-    <Content Include="-\Textures\Things\Mote\SpeechSymbols\Rifle.png" />
-    <Content Include="Context\vocab.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="-\Common\Languages\English\Keyed\Keys.xml" />
+    <Content Include="-\Common\Textures\RimDialogue\Calibri_0.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_background.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_BC.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_BCR.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_BCW.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_BL.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_BR.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_CL.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_CLS.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_CR.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_CRS.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_TC.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_TCW.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_TL.png" />
+    <Content Include="-\Common\Textures\RimDialogue\dialogue_bubble_TR.png" />
+    <Content Include="-\Common\Textures\RimDialogue\discord_logo.png" />
+    <Content Include="-\Common\Textures\RimDialogue\earth_texture.png" />
+    <Content Include="-\Common\Textures\RimDialogue\Icon.png" />
+    <Content Include="-\Common\Textures\RimDialogue\Inner.png" />
+    <Content Include="-\Common\Textures\RimDialogue\Noto_Sans_SC_0.png" />
+    <Content Include="-\Common\Textures\RimDialogue\Outer.png" />
+    <Content Include="-\Common\Textures\RimDialogue\sky_texture.png" />
+    <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\Axe.png" />
+    <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\Bullseye.png" />
+    <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\Gears.png" />
+    <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\Injury.png" />
+    <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\Rifle.png" />
+    <None Include="-\1.6\models\vocab.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lib.Harmony">
       <Version>2.3.3</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.ML.OnnxRuntime">
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Condition="'$(Configuration)' == 'Release 1.6'" Include="Microsoft.ML.OnnxRuntime">
       <Version>1.22.1</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.ML.Tokenizers">
+    <PackageReference Condition="'$(Configuration)' == 'Release 1.6'" Include="Microsoft.ML.Tokenizers">
       <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Update="Microsoft.ML.OnnxRuntime" Condition="'$(Configuration)'!='Release 1.6'">
+      <ExcludeAssets>all</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Update="Microsoft.ML.Tokenizers" Condition="'$(Configuration)'!='Release 1.6'">
+      <ExcludeAssets>all</ExcludeAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -330,9 +369,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="-\1.5\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\RimDialogueDataObjects\RimDialogueDataObjects.csproj">
       <Project>{b7d3491a-da86-4ce1-8fb4-ef4a69308e7e}</Project>
       <Name>RimDialogueDataObjects</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -60,12 +60,14 @@ namespace RimDialogue.Core
         else if (pawn.IsColonist)
         {
           DeadColonists.Add(record);
+#if !RW_1_5
           if (GameComponent_ContextTracker.Instance != null)
             GameComponent_ContextTracker.Instance.Add(
               record.ToString(),
               "death",
               timestamp,
               10f);
+#endif
         }
       }
       else

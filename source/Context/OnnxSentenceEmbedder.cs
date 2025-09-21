@@ -1,6 +1,4 @@
-// NuGet:
-// dotnet add package Microsoft.ML.OnnxRuntime
-// dotnet add package Microsoft.ML.Tokenizers
+#if !RW_1_5
 
 using System;
 using System.Collections.Generic;
@@ -124,3 +122,4 @@ namespace RimDialogue.Context
     public void Dispose() => _session.Dispose();
   }
 }
+#endif

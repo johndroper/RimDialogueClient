@@ -24,10 +24,13 @@ namespace RimDialogue.Core.InteractionRequests
     protected Pawn _initiator;
     protected PawnData _initiatorData;
 
+    public override bool KnownType { get; }
+
     public DialogueRequestSinglePawn(
       LogEntry entry,
       InteractionDef interactionDef,
-      Pawn initiator) : base(entry)
+      Pawn initiator,
+      bool knownType = true) : base(entry)
     {
       _interactionDef = interactionDef;
       _initiator = initiator;
@@ -40,6 +43,7 @@ namespace RimDialogue.Core.InteractionRequests
       _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist)
         _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
+      KnownType = knownType;
     }
 
     public DialogueRequestSinglePawn(
@@ -78,6 +82,7 @@ namespace RimDialogue.Core.InteractionRequests
       if (Initiator.IsColonist)
       {
         var now = Find.TickManager.TicksAbs;
+#if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
         {
           var context = await GameComponent_ContextTracker.Instance
@@ -86,10 +91,16 @@ namespace RimDialogue.Core.InteractionRequests
             .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
             .ToArray();
         }
+#endif
       }
     }
 
     public override string Action => "DialogueSinglePawn";
     public override Rule[] Rules => [];
+
+    public override IDictionary<string, string> Constants =>
+      new Dictionary<string, string>();
+
+
   }
 }

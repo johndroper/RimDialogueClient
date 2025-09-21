@@ -15,7 +15,7 @@ public class TwoPawnComicPanel : ComicPanel
   private readonly Pawn? pawnB;
   private readonly string? dialogueB;
 
-  public TwoPawnComicPanel(Pawn pawnA, string? dialogueA, Pawn? pawnB, string? dialogueB, float skyHeight, BitmapFont font, List<ComicPanelItem> BackgroundItems) : base(skyHeight, font, BackgroundItems)
+  public TwoPawnComicPanel(string? title, Pawn pawnA, string? dialogueA, Pawn? pawnB, string? dialogueB, float skyHeight, BitmapFont font, List<ComicPanelItem> BackgroundItems) : base(title, skyHeight, font, BackgroundItems)
   {
     this.pawnA = pawnA;
     this.dialogueA = dialogueA;
@@ -27,8 +27,7 @@ public class TwoPawnComicPanel : ComicPanel
   Texture2D? portraitBTex;
   protected override void DrawInternal(Rect canvas)
   {
-    const float textWidth = 200f;
-
+    float textWidth = (canvas.width - 100f) / 2f;
     float portraitY = canvas.y + canvas.height - PortraitHeight - 20;
 
     // --- Portrait A ---
@@ -70,7 +69,7 @@ public class TwoPawnComicPanel : ComicPanel
     {
       float dialogueAHeight = this.BitmapFont.GetTextHeight(dialogueA, textWidth);
       Vector2 bubbleAPos = new Vector2(
-        canvas.x + canvas.width * 0.28f - textWidth / 2,
+        canvas.x + 20,//canvas.width * 0.28f - textWidth / 2,
         portraitY - dialogueAHeight - 50);
       DrawSpeechBubble(bubbleAPos, dialogueA, dialogueAHeight, textWidth, BubbleType.Normal);
     }
@@ -80,7 +79,7 @@ public class TwoPawnComicPanel : ComicPanel
     {
       float dialogueBHeight = this.BitmapFont.GetTextHeight(dialogueB, textWidth);
       Vector2 bubbleBPos = new Vector2(
-        canvas.x + canvas.width * 0.72f - textWidth / 2,
+        canvas.x + canvas.width / 2 + 10,  //canvas.width * 0.72f - textWidth / 2,
         portraitY - dialogueBHeight - 50);
       DrawSpeechBubble(bubbleBPos, dialogueB, dialogueBHeight, textWidth, BubbleType.Reversed);
     }

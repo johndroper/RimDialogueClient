@@ -1,3 +1,5 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using Verse;
@@ -30,6 +32,17 @@ namespace RimDialogue.Core.InteractionWorkers
         Mod.Error($"Error in InteractionWorker_BeardChitchat_Recipient: {ex}");
         return 0f;
       }
+    }
+
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestAppearance_Recipient(entry, intDef, initiator, recipient);
     }
   }
 }

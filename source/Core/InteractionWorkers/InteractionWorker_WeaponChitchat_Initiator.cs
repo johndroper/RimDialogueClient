@@ -1,3 +1,5 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using Verse;
@@ -27,6 +29,17 @@ namespace RimDialogue.Core.InteractionWorkers
         Mod.Error($"Error in InteractionWorker_InitiatorWeaponChitchat: {ex}");
         return 0f;
       }
+    }
+
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestWeapon_Initiator(entry, intDef, initiator, recipient);
     }
   }
 }

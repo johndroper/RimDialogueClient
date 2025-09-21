@@ -50,8 +50,10 @@ namespace RimDialogue.Access
         if (entry == null) return;
         if (!Find.BattleLog.Battles.Any())
           return;
+#if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
           GameComponent_ContextTracker.Instance.Add(entry);
+#endif
         Battle currentBattle = Find.BattleLog.Battles.First();
         switch (entry)
         {

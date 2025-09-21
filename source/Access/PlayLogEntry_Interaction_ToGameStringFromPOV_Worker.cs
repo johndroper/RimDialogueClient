@@ -2,6 +2,8 @@
 
 using HarmonyLib;
 using RimDialogue.Core.InteractionData;
+using RimDialogue.Core.InteractionRequests;
+using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -48,24 +50,39 @@ namespace RimDialogue.Access
         if (initiator == null || recipient == null)
           throw new Exception($"Entry {__instance.LogID} - PlayLogEntry_Interaction has a null pawn reference.");
 
-        GrammarRequest request = (GrammarRequest)Reflection.Verse_PlayLogEntry_Interaction_GenerateGrammarRequest.Invoke(__instance, null);
-
+ 
         try
         {
-          __state = DialogueRequest.Create(
-            __instance,
-            initiator,
-            recipient,
-            __result,
-            intDef);
-          if (__state == null)
-            throw new Exception("DialogueRequest.Create returned null.");
-          request.Rules.AddRange(__state.Rules);
+          if (intDef.Worker is InteractionWorker_Dialogue worker)
+            __state = worker.CreateRequest(__instance, intDef, initiator, recipient);
+          else if (recipient == null)
+            __state = new DialogueRequestSinglePawn<DialogueData>(
+              __instance,
+              intDef,
+              initiator,
+              false);
+           else
+            __state = new DialogueRequestTwoPawn<DialogueData>(
+              __instance,
+              intDef,
+              initiator,
+              recipient,
+              false);
         }
         catch (Exception ex)
         {
           Mod.Error($"Entry {__instance.LogID} - An error occurred in PlayLogEntry_Interaction_ToGameStringFromPOV_Worker.\r\n{ex}");
         }
+
+        if (__state == null || !__state.KnownType)
+        {
+          if (Settings.VerboseLogging.Value) Mod.Log($"Entry {__instance.LogID} - Unknown interaction type, using original text.");
+          return true;
+        }
+
+        GrammarRequest request = (GrammarRequest)Reflection.Verse_PlayLogEntry_Interaction_GenerateGrammarRequest.Invoke(__instance, null);
+        request.Rules.AddRange(__state.Rules);
+        request.Constants.AddRange(__state.Constants);
 
         Rand.PushState();
         Rand.Seed = __instance.LogID;

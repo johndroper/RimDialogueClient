@@ -38,7 +38,10 @@ namespace RimDialogue.Core.InteractionData
         return;
       }
       GameCondition = Find.CurrentMap.GameConditionManager.ActiveConditions.RandomElement();
-      Explanation = H.RemoveWhiteSpaceAndColor(GameCondition.def.description ?? GameCondition.def.letterText);
+      string explanation = GameCondition.def.description.ToString() ?? GameCondition.def.letterText.ToString();
+      if (GameCondition.quest != null)
+        explanation += " This game condition is caused by this quest: " + GameCondition.quest.description.ToString();
+      Explanation = H.RemoveWhiteSpaceAndColor(explanation);
       Duration = GameCondition.TicksPassed.ToStringTicksToPeriod();
       switch (GameCondition)
       {
@@ -105,10 +108,10 @@ namespace RimDialogue.Core.InteractionData
 
     public override async Task BuildData(DialogueDataCondition data)
     {
-      data.Explanation = Explanation;
+      data.Explanation = Explanation ?? string.Empty;
       data.LabelCap = GameCondition?.LabelCap ?? "RimDialogue.Unknown".Translate();
       data.TooltipString = H.RemoveWhiteSpaceAndColor(GameCondition?.TooltipString);
-      data.Duration = Duration;
+      data.Duration = Duration ?? string.Empty;
       data.DurationTicks = GameCondition?.TicksPassed ?? 0;
       data.Permanent = GameCondition?.Permanent ?? false;
       await base.BuildData(data);

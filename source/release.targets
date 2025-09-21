@@ -31,18 +31,19 @@
     </Task>
   </UsingTask>
 
-
-
-
   <Target Name="AfterBuild">
     <PropertyGroup>
       <AssetsDir>$(ProjectDir)-\</AssetsDir>
-      <BuildDir>$(SolutionDir)build\$(AssemblyName)\</BuildDir>
-      <ReleasesDir>$(SolutionDir)releases\</ReleasesDir>
+      <BuildDir>..\build\$(AssemblyName)\</BuildDir>
+      <ReleasesDir>..\releases\</ReleasesDir>
       <DestinationDirectory>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient\</DestinationDirectory>
-      <OutputTargetFolder>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient\Assemblies\</OutputTargetFolder>
     </PropertyGroup>
-
+    <PropertyGroup Condition="'$(Configuration)' == 'Release 1.6'">
+      <OutputTargetFolder>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient\1.6\Assemblies\</OutputTargetFolder>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release 1.5'">
+      <OutputTargetFolder>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimDialogueClient\1.5\Assemblies\</OutputTargetFolder>
+    </PropertyGroup>
     <ItemGroup>
       <AssetsIncluded Include="$(AssetsDir)**" />
       <BuiltBinaries Include="$(OutputPath)*.dll" />
@@ -67,26 +68,24 @@
     <FileRegexReplace Filename="$(BuildDir)README.md" Match="{HarmonyVersion}" Replace="$(HarmonyVersion)" />
     <FileRegexReplace Filename="$(BuildDir)About\About.xml" Match="{ReleaseVersion}" Replace="$(ModVersion)" />
 
-
-
     <ItemGroup>
       <FilesToCopy Include="$(BuildDir)%(RecursiveDir)**\*" />
     </ItemGroup>
 
     <Copy SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(DestinationDirectory)%(RecursiveDir)%(Filename)%(Extension)')" />
     <Copy SourceFiles="@(BuiltBinaries)" DestinationFiles="@(BuiltBinaries->'$(OutputTargetFolder)%(Filename)%(Extension)')" />
-
     <Copy SourceFiles="$(BuildDir)README.md" DestinationFolder="$(ProjectDir)\.." />
 
     <ItemGroup>
       <FilesToDelete Include="$(OutputTargetFolder)UnityEngine.ImageConversionModule.dll" />
       <FilesToDelete Include="$(OutputTargetFolder)UnityEngine.ScreenCaptureModule.dll" />
       <FilesToDelete Include="$(OutputTargetFolder)0Harmony.dll" />
+      <FilesToDelete Include="$(OutputTargetFolder)0Harmony.pdb" />
     </ItemGroup>
 
     <Delete Files="@(FilesToDelete)" />
 
-    <MakeDir Directories="$(SolutionDir)releases" />
+    <MakeDir Directories="../releases" />
     <ZipDirectory SourceDirectory="$(BuildDir)" DestinationFile="$(ReleasesDir)$(AssemblyName)-v$(ModVersion).zip" Overwrite="true" />
     
     <Message Importance="High" Text="Successful build for $(AssemblyName) v$(ModVersion) for RimWorld v$(GameVersion) with Harmony v$(HarmonyVersion)" />

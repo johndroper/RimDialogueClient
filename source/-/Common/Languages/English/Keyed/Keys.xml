@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RimDialogue.ResetToDefault>Reset to default</RimDialogue.ResetToDefault>
+  <RimDialogue.DialogueSettings>Dialogue Settings</RimDialogue.DialogueSettings>
+  <RimDialogue.DialogueMessages>Dialogue Messages</RimDialogue.DialogueMessages>
+  <RimDialogue.MaxWords>Approximate maximum dialogue length</RimDialogue.MaxWords>
+  <RimDialogue.MinWords>Approximate minimum dialogue length</RimDialogue.MinWords>
+  <RimDialogue.SpecialInstructions>Instructions</RimDialogue.SpecialInstructions>
+  <RimDialogue.ClientId>Client ID</RimDialogue.ClientId>
+  <RimDialogue.ServerUrl>Server URL</RimDialogue.ServerUrl>
+  <RimDialogue.MaxSpeed>Maximum game speed for dialoge generation</RimDialogue.MaxSpeed>
+  <RimDialogue.MaxConversationsStored>Maximum number of conversations stored</RimDialogue.MaxConversationsStored>
+  <RimDialogue.MaxContextStored>Maximum Context Stored</RimDialogue.MaxContextStored>
+  <RimDialogue.VerboseLogging>Verbose logging</RimDialogue.VerboseLogging>
+  <RimDialogue.FilterWords>Filter Words</RimDialogue.FilterWords>
+  
+  <RimDialogue.MinDelayMinutesAll>Minimum game minutes between all types of dialogue</RimDialogue.MinDelayMinutesAll>
+  <RimDialogue.MinDelayMinutes>Minimum game minutes between each type of dialogue</RimDialogue.MinDelayMinutes>
+  <RimDialogue.MinTimeBetweenConversations>Minimum real seconds between dialogue</RimDialogue.MinTimeBetweenConversations>
+
+  <RimDialogue.EnableCaravans>Enable dialogue on caravans</RimDialogue.EnableCaravans>
+  <RimDialogue.OnlyColonists>Only colonists talk</RimDialogue.OnlyColonists>
+  <RimDialogue.ShowInteractionBubbles>Show interaction bubbles</RimDialogue.ShowInteractionBubbles>
+  <RimDialogue.ShowDialogueBubbles>Show dialogue bubbles</RimDialogue.ShowDialogueBubbles>
+  <RimDialogue.ShowDialogueMessages>Show dialogue messages</RimDialogue.ShowDialogueMessages>
+  <RimDialogue.DialogueMessageLifetime>Normal dialogue message lifetime</RimDialogue.DialogueMessageLifetime>
+  <RimDialogue.MinDialogueMessageLifetime>Minimum dialogue message lifetime</RimDialogue.MinDialogueMessageLifetime>
+  <RimDialogue.DialogueMessageWidth>Dialogue message width</RimDialogue.DialogueMessageWidth>
+  
+  <RimDialogue.MessageScrollSpeed>Message Scroll Speed</RimDialogue.MessageScrollSpeed>
+  <RimDialogue.MemeButton>Meme</RimDialogue.MemeButton>
+  <RimDialogue.CopyButton>Copy</RimDialogue.CopyButton>
+
+  <RimDialogue.DialogueWeights>Dialogue Weights</RimDialogue.DialogueWeights>
+  <RimDialogue.TimelyEventWeight>Timely Event Bonus</RimDialogue.TimelyEventWeight>
+  <RimDialogue.ToggleAllChitchatWeights>Toggle All</RimDialogue.ToggleAllChitchatWeights>
+  <RimDialogue.MessageChitChatWeight>Message</RimDialogue.MessageChitChatWeight>
+  <RimDialogue.GameConditionChitChatWeight>Game Condition</RimDialogue.GameConditionChitChatWeight>
+  <RimDialogue.BattleChitChatWeight>Battle</RimDialogue.BattleChitChatWeight>
+  <RimDialogue.RecentIncidentChitChatWeight>Recent Incident</RimDialogue.RecentIncidentChitChatWeight>
+  <RimDialogue.AlertChitChatWeight>Alert</RimDialogue.AlertChitChatWeight>
+  <RimDialogue.SameIdeologyChitChatWeight>Same Ideology</RimDialogue.SameIdeologyChitChatWeight>
+  <RimDialogue.SkillsChitChatWeight>Skills</RimDialogue.SkillsChitChatWeight>
+  <RimDialogue.ColonistChitChatWeight>Colonist</RimDialogue.ColonistChitChatWeight>
+  <RimDialogue.HealthChitChatWeight>Health</RimDialogue.HealthChitChatWeight>
+  <RimDialogue.ApparelChitChatWeight>Apparel</RimDialogue.ApparelChitChatWeight>
+  <RimDialogue.WeatherChitChatWeight>Weather</RimDialogue.WeatherChitChatWeight>
+  <RimDialogue.FamilyChitChatWeight>Family</RimDialogue.FamilyChitChatWeight>
+  <RimDialogue.NeedChitChatWeight>Need</RimDialogue.NeedChitChatWeight>
+  <RimDialogue.FactionChitChatWeight>Faction</RimDialogue.FactionChitChatWeight>
+  <RimDialogue.WeaponChitChatWeight>Weapon</RimDialogue.WeaponChitChatWeight>
+  <RimDialogue.AppearanceChitChatWeight>Appearance</RimDialogue.AppearanceChitChatWeight>
+  <RimDialogue.AnimalChitChatWeight>Animal</RimDialogue.AnimalChitChatWeight>
+  <RimDialogue.RoomChitChatWeight>Room</RimDialogue.RoomChitChatWeight>
+  <RimDialogue.DeadColonistDeepTalk>Dead Colonist</RimDialogue.DeadColonistDeepTalk>
+  <RimDialogue.Quest>Quest</RimDialogue.Quest>
+  <RimDialogue.Record>Record</RimDialogue.Record>
+
+  <RimDialogue.ContextWeights>Context Weights</RimDialogue.ContextWeights>
+  <RimDialogue.JobContextWeight>Job Context</RimDialogue.JobContextWeight>
+  <RimDialogue.LogEntryContextWeight>Log Entry Context</RimDialogue.LogEntryContextWeight>
+  <RimDialogue.BattleLogEntryContextWeight>Battle Log Context</RimDialogue.BattleLogEntryContextWeight>
+  <RimDialogue.ConversationContextWeight>Conversation Context</RimDialogue.ConversationContextWeight>
+  <RimDialogue.ThreatBigLetterContextWeight>Major Threat Context</RimDialogue.ThreatBigLetterContextWeight>
+  <RimDialogue.NegativeLetterContextWeight>Negative Event Context</RimDialogue.NegativeLetterContextWeight>
+  <RimDialogue.PositiveLetterContextWeight>Positive Event Context</RimDialogue.PositiveLetterContextWeight>
+  <RimDialogue.NeutralLetterContextWeight>Neutral Event Context</RimDialogue.NeutralLetterContextWeight>
+  <RimDialogue.MessageContextWeight>Message Context</RimDialogue.MessageContextWeight>
+  <RimDialogue.BattleContextWeight>Battle Context</RimDialogue.BattleContextWeight>
+  <RimDialogue.HediffContextWeight>Health Condition Context</RimDialogue.HediffContextWeight>
+  
+  <RimDialogue.ChanceOf>Chance Of</RimDialogue.ChanceOf>
+  <RimDialogue.MeleeCombatQuipChance>Melee Combat Quip</RimDialogue.MeleeCombatQuipChance>
+  <RimDialogue.RangedFireQuipChance>Ranged Fire Quip</RimDialogue.RangedFireQuipChance>
+  <RimDialogue.RangedImpactQuipChance>Ranged Impact Quip</RimDialogue.RangedImpactQuipChance>
+  <RimDialogue.DamageTakenQuipChance>Damage Taken Quip</RimDialogue.DamageTakenQuipChance>
+  <RimDialogue.KillQuipChance>Kill Quip</RimDialogue.KillQuipChance>
+  <RimDialogue.ThoughtChance>Thought</RimDialogue.ThoughtChance>
+
+  <RimDialogue.DefaultInstructions>Write dialogue that reflects the gritty, darkly humorous, and emotionally complex tone of RimWorld, grounded in the harsh realities of survival on a chaotic, unforgiving rimworld colony.</RimDialogue.DefaultInstructions>
+  <RimDialogue.AdditionalInstructions>Instructions For [pawn]</RimDialogue.AdditionalInstructions>
+  <RimDialogue.Ago> ago</RimDialogue.Ago>
+  <RimDialogue.Conversations>Past Conversations</RimDialogue.Conversations>
+  <RimDialogue.AllPawns>All Pawns</RimDialogue.AllPawns>
+  <RimDialogue.Colonists>Colonists</RimDialogue.Colonists>
+
+  <RimDialogue.Unknown>Unknown</RimDialogue.Unknown>
+  <RimDialogue.None>None</RimDialogue.None>
+
+  <RimDialogue.ThreatBig>major threat</RimDialogue.ThreatBig>
+  <RimDialogue.ThreatSmall>minor threat</RimDialogue.ThreatSmall>
+  <RimDialogue.PositiveEvent>a positive event</RimDialogue.PositiveEvent>
+  <RimDialogue.NeutralEvent>a neutral event</RimDialogue.NeutralEvent>
+  <RimDialogue.DefaultEvent>an event</RimDialogue.DefaultEvent>
+    
+  <RimDialogue.Family>family</RimDialogue.Family>
+  <RimDialogue.Member>member</RimDialogue.Member>
+  <RimDialogue.Injury>injury</RimDialogue.Injury>
+  <RimDialogue.Sleep>sleep</RimDialogue.Sleep>
+
+  <RimDialogue.AllPawnsTip>Enter custom instructions that will apply to all pawns during dialogue generation. Use this to define tone, style, or behavior guidelines (e.g., “Keep responses short and sarcastic” or “Speak formally with archaic phrasing”). These instructions will be added to every pawn’s prompt.</RimDialogue.AllPawnsTip>
+  <RimDialogue.ColonistsTip>Enter instructions that will apply only to colonists when generating dialogue. Use this to shape the culure of your colony and how your colonists speak in conversations (e.g., “Use optimistic language” or “Refer to each other by full names”). These instructions won't affect prisoners, guests, or other pawns.</RimDialogue.ColonistsTip>
+  <RimDialogue.PawnTip>Enter custom instructions that apply only to this pawn’s dialogue. Use this to define unique personality traits, speech patterns, or quirks (e.g., “Always speaks in rhyme” or “Uses military jargon”).</RimDialogue.PawnTip>
+  <RimDialogue.Characters>characters</RimDialogue.Characters>
+
+  <RimDialogue.DeepTalkCompensationFactor>DeepTalk Compensation Factor</RimDialogue.DeepTalkCompensationFactor>
+  <RimDialogue.FilterButtonLabel>Press this button to set more custom prompts.</RimDialogue.FilterButtonLabel>
+  <RimDialogue.HideDiscordButton>Hide Discord Button</RimDialogue.HideDiscordButton>
+  <RimDialogue.AreYouSure>Are you sure you want to regenerate instructions?</RimDialogue.AreYouSure>
+  <RimDialogue.RegenerateButton>Regenerate</RimDialogue.RegenerateButton>
+  <RimDialogue.RegenerateButtonTip>Regenerate the custom instructions for this pawn. This will replace any existing instructions.</RimDialogue.RegenerateButtonTip>
+
+
+  
+  <RimDialogue.Time>time </RimDialogue.Time>
+
+  <RimDialogue.Alert_AbandonedBaby>the baby {0} has been abandoned</RimDialogue.Alert_AbandonedBaby>
+  <RimDialogue.Alert_AbandonedBaby_Outside>{0} is outside.</RimDialogue.Alert_AbandonedBaby_Outside>
+  <RimDialogue.Alert_AbandonedBaby_InRoom>The baby {0} is in the {1}.</RimDialogue.Alert_AbandonedBaby_InRoom>
+  <RimDialogue.Alert_AnimalFilth>{0} is creating filth</RimDialogue.Alert_AnimalFilth>
+  <RimDialogue.Alert_AnimalPenNeeded>the animal '{0}' needs a pen</RimDialogue.Alert_AnimalPenNeeded>
+  <RimDialogue.Alert_AnimalPenNotEnclosed>an animal pen is not enclosed</RimDialogue.Alert_AnimalPenNotEnclosed>
+  <RimDialogue.Alert_AnimalPenNotEnclosed_Explanation>If the animal pen is not fixed the animals inside may escape.</RimDialogue.Alert_AnimalPenNotEnclosed_Explanation>
+  <RimDialogue.Alert_AnimalRoaming>the animal '{0}' is not in a pen and may run away</RimDialogue.Alert_AnimalRoaming>
+  <RimDialogue.Alert_Boredom>{0} is bored.</RimDialogue.Alert_Boredom>
+  <RimDialogue.Alert_BrawlerHasRangedWeapon>{0} is a brawler and has a ranged weapon</RimDialogue.Alert_BrawlerHasRangedWeapon>
+  <RimDialogue.Alert_BrawlerHasRangedWeapon_Explanation>{0} is a melee fighter and is equipped with ranged weapon. This will make {1} unhappy.</RimDialogue.Alert_BrawlerHasRangedWeapon_Explanation>
+  <RimDialogue.Alert_ColonistLeftUnburied>{0}'s corpse has been left unburied</RimDialogue.Alert_ColonistLeftUnburied>
+  <RimDialogue.Alert_ColonistLeftUnburied_Explanation>{0} has died and their corpse has been left out in the open.</RimDialogue.Alert_ColonistLeftUnburied_Explanation>
+  <RimDialogue.Alert_ColonistNeedsRescuing>{0} is down and needs rescuing</RimDialogue.Alert_ColonistNeedsRescuing>
+  <RimDialogue.Alert_ColonistNeedsRescuing_Explanation>{0} has the following injuries: {1}.</RimDialogue.Alert_ColonistNeedsRescuing_Explanation>
+  <RimDialogue.Alert_ColonistNeedsTend>{0} needs tending</RimDialogue.Alert_ColonistNeedsTend>
+  <RimDialogue.Alert_ColonistNeedsTend_Explanation>{0} has the following injuries that need medical attention: {1}.</RimDialogue.Alert_ColonistNeedsTend_Explanation>
+  <RimDialogue.Alert_ColonistsIdle>{0} does not have any work to do</RimDialogue.Alert_ColonistsIdle>
+  <RimDialogue.Alert_ColonistsIdle_Explanation>Types of work {0} is assigned to but has no work to do: {1}</RimDialogue.Alert_ColonistsIdle_Explanation>
+  <RimDialogue.Alert_DateRitualComing>this ritual is coming soon: {0}</RimDialogue.Alert_DateRitualComing>
+  <RimDialogue.Alert_FireInHomeArea>a fire has started in the home area</RimDialogue.Alert_FireInHomeArea>
+  <RimDialogue.Alert_Heatstroke>{0} is suffering from heatstroke</RimDialogue.Alert_Heatstroke>
+  <RimDialogue.Alert_Heatstroke_Stage>{0}'s heatstroke is in the {1} stage.</RimDialogue.Alert_Heatstroke_Stage>
+  <RimDialogue.Alert_Heatstroke_Outside>The current temperature outside is {0}</RimDialogue.Alert_Heatstroke_Outside>
+  <RimDialogue.Alert_Heatstroke_Room>The current temperature of the room {0} is in is {1}</RimDialogue.Alert_Heatstroke_Room>
+  <RimDialogue.Alert_Heatstroke_ComfortRange>{0}'s comfortable temperature range is {1}</RimDialogue.Alert_Heatstroke_ComfortRange>
+  <RimDialogue.Alert_Heatstroke_LifeThreatening>{0}'s heatstroke is {1}.</RimDialogue.Alert_Heatstroke_LifeThreatening>
+  <RimDialogue.Alert_Hypothermia>{0} is suffering from hypothermia</RimDialogue.Alert_Hypothermia>
+  <RimDialogue.Alert_Hypothermia_Stage>{0}'s hypothermia is in the {1} stage.</RimDialogue.Alert_Hypothermia_Stage>
+  <RimDialogue.Alert_Hypothermia_Outside>The current temperature outside is {0}</RimDialogue.Alert_Hypothermia_Outside>
+  <RimDialogue.Alert_Hypothermia_Room>The current temperature of the room {0} is in is {1}</RimDialogue.Alert_Hypothermia_Room>
+  <RimDialogue.Alert_Hypothermia_ComfortRange>{0}'s comfortable temperature range is {1}</RimDialogue.Alert_Hypothermia_ComfortRange>
+  <RimDialogue.Alert_Hypothermia_LifeThreatening>{0}'s hypothermia is {1}.</RimDialogue.Alert_Hypothermia_LifeThreatening>
+  <RimDialogue.Alert_HypothermicAnimals>{0} is suffering from hypothermia</RimDialogue.Alert_HypothermicAnimals>
+  <RimDialogue.Alert_HypothermicAnimals_Stage>{0}'s hypothermia is in the {1} stage</RimDialogue.Alert_HypothermicAnimals_Stage>
+  <RimDialogue.Alert_HypothermicAnimals_Outside>The current temperature outside is {0}</RimDialogue.Alert_HypothermicAnimals_Outside>
+  <RimDialogue.Alert_HypothermicAnimals_ComfortRange>{0}'s comfortable temperature range is {1}</RimDialogue.Alert_HypothermicAnimals_ComfortRange>
+  <RimDialogue.Alert_HypothermicAnimals_LifeThreatening>{0}'s hypothermia is {1}.</RimDialogue.Alert_HypothermicAnimals_LifeThreatening>
+  <RimDialogue.Alert_IdeoBuildingDisrespected>the temple of {0} has been disrespected</RimDialogue.Alert_IdeoBuildingDisrespected>
+  <RimDialogue.Alert_IdeoBuildingDisrespected_Explanation>The temple of {0} requires {1}.</RimDialogue.Alert_IdeoBuildingDisrespected_Explanation>
+  <RimDialogue.Alert_IdeoBuildingMissing>we need a temple of {0}.</RimDialogue.Alert_IdeoBuildingMissing>
+  <RimDialogue.Alert_LowFood>the colony is running low on food</RimDialogue.Alert_LowFood>
+  <RimDialogue.Alert_LowFood_Animals>The following animals are available for hunting: {0}</RimDialogue.Alert_LowFood_Animals>
+  <RimDialogue.Alert_LowFood_Harvestable>The following food sources are available for harvesting: {0}</RimDialogue.Alert_LowFood_Harvestable>
+  <RimDialogue.Alert_LowMedicine>the colony is running low on medicine</RimDialogue.Alert_LowMedicine>
+  <RimDialogue.Alert_MajorBreakRisk>{0} is at risk of a serious metal break</RimDialogue.Alert_MajorBreakRisk>
+  <RimDialogue.Alert_MajorBreakRisk_ThoughtExplanation>'{0}' is affecting {1} the most. {2}</RimDialogue.Alert_MajorBreakRisk_ThoughtExplanation>
+  <RimDialogue.Alert_MajorBreakRisk_GenericExplanation>{0} is feeling very depressed.</RimDialogue.Alert_MajorBreakRisk_GenericExplanation>
+  <RimDialogue.Alert_MinorBreakRisk>{0} is at risk of a metal break</RimDialogue.Alert_MinorBreakRisk>
+  <RimDialogue.Alert_MinorBreakRisk_ThoughtExplanation>'{0}' is affecting {1} the most. {2}</RimDialogue.Alert_MinorBreakRisk_ThoughtExplanation>
+  <RimDialogue.Alert_MinorBreakRisk_GenericExplanation>{0} is feeling down.</RimDialogue.Alert_MinorBreakRisk_GenericExplanation>
+  <RimDialogue.Alert_NeedColonistBeds>we need more beds for our colonists</RimDialogue.Alert_NeedColonistBeds>
+  <RimDialogue.Alert_NeedDefenses>we need more defenses.</RimDialogue.Alert_NeedDefenses>
+  <RimDialogue.Alert_NeedDefenses_Explanation>The colony is vulnerable to attack</RimDialogue.Alert_NeedDefenses_Explanation>
+  <RimDialogue.Alert_NeedDoctor>we a doctor.</RimDialogue.Alert_NeedDoctor>
+  <RimDialogue.Alert_NeedDoctor_Explanation>The colony does have any doctors</RimDialogue.Alert_NeedDoctor_Explanation>
+  <RimDialogue.Alert_NeedMealSource>we need some way to cook a meal</RimDialogue.Alert_NeedMealSource>
+  <RimDialogue.Alert_NeedMealSource_Explanation>The colony does not have any way to cook food.</RimDialogue.Alert_NeedMealSource_Explanation>
+  <RimDialogue.Alert_NeedResearchBench>we need a research bench</RimDialogue.Alert_NeedResearchBench>
+  <RimDialogue.Alert_NeedResearchBench_Explanation>The colony does not have any way to perform research.</RimDialogue.Alert_NeedResearchBench_Explanation>
+  <RimDialogue.Alert_NeedResearchProject>we need a research project</RimDialogue.Alert_NeedResearchProject>
+  <RimDialogue.Alert_NeedResearchProject_Explanation>The colony does not have any research projects.</RimDialogue.Alert_NeedResearchProject_Explanation>
+  <RimDialogue.Alert_NeedWarmClothes>we need warm clothes</RimDialogue.Alert_NeedWarmClothes>
+  <RimDialogue.Alert_NeedWarmClothes_Explanation>The colony does not have enough warm clothes and it will soon get cold.</RimDialogue.Alert_NeedWarmClothes_Explanation>
+  <RimDialogue.Alert_NeedJoySources>we need sources of joy</RimDialogue.Alert_NeedJoySources>
+  <RimDialogue.Alert_NeedJoySources_Explanation>The colonist are getting bored.  They need games like horseshoes or chess to keep them entertained.</RimDialogue.Alert_NeedJoySources_Explanation>
+  <RimDialogue.Alert_QuestExpiresSoon>the quest '{0}' is about to expire</RimDialogue.Alert_QuestExpiresSoon>
+  <RimDialogue.Alert_StarvationAnimals>the animal {0} is starving</RimDialogue.Alert_StarvationAnimals>
+  <RimDialogue.Alert_StarvationColonists>{0} is starving</RimDialogue.Alert_StarvationColonists>
+  <RimDialogue.Alert_UnhappyNudity>{0} is unhappy about being naked</RimDialogue.Alert_UnhappyNudity>
+  <RimDialogue.Alert_LifeThreateningHediff>{0} is suffering from a life-threatening condition</RimDialogue.Alert_LifeThreateningHediff>
+  <RimDialogue.Alert_LifeThreateningHediff_Explanation>{0} has the following critical conditions: {1}.</RimDialogue.Alert_LifeThreateningHediff_Explanation>
+  <RimDialogue.Alert_Generic>an alert</RimDialogue.Alert_Generic>
+  <RimDialogue.LifeThreatening>life threatening</RimDialogue.LifeThreatening>
+  <RimDialogue.NotLifeThreatening>not life threatening</RimDialogue.NotLifeThreatening>
+  
+</LanguageData>

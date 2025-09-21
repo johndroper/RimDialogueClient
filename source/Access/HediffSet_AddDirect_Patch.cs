@@ -18,12 +18,14 @@ namespace RimDialogue.Access
     {
       try
       {
+#if !RW_1_5
         if (
           hediff != null &&
           hediff.pawn != null &&
           (hediff.pawn != null && hediff.pawn.IsColonist) &&
           GameComponent_ContextTracker.Instance != null)
         GameComponent_ContextTracker.Instance.Add(hediff);
+#endif
       }
       catch (Exception ex)
       {

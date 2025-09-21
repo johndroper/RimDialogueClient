@@ -18,6 +18,9 @@ namespace RimDialogue.Core
     {
       base.ExposeData();
       Scribe_Collections.Look(ref RecentLetters, "RecentLetters", LookMode.Deep);
+
+      if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        RecentLetters.RemoveAll(letter => letter == null || string.IsNullOrEmpty(letter.Label) || letter.Label == "error");
     }
 
     //public override void GameComponentUpdate()
@@ -37,8 +40,10 @@ namespace RimDialogue.Core
         if (RecentLetters.Count > MaxTrackedLetters)
           RecentLetters.RemoveAt(0);
 
+#if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
           GameComponent_ContextTracker.Instance.Add(letter);
+#endif
 
         if (Settings.VerboseLogging.Value)
           Mod.Log($"Letter stored: '{letter.Label}'");
@@ -77,8 +82,8 @@ namespace RimDialogue.Core
       string type,
       Pawn? target)
     {
-      Label = label.ToString();
-      Text = text.ToString();
+      Label = label;
+      Text = text;
       Ticks = Find.TickManager.TicksAbs;
       TargetId = target?.thingIDNumber;
       Type = type;

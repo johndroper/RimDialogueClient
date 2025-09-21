@@ -33,12 +33,16 @@ namespace RimDialogue.Core.InteractionRequests
     public int initiatorOpinionOfRecipient;
     public int recipientOpinionOfInitiator;
 
+    public override bool KnownType { get; }
+
     public DialogueRequestTwoPawn(
       PlayLogEntry_Interaction entry,
       InteractionDef interactionDef,
       Pawn initiator,
-      Pawn recipient) : base(entry)
+      Pawn recipient,
+      bool knownType = true) : base(entry)
     {
+      KnownType = knownType;
       _interactionDef = interactionDef;
       _initiator = initiator;
       _initiatorData = Initiator.MakeData(_tracker.GetInstructions(Initiator), entry.LogID);
@@ -51,6 +55,7 @@ namespace RimDialogue.Core.InteractionRequests
       _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist || Recipient.IsColonist)
         _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
+      KnownType = knownType;
     }
 
     //public DialogueRequestTwoPawn(PlayLogEntry_Interaction entry) : this(
@@ -76,6 +81,7 @@ namespace RimDialogue.Core.InteractionRequests
       if (this.Initiator.IsColonist)
       {
         var now = Find.TickManager.TicksAbs;
+#if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
         {
           var contexts = await GameComponent_ContextTracker.Instance
@@ -84,6 +90,7 @@ namespace RimDialogue.Core.InteractionRequests
               .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
               .ToArray();
         }
+#endif
       }
     }
 
@@ -97,5 +104,7 @@ namespace RimDialogue.Core.InteractionRequests
       _tracker.AddConversation(Initiator, Recipient, interaction, text);
     }
     public override Rule[] Rules => [];
+    public override IDictionary<string, string> Constants =>
+      new Dictionary<string, string>();
   }
 }

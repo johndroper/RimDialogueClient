@@ -5,15 +5,10 @@ using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestIdeology<DataT> : DialogueRequestTwoPawn<DataT> where DataT : DialogueData, new()
+  public class DialogueRequestIdeology : DialogueRequestTwoPawn<DialogueData>
   {
     const string InitiatorIdeologyPlaceholder = "INITIATOR_ideology";
     const string RecipientIdeologyPlaceholder = "RECIPIENT_ideology";
-
-    //public static new DialogueRequestIdeology<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    //{
-    //  return new DialogueRequestIdeology<DataT>(entry);
-    //}
 
     public DialogueRequestIdeology(
       PlayLogEntry_Interaction entry,

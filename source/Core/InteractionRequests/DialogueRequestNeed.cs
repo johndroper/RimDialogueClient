@@ -7,7 +7,7 @@ using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestNeed<DataT> : DialogueRequestTwoPawn<DataT> where DataT : DialogueDataNeed, new()
+  public class DialogueRequestNeed : DialogueRequestTwoPawn<DialogueDataNeed>
   {
     const string Placeholder = "need";
 
@@ -35,7 +35,7 @@ namespace RimDialogue.Core.InteractionData
 
     public override string Action => "NeedsChitchat";
 
-    public override async Task BuildData(DataT data)
+    public override async Task BuildData(DialogueDataNeed data)
     {
       await base.BuildData(data);
       data.NeedLabel = this.Need?.def.label ?? string.Empty;

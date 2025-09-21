@@ -1,6 +1,7 @@
 #nullable enable
 using Bubbles;
 using RimDialogue.Core;
+using RimDialogue.UI;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ public class SinglePawnComicPanel : ComicPanel
   private readonly string dialogue;
   private Texture2D? portraitTex;
 
-  public SinglePawnComicPanel(Pawn pawn, BitmapFont font, string dialogue, float skyHeight, List<ComicPanelItem> backgroundItems)
-      : base(skyHeight, font, backgroundItems)
+  public SinglePawnComicPanel(string? title, Pawn pawn, BitmapFont font, string dialogue, float skyHeight, List<ComicPanelItem> backgroundItems)
+      : base(title, skyHeight, font, backgroundItems)
   {
     this.pawn = pawn;
     this.dialogue = dialogue;
@@ -24,7 +25,7 @@ public class SinglePawnComicPanel : ComicPanel
 
   protected override void DrawInternal(Rect canvas)
   {
-    const float textWidth = 400f;
+    float textWidth = canvas.width - 100f;
 
     // --- Get or render the pawn portrait ---
     if (portraitTex == null)

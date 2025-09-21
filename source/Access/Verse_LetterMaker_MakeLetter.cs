@@ -37,10 +37,10 @@ namespace RimDialogue.Access
       try
       {
         if (Settings.VerboseLogging.Value)
-          Mod.Log($"Creating LetterRecord {def.defName}");
+          Mod.Log($"Creating LetterRecord {def.defName} - {label}\n{text}");
         var record = new RecentLetter(
-          H.RemoveWhiteSpaceAndColor(label),
-          H.RemoveWhiteSpaceAndColor(text),
+          H.RemoveWhiteSpaceAndColor(label.ToString()),
+          H.RemoveWhiteSpaceAndColor(text.ToString()),
           def.defName,
           lookTargets?.PrimaryTarget.Pawn);
         GameComponent_LetterTracker.Instance.RecordLetter(record);

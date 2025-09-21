@@ -168,8 +168,10 @@ public class GameComponent_ConversationTracker : GameComponent
       if (initiator == null || text == null || string.IsNullOrWhiteSpace(text))
         return;
       Conversation conversation = new Conversation(initiator, recipient, interaction, text);
+#if !RW_1_5
       if (GameComponent_ContextTracker.Instance != null)
         GameComponent_ContextTracker.Instance.Add(conversation);
+#endif
       Conversation? removed = null;
       lock (conversations)
       {

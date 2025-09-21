@@ -1,15 +1,21 @@
 #nullable enable
 using Bubbles.Core;
 using RimDialogue.Core;
+using RimWorld;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace RimDialogue.UI
 {
@@ -19,17 +25,18 @@ namespace RimDialogue.UI
     private readonly Conversation Conversation;
     private Vector2 scrollPosition = Vector2.zero;
 
-    public override Vector2 InitialSize => new Vector2(600f, 500f);
+    public const float PanelHeight = 425f;
+    public const float PanelWidth = 565f;
+    public const float PanelSpacing = 10f;
+    public const float SaveButtonHeight = 30f;
+    public const float SaveButtonWidth = 120f;
+    public const float CopyButtonHeight = 30f;
+    public const float TextFieldHeight = 25f;
+    public const float BottomUIHeight = 70f;
+
+    public override Vector2 InitialSize => new Vector2(PanelWidth + 50f, PanelHeight + 115f);
 
     private List<ComicPanel> _Panels = new List<ComicPanel>();
-
-    private const float PanelHeight = 400f;
-    private const float PanelWidth = 550f;
-    private const float PanelSpacing = 10f;
-    private const float SaveButtonHeight = 30f;
-    private const float SaveButtonWidth = 120f;
-    private const float TextFieldHeight = 25f;
-    private const float BottomUIHeight = 70f;
 
     private string customFilePath = "";
     private string filePathBuffer = "";
@@ -68,8 +75,15 @@ namespace RimDialogue.UI
           if (Settings.VerboseLogging.Value) Mod.Log($"Creating single pawn comic panels for conversation with initiator {initiator.ToString() ?? "Unknown"} ({initiator.thingIDNumber.ToString() ?? "Unknown"})");
           for (int i = 0; i < Conversation.Lines.Length; i++)
           {
-            _Panels.Add(new SinglePawnComicPanel(initiator, bitmapFont, Conversation.Lines[i].Text, SkyHeight, backgroundItems));
-            if (Settings.VerboseLogging.Value) Mod.Log($"SinglePawnComicPanel panel added for line {i}.");
+            _Panels.Add(new SinglePawnComicPanel(
+              i == 0 ? Conversation.Interaction : null,
+              initiator,
+              bitmapFont,
+              Conversation.Lines[i].Text,
+              SkyHeight,
+              backgroundItems));
+            if (Settings.VerboseLogging.Value)
+              Mod.Log($"SinglePawnComicPanel panel added for line {i}.");
           }
         }
         else
@@ -81,6 +95,7 @@ namespace RimDialogue.UI
             {
               _Panels.Add(
                 new TwoPawnComicPanel(
+                  i == 0 ? Conversation.Interaction : null,
                   initiator,
                   null,
                   recipient,
@@ -97,6 +112,7 @@ namespace RimDialogue.UI
                 {
                   _Panels.Add(
                     new TwoPawnComicPanel(
+                      i == 0 ? Conversation.Interaction : null,
                       initiator,
                       Conversation.Lines[i].Text,
                       recipient,
@@ -109,6 +125,7 @@ namespace RimDialogue.UI
                 {
                   _Panels.Add(
                     new TwoPawnComicPanel(
+                      i == 0 ? Conversation.Interaction : null,
                       initiator,
                       Conversation.Lines[i].Text,
                       recipient,
@@ -122,6 +139,7 @@ namespace RimDialogue.UI
               else
                 _Panels.Add(
                   new TwoPawnComicPanel(
+                    i == 0 ? Conversation.Interaction : null,
                     initiator,
                     Conversation.Lines[i].Text,
                     recipient,
@@ -145,27 +163,30 @@ namespace RimDialogue.UI
       List<Thing> treeThings = new List<Thing>();
       var trees = Find.CurrentMap.listerThings.AllThings
         .Where(t => t.def.category == ThingCategory.Plant && t.def.plant.IsTree);
-      int treesToFetch = Rand.Range(10, 20);
-      while (treeThings.Count < treesToFetch)
+      if (trees.Any())
       {
-        treeThings.Add(trees.RandomElement());
-      }
-      float x = Rand.Range(-10, 100);
-      float y = skyHeight - 30;
-      float size = 32;
-      for (var row = 0; row < 4; row++)
-      {
-        foreach (var tree in treeThings)
+        int treesToFetch = Rand.Range(10, 20);
+        while (treeThings.Count < treesToFetch)
         {
-          items.Add(new ComicPanelItem(
-            (Texture2D)tree.Graphic.MatSingle.mainTexture,
-            new Rect(x, y, size, size)));
-          x += Rand.Range(10, 100);
-          if (x > width)
-            x = Rand.Range(-20, 100);
+          treeThings.Add(trees.RandomElement());
         }
-        y += 5;
-        size += 8;
+        float x = Rand.Range(-10, 100);
+        float y = skyHeight - 30;
+        float size = 32;
+        for (var row = 0; row < 4; row++)
+        {
+          foreach (var tree in treeThings)
+          {
+            items.Add(new ComicPanelItem(
+              (Texture2D)tree.Graphic.MatSingle.mainTexture,
+              new Rect(x, y, size, size)));
+            x += Rand.Range(10, 100);
+            if (x > width)
+              x = Rand.Range(-20, 100);
+          }
+          y += 5;
+          size += 8;
+        }
       }
       return items;
     }
@@ -186,7 +207,7 @@ namespace RimDialogue.UI
 
         string filename = $"{participantNames}_{timestamp}.png";
 
-        string screenshotsPath = Path.Combine(GenFilePaths.ScreenshotFolderPath, "RimDialogue");
+        string screenshotsPath = Settings.DefaultSavePath.Value;
         customFilePath = Path.Combine(screenshotsPath, filename);
         filePathBuffer = customFilePath;
       }
@@ -220,11 +241,10 @@ namespace RimDialogue.UI
         if (panelTextures == null)
           return;
 
-        // Reserve space for bottom UI (textfield + save button)
         Rect scrollRect = new Rect(inRect.x, inRect.y, inRect.width, inRect.height - BottomUIHeight);
 
         float totalHeight = _Panels.Count * (PanelHeight + PanelSpacing);
-        Rect viewRect = new Rect(0, 0, scrollRect.width, totalHeight);
+        Rect viewRect = new Rect(0, 0, scrollRect.width - 20, totalHeight);
 
         Widgets.BeginScrollView(scrollRect, ref scrollPosition, viewRect, true);
 
@@ -238,12 +258,10 @@ namespace RimDialogue.UI
 
         Widgets.EndScrollView();
 
-        float bottomY = inRect.height - BottomUIHeight + 5f;
+        //Rect pathLabelRect = new Rect(10f, curY, 100f, 20f);
+        //Widgets.Label(pathLabelRect, "Save Path:");
 
-        Rect pathLabelRect = new Rect(10f, bottomY, 100f, 20f);
-        Widgets.Label(pathLabelRect, "Save Path:");
-
-        Rect pathTextRect = new Rect(10f, bottomY + 20f, inRect.width - SaveButtonWidth - 30f, TextFieldHeight);
+        Rect pathTextRect = new Rect(0, scrollRect.height, inRect.width - SaveButtonWidth - 10f, TextFieldHeight);
         string newPath = Widgets.TextField(pathTextRect, filePathBuffer);
         if (newPath != filePathBuffer)
         {
@@ -252,16 +270,24 @@ namespace RimDialogue.UI
         }
 
         // Save as PNG button
-        Rect saveButtonRect = new Rect(inRect.width - SaveButtonWidth - 10f, pathTextRect.y, SaveButtonWidth, SaveButtonHeight);
+        Rect saveButtonRect = new Rect(inRect.width - SaveButtonWidth, pathTextRect.y, SaveButtonWidth, SaveButtonHeight);
         if (Widgets.ButtonText(saveButtonRect, "Save as PNG"))
         {
           SavePanelsToPNG(viewRect, newPath);
+          Settings.DefaultSavePath.Value = Path.GetDirectoryName(customFilePath);
+          SoundDefOf.Tick_High.PlayOneShotOnCamera();
         }
 
-        //var oldColor = GUI.color;
-        //GUI.color = Color.white;
-        //Widgets.Label(new Rect(50, 50, 200, 200), new GUIContent($"Panels: {_Panels.Count}"));
-        //GUI.color = oldColor;
+        // Copy to Clipboard button (Windows only)
+        if (PlatformCheck.IsWindows())
+        {
+          Rect copyButtonRect = new Rect(0, pathTextRect.y + SaveButtonHeight + 5, inRect.width, CopyButtonHeight);
+          if (Widgets.ButtonText(copyButtonRect, "Copy Image To Clipboard"))
+          {
+            CopyToClipboard(viewRect);
+            SoundDefOf.Tick_High.PlayOneShotOnCamera();
+          }
+        }
       }
       catch (Exception ex)
       {
@@ -269,49 +295,61 @@ namespace RimDialogue.UI
       }
     }
 
+    public Texture2D ToTexture(Rect viewRect)
+    {
+      int width = (int)PanelWidth;
+      int height = _Panels.Count * ((int)PanelHeight + (int)PanelSpacing) - (int)PanelSpacing;
+      if (height <= 0) height = (int)PanelHeight;
+
+      List<Texture2D> panelTextures = new List<Texture2D>();
+      foreach (var panel in _Panels)
+      {
+        var panelTexture = panel.Texture ?? panel.GetTexture(new Rect(0, 0, PanelWidth, PanelHeight));
+        panelTextures.Add(panelTexture);
+      }
+
+      RenderTexture rt = new RenderTexture(width, height, 0);
+      RenderTexture.active = rt;
+      GL.PushMatrix();
+      GL.LoadPixelMatrix(0, width, height, 0);
+      GL.Clear(true, true, UnityEngine.Color.black);
+
+      float curY = 0;
+      foreach (var panelTexture in panelTextures)
+      {
+        Rect destRect = new Rect(0, curY, panelTexture.width, panelTexture.height);
+        UnityEngine.Graphics.DrawTexture(destRect, panelTexture);
+        curY += PanelHeight + PanelSpacing;
+      }
+
+      Texture2D finalTex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+      finalTex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+      finalTex.Apply();
+
+      GL.PopMatrix();
+      RenderTexture.active = null;
+      rt.Release();
+      UnityEngine.Object.Destroy(rt);
+
+      return finalTex;
+    }
+
+
+    public void CopyToClipboard(Rect viewRect)
+    {
+      var texture = ToTexture(viewRect);
+      Win32Clipboard.CopyImage(texture);
+    }
+
     private void SavePanelsToPNG(Rect viewRect, string filePath)
     {
       try
       {
-        int width = (int)PanelWidth;
-        int height = _Panels.Count * ((int)PanelHeight + (int)PanelSpacing) - (int)PanelSpacing;
-        if (height <= 0) height = (int)PanelHeight;
-
-        List<Texture2D> panelTextures = new List<Texture2D>();
-        foreach (var panel in _Panels)
-        {
-          var panelTexture = panel.Texture ?? panel.GetTexture(new Rect(0, 0, PanelWidth, PanelHeight));
-          panelTextures.Add(panelTexture);
-        }
-
-        RenderTexture rt = new RenderTexture(width, height, 0);
-        RenderTexture.active = rt;
-        GL.PushMatrix();
-        GL.LoadPixelMatrix(0, width, height, 0);
-        GL.Clear(true, true, Color.black);
-
-        float curY = 0;
-        foreach (var panelTexture in panelTextures)
-        {
-          Rect destRect = new Rect(0, curY, panelTexture.width, panelTexture.height);
-          Graphics.DrawTexture(destRect, panelTexture);
-          curY += PanelHeight + PanelSpacing;
-        }
-
-        Texture2D finalTex = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        finalTex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        finalTex.Apply();
-
-        GL.PopMatrix();
-        RenderTexture.active = null;
-        rt.Release();
-        UnityEngine.Object.Destroy(rt);
-
         string directory = Path.GetDirectoryName(filePath);
         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
           Directory.CreateDirectory(directory);
-
-        byte[] pngData = ImageConversion.EncodeToPNG(finalTex);
+        var texture = ToTexture(viewRect);
+        byte[] pngData = texture.EncodeToPNG();
         File.WriteAllBytes(filePath, pngData);
       }
       catch (Exception ex)

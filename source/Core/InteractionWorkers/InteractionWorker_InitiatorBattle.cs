@@ -1,4 +1,8 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
+using System;
 using System.Linq;
 using Verse;
 
@@ -19,6 +23,17 @@ namespace RimDialogue.Core.InteractionWorkers
       }
       // if (Settings.VerboseLogging.Value) Mod.Log($"${nameof(InteractionWorker_InitiatorBattle)}: {initiator.Name} -> {recipient.Name} = {Settings.BattleChitChatWeight.Value}");
       return Settings.BattleChitChatWeight.Value;
+    }
+
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestBattle_Initiator(entry, intDef, initiator, recipient);
     }
   }
 }

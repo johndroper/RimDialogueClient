@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <PathMap>$(SolutionDir)=.</PathMap>
+    <ProjectGuid>{B7D3491A-DA86-4CE1-8FB4-EF4A69308E7E}</ProjectGuid>
+    <RootNamespace>RimDialogue</RootNamespace>
+    <AssemblyName>RimDialogueDataObjects</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <Nullable>enable</Nullable>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 1.6|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>RW_1_6</DefineConstants>
+    <OutputPath>bin\Release 1.6\</OutputPath>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 1.5|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>RW_1_5</DefineConstants>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OutputPath>bin\Release 1.5\</OutputPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 1.6|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>RW_1_6</DefineConstants>
+    <OutputPath>bin\Debug 1.6\</OutputPath>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 1.5|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>RW_1_5</DefineConstants>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OutputPath>bin\Debug 1.5\</OutputPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DialogueResponse.cs" />
+    <Compile Include="InteractionData\BattleLogData.cs" />
+    <Compile Include="InteractionData\DialogueData.cs" />
+    <Compile Include="InteractionData\DialogueDataAlert.cs" />
+    <Compile Include="InteractionData\DialogueDataQuest.cs" />
+    <Compile Include="InteractionData\DialogueDataAnimal.cs" />
+    <Compile Include="InteractionData\DialogueDataApparel.cs" />
+    <Compile Include="InteractionData\DialogueDataAppearance.cs" />
+    <Compile Include="InteractionData\DialogueDataBattle.cs" />
+    <Compile Include="InteractionData\DialogueDataCondition.cs" />
+    <Compile Include="InteractionData\DialogueDataDeadPawn.cs" />
+    <Compile Include="InteractionData\DialogueDataFaction.cs" />
+    <Compile Include="InteractionData\DialogueDataFamily.cs" />
+    <Compile Include="InteractionData\DialogueDataHealth.cs" />
+    <Compile Include="InteractionData\DialogueDataIncident.cs" />
+    <Compile Include="InteractionData\DialogueDataMessage.cs" />
+    <Compile Include="InteractionData\DialogueDataNeed.cs" />
+    <Compile Include="InteractionData\DialogueDataRoom.cs" />
+    <Compile Include="InteractionData\DialogueDataSkill.cs" />
+    <Compile Include="InteractionData\DialogueDataWeapon.cs" />
+    <Compile Include="InteractionData\DialogueDataWeather.cs" />
+    <Compile Include="InteractionData\DialogueTargetData.cs" />
+    <Compile Include="InteractionData\ThoughtData.cs" />
+    <Compile Include="LoginData.cs" />
+    <Compile Include="PawnData.cs" />
+    <Compile Include="PromptResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

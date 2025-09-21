@@ -1,4 +1,7 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
 using RimWorld;
+using System;
 using Verse;
 
 namespace RimDialogue.Core.InteractionWorkers
@@ -23,6 +26,17 @@ namespace RimDialogue.Core.InteractionWorkers
       return 0.02f
         * NegativeInteractionUtility.NegativeInteractionChanceFactor(initiator, recipient)
         * Settings.WeaponChitChatWeight.Value;
+    }
+
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestWeapon_Recipient(entry, intDef, initiator, recipient);
     }
   }
 }

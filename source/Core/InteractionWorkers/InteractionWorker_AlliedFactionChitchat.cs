@@ -1,3 +1,5 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -31,5 +33,17 @@ namespace RimDialogue.Core.InteractionWorkers
         return 0f;
       }
     }
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestAlliedFaction(entry, intDef, initiator, recipient);
+    }
   }
 }
+
+

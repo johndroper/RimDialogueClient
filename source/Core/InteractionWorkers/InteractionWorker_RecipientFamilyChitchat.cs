@@ -1,3 +1,6 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System;
 using System.Linq;
@@ -27,6 +30,16 @@ namespace RimDialogue.Core.InteractionWorkers
         Mod.Error($"Error in InteractionWorker_RecipientFamilyChitchat: {ex}");
         return 0f;
       }
+    }
+    public override DialogueRequest CreateRequest(
+      PlayLogEntry_Interaction entry,
+      InteractionDef intDef,
+      Pawn initiator,
+      Pawn? recipient)
+    {
+      if (recipient == null)
+        throw new ArgumentNullException(nameof(recipient), "Recipient cannot be null.");
+      return new DialogueRequestRecipientFamily(entry, intDef, initiator, recipient);
     }
   }
 }

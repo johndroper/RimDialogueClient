@@ -8,13 +8,8 @@ using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestIncident<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataIncident, new()
+  public class DialogueRequestIncident : DialogueRequestTarget<DialogueDataIncident>
   {
-    //public static new DialogueRequestIncident<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    //{
-    //  return new DialogueRequestIncident<DataT>(entry);
-    //}
-
     public override Pawn? Target
     {
       get
@@ -72,7 +67,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override async Task BuildData(DataT data)
+    public override async Task BuildData(DialogueDataIncident data)
     {
       data.Explanation = Explanation;
       await base.BuildData(data);

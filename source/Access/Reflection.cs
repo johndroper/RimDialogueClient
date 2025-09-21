@@ -67,6 +67,8 @@ namespace RimDialogue.Access
     public static readonly FieldInfo RimWorld_ColonistBar_CachedDrawLocs = AccessTools.Field(typeof(RimWorld.ColonistBar), "cachedDrawLocs");
     public static readonly FieldInfo RimWorld_ColonistBar_TmpColonistsInOrder = AccessTools.Field(typeof(RimWorld.ColonistBar), "tmpColonistsInOrder");
 
+    public static readonly FieldInfo RimWorld_Pawn_RecordsTracker_Records = AccessTools.Field(typeof(RimWorld.Pawn_RecordsTracker), "records");
+
     //ALERTS
     public static readonly FieldInfo RimWorld_Alert_AbandonedBaby_tmpAbandonedBabiesList = AccessTools.Field(typeof(RimWorld.Alert_AbandonedBaby), "tmpAbandonedBabiesList");
     public static readonly FieldInfo RimWorld_AlertsReadout_ActiveAlerts = AccessTools.Field(typeof(RimWorld.AlertsReadout), "activeAlerts");

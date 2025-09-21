@@ -66,6 +66,10 @@ namespace RimDialogue.Core
     private static Texture2D? _bubbleBackground;
     private static Texture2D BubbleBackground => _bubbleBackground ??= ContentFinder<Texture2D>.Get("RimDialogue/dialogue_bubble_background");
 
+    private static Texture2D? _caption_box;
+    private static Texture2D Caption_box => _caption_box ??= ContentFinder<Texture2D>.Get("RimDialogue/caption_box");
+
+
     private static GUIStyle? _style;
     public static GUIStyle style
     { 
@@ -124,40 +128,46 @@ namespace RimDialogue.Core
       return new string(input.Select(c => ApostropheLikeCharacters.Contains(c) ? '\'' : c).ToArray());
     }
 
-    public static void SaveScreenRegionAsPNG(Rect screenRect, string filename)
-    {
-      Texture2D screenTexture = ScreenCapture.CaptureScreenshotAsTexture();
-      Texture2D regionTexture = new Texture2D((int)screenRect.width, (int)screenRect.height);
-
-      Color[] pixels = screenTexture.GetPixels(
-          (int)screenRect.x,
-          Screen.height - (int)screenRect.y - (int)screenRect.height,
-          (int)screenRect.width,
-          (int)screenRect.height
-      );
-
-      regionTexture.SetPixels(pixels);
-      regionTexture.Apply();
-
-      byte[] pngData = ImageConversion.EncodeToPNG(regionTexture);
-
-      string path = Path.Combine(GenFilePaths.SaveDataFolderPath, filename + ".png");
-      File.WriteAllBytes(path, pngData);
-
-      UnityEngine.Object.Destroy(screenTexture);
-      UnityEngine.Object.Destroy(regionTexture);
-    }
-
-    //public static float GetTextHeight(string text, float textWidth)
-    //{
-    //  return BitmapFont.Calibri.GetTextHeight(text, textWidth);
-    //}
-
     public enum BubbleType
     {
       Normal,
       Reversed,
       Wide
+    }
+
+    public static void DrawCaption(Rect rect, string text)
+    {
+      text = Clean(text);
+
+      var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
+
+      // Add some padding for the caption box
+      float padding = 10f;
+      float textWidth = rect.width - (padding * 2);
+      float textHeight = bitmapFont.GetTextHeight(text, textWidth);
+      
+      // Create a properly sized box for the caption
+      float captionBoxHeight = textHeight + (padding * 2);
+      
+      // Center the caption box in the provided rect
+      Rect captionBoxRect = new Rect(
+        rect.x,
+        rect.y,
+        rect.width,
+        captionBoxHeight
+      );
+      
+      // Draw the caption box texture
+      Graphics.DrawTexture(captionBoxRect, Caption_box);
+      
+      // Calculate text position inside the caption box
+      float textY = captionBoxRect.y + padding;
+      
+      // Draw the text inside the caption box
+      bitmapFont.DrawText(
+        text,
+        new Vector2(captionBoxRect.x + padding, textY),
+        textWidth);
     }
 
     public static void DrawSpeechBubble(Vector2 bubbleAPos, string text, float textHeight, float textWidth, BubbleType bubbleType)
@@ -227,30 +237,19 @@ namespace RimDialogue.Core
         textWidth);
     }
 
-    //Rect centerRect = new Rect(
-    //    (bubbleRect.width - textWidth) / 2,
-    //    (bubbleRect.height - textHeight) / 2 - 12,
-    //    textWidth,
-    //    textHeight
-    //);
-
-    //// Background fill
-    //SubDraw(centerRect, BaseContent.WhiteTex, BubbleBackgroundColor);
-
-    // OPTIONAL: render text here (bitmap font or other method)
-
-
     public const int PortraitWidth = 96;
     public const int PortraitHeight = 128;
 
+    protected string? Title;
     protected float SkyHeight;
     protected List<ComicPanelItem> BackgroundItems;
 
     public readonly BitmapFont BitmapFont;
     protected Texture2D? _texture;
 
-    public ComicPanel(float skyHeight, BitmapFont bitmapFont, List<ComicPanelItem> backgroundItems)
+    public ComicPanel(string? title, float skyHeight, BitmapFont bitmapFont, List<ComicPanelItem> backgroundItems)
     {
+      Title = title.RemoveColor();
       SkyHeight = skyHeight;
       BackgroundItems = backgroundItems;
       BitmapFont = bitmapFont;
@@ -293,6 +292,8 @@ namespace RimDialogue.Core
       GL.Clear(true, true, Color.clear);
 
       DrawBackground(canvas);
+      if (Title != null && !string.IsNullOrWhiteSpace(Title))
+        DrawCaption(new Rect(canvas.x + 10, canvas.y + 10, canvas.width - 20, 0f), Title);
       DrawInternal(canvas);
 
       Texture2D finalTex = new Texture2D(texWidth, texHeight, TextureFormat.RGBA32, false);

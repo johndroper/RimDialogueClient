@@ -1,3 +1,4 @@
+#nullable enable
 using HarmonyLib;
 using RimDialogue.Core;
 using RimWorld;
@@ -14,7 +15,7 @@ namespace RimDialogue.Access
   [HarmonyPatch(nameof(Pawn.SetFaction))]
   public static class Patch_Pawn_SetFaction_JoinColony
   {
-    static void Prefix(Pawn __instance, Faction newFaction, Pawn recruiter, out (bool wasColonist, Faction oldFaction) __state)
+    static void Prefix(Pawn __instance, Faction newFaction, Pawn recruiter, out (bool wasColonist, Faction? oldFaction) __state)
     {
       try
       {
@@ -27,7 +28,7 @@ namespace RimDialogue.Access
       }
     }
 
-    static void Postfix(Pawn __instance, Faction newFaction, Pawn recruiter, (bool wasColonist, Faction oldFaction) __state)
+    static void Postfix(Pawn __instance, Faction newFaction, Pawn recruiter, (bool wasColonist, Faction? oldFaction) __state)
     {
       try
       {

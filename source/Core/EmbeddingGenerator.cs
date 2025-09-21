@@ -1,3 +1,4 @@
+#if !RW_1_5
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using System.Collections.Generic;
@@ -31,3 +32,4 @@ public class EmbeddingGenerator
     return embeddingTensor;
   }
 }
+#endif

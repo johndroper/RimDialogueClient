@@ -8,14 +8,9 @@ using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestColonist<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueTargetData, new()
+  public class DialogueRequestColonist : DialogueRequestTarget<DialogueTargetData>
   {
     const string colonistPlaceholder = "colonist";
-
-    //public static new DialogueRequestColonist<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    //{
-    //  return new DialogueRequestColonist<DataT>(entry);
-    //}
 
     private Pawn _target;
     public override Pawn Target

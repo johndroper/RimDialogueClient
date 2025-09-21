@@ -29,7 +29,7 @@ namespace RimDialogue
       {
         return Path.Combine(
           Instance.Content.RootDir,
-          "BitmapFonts");
+          "Common\\BitmapFonts");
       }
     }
 
@@ -41,6 +41,7 @@ namespace RimDialogue
       try
       {
         OrtNativeBootstrap.Init();
+        Log("ONNX Runtime initialized successfully.");
       }
       catch (Exception ex)
       {

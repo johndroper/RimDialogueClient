@@ -391,6 +391,8 @@ namespace RimDialogue
       var conversationContentRect = new Rect(0, 0, conversationContentRectWidth, conversationContentRectHeight);
       Widgets.BeginScrollView(conversationsScrollRect, ref conversationScrollPosition, conversationContentRect);
       float convoY = 0;
+      const float rightMargin = 40;
+      const float buttonWidth = 40;
       foreach (var ui in FilteredConversations)
       {
         try
@@ -398,14 +400,14 @@ namespace RimDialogue
           convoY += topMargin;
           var headerRect = new Rect(0, convoY, conversationContentRectWidth, 25f);
           Widgets.Label(headerRect, ui.Conversation.Participants);
-          var memeButtonRect = new Rect(headerRect.width - 40, convoY, 40, headerRect.height);
-          if (Widgets.ButtonText(memeButtonRect, "Save"))
+          var memeButtonRect = new Rect(headerRect.width - rightMargin, convoY, buttonWidth, headerRect.height);
+          if (Widgets.ButtonText(memeButtonRect, "RimDialogue.MemeButton".Translate()))
           {
             var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
             Find.WindowStack.Add(new Window_ComicPanelViewer(bitmapFont, ui.Conversation));
           }
-          var copyButtonRect = new Rect(headerRect.width - 90, convoY, 40, headerRect.height);
-          if (Widgets.ButtonText(copyButtonRect, "Copy"))
+          var copyButtonRect = new Rect(headerRect.width - memeButtonRect.width - rightMargin, convoY, buttonWidth, headerRect.height);
+          if (Widgets.ButtonText(copyButtonRect, "RimDialogue.CopyButton".Translate()))
           {
             GUIUtility.systemCopyBuffer = ui.Conversation.Text ?? string.Empty;
             SoundDefOf.Click.PlayOneShotOnCamera();

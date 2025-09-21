@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Unity.Jobs.LowLevel.Unsafe;
 using Verse;
 using Verse.AI;
+using Verse.Noise;
 using static UnityEngine.GraphicsBuffer;
 
 namespace RimDialogue.Core.Comps
@@ -15,8 +16,8 @@ namespace RimDialogue.Core.Comps
   public class JobRecord : IExposable
   {
     public int PawnId;
-    public string? JobType;
-    public string? JobReport;
+    public string? Report;
+    public int Count;
     public int StartTick;
     public int EndTick;
 
@@ -25,34 +26,42 @@ namespace RimDialogue.Core.Comps
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     public JobRecord(
-      int pawnId,
+      Pawn pawn,
       string jobReport,
-      string jobType,
-      int startTick,
-      int endTick)
+      int startTick)
     {
-      PawnId = pawnId;
-      JobReport = jobReport;
-      JobType = jobType;
+      PawnId = pawn.thingIDNumber;
+      _pawn = pawn;
+      Report = jobReport;
       StartTick = startTick;
-      EndTick = endTick;
+      EndTick = startTick;
+      Count = 1;
     }
 
+    public void Increment()
+    {
+      Count += 1;
+      EndTick = Find.TickManager.TicksAbs;
+    }
+
+    public int Duration => EndTick - StartTick;
+
+    public int TimeSince => Find.TickManager.TicksAbs - EndTick;
+
     private Pawn? _pawn;
-    public Pawn? Pawn
+    public Pawn Pawn
     {
       get
       {
         _pawn ??= TrackerUtils.GetPawnById(PawnId);
-        return _pawn;
+        return _pawn ?? throw new Exception("Can't find pawn.");
       }
     }
 
     public void ExposeData()
     {
       Scribe_Values.Look(ref PawnId, "pawnId");
-      Scribe_Values.Look(ref JobReport, "jobReport");
-      Scribe_Values.Look(ref JobType, "jobType");
+      Scribe_Values.Look(ref Report, "jobReport");
       Scribe_Values.Look(ref StartTick, "startTick");
       Scribe_Values.Look(ref EndTick, "endTick");
     }
@@ -61,71 +70,91 @@ namespace RimDialogue.Core.Comps
     {
       if (Pawn == null)
         return string.Empty;
-      return $"[{Pawn.Name?.ToStringShort ?? "Unknown"}] {JobType}: start {StartTick}, ended {EndTick}";
+      return $"[{Pawn.Name?.ToStringShort ?? "Unknown"}] was {Report} from {StartTick} to {EndTick}.";
     }
   }
 
   public class GameComponent_JobTracker : GameComponent
   {
-    public Dictionary<int, List<JobRecord>> Records = [];
+    private Dictionary<Pawn, JobRecord> JobCounts = [];
+    public Dictionary<int, List<JobRecord>> JobRecords = [];
 
-    private const int MaxEvents = 10;
+    private const int MaxRecords = 100;
 
     public GameComponent_JobTracker() { }
     public GameComponent_JobTracker(Game game) { }
-
-
     public static GameComponent_JobTracker Instance =>
         Current.Game.GetComponent<GameComponent_JobTracker>();
-
     public JobRecord? GetRandom(Pawn pawn)
     {
-      var records = Records[pawn.thingIDNumber];
+      var records = JobRecords[pawn.thingIDNumber];
       if (!records.Any())
         return null;
-
       var now = Find.TickManager.TicksAbs;
-      return records.RandomElementByWeight(jobRecord => jobRecord.EndTick / now);
+      return records.RandomElementByWeight(jobRecord => (jobRecord.EndTick / now) * jobRecord.Count);
     }
 
     public override void ExposeData()
     {
-      //Scribe_Collections.Look(ref Records, "events", LookMode.Value, LookMode.Deep);
-      //if (Scribe.mode == LoadSaveMode.PostLoadInit)
-      //  Records ??= [];
+      Scribe_Collections.Look(ref JobRecords, "events", LookMode.Value, LookMode.Deep);
+      if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        JobRecords ??= [];
     }
 
-    //public void Add(
-    //  Pawn pawn,
-    //  string jobReport,
-    //  string jobType,
-    //  int startTick,
-    //  int endTick)
-    //{
-    //  if (!Records.ContainsKey(pawn.thingIDNumber))
-    //    Records[pawn.thingIDNumber] = [];
-    //  var pawnRecords = Records[pawn.thingIDNumber];
-    //  var record = new JobRecord(
-    //    pawn.thingIDNumber,
-    //    jobReport,
-    //    jobType,
-    //    startTick,
-    //    endTick);
-    //  lock (pawnRecords)
-    //  {
-    //    pawnRecords.Add(record);
-    //    if (pawnRecords.Count > MaxEvents)
-    //    {
-    //      int remove = Records.Count - MaxEvents;
-    //      if (remove > 0)
-    //        pawnRecords.RemoveRange(0, remove);
-    //    }
-    //  }
-    //  GameComponent_ContextTracker.Instance.Add(
-    //    record.JobReport,
-    //    record.JobType,
-    //    record.StartTick,
-    //    pawn);
-    //}
-   }
+    public override void GameComponentUpdate()
+    {
+      base.GameComponentUpdate();
+      if (Find.TickManager.TicksGame % 2500 == 0)
+      {
+        foreach(var pawnRecords in JobRecords.Values)
+        {
+          if (pawnRecords.Count > MaxRecords)
+          {
+            int remove = JobRecords.Count - MaxRecords;
+            if (remove > 0)
+              pawnRecords.RemoveRange(0, remove);
+          }
+        }
+      }
+    }
+
+    public void Add(JobRecord jobRecord)
+    {
+      if (!JobRecords.ContainsKey(jobRecord.Pawn.thingIDNumber))
+        JobRecords[jobRecord.Pawn.thingIDNumber] = [];
+      var pawnRecords = JobRecords[jobRecord.Pawn.thingIDNumber];
+      pawnRecords.Add(jobRecord);
+
+      if (GameComponent_ContextTracker.Instance != null)
+        GameComponent_ContextTracker.Instance.Add(jobRecord);
+    }
+
+    public void Build(
+      Pawn pawn,
+      string report,
+      int startTick)
+    {
+      if (pawn == null || !pawn.IsColonist)
+        return;
+
+      if (JobCounts.TryGetValue(pawn, out JobRecord jobRecord))
+      {
+        if (jobRecord.Report == report)
+          jobRecord.Increment();
+        else
+        {
+          Add(jobRecord);
+          JobCounts[pawn] = new JobRecord(
+            pawn,
+            report,
+            startTick);
+        }
+      }
+      else
+        JobCounts.Add(pawn, new JobRecord(
+            pawn,
+            report,
+            startTick));
+    }
+  }
 }

@@ -48,12 +48,14 @@ namespace RimDialogue.Core
         TrackedMessages.Add(new MessageRecord(message, Find.TickManager.TicksAbs));
         if (TrackedMessages.Count > MaxTrackedMessages)
           TrackedMessages.RemoveAt(0);
+#if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
           GameComponent_ContextTracker.Instance.Add(
             message.text,
             message.def.defName,
             message.startingTick,
             1f);
+#endif
       }
       catch (System.Exception ex)
       {

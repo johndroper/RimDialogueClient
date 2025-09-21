@@ -1,3 +1,4 @@
+#if !RW_1_5
 #nullable enable
 using Google.Protobuf.Compiler;
 using RimDialogue.Access;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.Grammar;
@@ -42,7 +44,7 @@ namespace RimDialogue.Core
         $"{hediff.pawn} received {hediff.GetTooltip(hediff.pawn, false)}",
         hediff.def.defName,
         hediff.tickAdded,
-        2f,
+        Settings.HediffContextWeight.Value,
         hediff.pawn);
     }
 
@@ -68,7 +70,7 @@ namespace RimDialogue.Core
                 .ToArray())}",
         "battle",
         battle.CreationTimestamp,
-        Math.Min(battle.Importance, 5f));
+        Math.Min(battle.Importance, Settings.BattleContextWeight.Value));
     }
 
     public static ContextData? Create(Message message)
@@ -79,7 +81,7 @@ namespace RimDialogue.Core
         message.text,
         message.def.defName,
         message.startingTick,
-        1f);
+        Settings.MessageContextWeight.Value);
     }
 
     public static ContextData? Create(RecentLetter letter)
@@ -89,23 +91,36 @@ namespace RimDialogue.Core
 
       float weight = 5f;
       if (letter.Type == LetterDefOf.ThreatBig.defName)
-        weight = 10f;
+        weight = Settings.ThreatBigLetterContextWeight.Value;
       else if (letter.Type == LetterDefOf.NegativeEvent.defName)
-        weight = 7f;
+        weight = Settings.NegativeLetterContextWeight.Value;
       else if (letter.Type == LetterDefOf.PositiveEvent.defName)
-        weight = 3f;
+        weight = Settings.PositiveLetterContextWeight.Value;
       else if (letter.Type == LetterDefOf.NeutralEvent.defName)
-        weight = 2f;
+        weight = Settings.NeutralLetterContextWeight.Value;
 
       return new ContextData(
         letter.Text,
         letter.Type,
-        Find.TickManager.TicksAbs,
+        letter.Ticks,
         weight);
     }
 
+    public static ContextData? Create(JobRecord jobRecord)
+    {
+      return new ContextData(
+        $"{jobRecord.Pawn.Name?.ToStringShort ?? jobRecord.Pawn.Label} was {jobRecord.Report} for {jobRecord.Duration.ToStringTicksToPeriod()}.",
+        "job",
+        jobRecord.StartTick,
+        Settings.JobContextWeight.Value);
+    }
+
+
     public static ContextData? Create(LogEntry entry)
     {
+      if (entry == null)
+        return null;
+
       if (entry is PlayLogEntry_InteractionWithMany interactionMany)
       {
         Pawn? initiator = Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(interactionMany) as Pawn;
@@ -127,7 +142,7 @@ namespace RimDialogue.Core
           text,
           interactionMany.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.LogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else if (entry is PlayLogEntry_InteractionSinglePawn singlePawn)
@@ -146,7 +161,7 @@ namespace RimDialogue.Core
           text,
           singlePawn.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.LogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else if (entry is PlayLogEntry_Interaction interaction)
@@ -167,13 +182,13 @@ namespace RimDialogue.Core
           text,
           interaction.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.LogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else if (entry is BattleLogEntry_DamageTaken damageTaken)
       {
         var initiator = (Pawn)Reflection.Verse_BattleLogEntry_DamageTaken_InitiatorPawn.GetValue(damageTaken);
-        if (!initiator.IsColonist)
+        if (initiator == null || !initiator.IsColonist)
           return null;
         var recipient = (Pawn)Reflection.Verse_BattleLogEntry_DamageTaken_RecipientPawn.GetValue(damageTaken);
         List<Pawn> involvedPawns = new List<Pawn>();
@@ -188,18 +203,17 @@ namespace RimDialogue.Core
           text,
           damageTaken.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.BattleLogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else if (entry is BattleLogEntry_MeleeCombat meleeCombat)
       {
         var initiator = (Pawn)Reflection.Verse_BattleLogEntry_MeleeCombat_Initiator.GetValue(meleeCombat);
-        if (!initiator.IsColonist)
+        if (initiator == null || !initiator.IsColonist)
           return null;
         var recipient = (Pawn)Reflection.Verse_BattleLogEntry_MeleeCombat_RecipientPawn.GetValue(meleeCombat);
         List<Pawn> involvedPawns = new List<Pawn>();
-        if (initiator != null)
-          involvedPawns.Add(initiator);
+        involvedPawns.Add(initiator);
         if (recipient != null)
           involvedPawns.Add(recipient);
         var text = meleeCombat.ToGameStringFromPOV(initiator);
@@ -209,19 +223,18 @@ namespace RimDialogue.Core
           text,
           meleeCombat.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.BattleLogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else if (entry is BattleLogEntry_RangedImpact rangedImpact)
       {
         var initiator = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_InitiatorPawn.GetValue(rangedImpact);
-        if (!initiator.IsColonist)
+        if (initiator == null || !initiator.IsColonist)
           return null;
         var recipient = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_RecipientPawn.GetValue(rangedImpact);
         var target = (Pawn)Reflection.Verse_BattleLogEntry_RangedImpact_OriginalTargetPawn.GetValue(rangedImpact);
         List<Pawn> involvedPawns = new List<Pawn>();
-        if (initiator != null)
-          involvedPawns.Add(initiator);
+        involvedPawns.Add(initiator);
         if (recipient != null)
           involvedPawns.Add(recipient);
         if (target != null)
@@ -233,16 +246,17 @@ namespace RimDialogue.Core
           text,
           rangedImpact.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.BattleLogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else if (entry is BattleLogEntry_RangedFire rangedFire)
       {
         List<Pawn> involvedPawns = new List<Pawn>();
         var initiator = (Pawn)Reflection.Verse_BattleLogEntry_RangedFire_InitiatorPawn.GetValue(rangedFire);
+        if (initiator == null)
+          return null;
         var recipient = (Pawn)Reflection.Verse_BattleLogEntry_RangedFire_RecipientPawn.GetValue(rangedFire);
-        if (initiator != null)
-          involvedPawns.Add(initiator);
+        involvedPawns.Add(initiator);
         if (recipient != null)
           involvedPawns.Add(recipient);
         var text = rangedFire.ToGameStringFromPOV(initiator);
@@ -252,7 +266,7 @@ namespace RimDialogue.Core
           text,
           rangedFire.GetType().Name,
           entry.Tick,
-          1f,
+          Settings.BattleLogEntryContextWeight.Value,
           involvedPawns.ToArray());
       }
       else
@@ -266,7 +280,7 @@ namespace RimDialogue.Core
           text,
           entry.GetType().ToString(),
           entry.Tick,
-          1f);
+          Settings.LogEntryContextWeight.Value);
       }
     }
 
@@ -287,7 +301,7 @@ namespace RimDialogue.Core
         conversation.Text ?? "Missing Conversation text.",
         conversation.GetType().Name,
         conversation.Timestamp ?? 0,
-        1f,
+        Settings.ConversationContextWeight.Value,
         involvedPawns.ToArray());
     }
 
@@ -316,6 +330,14 @@ namespace RimDialogue.Core
       params Pawn[] pawns)
     {
       Add(new ContextData(text, type, tick, weight, pawns));
+    }
+
+    public void Add(JobRecord jobRecord)
+    {
+      if (Settings.VerboseLogging.Value) Mod.Log($"Job record context added '{jobRecord.ToString()}'");
+      var contextData = Create(jobRecord);
+      if (contextData != null)
+        Add(contextData);
     }
 
     public void Add(Hediff hediff)
@@ -553,6 +575,12 @@ namespace RimDialogue.Core
       {
         if (Settings.VerboseLogging.Value)
           Mod.Log($"{GameComponent_LetterTracker.Instance.RecentLetters.Count} letters to be loaded into context.");
+
+        //foreach(var letter in GameComponent_LetterTracker.Instance.RecentLetters)
+        //{
+        //  Mod.Log($"Letter: {letter.Label} - {letter.Text} (Type: {letter.Type})");
+        //}
+
         contextDatae.AddRange(
           GameComponent_LetterTracker.Instance.RecentLetters
             .Select(letter => new ContextData(
@@ -606,27 +634,18 @@ namespace RimDialogue.Core
         }
       }
 
-
-
-      
-
-
-      //try
-      //{
-      //  contextDatae.AddRange(
-      //    GameComponent_JobTracker.Instance.Records
-      //      .SelectMany(keyPair => keyPair.Value)
-      //      .Where(record => record.Pawn != null)
-      //      .Select(record => new ContextData(
-      //        record.JobReport,
-      //        record.JobType,
-      //        record.EndTick,
-      //        record.Pawn!)));
-      //}
-      //catch (Exception ex)
-      //{
-      //  Mod.Error($"Error loading JobRecords: {ex}");
-      //}
+      try
+      {
+        contextDatae.AddRange(
+          GameComponent_JobTracker.Instance.JobRecords
+            .SelectMany(keyPair => keyPair.Value)
+            .Select(record => Create(record))
+            .Where(context => context != null)!);
+      }
+      catch (Exception ex)
+      {
+        Mod.Error($"Error loading JobRecords: {ex}");
+      }
 
       try
       {
@@ -692,3 +711,4 @@ namespace RimDialogue.Core
 
   }
 }
+#endif

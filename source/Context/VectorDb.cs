@@ -1,3 +1,4 @@
+#if !RW_1_5
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,8 @@ namespace RimDialogue.Context
     static VectorDb()
     {
       embedder = new OnnxSentenceEmbedder(
-        Path.Combine(Mod.Instance.Content.RootDir, "Assemblies//model.onnx"),
-        Path.Combine(Mod.Instance.Content.RootDir, "Assemblies//vocab.txt"));
+        Path.Combine(Mod.Instance.Content.RootDir, "Common\\Models\\model.onnx"),
+        Path.Combine(Mod.Instance.Content.RootDir, "Common\\Models\\vocab.txt"));
     }
 
     public VectorDb() { }
@@ -113,3 +114,4 @@ namespace RimDialogue.Context
     }
   }
 }
+#endif

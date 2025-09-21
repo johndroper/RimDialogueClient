@@ -13,13 +13,8 @@ using Verse.Grammar;
 
 namespace RimDialogue.Core.InteractionData
 {
-  public class DialogueRequestAlert<DataT> : DialogueRequestTarget<DataT> where DataT : DialogueDataAlert, new()
+  public class DialogueRequestAlert : DialogueRequestTarget<DialogueDataAlert>
   {
-    //public static new DialogueRequestAlert<DataT> BuildFrom(PlayLogEntry_Interaction entry)
-    //{
-    //  return new DialogueRequestAlert<DataT>(entry);
-    //}
-
     public static List<Alert> Alerts = (List<Alert>)Reflection.RimWorld_AlertsReadout_ActiveAlerts.GetValue(Find.Alerts);
 
     public override Pawn? Target
@@ -369,7 +364,10 @@ namespace RimDialogue.Core.InteractionData
           break;
         default:
           if (alert != null)
+          {
             Subject = alert.Label;
+            Explanation = alert.GetExplanation();
+          }
           else
           {
             Mod.Warning($"Entry {entry.LogID} - No alerts to choose from.");
@@ -379,7 +377,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override async Task BuildData(DataT data)
+    public override async Task BuildData(DialogueDataAlert data)
     {
       data.Explanation = Explanation;
       await base.BuildData(data);
@@ -388,5 +386,6 @@ namespace RimDialogue.Core.InteractionData
     public override string? Action => null;
 
     public override Rule[] Rules => [new Rule_String("alert", Subject)];
+
   }
 }

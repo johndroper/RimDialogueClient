@@ -68,6 +68,8 @@ namespace RimDialogue.UI
       return _textHeight.Value;
     }
 
+    const float rightMargin = 40;
+    const float buttonWidth = 40;
     public float Draw(float currentY, float contentRectWidth)
     {
       GUI.color = Widgets.SeparatorLineColor;
@@ -94,22 +96,22 @@ namespace RimDialogue.UI
         Widgets.Label(periodRect, (Find.TickManager.TicksAbs - Conversation.Timestamp ?? 0).ToStringTicksToPeriod() + agoText);
       }
 
-      var copyButtonRect = new Rect(contentRectWidth - 90, currentY, 40, LabelHeight);
-      if (Widgets.ButtonText(copyButtonRect, "Copy"))
-      {
-        //Mod.Log("Copy button press");
-        GUIUtility.systemCopyBuffer = Conversation.Text ?? string.Empty;
-        SoundDefOf.Click.PlayOneShotOnCamera();
-        //Mod.Log("Copy press end");
-      }
-
-      var memeButtonRect = new Rect(contentRectWidth - 40, currentY, 40, LabelHeight);
-      if (Widgets.ButtonText(memeButtonRect, "Save"))
+      var memeButtonRect = new Rect(contentRectWidth - rightMargin, currentY, buttonWidth, LabelHeight);
+      if (Widgets.ButtonText(memeButtonRect, "RimDialogue.MemeButton".Translate()))
       {
         //Mod.Log("Save button press");
         var bitmapFont = BitmapFont.Get((FontFace)Settings.BitmapFont.Value);
         Find.WindowStack.Add(new Window_ComicPanelViewer(bitmapFont, Conversation));
         //Mod.Log("Save press end");
+      }
+
+      var copyButtonRect = new Rect(contentRectWidth - rightMargin - memeButtonRect.width, currentY, buttonWidth, LabelHeight);
+      if (Widgets.ButtonText(copyButtonRect, "RimDialogue.CopyButton".Translate()))
+      {
+        //Mod.Log("Copy button press");
+        GUIUtility.systemCopyBuffer = Conversation.Text ?? string.Empty;
+        SoundDefOf.Click.PlayOneShotOnCamera();
+        //Mod.Log("Copy press end");
       }
 
       currentY -= TopMargin;

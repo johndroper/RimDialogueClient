@@ -1,3 +1,6 @@
+#nullable enable
+using RimDialogue.Core.InteractionData;
+using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -9,7 +12,7 @@ namespace RimDialogue.Core.InteractionWorkers
   public class InteractionWorker_Dialogue : InteractionWorker
   {
     public const float TicksPerMinute = 41.6667f;
-
+    
     public static int LastUsedTicksAll { get; set; } = 0;
     public static Dictionary<string, int> LastTicksByType = [];
 
@@ -40,11 +43,6 @@ namespace RimDialogue.Core.InteractionWorkers
     {
       get
       {
-        //if (Find.TickManager.CurTimeSpeed > (TimeSpeed)Settings.MaxSpeed.Value)
-        //{
-        //  // if (Settings.VerboseLogging.Value) Mod.Log($"Game speed is too high.");
-        //  return false;
-        //}
         int ticksAbs = Find.TickManager.TicksAbs;
         if (ticksAbs - LastUsedTicksAll < Settings.MinDelayMinutesAll.Value * TicksPerMinute)
         {
@@ -58,6 +56,23 @@ namespace RimDialogue.Core.InteractionWorkers
         }
         return true;
       }
+    }
+
+    public virtual DialogueRequest CreateRequest(PlayLogEntry_Interaction entry, InteractionDef intDef, Pawn initiator, Pawn? recipient)
+    {
+      if (recipient == null)
+        return new DialogueRequestSinglePawn<DialogueData>(
+          entry,
+          intDef,
+          initiator,
+          false);
+      else
+        return new DialogueRequestTwoPawn<DialogueData>(
+          entry,
+          intDef,
+          initiator,
+          recipient,
+          false);
     }
   }
 }

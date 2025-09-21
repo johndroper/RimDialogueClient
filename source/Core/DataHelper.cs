@@ -15,6 +15,12 @@ namespace RimDialogue.Core
     private static readonly Regex ColorTag = new("<\\/?color.*?>");
     private static readonly Regex WhiteSpace = new("\\s+");
     private static readonly Regex Parentheses = new(@"\s*\([^)]*\)\s*");
+    private static readonly Regex Tags = new("\\([\\*\\/]\\w+\\)");
+
+    public static string RemoveTags(this string input)
+    {
+      return Tags.Replace(input, string.Empty);
+    }
 
     public static GameComponent_ConversationTracker GetTracker()
     {
@@ -98,25 +104,25 @@ namespace RimDialogue.Core
       return char.ToLower(input[0]) + input.RawText.Substring(1);
     }
 
-    public static string RemoveWhiteSpace(string? input)
+    public static string RemoveWhiteSpace(this string? input)
     {
       if (input == null) return string.Empty;
       return WhiteSpace.Replace(input, " ");
     }
 
-    public static string RemoveParentheses(string? input)
+    public static string RemoveParentheses(this string? input)
     {
       if (input == null) return string.Empty;
       return Parentheses.Replace(input, string.Empty);
     }
 
-    public static string RemoveColor(string? input)
+    public static string RemoveColor(this string? input)
     {
       if (input == null) return string.Empty;
       return ColorTag.Replace(input, string.Empty);
     }
 
-    public static string RemoveWhiteSpaceAndColor(string? input)
+    public static string RemoveWhiteSpaceAndColor(this string? input)
     {
       if (input == null) return string.Empty;
       input = ColorTag.Replace(input, string.Empty);

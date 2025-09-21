@@ -9,9 +9,7 @@ _*
 !/*.md
 !/*.sln
 !/source/
-!/build/
 /source/bin
-/build/Bubbles/Assemblies
 /build
 /source/obj
 /source/obj
@@ -19,6 +17,6 @@ _*
 source/0Harmony.dll
 source/Context/model.onnx
 source/Context/vocab.txt
-source/-/runtimes/osx-x64/native/libonnxruntime.dylib
-source/-/runtimes/linux-x64/native/libonnxruntime.so
-source/-/runtimes/linux-x64/native/libonnxruntime_providers_shared.so
+source/-/1.6/runtimes/linux-x64/native/libonnxruntime.so
+source/-/1.6/runtimes/linux-x64/native/libonnxruntime_providers_shared.so
+source/-/1.6/runtimes/osx-x64/native/libonnxruntime.dylib
