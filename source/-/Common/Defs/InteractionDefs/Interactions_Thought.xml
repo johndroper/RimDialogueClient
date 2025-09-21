@@ -6,10 +6,8 @@
     <symbol>Things/Mote/SpeechSymbols/Gears</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry(hasOtherPawn==false)->[INITIATOR_nameDef] thought about [INITIATOR_possessive] [thought_label].</li>
-        <li>r_logentry(hasOtherPawn==false)->[INITIATOR_nameDef] thought to themselves about [INITIATOR_possessive] [thought_label].</li>
-        <li>r_logentry(hasOtherPawn==true)->[INITIATOR_nameDef] thought about [INITIATOR_possessive] [thought_label] with [OTHER_PAWN_nameDef].</li>
-        <li>r_logentry(hasOtherPawn==true)->[INITIATOR_nameDef] thought to themselves about [INITIATOR_possessive] [thought_label] with [OTHER_PAWN_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] thought about [INITIATOR_possessive] [thought_label].</li>
+        <li>r_logentry->[INITIATOR_nameDef] thought to themselves about [INITIATOR_possessive] [thought_label].</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>

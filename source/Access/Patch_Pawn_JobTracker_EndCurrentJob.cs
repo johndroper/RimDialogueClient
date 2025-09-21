@@ -30,13 +30,11 @@ namespace RimDialogue.Access
       try
       {
         var pawn = (Pawn)Reflection.Verse_Pawn_JobTracker_Pawn.GetValue(__instance);
-
-        if (pawn.Dead || pawn.Destroyed || pawn.Map == null)
+        if (!pawn.IsColonist || pawn.Dead || pawn.Destroyed || pawn.Map == null)
         {
           __state = (null, "Pawn is dead, destroyed, or has no map", 0);
           return;
         }
-
         __state = (
           pawn,
           __instance?.curJob.GetReport(pawn).RemoveTags(),
@@ -75,14 +73,11 @@ namespace RimDialogue.Access
     {
       try
       {
+        var (pawn, report, startTick) = __state;
+        if (pawn == null || string.IsNullOrWhiteSpace(report))
+          return;
         if (GameComponent_JobTracker.Instance == null)
           return;
-        var (pawn, report, startTick) = __state;
-        if (pawn == null)
-        {
-          Mod.Error($"RimDialogue failed Pawn_JobTracker Postfix. Pawn is null.");
-          return;
-        }
         GameComponent_JobTracker.Instance.Build(
           pawn,
           report,

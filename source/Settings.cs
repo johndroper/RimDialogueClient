@@ -34,8 +34,8 @@ namespace RimDialogue
     public static readonly Setting<float> MinDialogueMessageLifetime = new(nameof(MinDialogueMessageLifetime), 2f);
     public static readonly Setting<int> DialogueMessageWidth = new(nameof(DialogueMessageWidth), 600);
 
-    public static readonly Setting<int> MinDelayMinutesAll = new(nameof(MinDelayMinutesAll), 1);
-    public static readonly Setting<int> MinDelayMinutes = new(nameof(MinDelayMinutes), 5);
+    public static readonly Setting<int> MinDelayMinutesAll = new(nameof(MinDelayMinutesAll), 5);
+    public static readonly Setting<int> MinDelayMinutes = new(nameof(MinDelayMinutes), 10);
     public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 5);
 
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 4);
