@@ -1,14 +1,12 @@
 #nullable enable
-using HarmonyLib;
+using RimDialogue.Context;
 using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.Jobs.LowLevel.Unsafe;
+using System.Diagnostics;
+using System.Linq;
 using Verse;
-using Verse.AI;
-using Verse.Noise;
-using static UnityEngine.GraphicsBuffer;
+using static RimDialogue.MainTabWindow_RimDialogue;
 
 namespace RimDialogue.Core.Comps
 {
@@ -41,12 +39,12 @@ namespace RimDialogue.Core.Comps
     public void Increment()
     {
       Count += 1;
-      EndTick = Find.TickManager.TicksAbs;
+      EndTick = Find.TickManager.TicksGame;
     }
 
     public int Duration => EndTick - StartTick;
 
-    public int TimeSince => Find.TickManager.TicksAbs - EndTick;
+    public int TimeSince => Find.TickManager.TicksGame - EndTick;
 
     private Pawn? _pawn;
     public Pawn Pawn
@@ -76,7 +74,7 @@ namespace RimDialogue.Core.Comps
 
   public class GameComponent_JobTracker : GameComponent
   {
-    private Dictionary<Pawn, JobRecord> JobCounts = [];
+    private Dictionary<Pawn, Dictionary<string, JobRecord>> JobCounts = [];
     public Dictionary<int, List<JobRecord>> JobRecords = [];
 
     private const int MaxRecords = 100;
@@ -96,25 +94,39 @@ namespace RimDialogue.Core.Comps
 
     public override void ExposeData()
     {
-      Scribe_Collections.Look(ref JobRecords, "events", LookMode.Value, LookMode.Deep);
-      if (Scribe.mode == LoadSaveMode.PostLoadInit)
+      var watch = Stopwatch.StartNew();
+      Scribe_Collections.Look(ref JobRecords, "JobRecords", LookMode.Value, LookMode.Deep);
+      watch.Stop();
+
+      if (Scribe.mode == LoadSaveMode.LoadingVars)
+      {
         JobRecords ??= [];
+        foreach (int key in JobRecords.Keys)
+        {
+          var jobRecords = JobRecords[key];
+          if (jobRecords.Count > MaxRecords)
+            jobRecords.RemoveRange(0, jobRecords.Count - MaxRecords);
+        }
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Loaded {JobRecords.Values.Sum(list => list.Count)} job records into tracker in {watch.Elapsed.TotalSeconds} seconds.");
+      }
     }
 
+    public int lastAddTick = GenDate.TicksPerHour;
     public override void GameComponentUpdate()
     {
       base.GameComponentUpdate();
-      if (Find.TickManager.TicksGame % 2500 == 0)
+      if (Find.TickManager.TicksGame > lastAddTick + GenDate.TicksPerHour)
       {
-        foreach(var pawnRecords in JobRecords.Values)
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Adding job records to tracker. {JobCounts.Values.Sum(dict => dict.Count)} jobs to add.");
+        lastAddTick = Find.TickManager.TicksGame;
+        foreach (var jobRecords in JobCounts.Values)
         {
-          if (pawnRecords.Count > MaxRecords)
-          {
-            int remove = JobRecords.Count - MaxRecords;
-            if (remove > 0)
-              pawnRecords.RemoveRange(0, remove);
-          }
+          foreach(var jobRecord in jobRecords.Values)
+            Add(jobRecord);
         }
+        JobRecords.Clear();
       }
     }
 
@@ -124,11 +136,20 @@ namespace RimDialogue.Core.Comps
         JobRecords[jobRecord.Pawn.thingIDNumber] = [];
       var pawnRecords = JobRecords[jobRecord.Pawn.thingIDNumber];
       pawnRecords.Add(jobRecord);
-
+      while (pawnRecords.Count > MaxRecords)
+        pawnRecords.RemoveAt(0);
+#if !RW_1_5
       if (GameComponent_ContextTracker.Instance != null)
-        GameComponent_ContextTracker.Instance.Add(jobRecord);
+      {
+        var context = TemporalContextCatalog.Create(jobRecord);
+        if (Settings.VerboseLogging.Value)
+          Mod.Log($"Adding context for job record: {context?.Text}");
+        if (context == null)
+          return;
+        GameComponent_ContextTracker.Instance.Add(context);
+      }
+#endif
     }
-
     public void Build(
       Pawn pawn,
       string report,
@@ -137,24 +158,24 @@ namespace RimDialogue.Core.Comps
       if (pawn == null || !pawn.IsColonist)
         return;
 
-      if (JobCounts.TryGetValue(pawn, out JobRecord jobRecord))
+      if (JobCounts.TryGetValue(pawn, out Dictionary<string, JobRecord> jobRecords))
       {
-        if (jobRecord.Report == report)
+        if (jobRecords.TryGetValue(report, out JobRecord? jobRecord))
           jobRecord.Increment();
         else
-        {
-          Add(jobRecord);
-          JobCounts[pawn] = new JobRecord(
-            pawn,
-            report,
-            startTick);
-        }
-      }
-      else
-        JobCounts.Add(pawn, new JobRecord(
+          jobRecords.Add(report, new JobRecord(
             pawn,
             report,
             startTick));
+      }
+      else
+      {
+        JobCounts.Add(pawn, []);
+        JobCounts[pawn].Add(report, new JobRecord(
+          pawn,
+          report,
+          startTick));
+      }
     }
   }
 }

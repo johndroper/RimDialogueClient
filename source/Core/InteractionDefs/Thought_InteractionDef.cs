@@ -4,7 +4,6 @@ using RimWorld;
 using System.Collections.Generic;
 using Verse;
 using Verse.Grammar;
-using static UnityEngine.GraphicsBuffer;
 
 namespace RimDialogue.Core.InteractionDefs
 {
@@ -20,7 +19,7 @@ namespace RimDialogue.Core.InteractionDefs
       InteractionDef baseDef,
       Thought thought,
       Pawn? otherPawn = null,
-      Dictionary<string, string>? constants = null) 
+      Dictionary<string, string>? constants = null)
     {
       this.thought = thought;
 

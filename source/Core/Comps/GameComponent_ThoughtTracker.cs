@@ -1,14 +1,10 @@
 #nullable enable
-using Bubbles.Access;
 using RimDialogue.Core.InteractionDefs;
 using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
-using static RimDialogue.Core.GameComponent_LetterTracker;
 using Reflection = RimDialogue.Access.Reflection;
 
 namespace RimDialogue.Core

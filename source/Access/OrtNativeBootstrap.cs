@@ -15,8 +15,9 @@ namespace RimDialogue.Core
       _done = true;
 
       var asmDir = Path.Combine(
-        Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-        "..");
+        Path.GetDirectoryName(Mod.Instance.Content.RootDir),
+        "RimDialogueClient",
+        "1.6");
 
       string nativeDir, libName;
 

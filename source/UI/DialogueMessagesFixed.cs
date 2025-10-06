@@ -1,7 +1,7 @@
 #nullable enable 
 
 using RimDialogue.Access;
-using RimDialogue.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -28,7 +28,7 @@ namespace RimDialogue.UI
       GameComponent_ConversationTracker.Instance.ConversationAdded += (s, e) =>
       {
         if (Settings.DialogueMessageInterface.Value == 2 && e.Conversation.Text != null)
-          AddMessage(e.Conversation.Interaction + "\r\n" + e.Conversation.Text, null);
+          AddMessage(e.Conversation.Interaction + Environment.NewLine + e.Conversation.Text, null);
       };
     }
 

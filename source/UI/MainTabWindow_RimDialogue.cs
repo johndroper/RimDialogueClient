@@ -31,7 +31,7 @@ namespace RimDialogue
     public class ConversationUI
     {
       public Conversation Conversation;
-      
+
       public ConversationUI(Conversation conversation)
       {
         Conversation = conversation;
@@ -304,13 +304,13 @@ namespace RimDialogue
         }
         Find.WindowStack.Add(new FloatMenu(options));
       }
-            
+
       TooltipHandler.TipRegion(filterRect, filterButtonTip);
 
       if (filterMode == FilterMode.Pawn || filterMode == FilterMode.Colonist)
       {
         //Regenerate Instructions Button
-        
+
         var regenerateRect = new Rect(inRect.width - regenerateButtonWidth, y, regenerateButtonWidth, 30f);
         if (Widgets.ButtonText(regenerateRect, regenerateButtonText))
         {
@@ -323,7 +323,7 @@ namespace RimDialogue
                 case FilterMode.All:
                   break;
                 case FilterMode.Colonist:
-                  Tracker.GetScenarioInstructions(Find.Scenario?.name + "\r\n" + H.RemoveWhiteSpace(Find.Scenario?.description));
+                  Tracker.GetScenarioInstructions(Find.Scenario?.name + Environment.NewLine + H.RemoveWhiteSpace(Find.Scenario?.description));
                   break;
                 case FilterMode.Pawn:
                   if (selectedPawn == null)
@@ -409,7 +409,7 @@ namespace RimDialogue
           var copyButtonRect = new Rect(headerRect.width - memeButtonRect.width - rightMargin, convoY, buttonWidth, headerRect.height);
           if (Widgets.ButtonText(copyButtonRect, "RimDialogue.CopyButton".Translate()))
           {
-            GUIUtility.systemCopyBuffer = ui.Conversation.Text ?? string.Empty;
+            GUIUtility.systemCopyBuffer = ui.Conversation.Interaction + Environment.NewLine + ui.Conversation.Text;
             SoundDefOf.Click.PlayOneShotOnCamera();
           }
           convoY += labelHeight;

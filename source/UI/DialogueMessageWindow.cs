@@ -12,7 +12,6 @@ namespace RimDialogue.UI
   using UnityEngine;
   using Verse;
   using Verse.Sound;
-  using Mod = RimDialogue.Mod;
 
 
   public class ConversationLabel
@@ -55,7 +54,7 @@ namespace RimDialogue.UI
       Text.Font = GameFont.Small;
       if (Conversation.Interaction == null)
         return 0f;
-        _interactionHeight ??= Text.CalcHeight(Conversation.Interaction, contentRectWidth) + 3f;
+      _interactionHeight ??= Text.CalcHeight(Conversation.Interaction, contentRectWidth) + 3f;
       return _interactionHeight.Value;
     }
 
@@ -105,7 +104,7 @@ namespace RimDialogue.UI
       var copyButtonRect = new Rect(contentRectWidth - rightMargin - memeButtonRect.width, currentY, buttonWidth, LabelHeight);
       if (Widgets.ButtonText(copyButtonRect, "RimDialogue.CopyButton".Translate()))
       {
-        GUIUtility.systemCopyBuffer = Conversation.Text ?? string.Empty;
+        GUIUtility.systemCopyBuffer = Conversation.Interaction + Environment.NewLine + Conversation.Text;
         SoundDefOf.Click.PlayOneShotOnCamera();
       }
 

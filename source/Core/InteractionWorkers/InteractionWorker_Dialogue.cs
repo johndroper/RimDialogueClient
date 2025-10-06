@@ -12,7 +12,7 @@ namespace RimDialogue.Core.InteractionWorkers
   public class InteractionWorker_Dialogue : InteractionWorker
   {
     public const float TicksPerMinute = 41.6667f;
-    
+
     public static int LastUsedTicksAll { get; set; } = 0;
     public static Dictionary<string, int> LastTicksByType = [];
 

@@ -1,11 +1,7 @@
 using HarmonyLib;
+using RimDialogue.Context;
 using RimDialogue.Core;
-using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Access
@@ -19,12 +15,19 @@ namespace RimDialogue.Access
       try
       {
 #if !RW_1_5
+
+
+
         if (
           hediff != null &&
           hediff.pawn != null &&
           (hediff.pawn != null && hediff.pawn.IsColonist) &&
           GameComponent_ContextTracker.Instance != null)
-        GameComponent_ContextTracker.Instance.Add(hediff);
+        {
+          var context = TemporalContextCatalog.Create(hediff);
+          GameComponent_ContextTracker.Instance.Add(context);
+        }
+          
 #endif
       }
       catch (Exception ex)

@@ -29,7 +29,7 @@ namespace RimDialogue.Configuration
       string result = ((lineCount != 1) ? Widgets.TextArea(rect, text) : Widgets.TextField(rect, text));
       if (toolTip != null)
       {
-        
+
 
       }
 

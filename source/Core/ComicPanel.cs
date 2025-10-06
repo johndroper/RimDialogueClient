@@ -1,10 +1,7 @@
- #nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -72,7 +69,7 @@ namespace RimDialogue.Core
 
     private static GUIStyle? _style;
     public static GUIStyle style
-    { 
+    {
       get
       {
         _style ??= new GUIStyle(GUI.skin.label)
@@ -145,10 +142,10 @@ namespace RimDialogue.Core
       float padding = 10f;
       float textWidth = rect.width - (padding * 2);
       float textHeight = bitmapFont.GetTextHeight(text, textWidth);
-      
+
       // Create a properly sized box for the caption
       float captionBoxHeight = textHeight + (padding * 2);
-      
+
       // Center the caption box in the provided rect
       Rect captionBoxRect = new Rect(
         rect.x,
@@ -156,13 +153,13 @@ namespace RimDialogue.Core
         rect.width,
         captionBoxHeight
       );
-      
+
       // Draw the caption box texture
       Graphics.DrawTexture(captionBoxRect, Caption_box);
-      
+
       // Calculate text position inside the caption box
       float textY = captionBoxRect.y + padding;
-      
+
       // Draw the text inside the caption box
       bitmapFont.DrawText(
         text,
@@ -183,7 +180,7 @@ namespace RimDialogue.Core
 
       Rect bubbleRect = new Rect(bubbleAPos.x, bubbleAPos.y, width, height);
 
-       // Corners
+      // Corners
       Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.y, edgeWidth + 1, topEdgeHeight + 1), CornerTL);
       Graphics.DrawTexture(new Rect(bubbleRect.xMax - edgeWidth, bubbleRect.y, edgeWidth + 1, topEdgeHeight + 1), CornerTR);
       Graphics.DrawTexture(new Rect(bubbleRect.x, bubbleRect.yMax - bottomEdgeHeight, edgeWidth + 1, bottomEdgeHeight + 1), CornerBL);

@@ -53,7 +53,7 @@ namespace RimDialogue.Core.InteractionData
             Relation.otherPawn?.Name?.ToStringShort ?? "RimDialogue.Unknown".Translate())];
       }
     }
-      
+
   }
 }
 

@@ -1,11 +1,11 @@
 #if !RW_1_5
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using Microsoft.ML.Tokenizers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RimDialogue.Context
 {

@@ -1,10 +1,7 @@
 #nullable enable
 using RimDialogue.Core;
 using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -25,10 +22,20 @@ public class TwoPawnComicPanel : ComicPanel
 
   Texture2D? portraitATex;
   Texture2D? portraitBTex;
+
+  const float DrawScale = 150;
   protected override void DrawInternal(Rect canvas)
   {
+    if (pawnA == null || pawnB == null)
+    {
+      RimDialogue.Mod.Error("One or both pawns are null.");
+      return;
+    }
+
     float textWidth = (canvas.width - 100f) / 2f;
     float portraitY = canvas.y + canvas.height - PortraitHeight - 20;
+
+    var offset = new Vector3(0f, -2f, 0f);
 
     // --- Portrait A ---
     if (portraitATex == null)
@@ -36,15 +43,18 @@ public class TwoPawnComicPanel : ComicPanel
       if (RimDialogue.Settings.VerboseLogging.Value)
         RimDialogue.Mod.Log($"Fetching portrait for {pawnA.Name} ({pawnA.thingIDNumber})");
 
-      RenderTexture portraitART = PortraitsCache.Get(pawnA, ColonistBarColonistDrawer.PawnTextureSize, Rot4.East);
+      RimDialogue.Mod.Log($"pawnA DrawSize:{pawnA.DrawSize}");
+
+      RenderTexture portraitART = PortraitsCache.Get(pawnA, pawnA.DrawSize * DrawScale, Rot4.East, cameraZoom: 0.8f);
       portraitATex = ConvertRenderTextureToTexture2D(portraitART);
     }
 
+    var pawnAWidth = pawnB.DrawSize.x * DrawScale;
     Rect portraitARect = new Rect(
-        canvas.width * 0.33f - PortraitWidth / 2f,
+        canvas.width * 0.32f - pawnAWidth / 2f,
         portraitY,
-        PortraitWidth,
-        PortraitHeight
+        pawnAWidth,
+        pawnA.DrawSize.y * DrawScale
     );
     Graphics.DrawTexture(portraitARect, portraitATex);
 
@@ -52,15 +62,18 @@ public class TwoPawnComicPanel : ComicPanel
     if (portraitBTex == null)
     {
       //RimDialogue.Mod.Log($"Fetching portrait for {pawnB?.Name?.ToStringShort ?? "Null"} ({pawnB?.thingIDNumber.ToString() ?? "Null"})");
-      RenderTexture portraitBRT = PortraitsCache.Get(pawnB, ColonistBarColonistDrawer.PawnTextureSize, Rot4.West);
+      RimDialogue.Mod.Log($"pawnB DrawSize:{pawnB.DrawSize}");
+      RenderTexture portraitBRT = PortraitsCache.Get(pawnB, pawnB.DrawSize * DrawScale, Rot4.West, cameraZoom: 0.8f);
       portraitBTex = ConvertRenderTextureToTexture2D(portraitBRT);
     }
 
+    var pawnBWidth = pawnB.DrawSize.x * DrawScale;
+
     Rect portraitBRect = new Rect(
-        canvas.width * 0.71f - PortraitWidth / 2f,
+        canvas.width * 0.68f - pawnBWidth / 2f,
         portraitY,
-        PortraitWidth,
-        PortraitHeight
+        pawnBWidth,
+        pawnB.DrawSize.y * DrawScale
     );
     Graphics.DrawTexture(portraitBRect, portraitBTex);
 

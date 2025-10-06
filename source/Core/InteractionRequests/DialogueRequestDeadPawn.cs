@@ -28,7 +28,7 @@ namespace RimDialogue.Core.InteractionRequests
     {
       data.PawnName = Record.Pawn.Name.ToStringShort ?? Record.Pawn.LabelNoParenthesis ?? "Unknown";
       data.CauseOfDeath = Record.Cause;
-      data.TimeSinceDeath = (Find.TickManager.TicksAbs  - Record.TimeStamp).ToStringTicksToPeriod() + agoText;
+      data.TimeSinceDeath = (Find.TickManager.TicksAbs - Record.TimeStamp).ToStringTicksToPeriod() + agoText;
       await base.BuildData(data);
     }
 

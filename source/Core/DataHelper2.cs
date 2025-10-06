@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 
 namespace RimDialogue.Core
 {
@@ -7,6 +8,102 @@ namespace RimDialogue.Core
     public static float Clamp(float value, float min, float max)
     {
       return Math.Max(min, Math.Min(max, value));
+    }
+
+    public static string DescribeSkinColor(this UnityEngine.Color color)
+    {
+      return DescribeSkinColor(color.r, color.g, color.b, color.a);
+    }
+
+    public static string DescribeSkinColor(float r, float g, float b, float a)
+    {
+      // Clamp values between 0 and 1
+      r = Clamp(r, 0, 1);
+      g = Clamp(g, 0, 1);
+      b = Clamp(b, 0, 1);
+      a = Clamp(a, 0, 1);
+      // Convert RGB to HSV
+      float max = Math.Max(r, Math.Max(g, b));
+      float min = Math.Min(r, Math.Min(g, b));
+      float delta = max - min;
+      float h = 0, s = 0, v = max;
+      if (delta > 0)
+      {
+        s = delta / max;
+        if (max == r)
+          h = 60 * (((g - b) / delta) % 6);
+        else if (max == g)
+          h = 60 * (((b - r) / delta) + 2);
+        else
+          h = 60 * (((r - g) / delta) + 4);
+        if (h < 0) h += 360;
+      }
+      // Define basic hues
+      string colorName;
+      if (s < 0.15)
+      {
+        // Handle grayscale spectrum
+        if (v < 0.05) return "black";
+        if (v > 0.95) return "white";
+        if (v < 0.3) return "dark gray";
+        if (v > 0.7) return "light gray";
+        return "gray";
+      }
+      else if (h < 20 || h >= 340)
+        colorName = "red";
+      else if (h < 40)
+        colorName = "brown";
+      else if (h < 60)
+        colorName = "yellow";
+      else if (h < 80)
+        colorName = "lime";
+      else if (h < 140)
+        colorName = "green";
+      else if (h < 170)
+        colorName = "teal";
+      else if (h < 190)
+        colorName = "cyan";
+      else if (h < 220)
+        colorName = "azure";
+      else if (h < 240)
+        colorName = "blue";
+      else if (h < 260)
+        colorName = "indigo";
+      else if (h < 280)
+        colorName = "violet";
+      else if (h < 320)
+        colorName = "purple";
+      else if (h < 340)
+        colorName = "magenta";
+      else
+        colorName = "rose";
+      // Adjust for brightness
+      string brightness = "";
+      if (v < 0.1)
+        brightness = "very dark ";
+      else if (v < 0.25)
+        brightness = "dark ";
+      else if (v > 0.8)
+        brightness = "very light ";
+      else if (v > 0.6)
+        brightness = "light ";
+      // Adjust for saturation
+      string saturation = "";
+      if (s < 0.3)
+        saturation = " ";
+      else if (s < 0.5)
+        saturation = "soft ";
+      else if (s > 0.9)
+        saturation = "vivid ";
+      else if (s > 0.7)
+        saturation = "rich ";
+      // Construct the final description
+      return (brightness + saturation + colorName).Trim();
+    }
+
+    public static string DescribeHairColor(this UnityEngine.Color color)
+    {
+      return DescribeHairColor(color.r, color.g, color.b, color.a);
     }
 
     public static string DescribeHairColor(float r, float g, float b, float a)
@@ -92,9 +189,7 @@ namespace RimDialogue.Core
 
       // Adjust for saturation with more granularity
       string saturation = "";
-      if (s < 0.3)
-        saturation = "dull ";
-      else if (s < 0.5)
+      if (s < 0.5)
         saturation = "soft ";
       else if (s > 0.9)
         saturation = "vivid ";
@@ -582,6 +677,35 @@ namespace RimDialogue.Core
         return "maximum";
       else
         return "unknown";
+    }
+
+    public static string DescribeCount(int countOf, bool prefix = true)
+    {
+      if (countOf <= 0)
+        return prefix ? "are none" : "none";
+      if (countOf == 1)
+        return prefix ? "is a single" : "a single";
+      if (countOf == 2)
+        return prefix ? "are a pair of" : "a pair of";
+      if (countOf == 3)
+        return prefix ? "are a few" : "a few";
+      if (countOf <= 5)
+        return prefix ? "are several" : "several";
+      if (countOf <= 10)
+        return prefix ? "are a handful of" : "a handful of";
+      if (countOf <= 20)
+        return prefix ? "are a small number of" : "a small number of";
+      if (countOf <= 50)
+        return prefix ? "are dozens of" : "dozens of";
+      if (countOf <= 100)
+        return prefix ? "are scores of" : "scores of";
+      if (countOf <= 500)
+        return prefix ? "are hundreds of" : "hundreds of";
+      if (countOf <= 2000)
+        return prefix ? "are a few thousand" : "a few thousand";
+      if (countOf <= 5000)
+        return prefix ? "are several thousand" : "several thousand";
+      return prefix ? "are many thousands" : "many thousands";
     }
   }
 }

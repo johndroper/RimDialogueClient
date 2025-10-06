@@ -19,9 +19,9 @@ namespace RimDialogue.Core.InteractionRequests
       Pawn initiator,
       Pawn recipient) : base(entry, interactionDef, initiator, recipient)
     {
-       var battles = Find.BattleLog.Battles
-        .Where(battle => battle.Concerns(Initiator))
-        .OrderByDescending(battle => battle.CreationTimestamp);
+      var battles = Find.BattleLog.Battles
+       .Where(battle => battle.Concerns(Initiator))
+       .OrderByDescending(battle => battle.CreationTimestamp);
       _battle = battles.RandomElementByWeight(
         battle => Math.Max(battle.Importance * (1f / AgeDays(battle)), 1));
     }

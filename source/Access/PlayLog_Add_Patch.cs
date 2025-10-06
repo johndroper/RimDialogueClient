@@ -1,12 +1,9 @@
 #nullable enable
 using HarmonyLib;
+using RimDialogue.Context;
 using RimDialogue.Core;
-using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Verse;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RimDialogue.Access
 {
@@ -19,8 +16,14 @@ namespace RimDialogue.Access
       {
 #if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
-          GameComponent_ContextTracker.Instance.Add(entry);
-        if (Settings.VerboseLogging.Value) 
+        {
+          var context = TemporalContextCatalog.Create(entry);
+          if (context == null)
+            return;
+          GameComponent_ContextTracker.Instance.Add(context);
+        }
+          
+        if (Settings.VerboseLogging.Value)
           Mod.Log($"Entry {entry.LogID} - Added to context DB.");
 #endif
       }

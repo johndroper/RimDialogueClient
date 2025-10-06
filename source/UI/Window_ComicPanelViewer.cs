@@ -1,18 +1,10 @@
 #nullable enable
-using Bubbles.Core;
 using RimDialogue.Core;
 using RimWorld;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
@@ -91,7 +83,7 @@ namespace RimDialogue.UI
           if (Settings.VerboseLogging.Value) Mod.Log($"Creating two pawn comic panels for conversation between {Conversation.Initiator?.ToString() ?? "Unknown"} ({Conversation.Initiator?.thingIDNumber.ToString() ?? "Unknown"}) and {Conversation.Recipient?.ToString() ?? "Unknown"} ({Conversation.Recipient?.thingIDNumber.ToString() ?? "Unknown"})");
           for (int i = 0; i < Conversation.Lines.Length; i++)
           {
-            if (Conversation.Lines[i].Name == recipient.Name.ToStringShort)
+            if (Conversation.Lines[i].Name == (recipient.Name?.ToStringShort ?? recipient.Label))
             {
               _Panels.Add(
                 new TwoPawnComicPanel(
@@ -195,10 +187,20 @@ namespace RimDialogue.UI
     {
       try
       {
+        if (Conversation.Initiator == null)
+        {
+          customFilePath = "RimDialogue_Comic.png";
+          filePathBuffer = customFilePath;
+          return;
+        }
+
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         string participantNames = Conversation.Recipient != null
-          ? $"{Conversation.Initiator?.Name.ToStringShort ?? "RimDialogue.Unknown".Translate()}_{Conversation.Recipient?.Name.ToStringShort ?? "RimDialogue.Unknown".Translate()}"
-          : Conversation.Initiator?.Name.ToStringShort ?? "RimDialogue.Unknown".Translate();
+          ? $"{Conversation.Initiator.Name?.ToStringShort
+            ?? "RimDialogue.Unknown".Translate()}_{Conversation.Recipient.Name?.ToStringShort
+            ?? Conversation.Recipient.Label}"
+          : Conversation.Initiator.Name?.ToStringShort
+            ?? Conversation.Initiator.Label;
 
         foreach (char c in Path.GetInvalidFileNameChars())
         {

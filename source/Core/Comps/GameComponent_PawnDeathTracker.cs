@@ -1,10 +1,10 @@
 #nullable enable
 namespace RimDialogue.Core
 {
-  using RimDialogue.UI;
+  using RimDialogue.Context;
   using RimWorld;
   using System.Collections.Generic;
-  using System.Linq;
+  using System.Windows.Forms;
   using Verse;
 
   public class GameComponent_PawnDeathTracker : GameComponent
@@ -62,11 +62,12 @@ namespace RimDialogue.Core
           DeadColonists.Add(record);
 #if !RW_1_5
           if (GameComponent_ContextTracker.Instance != null)
-            GameComponent_ContextTracker.Instance.Add(
-              record.ToString(),
-              "death",
-              timestamp,
-              10f);
+          {
+            var context = TemporalContextCatalog.Create(pawn, dinfo, exactCulprit);
+            if (context == null)
+              return;
+            GameComponent_ContextTracker.Instance.Add(context);
+          }
 #endif
         }
       }

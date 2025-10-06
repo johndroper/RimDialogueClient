@@ -4,11 +4,7 @@ using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
 using Verse;
 using Verse.Grammar;
 
@@ -35,9 +31,9 @@ namespace RimDialogue.Core.InteractionRequests
       _initiator = (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(entry);
       _initiatorData = Initiator.MakeData(_tracker.GetInstructions(Initiator), entry.LogID);
 
-      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
+      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + Environment.NewLine + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist)
-        _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
+        _instructions += Environment.NewLine + _tracker.GetInstructions(InstructionsSet.COLONISTS);
     }
 
     public override Pawn Initiator => _initiator;

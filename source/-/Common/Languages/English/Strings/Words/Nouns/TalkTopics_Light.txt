@@ -10,7 +10,7 @@ how well they have eaten
 how they slept
 how much rest they’ve gotten
 what’s been on their mind
-how life is treating them
+how life is treating them 
 where they are from
 their full name
 how old they are
@@ -22,3 +22,4 @@ the good things about their childhood
 the bad things about their childhood
 their current activity
 how their current activity is going
+how their work is going

@@ -100,7 +100,7 @@ namespace RimDialogue.Core.InteractionData
       }
     }
 
-    public override Rule[] Rules => 
+    public override Rule[] Rules =>
     [
       new Rule_String("condition", Condition),
       new Rule_String("duration", Duration)

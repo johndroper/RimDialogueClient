@@ -1,12 +1,10 @@
 #nullable enable
-using Bubbles;
 using RimDialogue.Core;
 using RimDialogue.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Verse;
 

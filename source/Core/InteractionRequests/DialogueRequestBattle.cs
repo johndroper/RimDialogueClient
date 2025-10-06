@@ -12,7 +12,7 @@ namespace RimDialogue.Core.InteractionData
   {
     public static float AgeDays(Battle battle)
     {
-      return (Find.TickManager.TicksAbs  - battle.CreationTimestamp).TicksToDays();
+      return (Find.TickManager.TicksAbs - battle.CreationTimestamp).TicksToDays();
     }
 
     public DialogueRequestBattle(

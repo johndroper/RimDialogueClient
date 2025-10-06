@@ -1,23 +1,18 @@
 #nullable enable
 
 using RimDialogue.Access;
-using RimDialogue.Core;
-using RimDialogue.Core.InteractionData;
 using RimDialogue.Core.InteractionDefs;
 using RimDialogue.Core.InteractionRequests;
 using RimDialogue.Core.InteractionWorkers;
 using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Verse;
 using Verse.Grammar;
-using static RimWorld.ColonistBar;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RimDialogue.Core.InteractionData
 {
@@ -186,13 +181,13 @@ namespace RimDialogue.Core.InteractionData
 
     public static DialogueRequest CreateThoughtRequest(PlayLogEntry_InteractionSinglePawn __instance, Thought_InteractionDef thoughtInteractionDef)
     {
-      Pawn ? otherPawn = null;
+      Pawn? otherPawn = null;
       Precept? sourcePrecept = thoughtInteractionDef.thought.sourcePrecept;
 
       switch (thoughtInteractionDef.thought)
       {
         case Thought_Memory thoughtMemory:
-          otherPawn = thoughtMemory.otherPawn; 
+          otherPawn = thoughtMemory.otherPawn;
           break;
         case Thought_Situational thoughtSituational:
           break;
@@ -347,13 +342,13 @@ namespace RimDialogue.Core.InteractionData
 
     public abstract void Execute(string interaction);
   }
-   
+
   public abstract class DialogueRequest<DataT> : DialogueRequest where DataT : DialogueData, new()
   {
     //public InteractionDef InteractionDef { get; set; }
     //public Pawn Initiator { get; set; }
     //public PawnData? initiatorData;
-    
+
     public string clientId;
     public int maxWords;
     public int minWords;
@@ -386,7 +381,7 @@ namespace RimDialogue.Core.InteractionData
       data.LanguageEnglish = LanguageDatabase.activeLanguage?.FriendlyNameEnglish ?? LanguageDatabase.defaultLanguage?.FriendlyNameEnglish ?? "English";
       data.LanguageNative = LanguageDatabase.activeLanguage?.FriendlyNameNative ?? LanguageDatabase.defaultLanguage?.FriendlyNameNative ?? "English";
       data.ModelName = Settings.ModelName.Value;
-            
+
       if (Weather != null)
       {
         data.WeatherLabel = Weather.label;
@@ -478,12 +473,12 @@ namespace RimDialogue.Core.InteractionData
       }
       catch (Exception ex)
       {
-        Mod.ErrorV($"Entry {Entry.LogID} - An error occurred in Send.\r\n{ex}");
+        Mod.ErrorV($"Entry {Entry.LogID} - An error occurred in Send.{Environment.NewLine}{ex}");
       }
     }
 
     public abstract void AddConversation(string interaction, string text);
-    
+
 
     public virtual string? Action
     {
@@ -522,7 +517,7 @@ namespace RimDialogue.Core.InteractionData
       }
       catch (Exception ex)
       {
-        Mod.ErrorV($"Entry {Entry.LogID} - An error occurred in Execute.\r\n{ex}");
+        Mod.ErrorV($"Entry {Entry.LogID} - An error occurred in Execute.{Environment.NewLine}{ex}");
       }
     }
   }

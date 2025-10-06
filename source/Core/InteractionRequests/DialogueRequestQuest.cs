@@ -1,6 +1,7 @@
 #nullable enable
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Verse;
@@ -49,6 +50,21 @@ namespace RimDialogue.Core.InteractionData
     }
 
     public override string? Action => "QuestChitchat";
+
+    public override IDictionary<string, string> Constants
+    {
+      get
+      {
+        var constants = new Dictionary<string, string>();
+#if !RW_1_5
+        constants["use_expiry"] = true.ToString();
+#else
+        constants["use_expiry"] = false.ToString();
+#endif
+        return constants;
+      }
+    }
+
 
     public override Rule[] Rules => [
       new Rule_String("quest_name", Quest.name),

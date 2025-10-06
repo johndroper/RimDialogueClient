@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Verse;
 using Verse.Grammar;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RimDialogue.Access
 {
@@ -50,7 +49,7 @@ namespace RimDialogue.Access
         if (initiator == null || recipient == null)
           throw new Exception($"Entry {__instance.LogID} - PlayLogEntry_Interaction has a null pawn reference.");
 
- 
+
         try
         {
           if (intDef.Worker is InteractionWorker_Dialogue worker)
@@ -61,7 +60,7 @@ namespace RimDialogue.Access
               intDef,
               initiator,
               false);
-           else
+          else
             __state = new DialogueRequestTwoPawn<DialogueData>(
               __instance,
               intDef,

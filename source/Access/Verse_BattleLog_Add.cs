@@ -7,8 +7,6 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Verse;
 
@@ -52,7 +50,12 @@ namespace RimDialogue.Access
           return;
 #if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
-          GameComponent_ContextTracker.Instance.Add(entry);
+        {
+          var context = TemporalContextCatalog.Create(entry);
+          if (context == null)
+            return;
+          GameComponent_ContextTracker.Instance.Add(context);
+        }
 #endif
         Battle currentBattle = Find.BattleLog.Battles.First();
         switch (entry)

@@ -2,16 +2,12 @@
 using HarmonyLib;
 using RimDialogue.Configuration;
 using RimDialogue.Core;
-using RimDialogue.Core.InteractionData;
 using System;
 using System.IO;
-using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Verse;
-using static RimWorld.ColonistBar;
 
 namespace RimDialogue
 {
@@ -19,7 +15,7 @@ namespace RimDialogue
   {
     public const string Id = "ProceduralProducts.RimDialogue";
     public const string Name = "RimDialogue";
-    public const string Version = "0.90.10";
+    public const string Version = "0.91.0";
 
     public static Mod Instance = null!;
 
@@ -29,7 +25,8 @@ namespace RimDialogue
       {
         return Path.Combine(
           Instance.Content.RootDir,
-          "Common\\BitmapFonts");
+          "Common",
+          "BitmapFonts");
       }
     }
 
@@ -45,7 +42,7 @@ namespace RimDialogue
       }
       catch (Exception ex)
       {
-        Error($"Failed to load ONNX.{ ex }");
+        Error($"Failed to load ONNX.{ex}");
       }
 
       GetSettings<Settings>();

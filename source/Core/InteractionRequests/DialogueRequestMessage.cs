@@ -2,8 +2,6 @@
 
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
 
@@ -37,7 +35,7 @@ namespace RimDialogue.Core.InteractionData
 
       MessageRecord = GameComponent_MessageTracker.Instance.GetRandomMessage();
 
-     //Message.lookTargets.PrimaryTarget.Thing 
+      //Message.lookTargets.PrimaryTarget.Thing 
     }
 
     public override Rule[] Rules => [

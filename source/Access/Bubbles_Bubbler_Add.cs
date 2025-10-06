@@ -3,12 +3,8 @@
 using Bubbles.Core;
 using HarmonyLib;
 using RimDialogue.Core;
-using RimDialogue.Core.InteractionData;
-using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using Verse;
 
 namespace RimDialogue.Access
@@ -47,7 +43,7 @@ namespace RimDialogue.Access
       }
       catch (Exception ex)
       {
-        Mod.ErrorOnce($"Entry {entry.LogID} - An error occurred in Bubbles_Bubbler_Add.\r\n{ex}", 987342323);
+        Mod.ErrorOnce($"Entry {entry.LogID} - An error occurred in Bubbles_Bubbler_Add.{Environment.NewLine}{ex}", 987342323);
         return true;
       }
       return false;
@@ -170,7 +166,7 @@ namespace RimDialogue.Access
     //    var tracker = H.GetTracker();
     //    var additionalInstructions = tracker.GetInstructions(InstructionsSet.ALL_PAWNS);
     //    if (initiator.IsColonist || (recipient != null && recipient.IsColonist))
-    //      additionalInstructions += "\r\n" + tracker.GetInstructions(InstructionsSet.COLONISTS);
+    //      additionalInstructions += Environment.NewLine + tracker.GetInstructions(InstructionsSet.COLONISTS);
     //    // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - Instructions fetched: '{additionalInstructions}.");
     //    var dialogueData = new Core.DialogueData
     //    {

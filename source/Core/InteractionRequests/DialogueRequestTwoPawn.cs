@@ -1,13 +1,9 @@
 #nullable enable
-using RimDialogue.Access;
 using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
@@ -52,20 +48,11 @@ namespace RimDialogue.Core.InteractionRequests
       initiatorOpinionOfRecipient = Initiator.relations.OpinionOf(Recipient);
       recipientOpinionOfInitiator = Recipient.relations.OpinionOf(Initiator);
 
-      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
+      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + Environment.NewLine + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist || Recipient.IsColonist)
-        _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
+        _instructions += Environment.NewLine + _tracker.GetInstructions(InstructionsSet.COLONISTS);
       KnownType = knownType;
     }
-
-    //public DialogueRequestTwoPawn(PlayLogEntry_Interaction entry) : this(
-    //  entry,
-    //  (InteractionDef)Reflection.Verse_PlayLogEntry_Interaction_InteractionDef.GetValue(entry),
-    //  (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Initiator.GetValue(entry),
-    //  (Pawn)Reflection.Verse_PlayLogEntry_Interaction_Recipient.GetValue(entry))
-    //{
-
-    //}
 
     public override Pawn Initiator => _initiator;
     public override PawnData InitiatorData => _initiatorData;
@@ -84,10 +71,18 @@ namespace RimDialogue.Core.InteractionRequests
 #if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
         {
-          var contexts = await GameComponent_ContextTracker.Instance
-            .BlendedSearch(Initiator, Recipient, Interaction, 5);
-          data.Context = contexts
-              .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
+          var basicContexts = await GameComponent_ContextTracker.Instance
+            .GetContext(Interaction, 10);
+          data.Context = basicContexts
+            .Select(context => context.Text)
+            .ToArray();
+
+          var temporalContexts = await GameComponent_ContextTracker.Instance
+            .GetTemporalContext(Initiator, Recipient, Interaction, 5);
+          data.TemporalContext = temporalContexts
+              .Where(context => context != null)
+              .OrderBy(context => context.Tick)
+              .Select(context => $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}")
               .ToArray();
         }
 #endif

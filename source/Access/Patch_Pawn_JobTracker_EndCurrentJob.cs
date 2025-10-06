@@ -1,17 +1,12 @@
+#nullable enable
 using HarmonyLib;
 using RimDialogue.Core;
 using RimDialogue.Core.Comps;
+using RimWorld;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.Jobs;
-using UnityEngine.Rendering;
 using Verse;
 using Verse.AI;
-using static RimWorld.PsychicRitualRoleDef;
 
 namespace RimDialogue.Access
 {
@@ -25,56 +20,58 @@ namespace RimDialogue.Access
         JobCondition condition,
         bool startNewJob,
         bool canReturnToPool,
-        out (Pawn pawn, string report, int startTick) __state)
+        out (Pawn? pawn, string? report, int startTick) __state)
     {
       try
       {
+
+
         var pawn = (Pawn)Reflection.Verse_Pawn_JobTracker_Pawn.GetValue(__instance);
         if (!pawn.IsColonist || pawn.Dead || pawn.Destroyed || pawn.Map == null)
         {
-          __state = (null, "Pawn is dead, destroyed, or has no map", 0);
+          __state = (null, null, 0);
           return;
         }
+
+        //HaulToContainer job is buggy
+        if (__instance?.curJob.GetCachedDriver(pawn) is JobDriver_HaulToContainer)
+        {
+          __state = (null, null, 0);
+          return;
+        }
+
+        string? report = __instance?.curJob.GetReport(pawn).RemoveTags();
+
         __state = (
           pawn,
-          __instance?.curJob.GetReport(pawn).RemoveTags(),
+          report,
           __instance?.curJob.startTick ?? 0);
+
+#if DEBUG
+        try
+        {
+          File.AppendAllText($"{GenFilePaths.SaveDataFolderPath}\\Logs\\jobs.log", report + Environment.NewLine);
+        }
+        catch (Exception ex)
+        {
+          Log.Error($"RimDialogue failed to log job state: {ex}");
+        }
+#endif
+
       }
       catch (Exception ex)
       {
         Mod.Error($"RimDialogue failed Pawn_JobTracker Prefix: {ex}");
-        __state = (null, "Pawn_JobTracker Prefix Error", 0);
+        __state = (null, null, 0);
       }
     }
 
-#if Debug
-    private static void LogJob(Pawn pawn, string report, Job job, JobCondition cond, int count)
-    {
-      try
-      {
-        string logDir = Path.Combine("D:\\junk", "RimDialogue", "JobLogs");
-        Directory.CreateDirectory(logDir);
-        string logFile = Path.Combine(logDir, $"job_log_{DateTime.Now:yyyy-MM-dd}.txt");
-        string timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
-        string entry = $"[{timestamp}] Pawn: {pawn.Name?.ToStringFull ?? pawn.LabelCap}, " +
-                       $"Job: {report ?? "N/A"}, DefName: {job.def?.defName ?? "N/A"}, " +
-                       $"Condition: {cond}, Tick: {Find.TickManager.TicksAbs}, " +
-                       $"Count: {count}";
-        File.AppendAllText(logFile, entry + Environment.NewLine);
-      }
-      catch (Exception ex)
-      {
-        Log.Error($"RimDialogue failed to log job state: {ex}");
-      }
-    }
-#endif
-
-    public static void Postfix((Pawn pawn, string report, int startTick) __state)
+    public static void Postfix((Pawn? pawn, string? report, int startTick) __state)
     {
       try
       {
         var (pawn, report, startTick) = __state;
-        if (pawn == null || string.IsNullOrWhiteSpace(report))
+        if (pawn == null || report == null || string.IsNullOrWhiteSpace(report))
           return;
         if (GameComponent_JobTracker.Instance == null)
           return;

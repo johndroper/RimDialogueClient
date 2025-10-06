@@ -5,7 +5,6 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
@@ -40,9 +39,9 @@ namespace RimDialogue.Core.InteractionRequests
         Mod.Log($"Entry {entry.LogID} - Initiator is {_initiator}.");
       _initiatorData = Initiator.MakeData(_tracker.GetInstructions(Initiator), entry.LogID);
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - pawn data built.");
-      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
+      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + Environment.NewLine + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist)
-        _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
+        _instructions += Environment.NewLine + _tracker.GetInstructions(InstructionsSet.COLONISTS);
       KnownType = knownType;
     }
 
@@ -60,9 +59,9 @@ namespace RimDialogue.Core.InteractionRequests
         Mod.Log($"Entry {entry.LogID} - Initiator is {_initiator}.");
       _initiatorData = Initiator.MakeData(_tracker.GetInstructions(Initiator), entry.LogID);
       // if (Settings.VerboseLogging.Value) Mod.Log($"Entry {entry.LogID} - pawn data built.");
-      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + "\r\n" + Settings.SpecialInstructions.Value;
+      _instructions = _tracker.GetInstructions(InstructionsSet.ALL_PAWNS) + Environment.NewLine + Settings.SpecialInstructions.Value;
       if (Initiator.IsColonist)
-        _instructions += "\r\n" + _tracker.GetInstructions(InstructionsSet.COLONISTS);
+        _instructions += Environment.NewLine + _tracker.GetInstructions(InstructionsSet.COLONISTS);
     }
     public override Pawn Initiator => _initiator;
 
@@ -85,8 +84,14 @@ namespace RimDialogue.Core.InteractionRequests
 #if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
         {
+          var basicContexts = await GameComponent_ContextTracker.Instance
+            .GetContext(Interaction, 10);
+          data.Context = basicContexts
+            .Select(context => context.Text)
+            .ToArray();
+
           var context = await GameComponent_ContextTracker.Instance
-            .BlendedSearch(Initiator, Interaction, 5);
+            .GetTemporalContext(Initiator, Interaction, 5);
           data.Context = context
             .Select(context => context != null ? $"{(now - context.Tick).ToStringTicksToPeriod()} ago - {context.Text}" : string.Empty)
             .ToArray();
@@ -100,7 +105,5 @@ namespace RimDialogue.Core.InteractionRequests
 
     public override IDictionary<string, string> Constants =>
       new Dictionary<string, string>();
-
-
   }
 }

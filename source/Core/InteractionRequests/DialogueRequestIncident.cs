@@ -59,7 +59,7 @@ namespace RimDialogue.Core.InteractionData
     }
 
     public string Period
-      {
+    {
       get
       {
         var now = Find.TickManager.TicksAbs;

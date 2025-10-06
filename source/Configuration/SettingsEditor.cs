@@ -1,15 +1,10 @@
 #nullable enable
-using Bubbles;
-using Bubbles.Configuration;
-using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using Verse;
-using static UnityEngine.Scripting.GarbageCollector;
 using static Verse.Widgets;
 
 namespace RimDialogue.Configuration
@@ -129,10 +124,10 @@ namespace RimDialogue.Configuration
         var row = messageListing.GetRect(30f);
         Widgets.Label(row.LeftPart(0.8f), "Interface");
         Widgets.Dropdown<int, int>(
-            row.RightPart(0.2f),                            
-            Settings.DialogueMessageInterface.Value,       
-            val => val,                                    
-            val => new List<DropdownMenuElement<int>>      
+            row.RightPart(0.2f),
+            Settings.DialogueMessageInterface.Value,
+            val => val,
+            val => new List<DropdownMenuElement<int>>
             {
               new DropdownMenuElement<int> { option = new FloatMenuOption("Moveable", () => Settings.DialogueMessageInterface.Value = 1), payload = 1 },
               new DropdownMenuElement<int> { option = new FloatMenuOption("Top Center", () => Settings.DialogueMessageInterface.Value = 2), payload = 2 },
@@ -220,7 +215,7 @@ namespace RimDialogue.Configuration
         chances.SliderLabeled("RimDialogue.ThoughtChance".Translate(), ref Settings.ThoughtChance.Value, 0, 1, roundTo: .01f);
         chances.Outdent();
         l.EndSection(chances);
-  
+
         l.Gap();
 
         var contextWeights = l.BeginSection(45f * 11f + 50f);
@@ -242,9 +237,9 @@ namespace RimDialogue.Configuration
         contextWeights.Outdent();
         l.EndSection(contextWeights);
 
-    l.EndScrollView(ref _viewRect);
+        l.EndScrollView(ref _viewRect);
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         Mod.Error(ex.ToString());
       }

@@ -1,5 +1,4 @@
 using HarmonyLib;
-using RimDialogue.Core;
 using RimWorld;
 using System;
 

@@ -27,7 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <Nullable>enable</Nullable>
-    <DefineConstants>RW_1_6</DefineConstants>
+    <DefineConstants>DEBUG;RW_1_6</DefineConstants>
     <OutputPath>..\build\RimDialogueClient\1.6\Assemblies\</OutputPath>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -41,6 +41,7 @@
     <OutputPath>..\build\RimDialogueClient\1.5\Assemblies\</OutputPath>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 1.6|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
@@ -168,6 +169,8 @@
     <Compile Include="Access\HediffSet_AddDirect_Patch.cs" />
     <Compile Include="Access\OrtNativeBootstrap.cs" />
     <Compile Include="Access\Patch_LogEntry_ExposeData_Postfix.cs" />
+    <Compile Include="Access\Patch_Pawn_ApparelTracker.cs" />
+    <Compile Include="Access\Patch_Pawn_EquipmentTracker.cs" />
     <Compile Include="Access\Patch_Pawn_JobTracker_EndCurrentJob.cs" />
     <Compile Include="Access\Patch_Pawn_SetFaction_JoinColony.cs" />
     <Compile Include="Access\PlayLogEntryFactory.cs" />
@@ -179,10 +182,16 @@
     <Compile Include="Access\Verse_BattleLog_Add.cs" />
     <Compile Include="Access\Verse_LaunchProjectile_TryCastShot.cs" />
     <Compile Include="Access\Verse_Messages_Message.cs" />
-    <Compile Include="Context\IDocument.cs" />
-    <Compile Include="Context\SearchResult.cs" />
-    <Compile Include="Core\ComicPanel.cs" />
+    <Compile Include="Context\BasicContextData.cs" />
+    <Compile Include="Context\ContextCatalog.cs" />
+    <Compile Include="Context\ContextData.cs" />
     <Compile Include="Context\ContextDb.cs" />
+    <Compile Include="Context\DynamicContextData.cs" />
+    <Compile Include="Context\IContext.cs" />
+    <Compile Include="Context\SearchResult.cs" />
+    <Compile Include="Context\TemporalContextData.cs" />
+    <Compile Include="Core\ComicPanel.cs" />
+    <Compile Include="Context\TemporalContextDb.cs" />
     <Compile Include="Core\Comps\GameComponent_JobTracker.cs" />
     <Compile Include="Core\Comps\TrackerUtils.cs" />
     <Compile Include="Core\Conversation.cs" />
@@ -212,6 +221,7 @@
     <Compile Include="Core\PlayLogEntry_InteractionBattle.cs" />
     <Compile Include="Core\PlayLogEntry_InteractionThought.cs" />
     <Compile Include="Core\ThingData.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="UI\BitmapFont.cs" />
     <Compile Include="UI\DialogueMessagesFixed.cs" />
     <Compile Include="Core\Comps\GameComponent_LetterTracker.cs" />

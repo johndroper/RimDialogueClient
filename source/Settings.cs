@@ -1,11 +1,9 @@
 using HarmonyLib;
 using RimDialogue.Configuration;
-using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using Verse;
 
 namespace RimDialogue
@@ -36,7 +34,7 @@ namespace RimDialogue
 
     public static readonly Setting<int> MinDelayMinutesAll = new(nameof(MinDelayMinutesAll), 5);
     public static readonly Setting<int> MinDelayMinutes = new(nameof(MinDelayMinutes), 10);
-    public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 5);
+    public static readonly Setting<int> MinTimeBetweenConversations = new(nameof(MinTimeBetweenConversations), 10);
 
     public static readonly Setting<int> RecentIncidentHours = new(nameof(RecentIncidentHours), 4);
     public static readonly Setting<int> RecentBattleHours = new(nameof(RecentBattleHours), 6);
@@ -86,17 +84,17 @@ namespace RimDialogue
     public static readonly Setting<int> MaxContextItems = new(nameof(MaxContextItems), 500);
     public static readonly Setting<int> MaxContextAgeDays = new(nameof(MaxContextAgeDays), 100);
 
-    public static readonly Setting<float> JobContextWeight = new(nameof(JobContextWeight), 0.85f);
+    public static readonly Setting<float> JobContextWeight = new(nameof(JobContextWeight), 0.95f);
     public static readonly Setting<float> LogEntryContextWeight = new(nameof(LogEntryContextWeight), 1f);
     public static readonly Setting<float> BattleLogEntryContextWeight = new(nameof(BattleLogEntryContextWeight), 1.25f);
     public static readonly Setting<float> ConversationContextWeight = new(nameof(ConversationContextWeight), 1f);
-    public static readonly Setting<float> ThreatBigLetterContextWeight = new(nameof(ThreatBigLetterContextWeight), 5f);
-    public static readonly Setting<float> NegativeLetterContextWeight = new(nameof(NegativeLetterContextWeight), 4f);
-    public static readonly Setting<float> PositiveLetterContextWeight = new(nameof(PositiveLetterContextWeight), 3f);
-    public static readonly Setting<float> NeutralLetterContextWeight = new(nameof(NeutralLetterContextWeight), 1.5f);
+    public static readonly Setting<float> ThreatBigLetterContextWeight = new(nameof(ThreatBigLetterContextWeight), 1.66f);
+    public static readonly Setting<float> NegativeLetterContextWeight = new(nameof(NegativeLetterContextWeight), 1.333f);
+    public static readonly Setting<float> PositiveLetterContextWeight = new(nameof(PositiveLetterContextWeight), 1.2f);
+    public static readonly Setting<float> NeutralLetterContextWeight = new(nameof(NeutralLetterContextWeight), 1.1f);
     public static readonly Setting<float> MessageContextWeight = new(nameof(MessageContextWeight), 1f);
-    public static readonly Setting<float> BattleContextWeight = new(nameof(BattleContextWeight), 3f);
-    public static readonly Setting<float> HediffContextWeight = new(nameof(HediffContextWeight), 2f);
+    public static readonly Setting<float> BattleContextWeight = new(nameof(BattleContextWeight), 1.5f);
+    public static readonly Setting<float> HediffContextWeight = new(nameof(HediffContextWeight), 1.3f);
 
     public static HashSet<string> filterWords = [];
 
@@ -124,12 +122,12 @@ namespace RimDialogue
 
     public static FontFace GetDefaultFontFace()
     {
-      switch(LanguageDatabase.activeLanguage?.folderName ?? LanguageDatabase.defaultLanguage?.folderName)
+      switch (LanguageDatabase.activeLanguage?.folderName ?? LanguageDatabase.defaultLanguage?.folderName)
       {
         case "ChineseSimplified":
           return FontFace.NotoSansSC;
         default:
-          return FontFace.Calibri; 
+          return FontFace.Calibri;
       }
     }
 

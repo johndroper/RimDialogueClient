@@ -1710,9 +1710,14 @@
     <recipientThought>Chitchat</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] that fact that [INITIATOR_nameDef] has [record_value] [record_name].</li>
-        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] that fact that [INITIATOR_nameDef] has [record_value] [record_name] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] that about the active quest '[quest_name]'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] about the active quest '[quest_name]' to [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the active quest '[quest_name]'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [asked] [RECIPIENT_nameDef] about the active quest '[quest_name]'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] how it has been [period_since_accepted] since they accepted the quest '[quest_name]'.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] how it has been [period_since_accepted] since they accepted the quest '[quest_name]'.</li>
+        <li>r_logentry(use_expiry==true)->[INITIATOR_nameDef] [commentedabout] how the quest '[quest_name]' expires in [period_until_expiry].</li>
+        <li>r_logentry(use_expiry==true)->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] how the quest '[quest_name]' expires in [period_until_expiry].</li>
         <li>talkedabout->chatted about</li>
         <li>talkedabout->shared a word about</li>
         <li>talkedabout->spoke about</li>

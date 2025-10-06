@@ -1,4 +1,5 @@
 #nullable enable
+using RimDialogue.Context;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,18 @@ namespace RimDialogue.Core
         TrackedMessages = new List<MessageRecord>();
     }
 
+    public int lastCleanupTick = GenDate.TicksPerHour;
     public override void GameComponentUpdate()
     {
       base.GameComponentUpdate();
       try
       {
-        if (Find.TickManager.TicksAbs % 25000 == 0)
+        if (Find.TickManager.TicksGame > lastCleanupTick + GenDate.TicksPerHour)
+        {
+          lastCleanupTick = Find.TickManager.TicksGame;
           TrackedMessages.RemoveAll(record => Find.TickManager.TicksAbs - record.Ticks > MaxMessageAgeTicks);
+        }
+          
       }
       catch (System.Exception ex)
       {
@@ -50,11 +56,12 @@ namespace RimDialogue.Core
           TrackedMessages.RemoveAt(0);
 #if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
-          GameComponent_ContextTracker.Instance.Add(
-            message.text,
-            message.def.defName,
-            message.startingTick,
-            1f);
+        {
+          var context = TemporalContextCatalog.Create(message);
+          if (context == null)
+            return;
+          GameComponent_ContextTracker.Instance.Add(context);
+        }
 #endif
       }
       catch (System.Exception ex)
@@ -101,7 +108,7 @@ namespace RimDialogue.Core
       {
         if (TargetId == null)
           return null;
-        _target ??= PawnsFinder.AllMaps.First(Pawn => Pawn.thingIDNumber == TargetId.Value);
+        _target ??= PawnsFinder.AllMaps.FirstOrDefault(Pawn => Pawn.thingIDNumber == TargetId.Value);
         return _target;
       }
     }

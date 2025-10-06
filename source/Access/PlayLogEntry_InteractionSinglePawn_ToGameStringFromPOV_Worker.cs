@@ -1,11 +1,9 @@
 using HarmonyLib;
-using RimDialogue;
 using RimDialogue.Access;
 using RimDialogue.Core.InteractionData;
 using RimWorld;
 using System;
 using Verse;
-using static System.Net.Mime.MediaTypeNames;
 using Mod = RimDialogue.Mod;
 
 [HarmonyPatch(typeof(PlayLogEntry_InteractionSinglePawn), "ToGameStringFromPOV_Worker")]

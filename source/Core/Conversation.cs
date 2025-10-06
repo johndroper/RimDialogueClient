@@ -3,15 +3,12 @@ using RimDialogue.Core.Comps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Core
 {
-  public class Conversation :  IExposable
+  public class Conversation : IExposable
   {
 
 
@@ -170,7 +167,7 @@ namespace RimDialogue.Core
       return fragments.ToArray();
     }
 
-    static Regex regex = new Regex(@"^(?<name>\w+):\s*[""“*](?<line>.+)[""”*]\W*$", RegexOptions.Multiline);
+    static Regex regex = new Regex(@"^(?<name>\w+):\s*[""“*]?(?<line>.+?)[""”*]\W*$", RegexOptions.Multiline);
     public static Line[] ParseLines(string text)
     {
       if (string.IsNullOrEmpty(text))

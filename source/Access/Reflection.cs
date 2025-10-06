@@ -41,7 +41,7 @@ namespace RimDialogue.Access
     public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_OriginalTargetThing = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "originalTargetThing");
     public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_WeaponDef = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "weaponDef");
     public static readonly FieldInfo Verse_BattleLogEntry_RangedImpact_ProjectileDef = AccessTools.Field(typeof(BattleLogEntry_RangedImpact), "projectileDef");
-    
+
     public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_InitiatorPawn = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "initiatorPawn");
     public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_InitiatorThing = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "initiatorThing");
     public static readonly FieldInfo Verse_BattleLogEntry_RangedFire_RecipientPawn = AccessTools.Field(typeof(BattleLogEntry_RangedFire), "recipientPawn");
@@ -73,7 +73,7 @@ namespace RimDialogue.Access
     public static readonly FieldInfo RimWorld_Alert_AbandonedBaby_tmpAbandonedBabiesList = AccessTools.Field(typeof(RimWorld.Alert_AbandonedBaby), "tmpAbandonedBabiesList");
     public static readonly FieldInfo RimWorld_AlertsReadout_ActiveAlerts = AccessTools.Field(typeof(RimWorld.AlertsReadout), "activeAlerts");
     public static readonly FieldInfo RimWorld_Alert_ColonistsIdle_IdleColonistsResult = AccessTools.Field(typeof(RimWorld.Alert_ColonistsIdle), "idleColonistsResult");
-//    public static readonly FieldInfo RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult = AccessTools.Field(typeof(RimWorld.Alert_HunterLacksRangedWeapon), "huntersWithoutRangedWeaponResult");
+    //    public static readonly FieldInfo RimWorld_Alert_HunterLacksRangedWeapon_HuntersWithoutRangedWeaponResult = AccessTools.Field(typeof(RimWorld.Alert_HunterLacksRangedWeapon), "huntersWithoutRangedWeaponResult");
     public static readonly FieldInfo RimWorld_Alert_Heatstroke_HeatstrokePawnsResult = AccessTools.Field(typeof(RimWorld.Alert_Heatstroke), "heatstrokePawnsResult");
     public static readonly FieldInfo RimWorld_Alert_AnimalFilth_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalFilth), "targets");
     public static readonly FieldInfo RimWorld_Alert_AnimalPenNeeded_Targets = AccessTools.Field(typeof(RimWorld.Alert_AnimalPenNeeded), "targets");
@@ -99,6 +99,8 @@ namespace RimDialogue.Access
 
     public static readonly FieldInfo Verse_MapPawns_HumanlikeSpawnedPawnsResult = AccessTools.Field(typeof(Verse.MapPawns), "humanlikeSpawnedPawnsResult");
     public static readonly FieldInfo RimWorld_SituationalThoughtHandler_CachedThoughts = AccessTools.Field(typeof(RimWorld.SituationalThoughtHandler), "cachedThoughts");
+
+    public static readonly FieldInfo RimWorld_QuestManager_HistoricalQuests = AccessTools.Field(typeof(RimWorld.QuestManager), "historicalQuests");
 
     public static PropertyInfo IsAnimal = AccessTools.Property(typeof(Pawn), "IsAnimal");
     public static PropertyInfo IsNonMutantAnimal = AccessTools.Property(typeof(Pawn), "IsNonMutantAnimal");

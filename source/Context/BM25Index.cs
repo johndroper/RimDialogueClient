@@ -1,4 +1,5 @@
 #nullable enable
+using RimDialogue.Core;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using static UnityEngine.Networking.UnityWebRequest;
 
 namespace RimDialogue.Context
 {
-  public sealed class BM25Index<T> where T : IDocument
+  public sealed class BM25Index<T> where T : IContext
   {
     private readonly ReaderWriterLockSlim _lock = new();
 
@@ -28,42 +29,55 @@ namespace RimDialogue.Context
 
     // ---------- Text processing ----------
     private readonly Func<string, IEnumerable<string>> _tokenizer;
-    private readonly ISet<string> _stopWords; 
+    private readonly ISet<string> _stopWords;
 
     public BM25Index(
+      string name,
       double k1 = 1.2,
       double b = 0.75,
       double k3 = 0,
-      Func<string, IEnumerable<string>>? tokenizer = null,
-      ISet<string>? stopWords = null)
+      IEnumerable<string>? stopWords = null,
+      Func<string, IEnumerable<string>>? tokenizer = null)
     {
       if (k1 <= 0) throw new ArgumentOutOfRangeException(nameof(k1));
       if (b < 0 || b > 1) throw new ArgumentOutOfRangeException(nameof(b));
       if (k3 < 0) throw new ArgumentOutOfRangeException(nameof(k3));
 
+      Name = name;
+
       K1 = k1; B = b; K3 = k3;
       _tokenizer = tokenizer ?? DefaultTokenizer;
-      _stopWords = stopWords ?? EnglishStopWordsSmall;
+      if (stopWords != null)
+      {
+        _stopWords = new HashSet<string>(DefaultStopWords);
+        foreach (var w in stopWords)
+          _stopWords.Add(w.ToLowerInvariant());
+      }
+      else
+        _stopWords = DefaultStopWords;
     }
 
     public BM25Index(
+      string name,
       IEnumerable<T> docs,
       double k1 = 1.2,
       double b = 0.75,
       double k3 = 0,
-      Func<string, IEnumerable<string>>? tokenizer = null,
-      ISet<string>? stopWords = null)
-        : this(k1, b, k3, tokenizer, stopWords)
+      IEnumerable<string>? stopWords = null,
+      Func<string, IEnumerable<string>>? tokenizer = null)
+        : this(name, k1, b, k3, stopWords, tokenizer)
     {
       if (docs == null) throw new ArgumentNullException(nameof(docs));
       foreach (var d in docs) AddInternal(d);
       Recompute();
     }
 
+    public string Name { get; }
+
     public void Remove(T metadata)
     {
       if (metadata == null) throw new ArgumentNullException(nameof(metadata));
-      if (!_docLengths.TryGetValue(metadata, out int dl)) return; 
+      if (!_docLengths.TryGetValue(metadata, out int dl)) return;
       _docLengths.Remove(metadata);
       Interlocked.Decrement(ref docCount);
       var tokens = FilterTokens(_tokenizer(metadata.Text))
@@ -132,9 +146,10 @@ namespace RimDialogue.Context
     {
       if (_docLengths.Count == 0) { _avgDocLength = 0; return; }
       _lock.EnterReadLock();
-      try {
+      try
+      {
         _avgDocLength = _docLengths.Average(kvp => kvp.Value);
-      } 
+      }
       finally { _lock.ExitReadLock(); }
     }
 
@@ -143,80 +158,97 @@ namespace RimDialogue.Context
       if (query == null) throw new ArgumentNullException(nameof(query));
       if (docCount == 0) return Array.Empty<SearchResult<T>>();
 
-      var qTokens = FilterTokens(_tokenizer(query)).ToArray();
-      if (!qTokens.Any()) return Array.Empty<SearchResult<T>>();
+      query = query.RemoveWhiteSpaceAndColor();
+
+      var queryTokens = FilterTokens(_tokenizer(query)).ToArray();
+      if (!queryTokens.Any()) return Array.Empty<SearchResult<T>>();
 
       // Query term frequencies (qtf)
-      var qtf = new Dictionary<string, int>(StringComparer.Ordinal);
-      foreach (var t in qTokens)
+      var queryTermFrequencies = new Dictionary<string, int>(StringComparer.Ordinal);
+      foreach (var token in queryTokens)
       {
         int c;
-        if (!qtf.TryGetValue(t, out c)) qtf[t] = 1; else qtf[t] = c + 1;
+        if (!queryTermFrequencies.TryGetValue(token, out c)) queryTermFrequencies[token] = 1; else queryTermFrequencies[token] = c + 1;
       }
 
       int N = docCount;
       var scores = new Dictionary<T, float>();
       var now = Find.TickManager.TicksAbs;
 
-      _lock.EnterReadLock();
-      try
-      {
-        foreach (var kv in qtf)
-        {
-          int qFreq = kv.Value;
-          if (!_postings.TryGetValue(kv.Key, out Dictionary<T, int> documentFrequencies))
-            continue;
-          int df = documentFrequencies.Count;
-          double idf = Math.Log((N - df + 0.5) / (df + 0.5));
-          double qWeight = (K3 > 0) ? ((K3 + 1) * qFreq) / (K3 + qFreq) : 1.0;
-          foreach (var dp in documentFrequencies)
-          {
-            T metadata = dp.Key;
-            var deltaTicks = now - metadata.Tick;
-            if (deltaTicks < 100 || deltaTicks > GenDate.TicksPerYear)
-              continue;
-            int frequency = dp.Value;
-            int documentLength = _docLengths[metadata];
-            if (documentLength == 0) continue;
-            double norm = frequency * (K1 + 1.0) / (frequency + K1 * (1.0 - B + B * documentLength / Math.Max(_avgDocLength, 1e-9)));
-            double contrib = idf * norm * qWeight * metadata.Weight;
-            float cur;
-            if (!scores.TryGetValue(metadata, out cur)) scores[metadata] = (float)contrib;
-            else scores[metadata] = (float)(cur + contrib);
-          }
-        }
-      }
-      finally { _lock.ExitReadLock(); }
-
 #if DEBUG
-      using (var logStream = File.Create($"D:\\junk\\bm25_{Find.TickManager.TicksAbs}.log"))
+      using (var logStream = File.Create($"{GenFilePaths.SaveDataFolderPath}\\Logs\\bm25_{Name}_{query.Substring(0, 10).Clean()}.log"))
       using (var logWriter = new StreamWriter(logStream))
       {
-        logWriter.WriteLine($"begin bm25 {now}: '{query}'");
-        foreach (var score in scores)
-        {
-          logWriter.WriteLine($"bm25 {now}: '{score.Key.Text}' = {score.Value}");
-        }
-        if (scores.Any())
-        {
-          var maxScore = scores.Max(r => r.Value);
-          var avgScore = scores.Average(r => r.Value);
-          logWriter.WriteLine($"end bm25 {now}: {scores.Count()} results, max score: {maxScore}, avg score: {avgScore}");
-        }
-      } 
 #endif
+        _lock.EnterReadLock();
+        try
+        {
+#if DEBUG
+          logWriter.WriteLine($"{query}");
+          logWriter.WriteLine();
+#endif
+          foreach (var kv in queryTermFrequencies)
+          {
+            int queryTermFrequency = kv.Value;
+            string term = kv.Key;
+            if (!_postings.TryGetValue(term, out Dictionary<T, int> documentTermFrequencies))
+              continue;
+            int df = documentTermFrequencies.Count;
+            double idf = Math.Log((N - df + 0.5) / (df + 0.5));
+            double qWeight = (K3 > 0) ? ((K3 + 1) * queryTermFrequency) / (K3 + queryTermFrequency) : 1.0;
+#if DEBUG
+            logWriter.WriteLine($"{term}\t{queryTermFrequency}\t{idf}\t{qWeight}");
+#endif
+            foreach (var dp in documentTermFrequencies)
+            {
+              T metadata = dp.Key;
+              if (metadata is IExpirable expirable && expirable.IsExpired)
+                continue;
+              int frequency = dp.Value;
+              int documentLength = _docLengths[metadata];
+              if (documentLength == 0) continue;
+              double norm = frequency * (K1 + 1.0) / (frequency + K1 * (1.0 - B + B * documentLength / Math.Max(_avgDocLength, 1e-9)));
+              double scoreContribution = metadata.BM25Score(idf, norm, qWeight);
+#if DEBUG
+              logWriter.WriteLine($"\t{norm}\t{metadata.Text}");
+#endif
+              if (!scores.TryGetValue(metadata, out float currentScore))
+                scores[metadata] = (float)scoreContribution;
+              else
+                scores[metadata] = (float)(currentScore + scoreContribution);
+            }
+          }
+        }
+        finally { _lock.ExitReadLock(); }
 
-      //re-rank scores by recency
+        var results = scores
+          .Select(kv => new SearchResult<T>(
+            kv.Key,
+            kv.Value))
+          .OrderByDescending(kvp => kvp.Score)
+          .ToArray();
 
-      return scores
-        .Select(kv => new SearchResult<T>(
-          kv.Key,
-          (1f - ((float)(now - kv.Key.Tick) / GenDate.TicksPerYear)) * kv.Value))
-        .Where(kv => kv.Score >= minScore)
-        .OrderByDescending(kvp => kvp.Score)
-        .Take(topK)
-        .ToArray();
+#if DEBUG
+        logWriter.WriteLine();
+        foreach (var score in results)
+        {
+          logWriter.WriteLine($"{score.Score}\t{score.MetaData.Text}");
+        }
+        if (results.Any())
+        {
+          var maxScore = results.Max(r => r.Score);
+          var avgScore = results.Average(r => r.Score);
+          logWriter.WriteLine($"end: {scores.Count()} results, max score: {maxScore}, avg score: {avgScore}");
+        }
+#endif
+        return results
+          .Where(r => r.Score >= minScore)
+          .Take(topK)
+          .ToArray();
+      }
+#if DEBUG
     }
+#endif
 
     // ---------- Helpers ----------
     private IEnumerable<string> FilterTokens(IEnumerable<string> tokens)
@@ -227,7 +259,7 @@ namespace RimDialogue.Context
       }
     }
 
-    private static readonly Regex TokenRe = new Regex(@"[A-Za-z0-9_]+", RegexOptions.Compiled);
+    private static readonly Regex TokenRe = new Regex(@"\w+(?:\'\w{1,3})?", RegexOptions.Compiled);
     private static IEnumerable<string> DefaultTokenizer(string text)
     {
       if (string.IsNullOrEmpty(text)) yield break;
@@ -239,10 +271,13 @@ namespace RimDialogue.Context
     public int DocumentCount { get { return docCount; } }
     public double AverageDocumentLength { get { return _avgDocLength; } }
 
-    public static HashSet<string> EnglishStopWordsSmall = new HashSet<string>(new[]
-    {
-      "a","an","and","are","as","at","be","by","for","from","has","he","in",
-      "is","it","its","of","on","that","the","to","was","were","will","with"
-    }, StringComparer.OrdinalIgnoreCase);
+    public static HashSet<string> DefaultStopWords =
+      new HashSet<string>(
+        "RimDialogue.StopWords".Translate()
+          .ToString()
+          .Trim()
+          .Split([','], StringSplitOptions.RemoveEmptyEntries)
+          .Select(s => s.Trim().ToLowerInvariant())
+      , StringComparer.OrdinalIgnoreCase);
   }
 }

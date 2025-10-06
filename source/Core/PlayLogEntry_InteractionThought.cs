@@ -36,7 +36,7 @@ namespace RimDialogue.Core
 
     protected override string ToGameStringFromPOV_Worker(Thing pov, bool forceLog)
     {
- 
+
       if (_Text != null)
         return _Text;
 

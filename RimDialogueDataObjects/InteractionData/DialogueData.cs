@@ -23,6 +23,7 @@ namespace RimDialogue.Core.InteractionData
     public float OutdoorTemp = float.MinValue;
 
     public string[] Context = [];
+    public string[] TemporalContext = [];
 
     //public string[] GlobalContext = [];
     //public string[] InitiatorContext = [];

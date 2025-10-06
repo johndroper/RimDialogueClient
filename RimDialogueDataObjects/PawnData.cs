@@ -35,7 +35,6 @@ namespace RimDialogue.Core
     public string RoleDescription = String.Empty;
     public string Childhood = String.Empty;
     public string Adulthood = String.Empty;
-    //public int OpinionOfRecipient = 0;
     public string MoodString = string.Empty;
     public string Personality = string.Empty;
     public string PersonalityDescription = string.Empty;

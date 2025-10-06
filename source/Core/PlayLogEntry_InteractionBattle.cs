@@ -4,12 +4,8 @@ using RimDialogue.Core.InteractionDefs;
 using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 using Verse.Grammar;
-using static UnityEngine.Networking.UnityWebRequest;
 
 namespace RimDialogue.Core
 {

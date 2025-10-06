@@ -1,7 +1,6 @@
 #nullable enable
 using RimDialogue.Access;
 using RimDialogue.Core.InteractionData;
-using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using System;
 using System.Collections.Generic;

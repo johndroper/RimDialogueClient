@@ -1,17 +1,16 @@
 #nullable enable
 using RimDialogue;
-using RimDialogue.Access;
+using RimDialogue.Context;
 using RimDialogue.Core;
 using RimDialogue.Core.InteractionData;
 using RimDialogue.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using static RimWorld.ColonistBar;
 using Mod = RimDialogue.Mod;
 
 public class ConversationArgs : EventArgs
@@ -68,7 +67,7 @@ public class GameComponent_ConversationTracker : GameComponent
   {
     base.StartedNewGame();
     additionalInstructions[InstructionsSet.ALL_PAWNS] = "RimDialogue.DefaultInstructions".Translate();
-    GetScenarioInstructions(Find.Scenario?.name + "\r\n" + H.RemoveWhiteSpace(Find.Scenario?.description));
+    GetScenarioInstructions(Find.Scenario?.name + Environment.NewLine + H.RemoveWhiteSpace(Find.Scenario?.description));
     GetInstructions();
   }
 
@@ -170,7 +169,12 @@ public class GameComponent_ConversationTracker : GameComponent
       Conversation conversation = new Conversation(initiator, recipient, interaction, text);
 #if !RW_1_5
       if (GameComponent_ContextTracker.Instance != null)
-        GameComponent_ContextTracker.Instance.Add(conversation);
+      {
+        var context = TemporalContextCatalog.Create(conversation);
+        if (context == null)
+          return;
+        GameComponent_ContextTracker.Instance.Add(context);
+      }
 #endif
       Conversation? removed = null;
       lock (conversations)
@@ -242,6 +246,8 @@ public class GameComponent_ConversationTracker : GameComponent
   public override void ExposeData()
   {
     base.ExposeData();
+
+    var watch = Stopwatch.StartNew();
     _version = Scribe.mode is LoadSaveMode.Saving ? RimDialogue.Mod.Version : null;
     Scribe_Values.Look(ref _version, "Version");
     Scribe_Collections.Look(ref conversations, "conversations_v2", LookMode.Deep);
@@ -253,6 +259,9 @@ public class GameComponent_ConversationTracker : GameComponent
     Scribe_Collections.Look(ref InteractionCache, "interactionCache", LookMode.Value, LookMode.Value);
     if (InteractionCache == null)
       InteractionCache = new Dictionary<int, string>();
+    watch.Stop();
+    if (Scribe.mode == LoadSaveMode.LoadingVars && Settings.VerboseLogging.Value)
+      Mod.Log($"Loaded {conversations.Count} conversations into tracker in {watch.Elapsed.TotalSeconds} seconds.");
   }
 }
 

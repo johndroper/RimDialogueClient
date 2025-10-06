@@ -1,8 +1,10 @@
 #nullable enable
+using RimDialogue.Context;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
+using static RimDialogue.MainTabWindow_RimDialogue;
 
 namespace RimDialogue.Core
 {
@@ -42,7 +44,12 @@ namespace RimDialogue.Core
 
 #if !RW_1_5
         if (GameComponent_ContextTracker.Instance != null)
-          GameComponent_ContextTracker.Instance.Add(letter);
+        {
+          var context = TemporalContextCatalog.Create(letter);
+          if (context == null)
+            return;
+          GameComponent_ContextTracker.Instance.Add(context);
+        }
 #endif
 
         if (Settings.VerboseLogging.Value)
@@ -100,7 +107,7 @@ namespace RimDialogue.Core
         return _target;
       }
     }
-        public void ExposeData()
+    public void ExposeData()
     {
       Scribe_Values.Look(ref Label, "Label");
       Scribe_Values.Look(ref Text, "Text");

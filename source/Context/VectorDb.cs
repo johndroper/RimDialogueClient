@@ -1,35 +1,39 @@
 #if !RW_1_5
-using RimWorld;
-using System;
+using RimDialogue.Core;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Verse;
 
 namespace RimDialogue.Context
 {
-  public class VectorDb<T> where T : IDocument
+
+
+  public class VectorDb<T> where T : IContext
   {
     static OnnxSentenceEmbedder embedder;
-
-    private readonly List<(T metadata, float[] vec)> _items = new();
-    private readonly ReaderWriterLockSlim _lock = new();
 
     static VectorDb()
     {
       embedder = new OnnxSentenceEmbedder(
-        Path.Combine(Mod.Instance.Content.RootDir, "Common\\Models\\model.onnx"),
-        Path.Combine(Mod.Instance.Content.RootDir, "Common\\Models\\vocab.txt"));
+        Path.Combine(Mod.Instance.Content.RootDir, "Common", "Models", "model.onnx"),
+        Path.Combine(Mod.Instance.Content.RootDir, "Common", "Models", "vocab.txt"));
     }
 
-    public VectorDb() { }
+    private readonly List<(T metadata, float[] vec)> _items = new();
+    private readonly ReaderWriterLockSlim _lock = new();
+
+    public VectorDb(string name)
+    {
+      Name = name;
+    }
+
+    public string Name { get; }
 
     public VectorDb(IEnumerable<T> docs)
     {
-      foreach(var doc in docs)
+      foreach (var doc in docs)
       {
         var normalizedVec = embedder.Embed(doc.Text);
         _items.Add((doc, normalizedVec));
@@ -40,8 +44,17 @@ namespace RimDialogue.Context
     {
       var normalizedVec = embedder.Embed(metadata.Text);
       _lock.EnterWriteLock();
-      try { _items.Add((metadata, normalizedVec)); }
+      var item = (metadata, normalizedVec);
+      try { _items.Add(item); }
       finally { _lock.ExitWriteLock(); }
+
+      if (metadata is IRefreshable refreshable)
+      {
+        refreshable.OnRefresh += (metadata) =>
+        {
+          item.normalizedVec = embedder.Embed(metadata.Text);
+        };
+      }
     }
 
     public void Remove(T metadata)
@@ -50,7 +63,7 @@ namespace RimDialogue.Context
       try
       {
         var items = _items.Where(i => i.metadata.Equals(metadata)).ToArray();
-        foreach(var item in items)
+        foreach (var item in items)
           _items.Remove(item);
       }
       finally { _lock.ExitWriteLock(); }
@@ -58,6 +71,8 @@ namespace RimDialogue.Context
 
     public IEnumerable<SearchResult<T>> Search(string query, float minScore, int k)
     {
+      query = query.RemoveWhiteSpaceAndColor();
+
       var queryVec = embedder.Embed(query);
       var results = new List<SearchResult<T>>();
       int now = Find.TickManager.TicksAbs;
@@ -66,22 +81,21 @@ namespace RimDialogue.Context
       try
       {
 #if DEBUG
-        using (var logStream = File.Create($"D:\\junk\\vec_{Find.TickManager.TicksAbs}.log"))
+        using (var logStream = File.Create($"{GenFilePaths.SaveDataFolderPath}\\Logs\\vec_{Name}_{query.Substring(0, 10).Clean()}.log"))
         using (var logWriter = new StreamWriter(logStream))
         {
           logWriter.WriteLine($"query\t{query}'");
 #endif
           foreach (var (metadata, vec) in _items)
           {
-            var deltaTicks = now - metadata.Tick;
-            if (deltaTicks < 100 || deltaTicks > GenDate.TicksPerYear)
+            if (metadata is IExpirable expirable && expirable.IsExpired)
               continue;
-            float score = VectorMath.Cosine(queryVec, vec) *
-              (1f - ((float)deltaTicks / GenDate.TicksPerYear)) * metadata.Weight;
+
+            float score = metadata.VectorScore(queryVec, vec);
 #if DEBUG
             logWriter.WriteLine($"{score}\t{metadata.Text}");
 #endif
-          if (score < minScore)
+            if (score < minScore)
               continue;
             results.Add(new SearchResult<T>(metadata, score));
           }
@@ -108,9 +122,11 @@ namespace RimDialogue.Context
 
     public int Count
     {
-      get {
+      get
+      {
         _lock.EnterReadLock();
-        try { return _items.Count; } finally { _lock.ExitReadLock(); } }
+        try { return _items.Count; } finally { _lock.ExitReadLock(); }
+      }
     }
   }
 }

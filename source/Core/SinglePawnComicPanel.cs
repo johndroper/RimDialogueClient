@@ -1,12 +1,7 @@
 #nullable enable
-using Bubbles;
 using RimDialogue.Core;
-using RimDialogue.UI;
 using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using Verse;
 
