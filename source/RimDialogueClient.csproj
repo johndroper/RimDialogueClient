@@ -27,7 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <Nullable>enable</Nullable>
-    <DefineConstants>DEBUG;RW_1_6</DefineConstants>
+    <DefineConstants>RW_1_6</DefineConstants>
     <OutputPath>..\build\RimDialogueClient\1.6\Assemblies\</OutputPath>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

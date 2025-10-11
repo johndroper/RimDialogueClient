@@ -65,7 +65,11 @@ namespace RimDialogue.Context
         foreach (var context in Contexts)
         {
           if (context is IExpirable expirable && expirable.IsExpired)
+          {
             expired.Add(context);
+            //if (Settings.VerboseLogging.Value) Mod.Log($"Is Expired: '{context.Text}'");
+          }
+            
         }
         _lock.EnterWriteLock();
         try

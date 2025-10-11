@@ -4,6 +4,7 @@ using RimDialogue.Access;
 using RimDialogue.Core.InteractionRequests;
 using RimWorld;
 using RimWorld.Planet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -255,9 +256,12 @@ namespace RimDialogue.Core.InteractionData
           _target = majorBreakRiskPawn;
           List<Thought> allMoodThoughts2 = [];
           majorBreakRiskPawn.needs.mood.thoughts.GetAllMoodThoughts(allMoodThoughts2);
-          var negativeThoughts2 = allMoodThoughts2.Where(thought => thought.MoodOffset() < 0).OrderByDescending(thought => thought.MoodOffset()).ToArray();
+          var negativeThoughts2 = allMoodThoughts2.Where(thought => thought.MoodOffset() < 0).ToArray();
           if (negativeThoughts2.Any())
-            Explanation = string.Format("RimDialogue.Alert_MajorBreakRisk_ThoughtExplanation".Translate(), negativeThoughts2[0].LabelCap, majorBreakRiskPawn.Name.ToStringShort, negativeThoughts2[0].Description);
+          {
+            var negativeThought = allMoodThoughts2.RandomElementByWeight(thought => Math.Abs(thought.MoodOffset()));
+            Explanation = string.Format("RimDialogue.Alert_MajorBreakRisk_ThoughtExplanation".Translate(), negativeThought.LabelCap, majorBreakRiskPawn.Name.ToStringShort, negativeThought.Description);
+          }
           else
             Explanation = string.Format("RimDialogue.Alert_MajorBreakRisk_GenericExplanation".Translate(), majorBreakRiskPawn.Name.ToStringShort);
           break;
@@ -269,11 +273,20 @@ namespace RimDialogue.Core.InteractionData
           _target = minorBreakRiskPawn;
           List<Thought> allMoodThoughts = [];
           minorBreakRiskPawn.needs.mood.thoughts.GetAllMoodThoughts(allMoodThoughts);
-          var negativeThoughts = allMoodThoughts.Where(thought => thought.MoodOffset() < 0).OrderByDescending(thought => thought.MoodOffset()).ToArray();
+          var negativeThoughts = allMoodThoughts.Where(thought => thought.MoodOffset() < 0).ToArray();
           if (negativeThoughts.Any())
-            Explanation = string.Format("RimDialogue.Alert_MinorBreakRisk_ThoughtExplanation".Translate(), negativeThoughts[0].LabelCap, minorBreakRiskPawn.Name.ToStringShort, negativeThoughts[0].Description);
+          {
+            var negativeThought = negativeThoughts.RandomElementByWeight(thought => Math.Abs(thought.MoodOffset()));
+            Explanation = string.Format(
+              "RimDialogue.Alert_MinorBreakRisk_ThoughtExplanation".Translate(),
+              negativeThought.LabelCap,
+              minorBreakRiskPawn.Name.ToStringShort,
+              negativeThought.Description);
+          }
           else
-            Explanation = string.Format("RimDialogue.Alert_MinorBreakRisk_GenericExplanation".Translate(), minorBreakRiskPawn.Name.ToStringShort);
+            Explanation = string.Format(
+              "RimDialogue.Alert_MinorBreakRisk_GenericExplanation".Translate(),
+              minorBreakRiskPawn.Name.ToStringShort);
           break;
         case Alert_NeedColonistBeds needColonistBedsAlert:
           // if (Settings.VerboseLogging.Value) Mod.Log($"Alert_NeedColonistBeds");

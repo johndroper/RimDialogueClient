@@ -496,7 +496,7 @@ namespace RimDialogue.Core.InteractionData
         if (GameComponent_ConversationTracker.ExecutedLogEntries.Contains(this.Entry.LogID) ||
           TooSoon() ||
           TooSoonAll() ||
-          Settings.IsFiltered(this.Interaction) ||
+          Settings.IsFiltered(interaction) ||
           (Settings.OnlyColonists.Value && !this.Initiator.IsColonist))
           return;
         if (Settings.VerboseLogging.Value) Mod.Log($"Entry {Entry.LogID} - Execute DialogueRequest: '{InteractionDef.defName}' - '{interaction}'");

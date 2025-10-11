@@ -98,25 +98,39 @@ namespace RimDialogue.Core.Comps
       Scribe_Collections.Look(ref JobRecords, "JobRecords", LookMode.Value, LookMode.Deep);
       watch.Stop();
 
-      if (Scribe.mode == LoadSaveMode.LoadingVars)
+      switch(Scribe.mode)
       {
-        JobRecords ??= [];
-        foreach (int key in JobRecords.Keys)
-        {
-          var jobRecords = JobRecords[key];
-          if (jobRecords.Count > MaxRecords)
-            jobRecords.RemoveRange(0, jobRecords.Count - MaxRecords);
-        }
-        if (Settings.VerboseLogging.Value)
-          Mod.Log($"Loaded {JobRecords.Values.Sum(list => list.Count)} job records into tracker in {watch.Elapsed.TotalSeconds} seconds.");
+        case LoadSaveMode.LoadingVars:
+          JobRecords ??= [];
+          foreach (int key in JobRecords.Keys)
+          {
+            var jobRecords = JobRecords[key];
+            if (jobRecords.Count > MaxRecords)
+              jobRecords.RemoveRange(0, jobRecords.Count - MaxRecords);
+          }
+          if (Settings.VerboseLogging.Value)
+            Mod.Log($"Loaded {JobRecords.Values.Sum(list => list.Count)} job records into tracker in {watch.Elapsed.TotalSeconds} seconds.");
+          break;
+        case LoadSaveMode.Saving:
+          if (Settings.VerboseLogging.Value)
+            Mod.Log($"Saved {JobRecords.Values.Sum(list => list.Count)} job records from tracker in {watch.Elapsed.TotalSeconds} seconds.");
+          break;
       }
+
     }
 
-    public int lastAddTick = GenDate.TicksPerHour;
+    public int lastAddTick = 0;
+    public int waitTicks = GenDate.TicksPerHour * 4;
+    override public void FinalizeInit()
+    {
+      base.FinalizeInit();
+      lastAddTick = Find.TickManager.TicksGame + waitTicks;
+    }
+
     public override void GameComponentUpdate()
     {
       base.GameComponentUpdate();
-      if (Find.TickManager.TicksGame > lastAddTick + GenDate.TicksPerHour)
+      if (Find.TickManager.TicksGame > lastAddTick + waitTicks)
       {
         if (Settings.VerboseLogging.Value)
           Mod.Log($"Adding job records to tracker. {JobCounts.Values.Sum(dict => dict.Count)} jobs to add.");

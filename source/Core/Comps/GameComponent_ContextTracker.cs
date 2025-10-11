@@ -30,34 +30,34 @@ namespace RimDialogue.Core
 
     public async void Add(TemporalContextData contextData)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return;
       await temporalContextCatalog.Add(contextData);
     }
     public async void Add(ContextData contextData)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return;
       await contextDb.Add(contextData);
     }
 
     public async Task<TemporalContextData[]> GetTemporalContext(Pawn initiator, Pawn recipient, string query, int maxItems)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return [];
       return await temporalContextCatalog.BlendedSearch(initiator, recipient, query, maxItems);
     }
 
     public async Task<TemporalContextData[]> GetTemporalContext(Pawn initiator, string query, int maxItems)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return [];
       return await temporalContextCatalog.BlendedSearch(initiator, query, maxItems);
     }
 
     public async Task<ContextData[]> GetContext(string query, int maxItems)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return [];
       var results = await contextDb
         .Search(query, maxItems);
@@ -67,49 +67,20 @@ namespace RimDialogue.Core
     public override void StartedNewGame()
     {
       base.StartedNewGame();
-      contextDb = new("basic", null);
-      temporalContextCatalog.Clear();
-    }
-    
-    public override void FinalizeInit()
-    {
-      base.FinalizeInit();
-    }
 
-    public async void LoadTemporalAsync(IEnumerable<TemporalContextData> contextDatae)
-    {
-      try
-      {
-        await Task.WhenAll(contextDatae.Select(temporalContextCatalog.Add));
-      }
-      catch (Exception ex)
-      {
-        Mod.Error($"Error during ContextTracker.LoadAsync: {ex}");
-      }
-    }
-
-    public async void LoadAsync(IEnumerable<ContextData> contextDatae)
-    {
-      try
-      {
-        await Task.WhenAll(contextDatae.Select(contextDb.Add));
-      }
-      catch (Exception ex)
-      {
-        Mod.Error($"Error during ContextTracker.LoadAsync: {ex}");
-      }
-    }
-
-    public override void LoadedGame()
-    {
-      base.LoadedGame();
-
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return;
 
+      contextDb = new("basic", null);
+      temporalContextCatalog.Clear();
+      LoadBasicContext();
+    }
+
+    public void LoadBasicContext()
+    {
       Stopwatch watch = Stopwatch.StartNew();
       List<ContextData> contextDatae = [];
-      foreach(Pawn pawn in Find.CurrentMap?.mapPawns.FreeColonists ?? [])
+      foreach (Pawn pawn in Find.CurrentMap?.mapPawns.FreeColonists ?? [])
       {
         contextDatae.AddRange(BasicContextData.CreateRelations(pawn));
         contextDatae.AddRange(DynamicContextData.CreateSkillContexts(pawn));
@@ -160,14 +131,52 @@ namespace RimDialogue.Core
       watch.Stop();
       if (Settings.VerboseLogging.Value)
         Mod.Log($"Loaded {contextDatae.Count} basic context items in {watch.Elapsed.TotalSeconds} seconds.");
+    }
 
-      watch.Restart();
+    public override void FinalizeInit()
+    {
+      base.FinalizeInit();
+      lastCleanupTick = Find.TickManager.TicksGame + GenDate.TicksPerHour;
+      lastContextRefresh = Find.TickManager.TicksGame + GenDate.TicksPerHour * 8;
+    }
+
+    public async void LoadTemporalAsync(IEnumerable<TemporalContextData> contextDatae)
+    {
+      try
+      {
+        await Task.WhenAll(contextDatae.Select(temporalContextCatalog.Add));
+      }
+      catch (Exception ex)
+      {
+        Mod.Error($"Error during ContextTracker.LoadAsync: {ex}");
+      }
+    }
+
+    public async void LoadAsync(IEnumerable<ContextData> contextDatae)
+    {
+      try
+      {
+        await Task.WhenAll(contextDatae.Select(contextDb.Add));
+      }
+      catch (Exception ex)
+      {
+        Mod.Error($"Error during ContextTracker.LoadAsync: {ex}");
+      }
+    }
+
+    public void LoadTemporalContent()
+    {
+      var watch = new Stopwatch();
+      watch.Start();
       List<TemporalContextData> temporalContextDatae = [];
       try
       {
-        var playlogEntries = Find.PlayLog.AllEntries;
+        var playlogEntries = Find.PlayLog.AllEntries
+          .OrderByDescending(entry => entry.Tick)
+          .Take(1000)
+          .ToArray();
         if (Settings.VerboseLogging.Value)
-          Mod.Log($"{playlogEntries.Count} play log entries to be loaded into context.");
+          Mod.Log($"{playlogEntries.Length} play log entries to be loaded into context.");
         temporalContextDatae.AddRange(
           playlogEntries
             .Select(TemporalContextCatalog.Create)
@@ -180,7 +189,6 @@ namespace RimDialogue.Core
       watch.Stop();
       if (Settings.VerboseLogging.Value)
         Mod.Log($"Loaded PlayLog in {watch.Elapsed.TotalSeconds} seconds.");
-
 
       watch.Restart();
       var battles = Find.BattleLog.Battles;
@@ -206,6 +214,8 @@ namespace RimDialogue.Core
       {
         var battleEntries = battles
             .SelectMany(battle => battle.Entries)
+            .OrderByDescending(entry => entry.Tick)
+            .Take(1000)
             .ToArray();
         if (Settings.VerboseLogging.Value)
           Mod.Log($"{battleEntries.Length} battle log entries to be loaded into context.");
@@ -221,8 +231,6 @@ namespace RimDialogue.Core
       watch.Stop();
       if (Settings.VerboseLogging.Value)
         Mod.Log($"Loaded BattleLog entries in {watch.Elapsed.TotalSeconds} seconds.");
-
-      //checked to here
 
       watch.Restart();
       try
@@ -378,7 +386,18 @@ namespace RimDialogue.Core
       watch.Stop();
 
       if (Settings.VerboseLogging.Value)
-        Mod.Log($"LoadTemporalAsync loaded { temporalContextDatae.Count } records in {watch.Elapsed.TotalSeconds} seconds.");
+        Mod.Log($"LoadTemporalAsync loaded {temporalContextDatae.Count} records in {watch.Elapsed.TotalSeconds} seconds.");
+    }
+
+    public override void LoadedGame()
+    {
+      base.LoadedGame();
+
+      if (!Settings.EnableContext.Value)
+        return;
+
+      LoadBasicContext();
+      LoadTemporalContent();
     }
 
     public async void CleanUp()
@@ -390,8 +409,8 @@ namespace RimDialogue.Core
       });
     }
 
-    public int lastCleanupTick = GenDate.TicksPerHour;
-    public int lastContextRefresh = GenDate.TicksPerHour * 8;
+    public int lastCleanupTick = 0;
+    public int lastContextRefresh = 0;
     public override void GameComponentUpdate()
     {
       try
@@ -408,8 +427,9 @@ namespace RimDialogue.Core
         Log.ErrorOnce($"Error during ContextTracker.GameComponentUpdate: {ex}", 348975432);
       }
 
-      if (Find.TickManager.TicksGame > lastCleanupTick + (GenDate.TicksPerHour * 8))
+      if (Find.TickManager.TicksGame > lastContextRefresh + (GenDate.TicksPerHour * 8))
       {
+        if (Settings.VerboseLogging.Value) Mod.Log("Refreshing expiring context.");
         lastContextRefresh = Find.TickManager.TicksGame;
         LoadAsync(ExpiringContextData.CreateRooms(Find.CurrentMap));
         LoadAsync(ExpiringContextData.CreateWildlife(Find.CurrentMap));

@@ -15,6 +15,12 @@ namespace RimDialogue.Core
 
     public GameComponent_MessageTracker(Game game) : base() { }
 
+    public override void FinalizeInit()
+    {
+      base.FinalizeInit();
+      lastCleanupTick = Find.TickManager.TicksGame + GenDate.TicksPerHour;
+    }
+
     public override void ExposeData()
     {
       base.ExposeData();

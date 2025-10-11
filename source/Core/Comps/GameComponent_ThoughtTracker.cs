@@ -62,6 +62,12 @@ namespace RimDialogue.Core
       }
     }
 
+    public override void FinalizeInit()
+    {
+      base.FinalizeInit();
+      LastThoughtTick = Find.TickManager.TicksGame;
+    }
+
     public override void GameComponentUpdate()
     {
       base.GameComponentUpdate();
@@ -71,12 +77,12 @@ namespace RimDialogue.Core
           Pawns == null ||
           !Pawns.Any() ||
           Find.TickManager == null ||
-          Find.TickManager.TicksAbs - LastThoughtTick < MinDelayTicks / Pawns.Count)
+          Find.TickManager.TicksGame - LastThoughtTick < MinDelayTicks / Pawns.Count)
           return;
 
         // if (Settings.VerboseLogging.Value) Mod.Log($"Doing thought update.");
 
-        LastThoughtTick = Find.TickManager.TicksAbs;
+        LastThoughtTick = Find.TickManager.TicksGame;
 
         var pawn = Pawns.RandomElement();
         var situationalThoughtHandler = pawn?.needs?.mood?.thoughts?.situational;

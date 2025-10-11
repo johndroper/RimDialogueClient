@@ -74,7 +74,7 @@ namespace RimDialogue.Context
       string query,
       int maxResults = 10)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return [];
       query = H.RemoveWhiteSpaceAndColor(query);
       var initiatorResults = await Search(initiator, query, maxResults);
@@ -93,7 +93,7 @@ namespace RimDialogue.Context
       string query,
       int maxResults = 10)
     {
-      if (Settings.MaxContextItems.Value <= 0)
+      if (!Settings.EnableContext.Value)
         return [];
       query = H.RemoveWhiteSpaceAndColor(query);
       var initiatorResults = await Search(initiator, query, maxResults);
@@ -134,14 +134,14 @@ namespace RimDialogue.Context
       {
         await Task.Run(() =>
         {
-          globalDb.Cleanup(Settings.MaxContextItems.Value);
+          globalDb.Cleanup(Settings.MaxTemporalContextItems.Value);
           pawnDbLock.EnterReadLock();
           try
           {
             foreach (var keypair in pawnDbs)
             {
               if (keypair.Key.IsColonist)
-                keypair.Value.Cleanup(Settings.MaxContextItems.Value);
+                keypair.Value.Cleanup(Settings.MaxTemporalContextItems.Value);
             }
           }
           finally { pawnDbLock.ExitReadLock(); }

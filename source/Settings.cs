@@ -81,7 +81,10 @@ namespace RimDialogue
     public static readonly SettingString FilterWords = new(nameof(FilterWords), string.Empty);
     public static readonly SettingString DefaultSavePath = new(nameof(DefaultSavePath), Path.Combine(GenFilePaths.ScreenshotFolderPath, "RimDialogue"));
 
-    public static readonly Setting<int> MaxContextItems = new(nameof(MaxContextItems), 500);
+    public static readonly Setting<bool> EnableContext = new(nameof(EnableContext), true);
+    public static readonly Setting<int> MaxBasicContextItems = new(nameof(MaxBasicContextItems), 1500);
+    public static readonly Setting<int> MaxTemporalContextItems = new(nameof(MaxTemporalContextItems), 500);
+
     public static readonly Setting<int> MaxContextAgeDays = new(nameof(MaxContextAgeDays), 100);
 
     public static readonly Setting<float> JobContextWeight = new(nameof(JobContextWeight), 0.95f);
@@ -102,11 +105,14 @@ namespace RimDialogue
 
     public static void SetFilterWords(string words)
     {
+
       FilterWords.Value = words;
       filterWords.Clear();
       filterWords.AddRange(words.Split([' '], StringSplitOptions.RemoveEmptyEntries)
-        .Select(word => word.Trim())
+        .Select(word => word.ToLowerInvariant().Trim())
         .Where(word => !string.IsNullOrWhiteSpace(word)));
+      if (VerboseLogging.Value)
+        RimDialogue.Mod.Log($"Filter words set to '{words}' ({filterWords.Count()} words).");
     }
 
     public static bool IsFiltered(string text)
@@ -114,9 +120,11 @@ namespace RimDialogue
       if (!filterWords.Any())
         return false;
       var isFiltered = text.Split(splitChars, StringSplitOptions.RemoveEmptyEntries)
-        .Select(word => word.Trim())
+        .Select(word => word.ToLowerInvariant().Trim())
         .Where(word => !string.IsNullOrWhiteSpace(word))
         .Any(word => filterWords.Contains(word, StringComparer.OrdinalIgnoreCase));
+      if (VerboseLogging.Value)
+        RimDialogue.Mod.Log($"Text '{text}' is {(isFiltered ? "" : "not ")}filtered.");
       return isFiltered;
     }
 

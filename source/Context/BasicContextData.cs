@@ -143,9 +143,12 @@ namespace RimDialogue.Context
     {
       if (map == null || map.mapPawns?.AllPawns == null || !map.mapPawns.AllPawns.Any())
         return [];
-      foreach (var context in CurrentWildlife ?? [])
+      if (CurrentWildlife != null)
       {
-        context.Expire();
+        foreach (var context in CurrentWildlife)
+        {
+          context.Expire();
+        }
       }
       CurrentWildlife = map.mapPawns.AllPawns
         .Where(pawn => pawn.IsAnimal && !pawn.IsColonyAnimal)
@@ -187,10 +190,12 @@ namespace RimDialogue.Context
       params Pawn[] pawns)
       : base(text, type, weight, pawns)
     {
+      IsExpired = false;
     }
 
     public void Expire()
     {
+      //if (Settings.VerboseLogging.Value) Mod.Log($"Expiring '{this.Text}'.");
       IsExpired = true;
       OnExpired?.Invoke(this);
     }

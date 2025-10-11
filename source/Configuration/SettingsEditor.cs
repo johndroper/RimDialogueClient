@@ -162,14 +162,25 @@ namespace RimDialogue.Configuration
         dialogueListing.SliderLabeled("RimDialogue.MaxWords".Translate(), ref Settings.MaxWords.Value, 1, Mod.LoginData?.maxOutputWords ?? 50);
         dialogueListing.SliderLabeled("RimDialogue.MinWords".Translate(), ref Settings.MinWords.Value, 1, Mod.LoginData?.maxOutputWords ?? 50);
         dialogueListing.SliderLabeled("RimDialogue.MaxConversationsStored".Translate(), ref Settings.MaxConversationsStored.Value, 0, 1000);
-        dialogueListing.SliderLabeled("RimDialogue.MaxContextStored".Translate(), ref Settings.MaxContextItems.Value, 0, 5000);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutesAll".Translate(), ref Settings.MinDelayMinutesAll.Value, 0, 60);
         dialogueListing.SliderLabeled("RimDialogue.MinDelayMinutes".Translate(), ref Settings.MinDelayMinutes.Value, 0, 60);
         dialogueListing.SliderLabeled("RimDialogue.MinTimeBetweenConversations".Translate(), ref Settings.MinTimeBetweenConversations.Value, 0, 600);
         dialogueListing.SliderLabeled("RimDialogue.DeepTalkCompensationFactor".Translate(), ref Settings.DeepTalkCompensationFactor.Value, 1, 100);
         dialogueListing.Outdent();
         l.EndSection(dialogueListing);
+        l.Gap();
 
+        var contextListing = l.BeginSection(150f);
+        contextListing.ColumnWidth = listingRect.width - 50f;
+        contextListing.Label("RimDialogue.ContextSettings".Translate());
+        contextListing.Indent();
+        contextListing.CheckboxLabeled("RimDialogue.EnableContext".Translate(), ref Settings.EnableContext.Value);
+        if (Settings.EnableContext.Value)
+        {
+          contextListing.SliderLabeled("RimDialogue.MaxBasicContextItems".Translate(), ref Settings.MaxBasicContextItems.Value, 0, 5000);
+          contextListing.SliderLabeled("RimDialogue.MaxTemporalContextItems".Translate(), ref Settings.MaxTemporalContextItems.Value, 0, 1000);
+        }
+        l.EndSection(contextListing);
         l.Gap();
 
         var weights = l.BeginSection(45f * 23f + 50f);

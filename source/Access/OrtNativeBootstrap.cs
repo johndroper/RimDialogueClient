@@ -16,8 +16,10 @@ namespace RimDialogue.Core
 
       var asmDir = Path.Combine(
         Path.GetDirectoryName(Mod.Instance.Content.RootDir),
-        "RimDialogueClient",
+        Mod.Instance.Content.FolderName,
         "1.6");
+
+      Mod.Log($"Loading ONNX Runtime native library from '{asmDir}'.");
 
       string nativeDir, libName;
 
