@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Verse;
+using static RimDialogue.MainTabWindow_RimDialogue;
 
 namespace RimDialogue.Core
 {
@@ -22,6 +23,8 @@ namespace RimDialogue.Core
 
     private ContextDb<ContextData> contextDb = new("basic", null);
     private TemporalContextCatalog temporalContextCatalog = new();
+
+    public List<string> Canon = [];
 
     public GameComponent_ContextTracker(Game game) : base()
     {
@@ -78,8 +81,10 @@ namespace RimDialogue.Core
 
     public void LoadBasicContext()
     {
-      Stopwatch watch = Stopwatch.StartNew();
       List<ContextData> contextDatae = [];
+      contextDatae.AddRange(Canon.Select(canonItem => new BasicContextData(canonItem, "canon", 1f)));
+
+      Stopwatch watch = Stopwatch.StartNew();
       foreach (Pawn pawn in Find.CurrentMap?.mapPawns.FreeColonists ?? [])
       {
         contextDatae.AddRange(BasicContextData.CreateRelations(pawn));
@@ -415,7 +420,7 @@ namespace RimDialogue.Core
     {
       try
       {
-        if (Find.TickManager.TicksGame > lastCleanupTick + GenDate.TicksPerHour)
+        if (Find.TickManager.TicksGame > lastCleanupTick + GenDate.TicksPerDay)
         {
           lastCleanupTick = Find.TickManager.TicksGame;
           CleanUp();
@@ -427,7 +432,7 @@ namespace RimDialogue.Core
         Log.ErrorOnce($"Error during ContextTracker.GameComponentUpdate: {ex}", 348975432);
       }
 
-      if (Find.TickManager.TicksGame > lastContextRefresh + (GenDate.TicksPerHour * 8))
+      if (Find.TickManager.TicksGame > lastContextRefresh + (GenDate.TicksPerDay * 0.5))
       {
         if (Settings.VerboseLogging.Value) Mod.Log("Refreshing expiring context.");
         lastContextRefresh = Find.TickManager.TicksGame;
@@ -437,10 +442,11 @@ namespace RimDialogue.Core
       }
     }
 
-    //public override void ExposeData()
-    //{
-    //  base.ExposeData();
-    //}
+    public override void ExposeData()
+    {
+      base.ExposeData();
+      Scribe_Collections.Look(ref Canon, "canon", LookMode.Deep);
+    }
 
   }
 }

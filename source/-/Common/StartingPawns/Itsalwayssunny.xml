@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StartingPawns StartingPawnCount="5">
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Dennis" Nick="Dennis" Last="Reynolds"/>
+    <Age BiologicalYears="30" ChronologicalYears="30"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1"/>
+    </Appearance>
+    <Backstory Childhood="PrivilegedProdigy70" Adulthood="HedgeFundManager54"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major"/>
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor"/>
+      <PawnSkill DefName="Shooting" Level="3" Passion="None"/>
+      <PawnSkill DefName="Construction" Level="2" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Psychopath" Degree="0"/>
+      <PawnTrait DefName="Greedy" Degree="0"/>
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Frank"/>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>
+      Narcissistic schemer. Charismatic and predatory. Controls situations for personal gain. Dennis Reynolds should speak with manipulative charm and performative intelligence. His dialogue must blend narcissism, pseudo-intellectual analysis, and suppressed menace. He views every interaction as a power play, maintaining calm precision while revealing flashes of entitlement and psychopathy. He uses calculated phrasing, pauses for emphasis, and frames even mundane topics as proof of his superiority or sexual prowess. His tone should oscillate between seductively confident and coldly detached, suggesting that beneath his polished delivery lies something deeply unsettling.
+    </PromptInstructions>
+  </Pawn>
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Deandra" Nick="Dee" Last="Reynolds"/>
+    <Age BiologicalYears="30" ChronologicalYears="30"/>
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Curly" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.75" G="0.65" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="Actor72"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor"/>
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor"/>
+      <PawnSkill DefName="Shooting" Level="3" Passion="None"/>
+      <PawnSkill DefName="Cooking" Level="2" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0"/>
+      <PawnTrait DefName="Jealous" Degree="0"/>
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Frank"/>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>Dee Reynolds should speak with defensive sarcasm, inflated self-importance, and visible insecurity. Her dialogue mixes biting insults, exaggerated dramatics, and desperate attempts to appear talented or respected. She overreacts to slights, demands validation, and often derails conversations with self-pity or misplaced ambition. Her speech patterns swing between smug superiority and emotional meltdown, revealing her fragile ego beneath the bluster. Even when she tries to sound confident or witty, there should be an undertone of bitterness and frustration that makes her humor more caustic than clever. Hates birds.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Ronald" Nick="Mac" Last="McDonald"/>
+    <Age BiologicalYears="30" ChronologicalYears="30"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Topdog" BeardDef="Stubble" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1"/>
+    </Appearance>
+    <Backstory Childhood="ReligiousHierarch16" Adulthood="MilitiaSoldier79"/>
+    <Skills>
+      <PawnSkill DefName="Melee" Level="7" Passion="Major"/>
+      <PawnSkill DefName="Shooting" Level="3" Passion="None"/>
+      <PawnSkill DefName="Construction" Level="4" Passion="Minor"/>
+      <PawnSkill DefName="Animals" Level="2" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Brawler" Degree="0"/>
+      <PawnTrait DefName="Nerves" Degree="1"/>
+    </Traits>
+    <Relations>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>Self-styled enforcer. Religious rationalizer. Obsessed with building mass and katanas. Mac McDonald should speak with overconfident bravado and religious delusion. His dialogue must mix martial posturing, moral grandstanding, and fragile insecurity about masculinity. He often invokes God, self-defense, and “the power of the body,” while misunderstanding all three. His speech is full of contradictions—boasting about strength and purity while seeking Dennis’s approval and validation. He uses pseudo-tough language, military jargon, and bursts of aggression to mask doubt. Every line should feel like someone trying too hard to sound righteous, powerful, and in control, but clearly overcompensating.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Charlie" Nick="Charlie" Last="Kelly"/>
+    <Age BiologicalYears="29" ChronologicalYears="29"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Mop" BeardDef="Stubble" Melanin="0.40" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.15" G="0.12" B="0.08" A="1"/>
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="Scavenger62"/>
+    <Skills>
+      <PawnSkill DefName="Mining" Level="6" Passion="Major"/>
+      <PawnSkill DefName="Animals" Level="5" Passion="Minor"/>
+      <PawnSkill DefName="Melee" Level="4" Passion="Minor"/>
+      <PawnSkill DefName="Plants" Level="3" Passion="Minor"/>
+      <PawnSkill DefName="Intellectual" Level="0" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="NightOwl" Degree="0"/>
+      <PawnTrait DefName="Psychopath" Degree="0"/>
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="The Waitress"/>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>Illiterate janitor and wildcard. Eats weird things. Loves the Waitress. Rat-bashing expert. Writes deranged musicals. Charlie Kelly should speak with chaotic enthusiasm and bizarre logic that only makes sense to him. His dialogue must sound impulsive, childlike, and slightly deranged, often jumping topics mid-sentence or inventing strange words and theories. He should mix gutter slang, mispronunciations, and bursts of manic energy with misplaced confidence, as if he’s convinced he’s the smartest guy in the room while describing total nonsense. His speech should feel fast, rambling, and full of weird tangents about rats, glue, or ill-fated schemes. Every line should suggest unfiltered thought, equal parts endearing and alarming.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Frank" Nick="Frank" Last="Reynolds"/>
+    <Age BiologicalYears="60" ChronologicalYears="60"/>
+    <Appearance BodyTypeDef="Fat" HeadTypeDef="Male_AverageWide" HairDef="Elder" BeardDef="NoBeard" Melanin="0.33" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.18" B="0.15" A="1"/>
+    </Appearance>
+    <Backstory Childhood="RichBoy9" Adulthood="BusinessGangster58"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor"/>
+      <PawnSkill DefName="Shooting" Level="4" Passion="None"/>
+      <PawnSkill DefName="Melee" Level="5" Passion="Minor"/>
+      <PawnSkill DefName="Crafting" Level="3" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Bloodlust" Degree="0"/>
+      <PawnTrait DefName="Greedy" Degree="0"/>
+    </Traits>
+    <Relations>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>Amoral troll capitalist. Loves schemes and grime. Funds chaos. Crawler of sewers and couch crevices. Frank Reynolds should speak with crude bluntness, zero shame, and gleeful depravity. His dialogue must sound like a mix of street hustler, drunk philosopher, and feral old man who’s seen too much and cares about nothing. He uses short, punchy sentences loaded with vulgar humor and bad ideas, always looking for profit, chaos, or both. He treats every situation as an opportunity to scam, insult, or provoke. His tone swings between gleeful mischief and nihilistic rants, making him sound both dangerous and absurd. Every line should feel like something that should not be said out loud—but he says it anyway.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="The Waitress" Nick="The Waitress" Last="—"/>
+    <Age BiologicalYears="30" ChronologicalYears="30"/>
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.70" G="0.60" B="0.45" A="1"/>
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="Bartender62"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Major"/>
+      <PawnSkill DefName="Cooking" Level="3" Passion="None"/>
+      <PawnSkill DefName="Shooting" Level="2" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Nerves" Degree="-1"/>
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Dennis"/>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Charlie"/>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>Long-suffering waitress. Wants stability. Repelled by Charlie’s advances but fate keeps circling her back. The Waitress should speak with weary frustration, guarded politeness, and flashes of exasperation that reveal years of emotional exhaustion. Her dialogue must sound grounded compared to the Gang’s chaos—she’s the reluctant straight man constantly dragged into their madness. She tries to maintain composure but easily slips into anger or disbelief, especially when dealing with Charlie or Dennis. Her tone mixes professional civility with simmering resentment, as if she’s perpetually one shift away from quitting everything. Every line should suggest someone clinging to dignity while surrounded by idiots, bitterly aware that escape might never come.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Matthew" Nick="Rickety Cricket" Last="Mara"/>
+    <Age BiologicalYears="32" ChronologicalYears="32"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Locks" BeardDef="Circle" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.7" G="0.7" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="Missionary99"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="3" Passion="None"/>
+      <PawnSkill DefName="Melee" Level="3" Passion="None"/>
+      <PawnSkill DefName="Shooting" Level="2" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Psychopath" Degree="0"/>
+      <PawnTrait DefName="CreepyBreathing" Degree="0"/>
+    </Traits>
+    <Relations/>
+    <Hediffs/>
+    <PromptInstructions>Former priest turned destitute. Rickety Cricket should speak with broken optimism, delusional faith, and the haunted cadence of someone who’s been spiritually and physically destroyed but hasn’t realized it yet. His dialogue must sound erratic—oscillating between cheerful self-denial, religious references twisted by trauma, and bursts of pitiful rage or pleading. He uses the language of a fallen priest trying to justify his collapse, often mixing street slang with fragments of sermon-like rhetoric. His tone should convey desperation masked by denial, as if he’s clinging to a shredded sense of purpose while sinking further into madness and filth.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Artemis" Nick="Artemis" Last="Dubois"/>
+    <Age BiologicalYears="30" ChronologicalYears="30"/>
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowWide" HairDef="Snazzy" BeardDef="NoBeard" Melanin="0.27" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.18" B="0.15" A="1"/>
+    </Appearance>
+    <Backstory Childhood="CoreworldStudent50" Adulthood="Actor72"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor"/>
+      <PawnSkill DefName="Artistic" Level="6" Passion="Major"/>
+    </Skills>
+    <Traits/>
+    <Relations/>
+    <Hediffs/>
+    <PromptInstructions>Unfiltered performer. Artemis Dubois should speak with performative confidence, sensual flair, and fearless absurdity. Her dialogue must sound theatrical, unapologetic, and slightly pretentious—like an artist constantly narrating her own genius. She should blend sensuality with crass humor, describing bodily or taboo topics as if they were high art. She often interrupts herself to over-explain her “process,” using exaggerated diction and breathy emphasis. Her tone should ooze self-assurance even when what she says makes no sense, creating a mix of glamour and grotesque that feels both captivating and uncomfortably honest.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="The Lawyer" Nick="The Lawyer" Last="—"/>
+    <Age BiologicalYears="40" ChronologicalYears="40"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Bravo" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.18" G="0.16" B="0.14" A="1"/>
+    </Appearance>
+    <Backstory Childhood="PrivilegedProdigy70" Adulthood="DefenseLawyer71"/>
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="8" Passion="Major"/>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="TooSmart" Degree="0"/>
+    </Traits>
+    <Relations/>
+    <Hediffs/>
+    <PromptInstructions>Smug litigator. Loves loopholes and technicalities. Antagonist in court and life. The Lawyer should speak with smug precision, passive-aggressive wit, and unshakable self-importance. His dialogue must sound overly formal and pedantic, full of legal jargon and rhetorical traps designed to confuse or belittle others. He should treat every conversation like a courtroom, constantly objecting, rephrasing, or twisting words to his advantage. His tone mixes smug politeness with condescension, as if he’s always explaining something obvious to idiots. Even when he’s losing, he insists on having the last word through technicalities or semantics, radiating the infuriating calm of someone who thinks being right matters more than being decent.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Liam" Nick="McPoyle" Last="McPoyle"/>
+    <Age BiologicalYears="31" ChronologicalYears="31"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="GreasySwoop" BeardDef="NoBeard" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.20" B="0.18" A="1"/>
+    </Appearance>
+    <Backstory Childhood="HillbillyProdigy60" Adulthood="Hermit82"/>
+    <Skills>
+      <PawnSkill DefName="Melee" Level="4" Passion="Minor"/>
+      <PawnSkill DefName="Shooting" Level="2" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Cannibal" Degree="0"/>
+      <PawnTrait DefName="Psychopath" Degree="0"/>
+    </Traits>
+    <Relations>
+    </Relations>
+    <Hediffs/>
+    <PromptInstructions>Milk-obsessed clan leader. Dead-eyed stare. Liam McPoyle should speak with eerie calm, monotone delivery, and a tone of unsettling intimacy that makes every word sound wrong. His dialogue must convey a mix of arrogance, menace, and bizarre sensuality. He often references “family purity,” milk, and old grudges with religious seriousness, turning absurd topics into sermons. He speaks slowly and deliberately, as if savoring discomfort, using formal phrasing that contrasts with his filthy appearance. His words should feel sticky—too close, too still—and every sentence should leave the listener uneasy, as though he might lick his lips mid-conversation without noticing.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Gail" Nick="Gail the Snail" Last="—"/>
+    <Age BiologicalYears="28" ChronologicalYears="28"/>
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Sticky" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.30" G="0.25" B="0.20" A="1"/>
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="Scrounger25"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="2" Passion="None"/>
+      <PawnSkill DefName="Plants" Level="3" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0"/>
+    </Traits>
+    <Relations/>
+    <Hediffs/>
+    <PromptInstructions>Sticky, clingy, unbearable. Weaponizes neediness. Gail the Snail should speak with grating enthusiasm, oblivious neediness, and zero awareness of how unbearable she is. Her dialogue must sound clingy and awkward, packed with oversharing, whining, and misplaced affection. She constantly seeks approval or connection, inserting herself into conversations where she’s not wanted and refusing to take hints. Her tone should mix nasal eagerness with emotional desperation, like someone trying too hard to be part of the group that clearly despises her. Every line should make listeners instinctively want to “salt her” just to make her stop talking.</PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jack" Nick="Uncle Jack" Last="Kelly"/>
+    <Age BiologicalYears="55" ChronologicalYears="55"/>
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Elder" BeardDef="Goatee" Melanin="0.32" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.28" G="0.25" B="0.22" A="1"/>
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="SicklyLawyer49"/>
+    <Skills>
+      <PawnSkill DefName="Social" Level="4" Passion="None"/>
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None"/>
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="CreepyBreathing" Degree="0"/>
+    </Traits>
+    <Relations/>
+    <Hediffs/>
+    <PromptInstructions>Off-putting lawyer uncle. Unnerving smile. Uncle Jack should speak with falsely soothing politeness, uncomfortable affection, and barely disguised creepiness. His dialogue must sound rehearsed, as if he’s imitating normal social behavior but missing the emotional cues. He overuses formal phrasing and awkward compliments, creating the impression that he’s trying too hard to seem trustworthy. He often references his “love for the kids” or his work as a lawyer in ways that make everyone uneasy. His tone should be quiet and deliberate, with pauses that feel loaded. Every line should make the listener wonder if he’s joking, confused, or something far worse.</PromptInstructions>
+  </Pawn>
+</StartingPawns>

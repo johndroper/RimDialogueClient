@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>FriendsSitcom</defName>
+    <label>The One Where They Crash-Land (Friends)</label>
+    <description>The cast of the hit 1990s sitcom *Friends* has crash-landed on a RimWorld after their chartered shuttle went down. Stranded together, Ross, Rachel, Monica, Chandler, Joey, and Phoebe must survive harsh conditions armed with nothing but their friendship, sarcasm, and questionable survival skills.</description>
+    <scenario>
+      <summary>The six friends crash-land together. Expect drama, romance, and coffee.</summary>
+      <parts>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>Friends.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>Friends.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>800</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>50</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_BoltActionRifle</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Table2x2c</thingDef>
+          <stuff>WoodLog</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>DiningChair</thingDef>
+          <stuff>WoodLog</stuff>
+          <count>6</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Couch</thingDef>
+          <stuff>Cloth</stuff>
+        </li>
+
+        <!-- Scatter some supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>300</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>250</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>The six friends were returning from an extravagant Glitterworld vacation—spa domes, endless buffets, even a holographic Central Perk—when disaster struck. An asteroid storm tore through their ship, sending escape pods scattering across the Rim. Now stranded on a desolate world with no coffee, no Wi-Fi, and no Gunther to bring refills, they must build a new life from the wreckage. Ross insists this counts as a "fascinating anthropological opportunity," Monica has already started cleaning the dirt, and Joey keeps asking if anyone ordered pizza. Could this be any more dramatic?</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+      </parts>
+    </scenario>
+  </ScenarioDef>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>AlwaysSunnySitcom</defName>
+    <label>The Gang Crashes on the Rim (It’s Always Sunny)</label>
+    <description>The Gang from *It’s Always Sunny in Philadelphia* has somehow crash-landed on a RimWorld. Armed with no morals, no plan, and far too much confidence, Dennis, Dee, Mac, Charlie, and Frank must survive a harsh alien world where their scams, schemes, and sheer stupidity might be their only weapons.</description>
+    <scenario>
+      <summary>The Gang crash-lands together. Expect chaos, betrayal, and milk.</summary>
+      <parts>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>Itsalwayssunny.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>Itsalwayssunny.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Beer</thingDef>
+          <count>40</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>25</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MeleeWeapon_Knife</thingDef>
+          <stuff>Plasteel</stuff>
+        </li>
+
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>200</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>300</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>The Gang was on a luxury shuttle to a corporate retreat when Mac tried to "upgrade" the engine for more thrust, Dennis attempted to seduce the autopilot, and Charlie released a swarm of space rats. The ship crashed on a barren RimWorld. Frank’s thrilled about the tax write-off, Dee blames everyone else, and Mac insists this is all part of God’s plan. The Gang’s new bar is whatever wreckage they can find.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+      </parts>
+    </scenario>
+  </ScenarioDef>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>SeinfeldSitcom</defName>
+    <label>No Soup for the Rim (Seinfeld)</label>
+    <description>Four New Yorkers and their mailman nemesis are stranded on a RimWorld after a shuttle mishap. Jerry observes, George schemes, Elaine organizes, Kramer improvises, and Newman plots. Survival now depends on sarcasm, cereal logic, and questionable plans.</description>
+    <scenario>
+      <summary>Jerry, George, Elaine, Kramer, and Newman crash-land together. Expect petty disputes and improvised enterprises.</summary>
+      <parts>
+
+        <!-- Load Seinfeld pawns and canon -->
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>Seinfeld.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>Seinfeld.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>700</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>45</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>24</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>25</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Table2x2c</thingDef>
+          <stuff>WoodLog</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>DiningChair</thingDef>
+          <stuff>WoodLog</stuff>
+          <count>5</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Couch</thingDef>
+          <stuff>Cloth</stuff>
+        </li>
+
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>300</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>250</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>They were en route from a glitterworld resort to a comedy booking when the shuttle took a hit. Drop pods scattered. Monk’s is gone. The Soup is gone. Jerry inventories petty inconveniences, George announces the universe is against him, Elaine starts assigning jobs, Kramer declares this an opportunity, and Newman eyes the supply cache. Welcome to a world where the only guarantee is awkward compromise.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+
+      </parts>
+    </scenario>
+  </ScenarioDef>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>CommunitySitcom</defName>
+    <label>Study Group on the Rim (Community)</label>
+    <description>The Greendale study group has crash-landed on a RimWorld after a shuttle “field trip” went off-syllabus. Jeff talks the crisis down, Britta protests gravity, Abed frames the mission like a bottle episode, Troy looks for an air-conditioning annex, Annie color-codes the triage, Shirley prays and plates sandwiches, and Pierce insists his name is on the manifest. The Dean is already drafting announcements.</description>
+    <scenario>
+      <summary>Jeff, Britta, Abed, Troy, Annie, Shirley, and Pierce arrive together. Expect paintball logic, blanket-fort engineering, and administrative chaos.</summary>
+      <parts>
+
+        <!-- Load Community pawns and canon -->
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>Community.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>Community.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>750</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>48</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>28</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>28</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_BoltActionRifle</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Table2x2c</thingDef>
+          <stuff>WoodLog</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>DiningChair</thingDef>
+          <stuff>WoodLog</stuff>
+          <count>7</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Couch</thingDef>
+          <stuff>Cloth</stuff>
+        </li>
+
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>320</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>260</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>“Attention, Greendale survivors!” The shuttle’s PA crackles. “This is your Dean speaking.” Alarms, sparks, and a very dramatic banner later, seven drop pods punch into the dust. Jeff straightens his jacket and calls it a teachable moment. Britta declares the planet problematic. Abed labels this the Season Premiere. Troy asks if blanket fort protocols apply outdoors. Annie produces a clipboard from nowhere. Shirley offers sandwiches you cannot currently eat. Pierce demands a refund. Welcome to Greendale: Rim Campus.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+
+      </parts>
+    </scenario>
+  </ScenarioDef>6
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>RedDwarfSitcom</defName>
+    <label>Smoke Me a Kipper (Red Dwarf)</label>
+    <description>After a radiation leak and three million years in deep space, the rag-tag Red Dwarf crew—Lister, Rimmer, Cat, Kryten, Kochanski, Holly, and sometimes Ace—slam down on a RimWorld with nothing but sarcasm, curry cravings, and questionable protocols.</description>
+    <scenario>
+      <summary>The Red Dwarf crew arrive together. Expect curry, pedantry, and improvised repairs.</summary>
+      <parts>
+
+        <!-- Load Red Dwarf pawns and canon -->
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>RedDwarf.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>RedDwarf.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Beer</thingDef>
+          <count>36</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>48</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>28</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MeleeWeapon_Knife</thingDef>
+          <stuff>Plasteel</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Table2x2c</thingDef>
+          <stuff>WoodLog</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>DiningChair</thingDef>
+          <stuff>WoodLog</stuff>
+          <count>7</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Couch</thingDef>
+          <stuff>Cloth</stuff>
+        </li>
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>320</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>260</count>
+        </li>
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>After three million years alone with a senile computer and increasingly talkative vending machines, Red Dwarf punched through a debris field and rained drop pods onto the Rim. Lister wants curry, Rimmer wants rank, the Cat wants a mirror, Kryten wants to tidy the horizon, Holly wants a reboot, Kochanski wants a plan, and a certain heroic aviator promises, “Smoke me a kipper, I’ll be back for breakfast.”</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+      </parts>
+    </scenario>
+  </ScenarioDef>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>ArrestedDevelopmentSitcom</defName>
+    <label>There’s Always Money on the Rim (Arrested Development)</label>
+    <description>The Bluths were en route to a “rebranding retreat” when the shuttle clipped a debris field. Drop pods scattered across a harsh RimWorld. Michael tries to manage, Gob promises illusions, Lucille demands better wine, George Sr. schemes from hiding, Buster panics about sand, Lindsay searches for a cause, Tobias auditions for survival, and Maeby quietly takes over the production.</description>
+    <scenario>
+      <summary>The Bluth family crash-lands together. Expect illusions, stair cars, and banana economics.</summary>
+      <parts>
+
+        <!-- Load Arrested Development pawns and canon -->
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>ArrestedDevelopment.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>ArrestedDevelopment.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>700</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>45</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>24</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>25</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Beer</thingDef>
+          <count>24</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Table2x2c</thingDef>
+          <stuff>WoodLog</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>DiningChair</thingDef>
+          <stuff>WoodLog</stuff>
+          <count>6</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Couch</thingDef>
+          <stuff>Cloth</stuff>
+        </li>
+
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>300</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>250</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>The Bluth Company shuttle was supposed to land at a luxury resort for an image makeover. Instead, a debris strike scattered the pods onto a dusty RimWorld with no banana stand, no stair car, and no legal counsel. Michael declares a fresh start. Gob promises a prestige. Lucille demands a drink. George Sr. whispers through vents. Buster panics about the beach. Lindsay founds a charity in name only. Tobias announces he’s between roles and pants. Maeby quietly greenlights the colony. You’ve made a huge decision.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+
+      </parts>
+    </scenario>
+  </ScenarioDef>
+</Defs>

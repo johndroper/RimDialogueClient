@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <BackstoryDef>
+    <defName>Paleontologist101</defName>
+    <title>paleontologist</title>
+    <titleShort>paleontologist</titleShort>
+    <description>[PAWN_nameDef] spent [PAWN_possessive] adulthood unearthing the remains of ancient life on a glitterworld where extinct species were reconstructed for study. With the help of drones and AI, [PAWN_pronoun] mapped fossil sites and pieced together the story of evolution long past. [PAWN_pronoun] can identify a bone fragment at a glance but has never had to hunt for food that still moves.</description>
+    <slot>Adulthood</slot>
+    <requiredWorkTags>
+      <li>Intellectual</li>
+    </requiredWorkTags>
+    <skillGains>
+      <Intellectual>7</Intellectual>
+      <Animals>3</Animals>
+      <Plants>2</Plants>
+    </skillGains>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Scientist</li>
+      <li>Researcher</li>
+    </spawnCategories>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <possessions>
+      <TextBook>1</TextBook>
+    </possessions>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>Chef102</defName>
+    <title>chef</title>
+    <titleShort>chef</titleShort>
+    <description>[PAWN_nameDef] trained as a culinary artist on a glitterworld where food was more performance than sustenance. Each dish was sculpted, printed, and infused with mood-altering nanoflavors. [PAWN_pronoun] can make a meal look like a sunrise but has never had to cook over a fire.</description>
+    <slot>Adulthood</slot>
+    <requiredWorkTags>
+      <li>Cooking</li>
+      <li>Artistic</li>
+    </requiredWorkTags>
+    <skillGains>
+      <Cooking>8</Cooking>
+      <Artistic>3</Artistic>
+      <Social>1</Social>
+    </skillGains>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Farmer</li>
+    </spawnCategories>
+    <bodyTypeMale>Fat</bodyTypeMale>
+    <bodyTypeFemale>Fat</bodyTypeFemale>
+    <possessions>
+      <MealFine>2</MealFine>
+    </possessions>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>Waiter103</defName>
+    <title>waiter</title>
+    <titleShort>server</titleShort>
+    <description>[PAWN_nameDef] worked in an upscale glitterworld restaurant, serving meals to citizens who no longer needed to eat. [PAWN_pronoun] learned grace, timing, and how to hide disdain behind a perfect smile. [PAWN_pronoun] can balance ten plates but struggles to lift a hammer.</description>
+    <slot>Adulthood</slot>
+    <requiredWorkTags>
+      <li>Social</li>
+    </requiredWorkTags>
+    <skillGains>
+      <Social>6</Social>
+      <Cooking>3</Cooking>
+    </skillGains>
+    <spawnCategories>
+      <li>Offworld</li>
+    </spawnCategories>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>Masseuse104</defName>
+    <title>masseuse</title>
+    <titleShort>masseuse</titleShort>
+    <description>[PAWN_nameDef] made a living easing the tension of glitterworld citizens. [PAWN_pronoun] specialized in neural relaxation and tactile therapy, often assisted by subdermal nanogel fields. [PAWN_pronoun] understands anatomy well but has little experience dealing with wounds that bleed.</description>
+    <slot>Adulthood</slot>
+    <requiredWorkTags>
+      <li>Caring</li>
+      <li>Social</li>
+    </requiredWorkTags>
+    <skillGains>
+      <Medicine>4</Medicine>
+      <Social>5</Social>
+      <Artistic>2</Artistic>
+    </skillGains>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Researcher</li>
+    </spawnCategories>
+    <bodyTypeMale>Male</bodyTypeMale>
+    <bodyTypeFemale>Female</bodyTypeFemale>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>CListActor105</defName>
+    <title>c-list actor</title>
+    <titleShort>actor</titleShort>
+    <description>[PAWN_nameDef] starred in low-budget dramas broadcast across glitterworld colonies. Fame came in flickers, and [PAWN_pronoun] spent most of [PAWN_possessive] career waiting for callbacks that never came. [PAWN_pronoun] can fake any emotion, but sincerity eludes [PAWN_objective].</description>
+    <slot>Adulthood</slot>
+    <requiredWorkTags>
+      <li>Social</li>
+      <li>Artistic</li>
+    </requiredWorkTags>
+    <skillGains>
+      <Social>7</Social>
+      <Artistic>4</Artistic>
+    </skillGains>
+    <workDisables>
+      <li>ManualDumb</li>
+    </workDisables>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Researcher</li>
+    </spawnCategories>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>ITProcurementManager106</defName>
+    <title>IT procurement manager</title>
+    <titleShort>manager</titleShort>
+    <description>[PAWN_nameDef] managed AI contracts and software licenses for a glitterworld corporation. [PAWN_pronoun] spent most of [PAWN_possessive] days mediating between sentient vendor AIs and budget committees. [PAWN_pronoun] can negotiate a ten-year maintenance deal but can’t fix a broken console.</description>
+    <slot>Adulthood</slot>
+    <requiredWorkTags>
+      <li>Intellectual</li>
+      <li>Social</li>
+    </requiredWorkTags>
+    <skillGains>
+      <Social>6</Social>
+      <Intellectual>4</Intellectual>
+      <Crafting>-2</Crafting>
+    </skillGains>
+    <spawnCategories>
+      <li>Offworld</li>
+      <li>Scientist</li>
+    </spawnCategories>
+    <bodyTypeMale>Male</bodyTypeMale>
+    <bodyTypeFemale>Female</bodyTypeFemale>
+    <possessions>
+      <TextBook>1</TextBook>
+    </possessions>
+  </BackstoryDef>
+</Defs>
+
+
+

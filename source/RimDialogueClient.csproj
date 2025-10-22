@@ -118,6 +118,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
@@ -159,6 +160,21 @@
     <None Include="-\Common\Models\model.onnx" />
     <None Include="release.targets" />
     <Content Include="-\About\ModIcon.png" />
+    <Content Include="-\Common\Canon\ArrestedDevelopment.txt" />
+    <Content Include="-\Common\Canon\Community.txt" />
+    <Content Include="-\Common\Canon\Friends.txt" />
+    <Content Include="-\Common\Canon\Itsalwayssunny.txt" />
+    <Content Include="-\Common\Canon\RedDwarf.txt" />
+    <Content Include="-\Common\Canon\Seinfeld.txt" />
+    <Content Include="-\Common\Defs\BackstoryDefs\Backstories.xml" />
+    <Content Include="-\Common\Defs\Scenarios\Scenarios.xml" />
+    <Content Include="-\Common\Defs\Scenarios\ScenParts_Fixed.xml" />
+    <Content Include="-\Common\StartingPawns\ArrestedDevelopment.xml" />
+    <Content Include="-\Common\StartingPawns\Community.xml" />
+    <Content Include="-\Common\StartingPawns\Friends.xml" />
+    <Content Include="-\Common\StartingPawns\Itsalwayssunny.xml" />
+    <Content Include="-\Common\StartingPawns\RedDwarf.xml" />
+    <Content Include="-\Common\StartingPawns\Seinfeld.xml" />
     <Content Include="-\Common\Textures\RimDialogue\caption_box.png" />
     <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\thought_bubble.png" />
     <None Include="-\1.6\models\model.onnx" />
@@ -168,6 +184,7 @@
     <Compile Include="Access\Bubbles_Bubble_GetText.cs" />
     <Compile Include="Access\HediffSet_AddDirect_Patch.cs" />
     <Compile Include="Access\OrtNativeBootstrap.cs" />
+    <Compile Include="Access\Patch_GenerateStartingPawns.cs" />
     <Compile Include="Access\Patch_LogEntry_ExposeData_Postfix.cs" />
     <Compile Include="Access\Patch_Pawn_ApparelTracker.cs" />
     <Compile Include="Access\Patch_Pawn_EquipmentTracker.cs" />
@@ -203,6 +220,9 @@
     <Compile Include="Core\InteractionWorkers\InteractionWorker_ActiveQuestChitchat.cs" />
     <Compile Include="Core\PlayLogEntries\PlayLogEntry_DialogueInteraction.cs" />
     <Compile Include="Core\PlayLogEntries\PlayLogEntry_IncidentInteraction.cs" />
+    <Compile Include="Core\Scenarios\ScenPart_ConfigPage_LoadCanon.cs" />
+    <Compile Include="Core\Scenarios\ScenPart_ConfigPage_LoadPawns.cs" />
+    <Compile Include="Core\Scenarios\StartingPawns.cs" />
     <Compile Include="Core\SinglePawnComicPanel.cs" />
     <Compile Include="Core\TwoPawnComicPanel.cs" />
     <Compile Include="Core\ComicPanelItem.cs" />

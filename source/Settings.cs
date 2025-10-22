@@ -139,7 +139,7 @@ namespace RimDialogue
       }
     }
 
-    private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static field => field.GetValue(null) as Setting).Where(static setting => setting is not null)!;
+    private static IEnumerable<Setting> AllSettings => typeof(Settings).GetFields().Select(static settingsField => settingsField.GetValue(null) as Setting).Where(static setting => setting is not null)!;
 
     public static void Reset() => AllSettings.Do(static setting => setting.ToDefault());
 

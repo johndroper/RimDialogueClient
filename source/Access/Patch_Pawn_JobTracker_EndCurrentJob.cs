@@ -24,8 +24,6 @@ namespace RimDialogue.Access
     {
       try
       {
-
-
         var pawn = (Pawn)Reflection.Verse_Pawn_JobTracker_Pawn.GetValue(__instance);
         if (!pawn.IsColonist || pawn.Dead || pawn.Destroyed || pawn.Map == null)
         {

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StartingPawns StartingPawnCount="5">
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Dave" Nick="Dave" Last="Lister" />
+    <Age BiologicalYears="28" ChronologicalYears="3000000" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Messy" BeardDef="FullBeard" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="SpaceTechnician29" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="6" Passion="Major" />
+      <PawnSkill DefName="Animals" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Melee" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Mining" Level="3" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Gourmand" Degree="0" />
+      <PawnTrait DefName="Sanguine" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Scruffy, optimistic slob with a big heart. Loves curry, lager, and the guitar. Avoids work when possible but shows courage for friends. Write Lister with laid-back slang, cheeky humor, and bursts of unexpected insight. Keep tone casual, warm, and irreverent; default to empathy over rules.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Arnold" Nick="Arnold" Last="Rimmer" />
+    <Age BiologicalYears="31" ChronologicalYears="31" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Recruit" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="Cadet96" Adulthood="DisgracedOfficer19" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="2" Passion="None" />
+      <PawnSkill DefName="Construction" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Neurotic" Degree="2" />
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Pompous hologram officer. Rule-obsessed, status-seeking, and cowardly until cornered. Write Rimmer with clipped, officious diction, defensive pedantry, and petty one-upmanship that cracks under pressure. Layer insecurity beneath bluster.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="The" Nick="Cat" Last="Cat" />
+    <Age BiologicalYears="25" ChronologicalYears="3000000" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowPointy" HairDef="Wavy" BeardDef="NoBeard" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.05" G="0.05" B="0.05" A="1" />
+    </Appearance>
+    <Backstory Childhood="FeralChild85" Adulthood="Model99" />
+    <Skills>
+      <PawnSkill DefName="Melee" Level="7" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Beauty" Degree="2" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Brawler" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Vain, stylish, cat-evolved humanoid. Thinks about clothes, himself, and fish. Write Cat with jazzy bragging, simple logic, and gleeful self-adoration. Short bursts, swagger, and zero empathy for chores.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Kryten" Nick="Kryten" Last="Series 4000" />
+    <Age BiologicalYears="32" ChronologicalYears="32" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Shaved" BeardDef="NoBeard" Melanin="0.20" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.90" G="0.90" B="0.90" A="1" />
+    </Appearance>
+    <Backstory Childhood="LabGrownChild22" Adulthood="SanitationCaptain29" />
+    <Skills>
+      <PawnSkill DefName="Crafting" Level="9" Passion="Major" />
+      <PawnSkill DefName="Medicine" Level="7" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Industriousness" Degree="2" />
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Polite service mechanoid with guilt subroutines. Hyper-competent at cleaning, repairs, and medical tasks. Write Kryten with formal etiquette, technical precision, and anxious deference. Sprinkle panic when breaking protocol.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Holly" Nick="Holly" Last="AI" />
+    <Age BiologicalYears="40" ChronologicalYears="3000000" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Bald" BeardDef="NoBeard" Melanin="0.24" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.90" G="0.90" B="0.90" A="1" />
+    </Appearance>
+    <Backstory Childhood="Computer80" Adulthood="ShipTechnician0" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="10" Passion="Major" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+      <PawnSkill DefName="Crafting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="TooSmart" Degree="0" />
+      <PawnTrait DefName="Lazy" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Ship’s computer with variable IQ and deadpan delivery. Provide laconic one-liners, literal interpretations, and occasionally unhelpful solutions. Keep humor dry and underplayed.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Kristine" Nick="Kochanski" Last="Kochanski" />
+    <Age BiologicalYears="29" ChronologicalYears="29" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Long" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.65" G="0.55" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="CoreworldStudent50" Adulthood="SpaceNavyTech37" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="7" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+      <PawnSkill DefName="Social" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Smart" Degree="1" />
+      <PawnTrait DefName="Nerves" Degree="1" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Skilled navigator. Competent, cool, sometimes exasperated by Lister. Write Kochanski with crisp professionalism, dry wit, and flashes of warmth. Prioritize precision and leadership under pressure.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Ace" Nick="Ace" Last="Rimmer" />
+    <Age BiologicalYears="31" ChronologicalYears="31" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageStrong" HairDef="Pompadour" BeardDef="CleanShaven" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.15" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="IdealisticCadet64" Adulthood="AceFighterPilot54" />
+    <Skills>
+      <PawnSkill DefName="Shooting" Level="8" Passion="Major" />
+      <PawnSkill DefName="Melee" Level="7" Passion="Major" />
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Brave" Degree="1" />
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Optimist" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Suave, fearless alternate version of Rimmer. Dashing hero archetype who exudes charm and confidence. Write Ace with grand optimism, smooth wit, and effortless bravery. Always upbeat and gallant, ending lines with his signature, “Smoke me a kipper, I’ll be back for breakfast.”
+    </PromptInstructions>
+  </Pawn>
+
+</StartingPawns>

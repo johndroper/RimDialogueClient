@@ -1,3 +1,4 @@
+#nullable enable
 using RimDialogue.Core;
 using RimWorld;
 using System;

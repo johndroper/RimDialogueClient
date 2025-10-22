@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ScenPartDef>
+    <defName>ConfigPage_LoadPawns</defName>
+    <label>load starting pawns</label>
+    <category>Fixed</category>
+    <scenPartClass>RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns</scenPartClass>
+    <pageClass>Page_ConfigureStartingPawns</pageClass>
+    <summaryPriority>495</summaryPriority>
+    <canBeRandomlyAdded>false</canBeRandomlyAdded>
+    <canBePlayerAddedRemoved>false</canBePlayerAddedRemoved>
+  </ScenPartDef>
+  <ScenPartDef>
+    <defName>ConfigPage_LoadCanon</defName>
+    <label>load canon</label>
+    <category>Fixed</category>
+    <scenPartClass>RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon</scenPartClass>
+    <pageClass>Page_ConfigureStartingPawns</pageClass>
+    <summaryPriority>496</summaryPriority>
+    <canBeRandomlyAdded>false</canBeRandomlyAdded>
+    <canBePlayerAddedRemoved>false</canBePlayerAddedRemoved>
+  </ScenPartDef>
+</Defs>

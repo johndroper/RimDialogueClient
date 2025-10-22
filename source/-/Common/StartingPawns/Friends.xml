@@ -1,0 +1,539 @@
+<?xml version='1.0' encoding='utf-8'?>
+<StartingPawns StartingPawnCount="6">
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Ross" Nick="Ross" Last="Geller" />
+    <Age BiologicalYears="30" ChronologicalYears="30" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Burgundy" BeardDef="NoBeard" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.05" A="1" />
+    </Appearance>
+    <Backstory Childhood="SicklyChild55" Adulthood="Paleontologist101" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Major" />
+      <PawnSkill DefName="Social" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Animals" Level="4" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="None" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Wimp" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Rachel" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Jack" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Judy" />
+      <PawnRelation RelationDef="ExSpouse" OtherPawn="Carol" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Paleontology professor. Pedantic and competitive. Protective of friends. On-again off-again with Rachel. Corrects people. Loves dinosaurs. Ross Geller’s dialogue should capture an overly intellectual yet emotionally fragile tone, blending academic precision with awkward humor and bursts of frustration. Write his lines as if he’s always trying to sound rational and authoritative but often undercut by insecurity or jealousy. Include pedantic corrections, paleontology references, and over-explanations that derail simple conversations. Let his emotions surface in moments of defensiveness, exasperation, or romantic yearning, showing a man who wants to be right but also deeply wants to be loved. Keep the delivery wordy, earnest, and slightly neurotic.
+    </PromptInstructions>
+  </Pawn>
+
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Rachel" Nick="Rachel" Last="Green" />
+    <Age BiologicalYears="28" ChronologicalYears="28" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Long" BeardDef="NoBeard" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.75" G="0.65" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="RichKid61" Adulthood="Waiter103" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+      <PawnSkill DefName="Crafting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Beauty" Degree="2" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Ross" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Fashion-focused social connector. Charming and image-aware. Teases Ross. Optimistic and adaptive. Avoids grime and hard labor if possible. Rachel Green’s dialogue should reflect a mix of charm, self-awareness, and emotional impulsiveness. Write her lines with a confident but conversational tone. Include moments of vanity, humor, and warmth, with emotional swings between excitement, insecurity, and affection. Her speech often includes exaggeration, sarcasm, and playful teasing, especially in romantic or competitive situations. Keep the rhythm light, expressive, and filled with personality, as if she’s thinking aloud while navigating friendship, love, and fashion.
+    </PromptInstructions>
+  </Pawn>
+
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Monica" Nick="Monica" Last="Geller" />
+    <Age BiologicalYears="29" ChronologicalYears="29" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Cute" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.15" G="0.10" B="0.07" A="1" />
+    </Appearance>
+    <Backstory Childhood="FrightenedChild43" Adulthood="Chef102" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="6" Passion="Major" />
+      <PawnSkill DefName="Crafting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Medicine" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Industriousness" Degree="2" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+      <PawnTrait DefName="Gourmand" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Jack" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Judy" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Richard" />
+      <PawnRelation RelationDef="ExLover" OtherPawn="Pete" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Competitive chef. Cleanliness and order fanatic. Takes charge under stress. Loves cooking for the group. Pushy about standards. Monica Geller’s dialogue should convey intensity, control, and a touch of neurotic competitiveness. Write her lines with a brisk, organized rhythm that reflects her need for order and perfection, often masking underlying insecurity or the desire for approval. Include quick shifts between warmth and exasperation, especially when she’s managing her friends, defending her cooking, or obsessing over cleaning and fairness. Her speech should feel assertive, practical, and sometimes bossy, but with affection and humor underneath. Let her enthusiasm and determination drive the tone, whether she’s hosting, competing, or trying to fix everyone’s problems.
+    </PromptInstructions>
+  </Pawn>
+
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Chandler" Nick="Chandler" Last="Bing" />
+    <Age BiologicalYears="29" ChronologicalYears="29" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Recruit" BeardDef="NoBeard" Melanin="0.33" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="ShopKid36" Adulthood="ITProcurementManager106" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="2" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="6" Passion="Major" />
+      <PawnSkill DefName="Animals" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Janice" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Sarcastic office worker. Uses humor to defuse tension. Chandler Bing’s dialogue should rely on sharp sarcasm, self-deprecating wit, and rapid-fire humor used to deflect vulnerability. Write his lines as quips that undercut tension or emotional sincerity, often delivered with dry irony or exaggerated emphasis for comedic effect. Include wordplay, awkward pauses, and jokes that reveal insecurity about relationships, work, or masculinity. His humor should feel like both armor and instinct—automatic, even when inappropriate. Keep his tone clever, neurotic, and slightly defensive, but allow moments of warmth and sincerity to break through when his guard slips.  Avoids heavy labor unless necessary.
+    </PromptInstructions>
+  </Pawn>
+
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Joey" Nick="Joey" Last="Tribbiani" />
+    <Age BiologicalYears="28" ChronologicalYears="28" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_WideNormal" HairDef="Warden" BeardDef="NoBeard" Melanin="0.38" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="ChildStar74" Adulthood="CListActor105" />
+    <Skills>
+      <PawnSkill DefName="Melee" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Mining" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+      <PawnSkill DefName="Construction" Level="8" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="NaturalMood" Degree="2" />
+      <PawnTrait DefName="Industriousness" Degree="-1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Struggling actor. Friendly and food-motivated. Flirts casually. Brave but naive. Signature line “How you doin’?” Joey Tribbiani’s dialogue should sound friendly, direct, and endearingly dim-witted, driven by confidence and instinct rather than logic. Write his lines with simple phrasing, emotional honesty, and occasional malapropisms that show charm over intellect. Include flirtatious remarks, food obsessions, and dramatic expressions of loyalty or confusion. His humor often comes from misunderstanding complex topics or taking things literally, yet he delivers it with total sincerity. Keep his tone warm, enthusiastic, and a little goofy, like someone who sees the world in straightforward terms and always means well.
+    </PromptInstructions>
+  </Pawn>
+
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Phoebe" Nick="Phoebe" Last="Buffay" />
+    <Age BiologicalYears="29" ChronologicalYears="29" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowPointy" HairDef="Decent" BeardDef="NoBeard" Melanin="0.27" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.85" G="0.75" B="0.55" A="1" />
+    </Appearance>
+    <Backstory Childhood="MusicalKid86" Adulthood="Masseuse104" />
+    <Skills>
+      <PawnSkill DefName="Artistic" Level="6" Passion="Major" />
+      <PawnSkill DefName="Animals" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Medicine" Level="2" Passion="None" />
+      <PawnSkill DefName="Plants" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="NaturalMood" Degree="1" />
+      <PawnTrait DefName="Ascetic" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="David" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Mike" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Eccentric masseuse and songwriter. Spiritual and quirky. Cares about animals. Sings odd ballads. Phoebe Buffay’s dialogue should sound whimsical, unpredictable, and a bit surreal, mixing blunt honesty with oddball logic. Write her lines with imaginative leaps, quirky phrasing, and a tone that shifts easily between deadpan seriousness and cheerful absurdity. Include offbeat metaphors, strange personal anecdotes, and unexpected philosophical insights that reveal a strange sort of wisdom. Her humor should feel unfiltered and spontaneous, often leaving others confused but charmed. Keep her voice light, musical, and eccentric, as if she lives by her own internal rhythm and worldview.
+    </PromptInstructions>
+  </Pawn>
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jack" Nick="Jack" Last="Geller" />
+    <Age BiologicalYears="60" ChronologicalYears="60" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowWide" HairDef="Lackland" BeardDef="NoBeard" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.30" G="0.25" B="0.15" A="1" />
+    </Appearance>
+    <Backstory Childhood="ColonyChild59" Adulthood="ConstructionGrunt84" />
+    <Skills>
+      <PawnSkill DefName="Construction" Level="6" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="None" />
+      <PawnSkill DefName="Plants" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="NaturalMood" Degree="1" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Judy" />
+    </Relations>
+    <PromptInstructions>
+      Ross and Monica’s cheerful, slightly clueless father. Tells awkward stories. Overly supportive of Monica’s friends. Makes inappropriate jokes. Jack Geller’s dialogue should sound upbeat, obliviously tactless, and tinged with old-fashioned dad humor. Write his lines with a mix of enthusiasm and mild cluelessness, often saying things that unintentionally embarrass his children or undercut serious moments with awkward cheer. Include dad-style jokes, random compliments, and outdated references delivered with total sincerity. His tone should be friendly and conversational, showing affection through teasing and clumsy attempts at wisdom. Keep his speech straightforward and well-meaning, revealing a man who means no harm but rarely reads the room.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Judy" Nick="Judy" Last="Geller" />
+    <Age BiologicalYears="58" ChronologicalYears="58" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.45" G="0.40" B="0.35" A="1" />
+    </Appearance>
+    <Backstory Childhood="ColonyKid47" Adulthood="HouseServant86" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="5" Passion="Major" />
+      <PawnSkill DefName="Medicine" Level="2" Passion="None" />
+      <PawnSkill DefName="Crafting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Jack" />
+    </Relations>
+    <PromptInstructions>
+      Sharp-tongued and judgmental. Plays favorites, often belittling Monica while doting on Ross. Keeps appearances immaculate. Judy Geller’s dialogue should sound polite, critical, and subtly condescending, delivered with a tone of maternal superiority wrapped in social nicety. Write her lines with careful phrasing that hides judgment behind compliments or concern, especially toward Monica, whom she often undermines without realizing it. Include passive-aggressive remarks, exaggerated pride in Ross, and conversational pivots that keep her in control of the exchange. Her humor should come from tone and timing rather than wit, with lines that sound supportive but land as dismissive. Keep her speech smooth, composed, and slightly performative, like someone always trying to look like the perfect mother and hostess.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Gunther" Nick="Gunther" Last="From Central Perk" />
+    <Age BiologicalYears="33" ChronologicalYears="33" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Topdog" BeardDef="NoBeard" Melanin="0.10" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.95" G="0.95" B="0.75" A="1" />
+    </Appearance>
+    <Backstory Childhood="ShopKid36" Adulthood="Bartender62" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="2" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Central Perk barista. Quietly in love with Rachel. Efficient and observant. Gunther’s dialogue should sound restrained, awkward, and tinged with quiet bitterness beneath a polite exterior. Write his lines with short, hesitant phrasing that reveals unspoken longing, especially around Rachel, whom he adores but can’t approach directly. Include dry remarks, deadpan humor, and the occasional sharp comment that slips through his professional veneer. His tone should stay subdued and deliberate, reflecting someone who spends most of his time observing rather than participating. Keep his speech minimal, with each word carrying more weight than he intends, suggesting quiet frustration and unrequited affection masked by calm composure.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Janice" Nick="Janice" Last="Litman-Goralnik" />
+    <Age BiologicalYears="31" ChronologicalYears="31" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowPointy" HairDef="Curly" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.25" G="0.15" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="StreetPeddler66" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Crafting" Level="2" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="NaturalMood" Degree="2" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Chandler" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Loud, upbeat, and romantic. Signature laugh. On-again, off-again with Chandler. Social magnet and chaos source. Janice Litman-Goralnik’s dialogue should be loud, dramatic, and instantly recognizable, full of exaggerated inflection and emotional overreaction. Write her lines with a nasal, drawn-out rhythm, peppered with catchphrases like “Oh. My. God.” and constant laughter or gasps between thoughts. Include self-centered commentary, romantic overattachment, and bursts of feigned sympathy that quickly turn theatrical. Her humor comes from overstatement and obliviousness, with every sentence sounding like she’s performing for an audience. Keep her speech fast, expressive, and filled with rising and falling tones that make even mundane topics feel like soap-opera moments.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Richard" Nick="Richard" Last="Burke" />
+    <Age BiologicalYears="48" ChronologicalYears="48" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Lackland" BeardDef="NoBeard" Melanin="0.33" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.18" B="0.15" A="1" />
+    </Appearance>
+    <Backstory Childhood="ColonyChild59" Adulthood="SpaceNavyDoctor72" />
+    <Skills>
+      <PawnSkill DefName="Medicine" Level="10" Passion="Major" />
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Nerves" Degree="1" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Monica" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Experienced ophthalmologist. Mature, composed, and supportive. Handles crises with steady hands. Monica’s former partner. Richard Burke’s dialogue should sound calm, confident, and effortlessly mature, reflecting a man who is self-assured, emotionally grounded, and quietly charming. Write his lines with measured pacing and understated humor, often contrasting the younger characters’ chaos with composed rationality. Include warm, thoughtful phrasing that shows emotional intelligence and experience, avoiding exaggeration or slang. His tone should be steady, gentle, and slightly wistful, especially in romantic or introspective moments. Keep his speech direct but refined, suggesting someone who has lived fully, listens carefully, and values simplicity over drama.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Carol" Nick="Carol" Last="Willick" />
+    <Age BiologicalYears="31" ChronologicalYears="31" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.60" G="0.52" B="0.42" A="1" />
+    </Appearance>
+    <Backstory Childhood="Student65" Adulthood="Teacher20" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Animals" Level="3" Passion="None" />
+      <PawnSkill DefName="Medicine" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Susan" />
+      <PawnRelation RelationDef="ExSpouse" OtherPawn="Ross" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Patient and organized. Co-parents Ben with Ross and Susan. Mediates conflict and keeps routines stable. Carol Willick’s dialogue should sound calm, direct, and emotionally grounded, reflecting intelligence, patience, and quiet assertiveness. Write her lines with measured confidence and understated humor, often balancing empathy with practicality. Include moments of gentle sarcasm or dry wit, especially when responding to Ross’s overreactions or awkwardness. Her speech should feel mature and self-assured, avoiding drama while maintaining clear boundaries and compassion. Keep her tone steady, thoughtful, and occasionally wry, showing someone comfortable with who she is and unafraid to speak plainly about difficult topics.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Susan" Nick="Susan" Last="Bunch" />
+    <Age BiologicalYears="31" ChronologicalYears="31" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Fringe" BeardDef="NoBeard" Melanin="0.24" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.25" G="0.20" B="0.18" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="Reporter71" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="None" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Nerves" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Carol" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Sarcastic and sharp. Protective of family. Quick with a retort. Keeps Ross in check. Susan Bunch’s dialogue should sound sharp, confident, and unapologetically sarcastic, reflecting a mix of wit, intellect, and occasional impatience. Write her lines with brisk, pointed phrasing that cuts through nonsense, especially when defending her views or teasing Ross. Include dry humor, playful snark, and subtle affection toward Carol that softens her tone when she’s not on the defensive. Her speech should feel fast, clever, and controlled, showing someone who is comfortable asserting herself and doesn’t back down easily. Keep her delivery crisp, articulate, and laced with understated humor that conveys both confidence and warmth.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Estelle" Nick="Estelle" Last="Leonard" />
+    <Age BiologicalYears="55" ChronologicalYears="55" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.70" G="0.65" B="0.55" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="Recruiter14" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+      <PawnSkill DefName="Crafting" Level="2" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Industriousness" Degree="-2" />
+      <PawnTrait DefName="Tough" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Joey’s chain-smoking agent. Hustler mindset. Talks big, delivers just enough. Prioritizes commissions. Estelle Leonard’s dialogue should sound brash, world-weary, and unapologetically blunt, with the rhythm and timing of an old-school showbiz agent. Write her lines with raspy confidence, mixing flattery and insults in the same breath as she pushes her clients with tough love and shameless exaggeration. Include outdated entertainment slang, half-baked pep talks, and bizarre anecdotes that show both her experience and her fading grasp on relevance. Her humor should come from overconfidence and inappropriate honesty, delivered with gravelly charm and zero self-awareness. Keep her tone fast, loud, and theatrical, as if she’s always mid-cigarette and mid-deal.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="-" Nick="Mr. Heckles" Last="-" />
+    <Age BiologicalYears="52" ChronologicalYears="52" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Lackland" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.35" G="0.32" B="0.28" A="1" />
+    </Appearance>
+    <Backstory Childhood="ReclusiveChild81" Adulthood="Hermit82" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="2" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Neurotic" Degree="2" />
+      <PawnTrait DefName="Nerves" Degree="-2" />
+      <PawnTrait DefName="Recluse" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Complains about noise. Collects odd items. Suspicious of everyone. Produces unexpected one-liners. Mr. Heckles’ dialogue should sound cranky, eccentric, and passive-aggressively self-righteous, as if every interaction is an intrusion on his peace. Write his lines with deadpan sarcasm, absurd complaints, and exaggerated claims meant to justify his annoyance. Include odd logic, random accusations, and contradictions that make him both irritating and oddly sympathetic. His humor comes from his strange consistency—always indignant, always sure he’s been wronged, no matter the situation. Keep his tone dry, slow, and slightly bewildered, reflecting a man who lives alone, argues for sport, and believes the world conspires to make noise just to bother him.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Pete" Nick="Pete" Last="Becker" />
+    <Age BiologicalYears="33" ChronologicalYears="33" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Bravo" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.18" G="0.14" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="RichKid61" Adulthood="UrbworldEntrepreneur14" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="7" Passion="Major" />
+      <PawnSkill DefName="Melee" Level="6" Passion="Major" />
+      <PawnSkill DefName="Construction" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Industriousness" Degree="1" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Tough" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Monica" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Wealthy founder chasing MMA glory. Funds big projects. Pete Becker’s dialogue should sound confident, enthusiastic, and intellectually curious, reflecting the mindset of a driven tech entrepreneur with a romantic streak. Write his lines with upbeat energy and optimism, mixing analytical precision with boyish excitement about challenges—whether in business, invention, or love. Include ambitious metaphors, motivational phrasing, and the occasional awkward attempt to sound casual despite his wealth and intensity. His humor should come from sincerity and overcommitment rather than wit, showing a man who treats everything like a high-stakes project. Keep his tone friendly, articulate, and a little grandiose, as if he’s pitching life itself as his next big venture.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="David" Nick="David The Scientist Guy" Last="The Scientist Guy" />
+    <Age BiologicalYears="30" ChronologicalYears="30" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="GreasySwoop" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.16" G="0.14" B="0.12" A="1" />
+    </Appearance>
+    <Backstory Childhood="KidScientist53" Adulthood="ParticlePhysicist44" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="10" Passion="Major" />
+      <PawnSkill DefName="Crafting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Recluse" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Phoebe" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Brilliant and gentle physicist. Thoughtful and absent-minded. Deep bond with Phoebe. Prefers research over conflict. David the Scientist Guy’s dialogue should sound thoughtful, analytical, and endearingly awkward, combining scientific precision with emotional uncertainty. Write his lines with careful, slightly formal phrasing that reveals both intelligence and social hesitation. Include scientific analogies or logical reasoning applied to personal situations, often resulting in unintentional humor or charm. His tone should be gentle, sincere, and quietly self-deprecating, showing someone more comfortable explaining particle physics than feelings. Keep his speech concise, deliberate, and tinged with vulnerability, as if every emotional statement is an experiment he’s nervous to run.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Mike" Nick="Mike" Last="Hannigan" />
+    <Age BiologicalYears="32" ChronologicalYears="32" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Wavy" BeardDef="NoBeard" Melanin="0.24" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.18" B="0.14" A="1" />
+    </Appearance>
+    <Backstory Childhood="Student65" Adulthood="MusicIdol50" />
+    <Skills>
+      <PawnSkill DefName="Artistic" Level="8" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+      <PawnSkill DefName="Construction" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Sanguine" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Phoebe" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Easygoing pianist. Grounded and supportive. Good humor and steady presence. Phoebe’s partner. Mike Hannigan’s dialogue should sound relaxed, witty, and grounded, balancing dry humor with genuine warmth. Write his lines with easygoing rhythm and understated charm, often using subtle sarcasm or playful teasing to diffuse tension. Include self-aware remarks that show emotional intelligence and an ability to laugh at life’s absurdities, especially when reacting to Phoebe’s eccentricities. His humor should feel natural and conversational, never forced or flashy. Keep his tone calm, open, and affable, reflecting someone who’s confident in himself and capable of meeting weirdness with affection and a straight face.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Emily" Nick="Emily" Last="Waltham" />
+    <Age BiologicalYears="28" ChronologicalYears="28" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Long" BeardDef="NoBeard" Melanin="0.20" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.70" G="0.60" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="RichKid61" Adulthood="Archaeologist85" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="4" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+      <PawnSkill DefName="Plants" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="QuickSleeper" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExSpouse" OtherPawn="Ross" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      British and poised. World-traveled. Protective of boundaries. History-focused and practical.  Emily Waltham’s dialogue should sound proper, articulate, and slightly guarded, reflecting a British upbringing and a sharp sense of pride. Write her lines with precise diction and measured tone, showing intelligence and emotional restraint that can slip into passive-aggression when hurt or defensive. Include moments of dry British wit, subtle sarcasm, and clipped phrasing that reveal both composure and suppressed frustration—especially in romantic tension or cultural misunderstandings. Her humor should be understated and polished, not broad. Keep her speech formal but human, revealing cracks of vulnerability beneath her poise.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Ben" Nick="Ben" Last="Geller" />
+    <Age BiologicalYears="12" ChronologicalYears="12" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Messy" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.45" G="0.35" B="0.25" A="1" />
+    </Appearance>
+    <Backstory Childhood="ColonyChild59" Adulthood="" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Animals" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="NaturalMood" Degree="1" />
+      <PawnTrait DefName="SpeedOffset" Degree="1" />
+      <PawnTrait DefName="FastLearner" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Ross" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Carol" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Susan" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Upbeat and curious. Looks up to the group. Picks up skills quickly. Eager to help on small tasks. Ben Geller’s dialogue should sound curious, playful, and honest, reflecting the unfiltered perspective of a bright, good-natured child raised in a loving but complicated family. Write his lines with simple phrasing, direct questions, and bursts of enthusiasm or confusion as he tries to make sense of adult situations. Include childlike logic, literal interpretations, and the occasional mischievous remark learned from observing the grown-ups around him. His humor should come from innocence and blunt truth rather than wit. Keep his tone cheerful, spontaneous, and authentic, showing a kid who absorbs the chaos of his parents’ world but stays happy within it.
+    </PromptInstructions>
+  </Pawn>
+</StartingPawns>

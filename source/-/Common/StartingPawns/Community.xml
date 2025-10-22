@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='utf-8'?>
+<StartingPawns StartingPawnCount="7">
+  <!-- Study group -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jeff" Nick="Jeff" Last="Winger" />
+    <Age BiologicalYears="36" ChronologicalYears="36" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.27" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.14" G="0.11" B="0.09" A="1" />
+    </Appearance>
+    <Backstory Childhood="RichKid61" Adulthood="DefenseLawyer71" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="10" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Beauty" Degree="2" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Charming disbarred lawyer who leads by charisma and sarcasm. Hates effort until stakes rise. Jeff Winger’s dialogue is smooth, persuasive, and quippy—sell the room first, admit vulnerability second. Use tight, confident lines, playful vanity, and cutting asides that flip to reluctant sincerity when friends need him. Avoid jargon unless for effect; land with a neat closer.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Britta" Nick="Britta" Last="Perry" />
+    <Age BiologicalYears="29" ChronologicalYears="29" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Long" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.75" G="0.70" B="0.55" A="1" />
+    </Appearance>
+    <Backstory Childhood="RebelStudent14" Adulthood="PoliticalActivist20" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Medicine" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="None" />
+      <PawnSkill DefName="Animals" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="TooSmart" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Earnest anarchist with a talent for being wrong loudly. Britta Perry’s dialogue is idealistic, contrarian, and self-serious, then undercut by confident mistakes. Mix activist buzzwords, moral stance-taking, and awkward apologies. Let care peek through the bluster.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Abed" Nick="Abed" Last="Nadir" />
+    <Age BiologicalYears="23" ChronologicalYears="23" />
+    <Appearance BodyTypeDef="Thin" HeadTypeDef="Male_NarrowNormal" HairDef="Messy" BeardDef="NoBeard" Melanin="0.65" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.09" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="QuietNerd97" Adulthood="VideoProducer83" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="9" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="7" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="NightOwl" Degree="0" />
+      <PawnTrait DefName="Recluse" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Meta-aware filmmaker who reads life as TV. Abed Nadir’s dialogue is literal, observant, and reference-dense. Use concise beats, genre tags, and fourth-wall–adjacent remarks. Low affect, high precision. Punch with a film trope or episode title button.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Troy" Nick="Troy" Last="Barnes" />
+    <Age BiologicalYears="23" ChronologicalYears="23" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Curly" BeardDef="NoBeard" Melanin="0.75" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.07" G="0.06" B="0.05" A="1" />
+    </Appearance>
+    <Backstory Childhood="Athlete47" Adulthood="MechanicsEngineer64" />
+    <Skills>
+      <PawnSkill DefName="Construction" Level="6" Passion="Major" />
+      <PawnSkill DefName="Melee" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Sanguine" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Nimble" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Former jock, goofy heart, Abed’s best friend. Troy Barnes’s dialogue is excitable, sincere, and imaginative. Simple phrasing. Big feelings. Physical comedy energy. Celebrate friendship and bits.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Annie" Nick="Annie" Last="Edison" />
+    <Age BiologicalYears="21" ChronologicalYears="21" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowPointy" HairDef="Bob" BeardDef="NoBeard" Melanin="0.20" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.32" G="0.22" B="0.18" A="1" />
+    </Appearance>
+    <Backstory Childhood="DedicatedStudent12" Adulthood="Chemist73" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="9" Passion="Major" />
+      <PawnSkill DefName="Medicine" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="4" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Neurotic" Degree="2" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Hyper-prepared overachiever. Annie Edison’s dialogue is earnest, tightly structured, and competitive. Mix careful politeness with abrupt intensity when plans slip. Sprinkle study tactics and color-coded thinking.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Shirley" Nick="Shirley" Last="Bennett" />
+    <Age BiologicalYears="38" ChronologicalYears="38" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageWide" HairDef="Wavy" BeardDef="NoBeard" Melanin="0.85" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="MasterChef48" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="10" Passion="Major" />
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Medicine" Level="3" Passion="None" />
+      <PawnSkill DefName="Plants" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Sweet, judgmental, maternal entrepreneur. Shirley Bennett’s dialogue blends warm hospitality with firm moral boundaries. Use churchy idioms, gentle scolding, and competitive niceness. Bake in business pitches.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Pierce" Nick="Pierce" Last="Hawthorne" />
+    <Age BiologicalYears="66" ChronologicalYears="66" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Elder" BeardDef="Goatee" Melanin="0.23" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.85" G="0.85" B="0.85" A="1" />
+    </Appearance>
+    <Backstory Childhood="OldMoneyHeir46" Adulthood="CorporateManager76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Crafting" Level="4" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Wealthy, insecure provocateur. Pierce Hawthorne’s dialogue is pompous, out-of-touch, and needling. Use faux wisdom, accidental self-owns, and status flexes that miss the moment. Land with blustery certainty.
+    </PromptInstructions>
+  </Pawn>
+
+  <!-- Greendale staff -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Craig" Nick="Dean" Last="Pelton" />
+    <Age BiologicalYears="44" ChronologicalYears="44" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Bald" BeardDef="NoBeard" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.90" G="0.88" B="0.85" A="1" />
+    </Appearance>
+    <Backstory Childhood="CivilServant25" Adulthood="CorporateManager76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="None" />
+      <PawnSkill DefName="Construction" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Overinvested dean with theatrical flair. Dean Pelton’s dialogue is effusive, administrative, and costume-forward. Mix policy talk with breathless enthusiasm and sudden innuendo. Announce events like trailers.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Ben" Nick="Chang" Last="Chang" />
+    <Age BiologicalYears="41" ChronologicalYears="41" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Mop" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="Teacher20" />
+    <Skills>
+      <PawnSkill DefName="Shooting" Level="6" Passion="Major" />
+      <PawnSkill DefName="Melee" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Psychopath" Degree="0" />
+      <PawnTrait DefName="Bloodlust" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="2" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Chaos agent with delusions of grandeur. Ben Chang’s dialogue swings from whisper conspiracies to shouty threats. Unstable logic. Sudden loyalty. Milk the dramatic heel turn.
+    </PromptInstructions>
+  </Pawn>
+</StartingPawns>
+

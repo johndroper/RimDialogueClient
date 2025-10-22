@@ -156,8 +156,8 @@ namespace RimDialogue.Core.Comps
       if (GameComponent_ContextTracker.Instance != null)
       {
         var context = TemporalContextCatalog.Create(jobRecord);
-        if (Settings.VerboseLogging.Value)
-          Mod.Log($"Adding context for job record: {context?.Text}");
+        //if (Settings.VerboseLogging.Value)
+        //  Mod.Log($"Adding context for job record: {context?.Text}");
         if (context == null)
           return;
         GameComponent_ContextTracker.Instance.Add(context);

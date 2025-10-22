@@ -41,6 +41,7 @@ public class GameComponent_ConversationTracker : GameComponent
   public Vector2 MessageWindowSize = new Vector2(350f, Math.Max(UI.screenHeight - 400f, 200f));
   public Vector2 MessageWindowPosition = new Vector2(75f, 100f);
   public DialogueMessagesFixed? DialogueMessagesFixed { get; private set; }
+
   public GameComponent_ConversationTracker(Game game)
   {
     conversations = [];
@@ -171,9 +172,8 @@ public class GameComponent_ConversationTracker : GameComponent
       if (GameComponent_ContextTracker.Instance != null)
       {
         var context = TemporalContextCatalog.Create(conversation);
-        if (context == null)
-          return;
-        GameComponent_ContextTracker.Instance.Add(context);
+        if (context != null)
+          GameComponent_ContextTracker.Instance.Add(context);
       }
 #endif
       Conversation? removed = null;

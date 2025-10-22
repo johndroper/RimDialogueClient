@@ -1,0 +1,394 @@
+<?xml version='1.0' encoding='utf-8'?>
+<StartingPawns StartingPawnCount="6">
+  <!-- Michael Bluth -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Michael" Nick="Michael" Last="Bluth" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.15" G="0.12" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="CorporateManager76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Construction" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Sibling" OtherPawn="Gob" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Lindsay" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Buster" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
+      <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Responsible center of a chaotic family. Practical, dry, and exasperated. Tries to do the right thing while damage-controlling scandals. Keep lines concise, managerial, and wry; insert weary corrections and tactical compromises. </PromptInstructions>
+  </Pawn>
+  <!-- George Oscar “Gob” Bluth -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Gob" Nick="Gob" Last="Bluth" />
+    <Age BiologicalYears="32" ChronologicalYears="32" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Topdog" BeardDef="Goatee" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="SpoiledChild80" Adulthood="ConArtist80" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="Psychopath" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Sibling" OtherPawn="Michael" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Lindsay" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Buster" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
+      <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
+      <PawnRelation RelationDef="Lover" OtherPawn="Lucille Two" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Flashy magician and unchecked ego. Grandiose boasts, dramatic pauses, and petty rivalries. Use overconfident sales-pitch cadence, failed reveals, and defensive backpedals. Sprinkle “illusions,” not “tricks.” </PromptInstructions>
+  </Pawn>
+  <!-- George Michael Bluth -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="George" Nick="George Michael" Last="Bluth" />
+    <Age BiologicalYears="16" ChronologicalYears="16" />
+    <Appearance BodyTypeDef="Thin" HeadTypeDef="Male_NarrowNormal" HairDef="Messy" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.16" B="0.12" A="1" />
+    </Appearance>
+    <Backstory Childhood="Student65" Adulthood="" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Major" />
+      <PawnSkill DefName="Social" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Crafting" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Wimp" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Ann" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Earnest, anxious, and rule-following. Polite hedging, awkward crush energy, and constant deference to his dad. Keep phrasing careful and literal with nervous clarifications. </PromptInstructions>
+  </Pawn>
+  <!-- Lindsay Bluth Fünke -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Lindsay" Nick="Lindsay" Last="Fünke" />
+    <Age BiologicalYears="33" ChronologicalYears="33" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageWide" HairDef="Long" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.70" G="0.55" B="0.40" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="StudentSocialite89" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Plants" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="2" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Tobias" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Maeby" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Michael" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Gob" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Buster" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Performative activism and status chasing. Breezy, self-involved, and image focused. Use lofty causes as fashion, pivoting to comfort and attention. </PromptInstructions>
+  </Pawn>
+  <!-- Tobias Fünke -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Tobias" Nick="Tobias" Last="Fünke" />
+    <Age BiologicalYears="38" ChronologicalYears="38" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Bald" BeardDef="Moustache" Melanin="0.24" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="Student65" Adulthood="Actor72" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="6" Passion="Major" />
+      <PawnSkill DefName="Medicine" Level="2" Passion="None" />
+      <PawnSkill DefName="Construction" Level="1" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="TooSmart" Degree="0" />
+      <PawnTrait DefName="Nudist" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Lindsay" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Malaprop-prone actor and analyst/therapist. Over-enunciated diction, accidental double entendres, and misplaced theatrical gravitas. Keep oblivious confidence high. </PromptInstructions>
+  </Pawn>
+  <!-- Maeby Fünke -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Maeby" Nick="Maeby" Last="Fünke" />
+    <Age BiologicalYears="16" ChronologicalYears="16" />
+    <Appearance BodyTypeDef="Thin" HeadTypeDef="Female_NarrowNormal" HairDef="Messy" BeardDef="NoBeard" Melanin="0.23" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.35" G="0.25" B="0.18" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="ConArtist80" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="TooSmart" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Lindsay" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Tobias" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Steve Holt" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Sharp teenage con. Dry, daring, and opportunistic. Uses authority tone to bluff adults. Short, deadpan punch lines. </PromptInstructions>
+  </Pawn>
+  <!-- Buster Bluth -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Buster" Nick="Buster" Last="Bluth" />
+    <Age BiologicalYears="30" ChronologicalYears="30" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowPointy" HairDef="Mop" BeardDef="NoBeard" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.18" G="0.15" B="0.12" A="1" />
+    </Appearance>
+    <Backstory Childhood="Pampered87" Adulthood="AcademyStudent58" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Plants" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Melee" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Wimp" Degree="0" />
+      <PawnTrait DefName="Recluse" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
+      <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Michael" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Gob" />
+      <PawnRelation RelationDef="Sibling" OtherPawn="Lindsay" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Lucille Two" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Sheltered mama’s boy with bursts of panic. Polite, academic phrasing that collapses into anxious squeaks. Oddly specific fact drops. </PromptInstructions>
+  </Pawn>
+  <!-- Lucille Bluth -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Lucille" Nick="Lucille" Last="Bluth" />
+    <Age BiologicalYears="58" ChronologicalYears="58" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.40" G="0.35" B="0.30" A="1" />
+    </Appearance>
+    <Backstory Childhood="OldMoneyHeir46" Adulthood="StudentSocialite89" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="10" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="2" Passion="None" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Abrasive" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="George Sr." />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Cutting matriarch. Weaponized civility, icy put-downs, and control through favors. Keep remarks crisp, disdainful, and impeccably composed. </PromptInstructions>
+  </Pawn>
+  <!-- George Bluth Sr. -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="George" Nick="George Sr." Last="Bluth" />
+    <Age BiologicalYears="60" ChronologicalYears="60" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="GreasySwoop" BeardDef="Moustache" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.18" B="0.16" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="BusinessGangster58" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="9" Passion="Major" />
+      <PawnSkill DefName="Construction" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Psychopath" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Lucille" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Scheming developer and master deflector. Folksy manipulation, half-truths, and sudden piety when cornered. Brisk, transactional lines. </PromptInstructions>
+  </Pawn>
+  <!-- Ann Veal -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Ann" Nick="Ann" Last="Veal" />
+    <Age BiologicalYears="16" ChronologicalYears="16" />
+    <Appearance BodyTypeDef="Thin" HeadTypeDef="Female_NarrowNormal" HairDef="Fringe" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.35" G="0.28" B="0.22" A="1" />
+    </Appearance>
+    <Backstory Childhood="CountryChild95" Adulthood="" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+      <PawnSkill DefName="Plants" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Ascetic" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="George Michael" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Quiet, devout, and often overlooked. Short, literal replies with sudden firm convictions. Underplay reactions. </PromptInstructions>
+  </Pawn>
+  <!-- Steve Holt -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Steve" Nick="STEVE HOLT!" Last="Holt" />
+    <Age BiologicalYears="18" ChronologicalYears="18" />
+    <Appearance BodyTypeDef="Hulk" HeadTypeDef="Male_AverageNormal" HairDef="Warden" BeardDef="NoBeard" Melanin="0.27" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.16" G="0.12" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="Athlete47" Adulthood="" />
+    <Skills>
+      <PawnSkill DefName="Melee" Level="7" Passion="Major" />
+      <PawnSkill DefName="Construction" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Sanguine" Degree="0" />
+      <PawnTrait DefName="Tough" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Boisterous confidence. Shouted self-references and wholesome simplicity. Keep sentences short and affirmative. </PromptInstructions>
+  </Pawn>
+  <!-- Barry Zuckerkorn -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Barry" Nick="Barry" Last="Zuckerkorn" />
+    <Age BiologicalYears="55" ChronologicalYears="55" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="GreasySwoop" BeardDef="Moustache" Melanin="0.29" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.20" B="0.18" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="DefenseLawyer71" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Inept celebrity lawyer. Rambling tangents, misplaced confidence, and bizarre legalese. End thoughts midstream. </PromptInstructions>
+  </Pawn>
+  <!-- Kitty Sanchez -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Kitty" Nick="Kitty" Last="Sanchez" />
+    <Age BiologicalYears="34" ChronologicalYears="34" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowWide" HairDef="Curly" BeardDef="NoBeard" Melanin="0.38" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.16" B="0.12" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="CorporateFixer36" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Crafting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Bloodlust" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Volatile assistant. Sudden threats, wild swings from flirtation to fury. Keep cadence fast and confrontational. </PromptInstructions>
+  </Pawn>
+  <!-- Lucille Austero (“Lucille Two”) -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Lucille Two" Nick="Lucille Two" Last="Austero" />
+    <Age BiologicalYears="56" ChronologicalYears="56" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.45" G="0.40" B="0.35" A="1" />
+    </Appearance>
+    <Backstory Childhood="OldMoneyHeir46" Adulthood="ArtsPatron54" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Gob" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Buster" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Gracious and composed with occasional dizziness. Gentle, formal phrasing, then sudden vulnerability. Understated humor. </PromptInstructions>
+  </Pawn>
+  <!-- Carl Weathers -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Carl" Nick="Carl" Last="Weathers" />
+    <Age BiologicalYears="57" ChronologicalYears="57" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Short" BeardDef="Moustache" Melanin="0.45" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="Actor72" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Affable mentor grifting through frugality. Warm tips about saving and stew. Keep tone charming and thrifty. </PromptInstructions>
+  </Pawn>
+  <!-- Tony Wonder -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Tony" Nick="Tony" Last="Wonder" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Rockstar" BeardDef="StacheAndChops" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.16" G="0.13" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="PopIdol59" Adulthood="ProfessionalGamer76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="6" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Rival" OtherPawn="G.O.B." />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Pop-magician diva. Silky compliments, hidden barbs, and staged humility. Speak like every line is a reveal. </PromptInstructions>
+  </Pawn>
+</StartingPawns>

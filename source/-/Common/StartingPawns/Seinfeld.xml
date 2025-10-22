@@ -1,0 +1,330 @@
+<?xml version='1.0' encoding='utf-8'?>
+<StartingPawns StartingPawnCount="4">
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jerry" Nick="Jerry" Last="Seinfeld" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Wavy" BeardDef="NoBeard" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="UrbworldChild56" Adulthood="StoryWriter67" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="2" Passion="None" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Neurotic" Degree="1" />
+      <PawnTrait DefName="TooSmart" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Elaine" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Observational comedian. Dry delivery. Curious about minutiae. Avoids conflict and heavy labor. Jerry Seinfeld’s dialogue should be clipped, analytical, and sardonic, with everyday puzzles turned into punchlines. Use concise setups and tags, rhetorical questions, and clean callbacks. Keep tone calm, detached, and amused, as if every crisis is an oddity to catalog.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="George" Nick="George" Last="Costanza" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Fat" HeadTypeDef="Male_AverageWide" HairDef="Elder" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.09" B="0.07" A="1" />
+    </Appearance>a
+    <Backstory Childhood="SpoiledChild80" Adulthood="CorporateDrone10" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="2" Passion="None" />
+      <PawnSkill DefName="Construction" Level="2" Passion="None" />
+      <PawnSkill DefName="Cooking" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Nerves" Degree="-2" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Susan" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Frank" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Estelle" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Neurotic schemer. Defensive and prideful. Constantly rationalizes. George Costanza’s dialogue should be fast, aggrieved, and hyperbolic. Use spiraling logic, self-justification, and status anxiety. Let minor setbacks become moral battles. Keep lines punchy, bitter, and funny through anger.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Elaine" Nick="Elaine" Last="Benes" />
+    <Age BiologicalYears="33" ChronologicalYears="33" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Curly" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.18" G="0.12" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="Reporter71" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="None" />
+      <PawnSkill DefName="Cooking" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+      <PawnTrait DefName="Industriousness" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Jerry" />
+      <PawnRelation RelationDef="ExLover" OtherPawn="David" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Sharp, assertive editor. Confident and competitive. Uses dry barbs and eye-roll timing. Elaine Benes’s dialogue should mix poise with sudden exasperation. Use pointed retorts, deadpan disbelief, and decisive boundary-setting. Keep it witty, direct, and kinetic.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Cosmo" Nick="Kramer" Last="Kramer" />
+    <Age BiologicalYears="36" ChronologicalYears="36" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Mohawk" BeardDef="NoBeard" Melanin="0.24" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.16" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetUrchin45" Adulthood="Scrounger25" />
+    <Skills>
+      <PawnSkill DefName="Construction" Level="6" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Crafting" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Nimble" Degree="0" />
+      <PawnTrait DefName="Tough" Degree="0" />
+      <PawnTrait DefName="Undergrounder" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Eccentric opportunist. Physical comedy and odd schemes. Overconfident and friendly. Kramer’s dialogue should be abrupt, enthusiastic, and slightly nonsensical. Use sudden topic shifts, confident pitches, and vivid sound effects or gestures described tersely.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Newman" Nick="Newman" Last="-" />
+    <Age BiologicalYears="34" ChronologicalYears="34" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Mop" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.18" B="0.14" A="1" />
+    </Appearance>
+    <Backstory Childhood="UrbworldUrchin61" Adulthood="Mailman2" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Psychopath" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Smug nemesis. Petty and theatrical. Enjoys minor power. Newman’s dialogue should be oily, triumphant, and needling. Use formal phrasing for petty victories and sharp digs aimed at Jerry. Keep it gleefully antagonistic.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Susan" Nick="Susan" Last="Ross" />
+    <Age BiologicalYears="32" ChronologicalYears="32" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Bob" BeardDef="NoBeard" Melanin="0.23" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.50" G="0.44" B="0.38" A="1" />
+    </Appearance>
+    <Backstory Childhood="WealthyStudent59" Adulthood="CorporateManager76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="George" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Polished and professional. Patient with George until pushed. Susan Ross’s dialogue should be composed, articulate, and faintly skeptical. Use dry corrections, clear boundaries, and cool assessments that reveal intelligence and restraint.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Frank" Nick="Frank" Last="Costanza" />
+    <Age BiologicalYears="58" ChronologicalYears="58" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Recruit" BeardDef="NoBeard" Melanin="0.32" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.30" G="0.25" B="0.20" A="1" />
+    </Appearance>
+    <Backstory Childhood="UrbworldUrchin90" Adulthood="FactoryWorker58" />
+    <Skills>
+      <PawnSkill DefName="Construction" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Melee" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Tough" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Estelle" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Loud, domineering father. Creates odd traditions. Frank Costanza’s dialogue should be booming, declarative, and absolute. Use slogans, orders, and sudden outbursts. Keep it blunt and combative.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Estelle" Nick="Estelle" Last="Costanza" />
+    <Age BiologicalYears="56" ChronologicalYears="56" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageWide" HairDef="Elder" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.60" G="0.56" B="0.50" A="1" />
+    </Appearance>
+    <Backstory Childhood="ColonyKid47" Adulthood="HouseServant86" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+      <PawnSkill DefName="Medicine" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Frank" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Guilt and dramatics. Overprotective and exasperated. Estelle Costanza’s dialogue should be sharp, nagging, and high-strung. Use worried questions, accusations, and theatrical sighs.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="David" Nick="Puddy" Last="Puddy" />
+    <Age BiologicalYears="34" ChronologicalYears="34" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.27" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.20" B="0.16" A="1" />
+    </Appearance>
+    <Backstory Childhood="MidworldLoner80" Adulthood="MechanicsEngineer64" />
+    <Skills>
+      <PawnSkill DefName="Melee" Level="8" Passion="Major" />
+      <PawnSkill DefName="Construction" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Tough" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Elaine" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>
+      Stoic mechanic. Minimal words. Deadpan humor. David Puddy’s dialogue should be slow, literal, and confident. Use short sentences and flat statements that land as jokes by bluntness.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="J" Nick="J. Peterman" Last="Peterman" />
+    <Age BiologicalYears="48" ChronologicalYears="48" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Locks" BeardDef="NoBeard" Melanin="0.29" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.24" G="0.22" B="0.18" A="1" />
+    </Appearance>
+    <Backstory Childhood="OldMoneyHeir46" Adulthood="UrbworldEntrepreneur14" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="9" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="5" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Gourmand" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Adventurous catalog magnate. Purple prose narrator. J. Peterman’s dialogue should be florid and epic, with sweeping travelogue metaphors applied to mundane tasks. Keep sentences grand and oddly specific.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jackie" Nick="Jackie" Last="Chiles" />
+    <Age BiologicalYears="40" ChronologicalYears="40" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Snazzy" BeardDef="Goatee" Melanin="0.20" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="Student65" Adulthood="DefenseLawyer71" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="10" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="TooSmart" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Showy attorney. Speaks in rhythmic legalisms. Jackie Chiles’s dialogue should be fast, ornate, and persuasive, stacking near-synonyms and alliteration. Keep the cadence triumphant and performative.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Leo" Nick="Uncle Leo" Last="-" />
+    <Age BiologicalYears="62" ChronologicalYears="62" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Elder" BeardDef="NoBeard" Melanin="0.33" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.60" G="0.56" B="0.50" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="ShopKid36" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Overbearing and cheerful. Always seeking recognition. Uncle Leo’s dialogue should be nosy, effusive, and guilt-tinged. Use friendly interrogations and name-drops.
+    </PromptInstructions>
+  </Pawn>
+
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Babu" Nick="Babu" Last="Bhatt" />
+    <Age BiologicalYears="34" ChronologicalYears="34" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Bravo" BeardDef="Moustache" Melanin="0.45" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.16" B="0.12" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="Chef52" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="8" Passion="Major" />
+      <PawnSkill DefName="Social" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Nerves" Degree="-1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>
+      Earnest and proud restaurateur. Babu Bhatt’s dialogue should be formal, courteous, and emphatic. Use polite address and clear judgments of “very good” or “very bad.”
+    </PromptInstructions>
+  </Pawn>
+
+</StartingPawns>
