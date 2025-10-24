@@ -31,8 +31,6 @@ namespace RimDialogue.Core.Scenarios
     [XmlArray] public List<PawnTrait> Traits { get; set; } = new();
     [XmlArray] public List<PawnRelation> Relations { get; set; } = new();
     [XmlArray] public List<PawnHediff> Hediffs { get; set; } = new();
-
-    // Attribute by request; long text allowed but keep reasonable length
     [XmlElement] public string PromptInstructions { get; set; } = string.Empty;
     [XmlAttribute] public string Gender { get; set; } = string.Empty;
     [XmlAttribute] public string Xenotype { get; set; } = string.Empty;

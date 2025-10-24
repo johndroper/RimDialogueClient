@@ -6,7 +6,7 @@
     <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
       <HairColor R="0.10" G="0.08" B="0.06" A="1"/>
     </Appearance>
-    <Backstory Childhood="PrivilegedProdigy70" Adulthood="HedgeFundManager54"/>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="HedgeFundManager54"/>
     <Skills>
       <PawnSkill DefName="Social" Level="7" Passion="Major"/>
       <PawnSkill DefName="Intellectual" Level="5" Passion="Minor"/>
@@ -20,7 +20,11 @@
     <Relations>
       <PawnRelation RelationDef="Parent" OtherPawn="Frank"/>
     </Relations>
-    <Hediffs/>
+    <Hediffs>
+      <PawnHediff DefName="PsychiteTolerance" />
+      <PawnHediff DefName="PsychiteAddiction" />
+      <PawnHediff DefName="YayoHigh" />
+    </Hediffs>
     <PromptInstructions>
       Narcissistic schemer. Charismatic and predatory. Controls situations for personal gain. Dennis Reynolds should speak with manipulative charm and performative intelligence. His dialogue must blend narcissism, pseudo-intellectual analysis, and suppressed menace. He views every interaction as a power play, maintaining calm precision while revealing flashes of entitlement and psychopathy. He uses calculated phrasing, pauses for emphasis, and frames even mundane topics as proof of his superiority or sexual prowess. His tone should oscillate between seductively confident and coldly detached, suggesting that beneath his polished delivery lies something deeply unsettling.
     </PromptInstructions>
@@ -45,7 +49,11 @@
     <Relations>
       <PawnRelation RelationDef="Parent" OtherPawn="Frank"/>
     </Relations>
-    <Hediffs/>
+    <Hediffs>
+      <PawnHediff DefName="AlcoholAddiction" />
+      <PawnHediff DefName="AlcoholTolerance" />
+      <PawnHediff DefName="AlcoholHigh" />
+    </Hediffs>
     <PromptInstructions>Dee Reynolds should speak with defensive sarcasm, inflated self-importance, and visible insecurity. Her dialogue mixes biting insults, exaggerated dramatics, and desperate attempts to appear talented or respected. She overreacts to slights, demands validation, and often derails conversations with self-pity or misplaced ambition. Her speech patterns swing between smug superiority and emotional meltdown, revealing her fragile ego beneath the bluster. Even when she tries to sound confident or witty, there should be an undertone of bitterness and frustration that makes her humor more caustic than clever. Hates birds.</PromptInstructions>
   </Pawn>
   <Pawn Gender="male" Xenotype="Baseliner">
@@ -67,7 +75,11 @@
     </Traits>
     <Relations>
     </Relations>
-    <Hediffs/>
+    <Hediffs>
+      <PawnHediff DefName="AlcoholAddiction" />
+      <PawnHediff DefName="AlcoholTolerance" />
+      <PawnHediff DefName="AlcoholHigh" />
+    </Hediffs>
     <PromptInstructions>Self-styled enforcer. Religious rationalizer. Obsessed with building mass and katanas. Mac McDonald should speak with overconfident bravado and religious delusion. His dialogue must mix martial posturing, moral grandstanding, and fragile insecurity about masculinity. He often invokes God, self-defense, and “the power of the body,” while misunderstanding all three. His speech is full of contradictions—boasting about strength and purity while seeking Dennis’s approval and validation. He uses pseudo-tough language, military jargon, and bursts of aggression to mask doubt. Every line should feel like someone trying too hard to sound righteous, powerful, and in control, but clearly overcompensating.</PromptInstructions>
   </Pawn>
   <Pawn Gender="male" Xenotype="Baseliner">
@@ -91,7 +103,11 @@
     <Relations>
       <PawnRelation RelationDef="ExLover" OtherPawn="The Waitress"/>
     </Relations>
-    <Hediffs/>
+    <Hediffs>
+      <PawnHediff DefName="AlcoholAddiction" />
+      <PawnHediff DefName="AlcoholTolerance" />
+      <PawnHediff DefName="AlcoholHigh" />
+    </Hediffs>
     <PromptInstructions>Illiterate janitor and wildcard. Eats weird things. Loves the Waitress. Rat-bashing expert. Writes deranged musicals. Charlie Kelly should speak with chaotic enthusiasm and bizarre logic that only makes sense to him. His dialogue must sound impulsive, childlike, and slightly deranged, often jumping topics mid-sentence or inventing strange words and theories. He should mix gutter slang, mispronunciations, and bursts of manic energy with misplaced confidence, as if he’s convinced he’s the smartest guy in the room while describing total nonsense. His speech should feel fast, rambling, and full of weird tangents about rats, glue, or ill-fated schemes. Every line should suggest unfiltered thought, equal parts endearing and alarming.</PromptInstructions>
   </Pawn>
   <Pawn Gender="male" Xenotype="Baseliner">
@@ -113,7 +129,11 @@
     </Traits>
     <Relations>
     </Relations>
-    <Hediffs/>
+    <Hediffs>
+      <PawnHediff DefName="AlcoholAddiction" />
+      <PawnHediff DefName="AlcoholTolerance" />
+      <PawnHediff DefName="AlcoholHigh" />
+    </Hediffs>
     <PromptInstructions>Amoral troll capitalist. Loves schemes and grime. Funds chaos. Crawler of sewers and couch crevices. Frank Reynolds should speak with crude bluntness, zero shame, and gleeful depravity. His dialogue must sound like a mix of street hustler, drunk philosopher, and feral old man who’s seen too much and cares about nothing. He uses short, punchy sentences loaded with vulgar humor and bad ideas, always looking for profit, chaos, or both. He treats every situation as an opportunity to scam, insult, or provoke. His tone swings between gleeful mischief and nihilistic rants, making him sound both dangerous and absurd. Every line should feel like something that should not be said out loud—but he says it anyway.</PromptInstructions>
   </Pawn>
   <Pawn Gender="female" Xenotype="Baseliner">
@@ -155,7 +175,11 @@
       <PawnTrait DefName="CreepyBreathing" Degree="0"/>
     </Traits>
     <Relations/>
-    <Hediffs/>
+    <Hediffs>
+      <PawnHediff DefName="PsychiteTolerance" />
+      <PawnHediff DefName="PsychiteAddiction" />
+      <PawnHediff DefName="FlakeHigh" />
+    </Hediffs>
     <PromptInstructions>Former priest turned destitute. Rickety Cricket should speak with broken optimism, delusional faith, and the haunted cadence of someone who’s been spiritually and physically destroyed but hasn’t realized it yet. His dialogue must sound erratic—oscillating between cheerful self-denial, religious references twisted by trauma, and bursts of pitiful rage or pleading. He uses the language of a fallen priest trying to justify his collapse, often mixing street slang with fragments of sermon-like rhetoric. His tone should convey desperation masked by denial, as if he’s clinging to a shredded sense of purpose while sinking further into madness and filth.</PromptInstructions>
   </Pawn>
   <Pawn Gender="female" Xenotype="Baseliner">

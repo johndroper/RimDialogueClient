@@ -164,8 +164,10 @@
     <Content Include="-\Common\Canon\Community.txt" />
     <Content Include="-\Common\Canon\Friends.txt" />
     <Content Include="-\Common\Canon\Itsalwayssunny.txt" />
+    <Content Include="-\Common\Canon\Lost.txt" />
     <Content Include="-\Common\Canon\RedDwarf.txt" />
     <Content Include="-\Common\Canon\Seinfeld.txt" />
+    <Content Include="-\Common\Canon\TheOffice.txt" />
     <Content Include="-\Common\Defs\BackstoryDefs\Backstories.xml" />
     <Content Include="-\Common\Defs\Scenarios\Scenarios.xml" />
     <Content Include="-\Common\Defs\Scenarios\ScenParts_Fixed.xml" />
@@ -173,8 +175,10 @@
     <Content Include="-\Common\StartingPawns\Community.xml" />
     <Content Include="-\Common\StartingPawns\Friends.xml" />
     <Content Include="-\Common\StartingPawns\Itsalwayssunny.xml" />
+    <Content Include="-\Common\StartingPawns\Lost.xml" />
     <Content Include="-\Common\StartingPawns\RedDwarf.xml" />
     <Content Include="-\Common\StartingPawns\Seinfeld.xml" />
+    <Content Include="-\Common\StartingPawns\TheOffice.xml" />
     <Content Include="-\Common\Textures\RimDialogue\caption_box.png" />
     <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\thought_bubble.png" />
     <None Include="-\1.6\models\model.onnx" />

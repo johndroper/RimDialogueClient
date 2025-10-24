@@ -283,14 +283,26 @@ namespace RimDialogue.Core.Scenarios
         {
           if (string.IsNullOrWhiteSpace(h.DefName)) continue;
           var def = DefDatabase<HediffDef>.GetNamedSilentFail(h.DefName);
-          if (def == null) continue;
-
+          if (def == null)
+          {
+            Mod.Warning($"Can not find hediff {h.DefName}.");
+            continue;
+          }
           if (!string.IsNullOrWhiteSpace(h.BodyPartDef))
           {
             var part = pawn.def.race.body.AllParts.FirstOrDefault(p => p.def.defName == h.BodyPartDef);
             if (part == null)
+            {
+              Mod.Warning($"Can not find bodypart {h.BodyPartDef}.");
               continue;
+            }
             pawn.health.AddHediff(def, part);
+            Mod.Log("Added hediff " + def.defName + " to " + pawn.Name + " on part " + part.def.defName);
+          }
+          else
+          {
+            Mod.Log("Added hediff " + def.defName + " to " + pawn.Name);
+            pawn.health.AddHediff(def);
           }
         }
       }

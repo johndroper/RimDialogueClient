@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<StartingPawns StartingPawnCount="6">
+<StartingPawns StartingPawnCount="9">
   <!-- Michael Bluth -->
   <Pawn Gender="male" Xenotype="Baseliner">
     <Name First="Michael" Nick="Michael" Last="Bluth" />
@@ -7,7 +7,7 @@
     <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
       <HairColor R="0.15" G="0.12" B="0.10" A="1" />
     </Appearance>
-    <Backstory Childhood="PrivilegedChild86" Adulthood="CorporateManager76" />
+    <Backstory Childhood="AngryStudent88" Adulthood="CorporateManager76" />
     <Skills>
       <PawnSkill DefName="Social" Level="7" Passion="Major" />
       <PawnSkill DefName="Construction" Level="4" Passion="Minor" />
@@ -20,9 +20,6 @@
       <PawnTrait DefName="Neurotic" Degree="1" />
     </Traits>
     <Relations>
-      <PawnRelation RelationDef="Sibling" OtherPawn="Gob" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Lindsay" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Buster" />
       <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
       <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
     </Relations>
@@ -49,9 +46,6 @@
       <PawnTrait DefName="Psychopath" Degree="0" />
     </Traits>
     <Relations>
-      <PawnRelation RelationDef="Sibling" OtherPawn="Michael" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Lindsay" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Buster" />
       <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
       <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
       <PawnRelation RelationDef="Lover" OtherPawn="Lucille Two" />
@@ -61,12 +55,12 @@
   </Pawn>
   <!-- George Michael Bluth -->
   <Pawn Gender="male" Xenotype="Baseliner">
-    <Name First="George" Nick="George Michael" Last="Bluth" />
+    <Name First="George Michael" Nick="George Michael" Last="Bluth" />
     <Age BiologicalYears="16" ChronologicalYears="16" />
     <Appearance BodyTypeDef="Thin" HeadTypeDef="Male_NarrowNormal" HairDef="Messy" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
       <HairColor R="0.20" G="0.16" B="0.12" A="1" />
     </Appearance>
-    <Backstory Childhood="Student65" Adulthood="" />
+    <Backstory Childhood="AwkwardNerd48" Adulthood="" />
     <Skills>
       <PawnSkill DefName="Intellectual" Level="5" Passion="Major" />
       <PawnSkill DefName="Social" Level="3" Passion="Minor" />
@@ -79,6 +73,7 @@
     </Traits>
     <Relations>
       <PawnRelation RelationDef="Lover" OtherPawn="Ann" />
+      <PawnRelation RelationDef="Parent" OtherPawn="Michael" />
     </Relations>
     <Hediffs />
     <PromptInstructions> Earnest, anxious, and rule-following. Polite hedging, awkward crush energy, and constant deference to his dad. Keep phrasing careful and literal with nervous clarifications. </PromptInstructions>
@@ -102,11 +97,9 @@
       <PawnTrait DefName="Jealous" Degree="0" />
     </Traits>
     <Relations>
+      <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
+      <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
       <PawnRelation RelationDef="Spouse" OtherPawn="Tobias" />
-      <PawnRelation RelationDef="Parent" OtherPawn="Maeby" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Michael" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Gob" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Buster" />
     </Relations>
     <Hediffs />
     <PromptInstructions> Performative activism and status chasing. Breezy, self-involved, and image focused. Use lofty causes as fashion, pivoting to comfort and attention. </PromptInstructions>
@@ -156,7 +149,7 @@
     <Relations>
       <PawnRelation RelationDef="Parent" OtherPawn="Lindsay" />
       <PawnRelation RelationDef="Parent" OtherPawn="Tobias" />
-      <PawnRelation RelationDef="Lover" OtherPawn="Steve Holt" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Steve" />
     </Relations>
     <Hediffs />
     <PromptInstructions> Sharp teenage con. Dry, daring, and opportunistic. Uses authority tone to bluff adults. Short, deadpan punch lines. </PromptInstructions>
@@ -182,9 +175,6 @@
     <Relations>
       <PawnRelation RelationDef="Parent" OtherPawn="Lucille" />
       <PawnRelation RelationDef="Parent" OtherPawn="George Sr." />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Michael" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Gob" />
-      <PawnRelation RelationDef="Sibling" OtherPawn="Lindsay" />
       <PawnRelation RelationDef="Lover" OtherPawn="Lucille Two" />
     </Relations>
     <Hediffs />
@@ -211,12 +201,15 @@
     <Relations>
       <PawnRelation RelationDef="Spouse" OtherPawn="George Sr." />
     </Relations>
-    <Hediffs />
+    <Hediffs>
+      <PawnHediff DefName="AlcoholAddiction" />
+      <PawnHediff DefName="AlcoholHigh" />
+    </Hediffs>
     <PromptInstructions> Cutting matriarch. Weaponized civility, icy put-downs, and control through favors. Keep remarks crisp, disdainful, and impeccably composed. </PromptInstructions>
   </Pawn>
   <!-- George Bluth Sr. -->
   <Pawn Gender="male" Xenotype="Baseliner">
-    <Name First="George" Nick="George Sr." Last="Bluth" />
+    <Name First="George Sr." Nick="George Sr." Last="Bluth" />
     <Age BiologicalYears="60" ChronologicalYears="60" />
     <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="GreasySwoop" BeardDef="Moustache" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
       <HairColor R="0.20" G="0.18" B="0.16" A="1" />
@@ -386,7 +379,6 @@
       <PawnTrait DefName="Jealous" Degree="0" />
     </Traits>
     <Relations>
-      <PawnRelation RelationDef="Rival" OtherPawn="G.O.B." />
     </Relations>
     <Hediffs />
     <PromptInstructions> Pop-magician diva. Silky compliments, hidden barbs, and staged humility. Speak like every line is a reveal. </PromptInstructions>

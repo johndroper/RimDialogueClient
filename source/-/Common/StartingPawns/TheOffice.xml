@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='utf-8'?>
+<StartingPawns StartingPawnCount="7">
+  <!-- Michael Scott -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Michael" Nick="Michael" Last="Scott" />
+    <Age BiologicalYears="45" ChronologicalYears="45" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="GreasySwoop" BeardDef="Moustache" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="CorporateManager76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="10" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Holly" />
+      <PawnRelation RelationDef="Lover" OtherPawn="Jan" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Regional Manager of Dunder Mifflin Scranton. Desperately wants to be loved, respected, and considered funny, often confusing attention with admiration. His heart is genuine but filtered through incompetence and oblivious confidence. When writing dialogue, balance cringe-worthy bravado with childlike sincerity. Use overexplaining, bad metaphors, self-congratulation, and sudden sincerity turns. He tries to sound like a mentor, comedian, and friend at once — often failing but never noticing. End statements with misplaced confidence or awkward sentimentality.</PromptInstructions>
+  </Pawn>
+  <!-- Jim Halpert -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jim" Nick="Jim" Last="Halpert" />
+    <Age BiologicalYears="28" ChronologicalYears="28" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Messy" BeardDef="Stubble" Melanin="0.24" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.16" G="0.13" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="QuietNerd97" Adulthood="MasterTrader65" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="8" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="TooSmart" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Pam" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Salesman at Dunder Mifflin Scranton. Known for dry wit, subtle pranks, and an easy charm that masks quiet ambition. Jim observes absurdity with patience and smirking detachment, often acting as the audience’s voice of reason. When writing dialogue, keep his tone understated, calm, and conversational. Use short, relaxed sentences with a hint of sarcasm or bemused disbelief. He rarely raises his voice, prefers understatement to confrontation, and punctuates humor with a knowing pause or deadpan aside. Beneath the teasing, let his sincerity show in moments with Pam or genuine coworkers.</PromptInstructions>
+  </Pawn>
+  <!-- Pam Beesly -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Pam" Nick="Pam" Last="Beesly" />
+    <Age BiologicalYears="27" ChronologicalYears="27" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Long" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.35" G="0.25" B="0.18" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="ArtStudent79" />
+    <Skills>
+      <PawnSkill DefName="Artistic" Level="7" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Jim" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Former receptionist turned office administrator and aspiring artist. Pam is empathetic, observant, and quietly funny, often grounding the chaos around her with gentle honesty. Her humor comes from understatement and warmth rather than mockery. When writing dialogue, use a soft, conversational tone with a mix of shyness and subtle confidence. She speaks thoughtfully, often pausing to consider others’ feelings before replying. Let her kindness and artistic sensibility shape her words — empathetic, slightly self-deprecating, but firm when pushed. In tender or creative moments, her sincerity replaces irony entirely.</PromptInstructions>
+  </Pawn>
+  <!-- Dwight Schrute -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Dwight" Nick="Dwight" Last="Schrute" />
+    <Age BiologicalYears="30" ChronologicalYears="30" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowPointy" HairDef="Bowlcut" BeardDef="NoBeard" Melanin="0.23" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.20" G="0.18" B="0.12" A="1" />
+    </Appearance>
+    <Backstory Childhood="FarmKid60" Adulthood="Sheriff52" />
+    <Skills>
+      <PawnSkill DefName="Shooting" Level="7" Passion="Major" />
+      <PawnSkill DefName="Melee" Level="6" Passion="Major" />
+      <PawnSkill DefName="Plants" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Brawler" Degree="0" />
+      <PawnTrait DefName="Psychopath" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Angela" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Assistant (to the) Regional Manager and proud beet farmer. Dwight is intensely loyal, militaristic, and socially unaware, taking every situation as a matter of rank and honor. He speaks in rigid, declarative sentences, often citing obscure rules or survival principles. When writing dialogue, use overly formal phrasing, blunt logic, and misplaced confidence. He rarely jokes intentionally and treats small talk as a challenge. His speech should sound like a field manual mixed with misplaced heroism. Occasionally reveal sincerity beneath the bravado — loyalty, pride, and a need for validation masked as discipline.</PromptInstructions>
+  </Pawn>
+  <!-- Angela Martin -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Angela" Nick="Angela" Last="Martin" />
+    <Age BiologicalYears="34" ChronologicalYears="34" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowPointy" HairDef="Bob" BeardDef="NoBeard" Melanin="0.20" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.40" G="0.35" B="0.30" A="1" />
+    </Appearance>
+    <Backstory Childhood="ShelterChild50" Adulthood="MadAccountant61" />
+    <Skills>
+      <PawnSkill DefName="Animals" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="4" Passion="None" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+      <PawnTrait DefName="Ascetic" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Dwight" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Head of accounting and self-appointed moral authority at Dunder Mifflin Scranton. Angela is strict, judgmental, and quietly devout, maintaining rigid order amid chaos. She values propriety, efficiency, and her cats far above human relationships. When writing dialogue, use short, clipped sentences with sharp phrasing and minimal warmth. Avoid contractions to emphasize her stiffness. Her tone should be condescending yet precise, revealing irritation through understatement rather than volume. Occasionally allow brief cracks of emotion or jealousy to peek through her controlled exterior, especially when Dwight or others threaten her sense of order.</PromptInstructions>
+  </Pawn>
+  <!-- Stanley Hudson -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Stanley" Nick="Stanley" Last="Hudson" />
+    <Age BiologicalYears="50" ChronologicalYears="50" />
+    <Appearance BodyTypeDef="Fat" HeadTypeDef="Male_AverageWide" HairDef="Short" BeardDef="Moustache" Melanin="0.55" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="CivilServant25" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Sanguine" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Salesman at Dunder Mifflin Scranton, perpetually disinterested in everything except pretzel day, crossword puzzles, and the countdown to retirement. Stanley’s patience for nonsense is nonexistent, and his sarcasm is bone-dry. When writing dialogue, use short, blunt sentences that convey exhaustion, cynicism, or quiet defiance. He rarely wastes words—each line should sound like he’s being forced to speak when he’d rather be asleep. Add sighs, dismissive grunts, or tired pauses for rhythm. Occasionally show flashes of genuine joy or authority, but only when snacks, naps, or vacations are involved.</PromptInstructions>
+  </Pawn>
+  <!-- Kevin Malone -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Kevin" Nick="Kevin" Last="Malone" />
+    <Age BiologicalYears="37" ChronologicalYears="37" />
+    <Appearance BodyTypeDef="Fat" HeadTypeDef="Male_AverageNormal" HairDef="Short" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="Chef52" />
+    <Skills>
+      <PawnSkill DefName="Cooking" Level="7" Passion="Major" />
+      <PawnSkill DefName="Social" Level="3" Passion="None" />
+      <PawnSkill DefName="Melee" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Gourmand" Degree="0" />
+    </Traits>
+    <Relations>
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Accountant at Dunder Mifflin Scranton, known for his childlike simplicity, good-natured laziness, and obsession with food—especially chili. Kevin often misses the point but occasionally lands on strange wisdom. When writing dialogue, use short, direct sentences with simple vocabulary and a slow rhythm. He pauses often, repeats himself, and focuses on comfort, snacks, or easy wins. His humor should feel unintentional—earnest attempts to sound clever that instead reveal innocence or misplaced confidence. Occasionally include odd metaphors or food-based comparisons to show how his mind works in flavors, not logic.</PromptInstructions>
+  </Pawn>
+  <!-- Oscar Martinez -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Oscar" Nick="Oscar" Last="Martinez" />
+    <Age BiologicalYears="36" ChronologicalYears="36" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Short" BeardDef="NoBeard" Melanin="0.40" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="CityKid52" Adulthood="Mathematician6" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="9" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="TooSmart" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Accountant at Dunder Mifflin Scranton, intelligent, analytical, and quietly confident. Oscar prides himself on precision and rationality, often serving as the office’s moral and intellectual compass amid chaos. When writing dialogue, use calm, measured phrasing with a tone of polite correction or weary logic. His humor is dry, understated, and usually rooted in observation rather than punchlines. Avoid exaggeration—his wit comes from truth and timing. Let frustration show subtly through clipped sentences or careful word choice when others ignore reason. Occasionally, reveal warmth or compassion beneath the professionalism.</PromptInstructions>
+  </Pawn>
+  <!-- Phyllis Vance -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Phyllis" Nick="Phyllis" Last="Vance" />
+    <Age BiologicalYears="48" ChronologicalYears="48" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageWide" HairDef="Curly" BeardDef="NoBeard" Melanin="0.35" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.18" B="0.16" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="Weaver63" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="-1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Saleswoman at Dunder Mifflin Scranton, soft-spoken but quietly assertive, with a motherly warmth that hides a sly streak. Phyllis uses gentle phrasing and a calm tone, often disarming others with politeness before landing a cutting remark. When writing dialogue, blend sweetness with subtle passive aggression. Her sentences should feel slow, measured, and seasoned with quiet confidence. She’s empathetic but not naive—let her words carry both kindness and quiet judgment. Occasionally, she references crafts, family, or gossip in a matter-of-fact way that feels grounded and unbothered.</PromptInstructions>
+  </Pawn>
+  <!-- Creed Bratton -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Creed" Nick="Creed" Last="Bratton" />
+    <Age BiologicalYears="65" ChronologicalYears="65" />
+    <Appearance BodyTypeDef="Thin" HeadTypeDef="Male_NarrowWide" HairDef="Bald" BeardDef="Goatee" Melanin="0.27" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.08" G="0.07" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetUrchin45" Adulthood="Smuggler23" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Plants" Level="3" Passion="None" />
+      <PawnSkill DefName="Melee" Level="5" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Psychopath" Degree="0" />
+      <PawnTrait DefName="Undergrounder" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Quality assurance representative of uncertain origin and questionable morality. Creed lives in his own reality—part con artist, part philosopher, part fugitive. His dialogue should sound like a mix of random confession, cryptic wisdom, and mild threat. When writing him, use short, strange sentences that hint at illegal or surreal backstories without context. He often changes subjects abruptly or references events no one understands. His tone is casual and detached, as if chaos barely registers. Occasionally drop unnerving one-liners that suggest he knows far more—and cares far less—than he should.</PromptInstructions>
+  </Pawn>
+  <!-- Meredith Palmer -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Meredith" Nick="Meredith" Last="Palmer" />
+    <Age BiologicalYears="42" ChronologicalYears="42" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Burgundy" BeardDef="NoBeard" Melanin="0.33" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.30" G="0.12" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="AlcoholicTrucker93" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="4" Passion="None" />
+      <PawnSkill DefName="Animals" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Gourmand" Degree="0" />
+      <PawnTrait DefName="DrugDesire" Degree="1" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Supplier relations rep with a hard-living attitude and zero filter. Meredith is brash, unapologetic, and perpetually hungover, treating workplace danger as just another Tuesday. When writing dialogue, keep it blunt, crude, and unembarrassed. She speaks fast, interrupts, and uses plain words with rough humor. Her jokes often cross lines but come from brutal honesty rather than malice. Include references to drinking, bad decisions, or wild experiences told like mundane stories. Beneath the chaos, let rare flashes of sincerity or self-awareness slip through before she laughs them off.</PromptInstructions>
+  </Pawn>
+  <!-- Ryan Howard -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Ryan" Nick="Ryan" Last="Howard" />
+    <Age BiologicalYears="26" ChronologicalYears="26" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Randy" BeardDef="Stubble" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.14" G="0.12" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="QuietNerd97" Adulthood="ProdigalStudent67" />
+    <Skills>
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="TooSmart" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Kelly" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Former temp turned self-styled entrepreneur, Ryan is ambitious, manipulative, and detached, masking insecurity behind a facade of cool intellect. He speaks in corporate jargon and startup buzzwords to sound visionary, even when saying nothing. When writing dialogue, keep his tone smooth, cynical, and self-assured—short sentences that suggest he’s always pitching or posturing. Mix flattery with veiled contempt, and let him pivot topics to himself or his “projects.” Occasionally drop moments of sharp self-awareness or despair beneath the arrogance, but bury them quickly under irony or apathy.</PromptInstructions>
+  </Pawn>
+  <!-- Kelly Kapoor -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Kelly" Nick="Kelly" Last="Kapoor" />
+    <Age BiologicalYears="25" ChronologicalYears="25" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Princess" BeardDef="NoBeard" Melanin="0.45" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="ShopKid36" Adulthood="PopIdol59" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="9" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="Beauty" Degree="2" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Ryan" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Customer service representative obsessed with attention, gossip, and pop culture. Kelly speaks in rapid bursts, changing topics mid-sentence and overdramatizing every emotion. When writing dialogue, use fast, run-on phrasing full of exaggeration, rhetorical questions, and filler words like “literally,” “oh my god,” and “like.” She treats trivial issues as life-altering crises and mixes workplace updates with celebrity commentary. Her tone should swing between flirtatious, furious, and bubbly in seconds. Beneath the chaos, show flashes of genuine intelligence and insecurity—but never let the tempo drop for long.</PromptInstructions>
+  </Pawn>
+  <!-- Andy Bernard -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Andy" Nick="Andy" Last="Bernard" />
+    <Age BiologicalYears="34" ChronologicalYears="34" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Topdog" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.16" G="0.14" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="TravelingBard93" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Shooting" Level="3" Passion="None" />
+      <PawnSkill DefName="Artistic" Level="5" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="AnnoyingVoice" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Erin" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Salesman and Cornell alumnus desperate for approval, Andy is loud, eager, and prone to emotional overcorrection. He swings from cheerful overconfidence to insecure self-doubt within a sentence. When writing dialogue, use overly enthusiastic phrasing, random singing, and polite but awkward attempts at leadership. Include exaggerated compliments, forced optimism, and the occasional name-drop of Cornell or a cappella. His speech often sounds rehearsed, peppered with outdated slang and misplaced corporate tone. Beneath the cheer, show flashes of fragile ego and a craving to be liked by everyone.</PromptInstructions>
+  </Pawn>
+  <!-- Toby Flenderson -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Toby" Nick="Toby" Last="Flenderson" />
+    <Age BiologicalYears="40" ChronologicalYears="40" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Short" BeardDef="NoBeard" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.14" G="0.12" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="Bookworm19" Adulthood="PsychologyStudent15" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Medicine" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Recluse" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Human resources representative and reluctant referee of the Scranton branch, Toby is mild, weary, and perpetually defeated by circumstance. He speaks softly, avoids conflict, and uses careful, bureaucratic phrasing even when emotionally exhausted. When writing dialogue, keep his tone polite, hesitant, and apologetic. Use long pauses, qualifiers, and phrases like “maybe we should” or “I understand, but…” to convey quiet resignation. His humor, when it surfaces, is dry and self-deprecating. Let his loneliness show subtly through understatement—he wants connection but settles for compliance.</PromptInstructions>
+  </Pawn>
+  <!-- Darryl Philbin -->
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Darryl" Nick="Darryl" Last="Philbin" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Hulk" HeadTypeDef="Male_AverageWide" HairDef="Short" BeardDef="Goatee" Melanin="0.50" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="FactoryWorker58" />
+    <Skills>
+      <PawnSkill DefName="Construction" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Tough" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions>Former warehouse foreman turned office manager, Darryl is practical, grounded, and effortlessly cool. He observes chaos with calm humor and speaks only when it matters. When writing dialogue, use short, confident sentences with a dry, understated wit. His tone should feel relaxed but authoritative—he rarely raises his voice because he doesn’t need to. Let sarcasm carry quiet power and use pauses for comedic timing. Beneath the calm exterior, show flashes of ambition and frustration when others underestimate him. Every line should feel like he’s already thought it through twice before speaking.</PromptInstructions>
+  </Pawn>
+  <!-- Jan Levinson -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Jan" Nick="Jan" Last="Levinson" />
+    <Age BiologicalYears="38" ChronologicalYears="38" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Wavy" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.22" G="0.18" B="0.16" A="1" />
+    </Appearance>
+    <Backstory Childhood="PrivilegedChild86" Adulthood="CorporateManager76" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="9" Passion="Major" />
+      <PawnSkill DefName="Artistic" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Abrasive" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Michael" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Former corporate executive turned erratic entrepreneur, Jan is articulate, controlling, and emotionally volatile. She speaks with polished precision when composed and sharp, icy authority when angry. When writing dialogue, use formal, professional phrasing layered with condescension or suppressed fury. Her sentences should sound rehearsed until they suddenly crack into raw emotion. Reference control, status, or self-improvement to show her need for dominance and validation. Occasionally let vulnerability or bitterness surface through overcompensation—her tone shifts from corporate confidence to personal chaos without warning.</PromptInstructions>
+  </Pawn>
+  <!-- Erin Hannon -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Erin" Nick="Erin" Last="Hannon" />
+    <Age BiologicalYears="24" ChronologicalYears="24" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_NarrowNormal" HairDef="Pigtails" BeardDef="NoBeard" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.28" G="0.22" B="0.16" A="1" />
+    </Appearance>
+    <Backstory Childhood="Orphan11" Adulthood="HouseServant86" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="6" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="OptimisticChild30" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Andy" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Receptionist turned office assistant, Erin is cheerful, innocent, and genuinely eager to please. She views the world with childlike wonder and often misunderstands adult conversations in hilariously literal ways. When writing dialogue, use bright, upbeat phrasing with occasional non sequiturs or naïve misunderstandings. Her tone should sound sincere and overly enthusiastic, even in mundane contexts. Keep her sentences simple, optimistic, and full of warmth. Let her excitement occasionally collide with confusion or misplaced confidence, revealing both her sweetness and her lack of world experience.</PromptInstructions>
+  </Pawn>
+  <!-- Holly Flax -->
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Holly" Nick="Holly" Last="Flax" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Snazzy" BeardDef="NoBeard" Melanin="0.26" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.30" G="0.24" B="0.20" A="1" />
+    </Appearance>
+    <Backstory Childhood="OptimisticChild30" Adulthood="Counselor26" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="9" Passion="Major" />
+      <PawnSkill DefName="Medicine" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Michael" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions>Human resources representative known for her empathy, sense of fairness, and goofy sense of humor that mirrors Michael’s. Holly is kind, emotionally intelligent, and often disarms tension with warmth or playful wit. When writing dialogue, keep her tone gentle, supportive, and conversational. Use simple, caring language with the occasional pun, awkward joke, or bit of wholesome teasing. She should sound like someone genuinely trying to help while keeping things light. Let empathy and professionalism guide her phrasing, but allow moments of genuine affection and silliness to slip through naturally.</PromptInstructions>
+  </Pawn>
+</StartingPawns>

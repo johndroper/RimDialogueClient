@@ -34,7 +34,7 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MealSurvivalPack</thingDef>
-          <count>50</count>
+          <count>60</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -69,6 +69,19 @@
           <def>StartingThing_Defined</def>
           <thingDef>Couch</thingDef>
           <stuff>Cloth</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Apparel_FlakPants</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Apparel_FlakVest</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Apparel_AdvancedHelmet</thingDef>
+          <stuff>Plasteel</stuff>
         </li>
 
         <!-- Scatter some supplies -->
@@ -121,12 +134,17 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>Beer</thingDef>
-          <count>40</count>
+          <count>100</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Yayo</thingDef>
+          <count>50</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MealSurvivalPack</thingDef>
-          <count>30</count>
+          <count>50</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -139,7 +157,29 @@
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
+          <thingDef>Gun_PumpShotgun</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
           <thingDef>MeleeWeapon_Knife</thingDef>
+          <stuff>Plasteel</stuff>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>5</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Apparel_FlakPants</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Apparel_FlakVest</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Apparel_AdvancedHelmet</thingDef>
           <stuff>Plasteel</stuff>
         </li>
 
@@ -169,7 +209,7 @@
     <label>No Soup for the Rim (Seinfeld)</label>
     <description>Four New Yorkers and their mailman nemesis are stranded on a RimWorld after a shuttle mishap. Jerry observes, George schemes, Elaine organizes, Kramer improvises, and Newman plots. Survival now depends on sarcasm, cereal logic, and questionable plans.</description>
     <scenario>
-      <summary>Jerry, George, Elaine, Kramer, and Newman crash-land together. Expect petty disputes and improvised enterprises.</summary>
+      <summary>Jerry, George, Elaine, and Kramer crash-land together. Expect petty disputes and improvised enterprises.</summary>
       <parts>
 
         <!-- Load Seinfeld pawns and canon -->
@@ -199,7 +239,7 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MealSurvivalPack</thingDef>
-          <count>45</count>
+          <count>40</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -214,17 +254,6 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>Gun_Revolver</thingDef>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
-          <thingDef>Table2x2c</thingDef>
-          <stuff>WoodLog</stuff>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
-          <thingDef>DiningChair</thingDef>
-          <stuff>WoodLog</stuff>
-          <count>5</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -289,12 +318,12 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MealSurvivalPack</thingDef>
-          <count>48</count>
+          <count>80</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MedicineIndustrial</thingDef>
-          <count>28</count>
+          <count>35</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -319,11 +348,6 @@
           <thingDef>DiningChair</thingDef>
           <stuff>WoodLog</stuff>
           <count>7</count>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
-          <thingDef>Couch</thingDef>
-          <stuff>Cloth</stuff>
         </li>
 
         <!-- Scatter supplies -->
@@ -383,7 +407,7 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MealSurvivalPack</thingDef>
-          <count>48</count>
+          <count>55</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -397,28 +421,24 @@
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>Gun_Revolver</thingDef>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
           <thingDef>MeleeWeapon_Knife</thingDef>
           <stuff>Plasteel</stuff>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>Table2x2c</thingDef>
-          <stuff>WoodLog</stuff>
+          <thingDef>ArchiteCapsule</thingDef>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>DiningChair</thingDef>
-          <stuff>WoodLog</stuff>
-          <count>7</count>
+          <thingDef>Gun_ChargeRifle</thingDef>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>Couch</thingDef>
-          <stuff>Cloth</stuff>
+          <thingDef>Gravcore</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ShuttleEngine</thingDef>
         </li>
         <!-- Scatter supplies -->
         <li Class="ScenPart_ScatterThingsNearPlayerStart">
@@ -475,7 +495,7 @@
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>MealSurvivalPack</thingDef>
-          <count>45</count>
+          <count>90</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
@@ -494,19 +514,13 @@
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>Table2x2c</thingDef>
-          <stuff>WoodLog</stuff>
+          <thingDef>MealFine</thingDef>
+          <count>24</count>
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>DiningChair</thingDef>
-          <stuff>WoodLog</stuff>
+          <thingDef>Chocolate</thingDef>
           <count>6</count>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
-          <thingDef>Couch</thingDef>
-          <stuff>Cloth</stuff>
         </li>
 
         <!-- Scatter supplies -->
@@ -531,4 +545,165 @@
       </parts>
     </scenario>
   </ScenarioDef>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>LostShow</defName>
+    <label>We Have to Go Back (Lost)</label>
+    <description>Flight 815 tears apart in the sky. Drop pods slam into a harsh RimWorld. A doctor, a fugitive, a con man, a hunter, a lottery winner, a soldier, and the Kwons try to build order from wreckage while the jungle watches.</description>
+    <scenario>
+      <summary>Jack, Kate, Sawyer, Locke, Hurley, Sayid, Sun, Jin, and Claire arrive together. Expect leadership struggles, jungle expeditions, and strange signals.</summary>
+      <parts>
+
+        <!-- Load Lost pawns and canon -->
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>Lost.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>Lost.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>Standing</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>800</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>110</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>35</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>30</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_BoltActionRifle</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>ChunkSlagSteel</thingDef>
+          <count>100</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>320</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>260</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>The roar of engines becomes a scream, then nothing but surf and fire. You wake among twisted metal and shattered luggage, the jungle staring back like a living thing. Smoke rises in black ribbons above the wreck of Flight 815. Jack is already shouting for survivors, Kate drags someone from the tide, Sawyer pockets a lighter, Locke smiles at the trees. Somewhere beyond the palms, a strange signal repeats in static. The island hums beneath your feet—ancient, patient, and waiting.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+
+      </parts>
+    </scenario>
+  </ScenarioDef>
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>TheOfficeSitcom</defName>
+    <label>Dunder Mifflin on the Rim (The Office)</label>
+    <description>The Dunder Mifflin Scranton branch was on a corporate retreat to the Glitterworld of Utica when Michael took control of the shuttle’s PA system. A “motivational announcement” led to confusion, mild panic, and one disastrous button press. Now the entire office has crash-landed on a RimWorld—armed with sarcasm, memos, and a shocking lack of survival instincts.</description>
+    <scenario>
+      <summary>Michael, Jim, Pam, Dwight, Angela, Kevin, and the rest of Dunder Mifflin try to survive the Rim. Expect awkward meetings, beet farming, and coffee shortages.</summary>
+      <parts>
+
+        <!-- Load The Office pawns and canon -->
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadPawns">
+          <def>ConfigPage_LoadPawns</def>
+          <selectedFileName>TheOffice.xml</selectedFileName>
+        </li>
+
+        <li Class="RimDialogue.Core.Scenarios.ScenPart_ConfigPage_LoadCanon">
+          <def>ConfigPage_LoadCanon</def>
+          <selectedFileName>TheOffice.txt</selectedFileName>
+        </li>
+
+        <!-- Player arrival -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <method>DropPods</method>
+          <visible>false</visible>
+        </li>
+
+        <!-- Starting items -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>700</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>45</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>25</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>25</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_BoltActionRifle</thingDef>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_Revolver</thingDef>
+        </li>
+
+        <!-- Scatter supplies -->
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>Steel</thingDef>
+          <count>300</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>250</count>
+        </li>
+
+        <!-- Game start dialogue -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>Michael called this retreat “The Conference Room of Tomorrow.” It lasted twelve seconds before the shuttle alarms went off. Now the Dunder Mifflin team has landed on a barren RimWorld with nothing but binders, coffee mugs, and an almost supernatural ability to generate awkwardness. Dwight has assumed command. Jim disagrees. Pam’s drawing the crater. Angela’s judging everyone. Kevin found snacks. Creed found a knife. And somewhere in the wreckage, Michael’s still giving his opening speech.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+
+      </parts>
+    </scenario>
+  </ScenarioDef>
+
 </Defs>

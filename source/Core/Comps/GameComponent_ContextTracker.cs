@@ -445,7 +445,7 @@ namespace RimDialogue.Core
     public override void ExposeData()
     {
       base.ExposeData();
-      Scribe_Collections.Look(ref Canon, "canon", LookMode.Deep);
+      Scribe_Collections.Look(ref Canon, "canon", LookMode.Value);
     }
 
   }

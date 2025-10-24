@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='utf-8'?>
+<StartingPawns StartingPawnCount="9">
+  
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jack" Nick="Jack" Last="Shephard" />
+    <Age BiologicalYears="36" ChronologicalYears="36" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Recruit" BeardDef="Stubble" Melanin="0.25" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="ShipChild46" Adulthood="StarshipDoctor37" />
+    <Skills>
+      <PawnSkill DefName="Medicine" Level="10" Passion="Major" />
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Industriousness" Degree="1" />
+      <PawnTrait DefName="Neurotic" Degree="1" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Kate" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Decisive doctor. Clipped leadership, triage focus, and duty-first conflict with flashes of doubt. Keep commands clear and ethical. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Kate" Nick="Kate" Last="Austen" />
+    <Age BiologicalYears="30" ChronologicalYears="30" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Curly" BeardDef="NoBeard" Melanin="0.32" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.18" G="0.14" B="0.10" A="1" />
+    </Appearance>
+    <Backstory Childhood="StreetKid19" Adulthood="Fugitive4" />
+    <Skills>
+      <PawnSkill DefName="Shooting" Level="7" Passion="Major" />
+      <PawnSkill DefName="Plants" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Social" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Nimble" Degree="0" />
+      <PawnTrait DefName="Beautiful" Degree="1" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Lover" OtherPawn="Jack" />
+      <PawnRelation RelationDef="ExLover" OtherPawn="Sawyer" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Resourceful and guarded. Soft-spoken deflection, sudden resolve, and loyalty tests. Keep lines wary but warm. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="James" Nick="Sawyer" Last="Ford" />
+    <Age BiologicalYears="35" ChronologicalYears="35" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageWide" HairDef="Mop" BeardDef="Stubble" Melanin="0.28" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.75" G="0.65" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="Orphan15" Adulthood="ConArtist80" />
+    <Skills>
+      <PawnSkill DefName="Shooting" Level="8" Passion="Major" />
+      <PawnSkill DefName="Social" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Melee" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="2" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Abrasive" Degree="0" />
+      <PawnTrait DefName="Greedy" Degree="0" />
+      <PawnTrait DefName="Tough" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="ExLover" OtherPawn="Kate" />
+      <PawnRelation RelationDef="Rival" OtherPawn="Jack" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Charming rogue. Nickname-laced barbs, mercenary veneer, reluctant heart. Keep sarcasm dry and tactical. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="John" Nick="Locke" Last="Locke" />
+    <Age BiologicalYears="48" ChronologicalYears="48" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Bald" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.08" G="0.07" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="ReclusiveChild81" Adulthood="ConstructionEngineer32" />
+    <Skills>
+      <PawnSkill DefName="Plants" Level="8" Passion="Major" />
+      <PawnSkill DefName="Melee" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Shooting" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Intellectual" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Ascetic" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Psychopath" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Mystical survivalist. Quiet conviction, destiny talk, and predator calm. Use measured, almost reverent cadence. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Hugo" Nick="Hurley" Last="Reyes" />
+    <Age BiologicalYears="28" ChronologicalYears="28" />
+    <Appearance BodyTypeDef="Fat" HeadTypeDef="Male_AverageNormal" HairDef="Sticky" BeardDef="Circle" Melanin="0.40" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.12" G="0.10" B="0.08" A="1" />
+    </Appearance>
+    <Backstory Childhood="UrbworldChild56" Adulthood="UrbworldEntrepreneur14" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="7" Passion="Major" />
+      <PawnSkill DefName="Cooking" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="3" Passion="None" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Sanguine" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Warm comic relief and conscience. Self-deprecating jokes, straight empathy, and practical comforts. Keep tone friendly and steady. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Sayid" Nick="Sayid" Last="Jarrah" />
+    <Age BiologicalYears="32" ChronologicalYears="32" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_NarrowNormal" HairDef="Curly" BeardDef="Stubble" Melanin="0.55" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.10" G="0.08" B="0.07" A="1" />
+    </Appearance>
+    <Backstory Childhood="SoldierExperiment50" Adulthood="IntelligenceAgent21" />
+    <Skills>
+      <PawnSkill DefName="Shooting" Level="8" Passion="Major" />
+      <PawnSkill DefName="Intellectual" Level="6" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Melee" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Tough" Degree="0" />
+      <PawnTrait DefName="GreatMemory" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Calm interrogator and engineer. Precise speech, tactical questions, and moral weight acknowledged. Keep logic forward. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Sun-Hwa" Nick="Sun" Last="Kwon" />
+    <Age BiologicalYears="28" ChronologicalYears="28" />
+    <Appearance BodyTypeDef="Female" HeadTypeDef="Female_AverageNormal" HairDef="Cleopatra" BeardDef="NoBeard" Melanin="0.22" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.08" G="0.07" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="OldMoneyHeir46" Adulthood="Herbalist54" />
+    <Skills>
+      <PawnSkill DefName="Plants" Level="7" Passion="Major" />
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Kind" Degree="0" />
+      <PawnTrait DefName="Jealous" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Jin-Soo" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Poised and resolute. Gentle diplomacy that hardens when family is threatened. Keep phrasing measured and firm. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="male" Xenotype="Baseliner">
+    <Name First="Jin-Soo" Nick="Jin" Last="Kwon" />
+    <Age BiologicalYears="30" ChronologicalYears="30" />
+    <Appearance BodyTypeDef="Male" HeadTypeDef="Male_AverageNormal" HairDef="Warden" BeardDef="NoBeard" Melanin="0.23" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.08" G="0.07" B="0.06" A="1" />
+    </Appearance>
+    <Backstory Childhood="CountryChild95" Adulthood="Bodyguard58" />
+    <Skills>
+      <PawnSkill DefName="Melee" Level="8" Passion="Major" />
+      <PawnSkill DefName="Plants" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Construction" Level="4" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Loyal" Degree="0" />
+      <PawnTrait DefName="Tough" Degree="0" />
+    </Traits>
+    <Relations>
+      <PawnRelation RelationDef="Spouse" OtherPawn="Sun-Hwa" />
+    </Relations>
+    <Hediffs />
+    <PromptInstructions> Stoic protector. Sparse words, quick action, and steady devotion. Keep sentences short and purposeful. </PromptInstructions>
+  </Pawn>
+
+  
+  <Pawn Gender="female" Xenotype="Baseliner">
+    <Name First="Claire" Nick="Claire" Last="Littleton" />
+    <Age BiologicalYears="22" ChronologicalYears="22" />
+    <Appearance BodyTypeDef="Thin" HeadTypeDef="Female_NarrowNormal" HairDef="Snazzy" BeardDef="NoBeard" Melanin="0.30" BodyTattooDef="NoTattoo_Body" FaceTattooDef="NoTattoo_Face">
+      <HairColor R="0.75" G="0.65" B="0.45" A="1" />
+    </Appearance>
+    <Backstory Childhood="SmallTownKid41" Adulthood="Student65" />
+    <Skills>
+      <PawnSkill DefName="Social" Level="5" Passion="Minor" />
+      <PawnSkill DefName="Cooking" Level="4" Passion="Minor" />
+      <PawnSkill DefName="Artistic" Level="3" Passion="Minor" />
+    </Skills>
+    <Traits>
+      <PawnTrait DefName="Nervous" Degree="0" />
+      <PawnTrait DefName="Kind" Degree="0" />
+    </Traits>
+    <Relations />
+    <Hediffs />
+    <PromptInstructions> Hopeful yet anxious. Protective instincts, gentle curiosity, and sudden steel for her child. Keep tone soft but firm when pressed. </PromptInstructions>
+  </Pawn>
+</StartingPawns>
