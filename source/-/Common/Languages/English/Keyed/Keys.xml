@@ -27,9 +27,10 @@
   <RimDialogue.ShowInteractionBubbles>Show interaction bubbles</RimDialogue.ShowInteractionBubbles>
   <RimDialogue.ShowDialogueBubbles>Show dialogue bubbles</RimDialogue.ShowDialogueBubbles>
   <RimDialogue.ShowDialogueMessages>Show dialogue messages</RimDialogue.ShowDialogueMessages>
-  <RimDialogue.DialogueMessageLifetime>Normal dialogue message lifetime</RimDialogue.DialogueMessageLifetime>
-  <RimDialogue.MinDialogueMessageLifetime>Minimum dialogue message lifetime</RimDialogue.MinDialogueMessageLifetime>
-  <RimDialogue.DialogueMessageWidth>Dialogue message width</RimDialogue.DialogueMessageWidth>
+  <RimDialogue.DialogueMessageLifetime>Normal message lifetime</RimDialogue.DialogueMessageLifetime>
+  <RimDialogue.MinDialogueMessageLifetime>Minimum message lifetime</RimDialogue.MinDialogueMessageLifetime>
+  <RimDialogue.DialogueFixedOffset>Top offset</RimDialogue.DialogueFixedOffset>
+  <RimDialogue.DialogueMessageWidth>Message width</RimDialogue.DialogueMessageWidth>
   
   <RimDialogue.MessageScrollSpeed>Message Scroll Speed</RimDialogue.MessageScrollSpeed>
   <RimDialogue.MemeButton>Toon</RimDialogue.MemeButton>

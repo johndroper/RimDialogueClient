@@ -97,7 +97,7 @@ namespace RimDialogue.UI
       height = Text.CalcHeight(dialogue, width);
       cachedDrawLocs = (List<Vector2>)Reflection.RimWorld_ColonistBar_CachedDrawLocs.GetValue(Find.ColonistBar);
       float maxY = cachedDrawLocs.Max(entry => entry.y);
-      rect = new Rect(Verse.UI.screenWidth / 2f - width / 2, maxY + Find.ColonistBar.Size.y + 10f, width + 12f, height + 4f);
+      rect = new Rect(Verse.UI.screenWidth / 2f - width / 2, maxY + Find.ColonistBar.Size.y + Settings.DialogueFixedOffset.Value, width + 12f, height + 4f);
       // if (Settings.VerboseLogging.Value) Mod.Log($"Message Rect: {rect}");
     }
 

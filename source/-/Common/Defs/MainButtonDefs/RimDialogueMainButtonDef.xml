@@ -1,10 +1,11 @@
 <Defs>
   <MainButtonDef>
     <defName>RimDialogueTab</defName>
-    <!--<buttonIcon>UI/Icons/RimDialogueIcon</buttonIcon>-->
-    <order>75</order>
+    <iconPath>RimDialogue/MainButtonDefIcon</iconPath>
+    <order>495</order>
     <tabWindowClass>RimDialogue.MainTabWindow_RimDialogue</tabWindowClass>
     <label>RimDialogue</label>
     <description>View conversations between your pawns and set additional instructions.</description>
+    <minimized>True</minimized>
   </MainButtonDef>
 </Defs>

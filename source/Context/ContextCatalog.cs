@@ -282,25 +282,25 @@ namespace RimDialogue.Context
         weight);
     }
 
-    public static TemporalContextData? Create(JobRecord jobRecord)
-    {
-      var jobText = $"{jobRecord.Pawn.Name?.ToStringShort ?? jobRecord.Pawn.Label} was {jobRecord.Report?.Replace(".", "")}";
+    //public static TemporalContextData? Create(JobRecord jobRecord)
+    //{
+    //  var jobText = $"{jobRecord.Pawn.Name?.ToStringShort ?? jobRecord.Pawn.Label} was {jobRecord.Report?.Replace(".", "")}";
 
-      if (jobRecord.Duration > 1)
-        jobText += $" for {jobRecord.Duration.ToStringTicksToPeriod()}.";
-      else if (jobRecord.Count > 1)
-        jobText += $" {jobRecord.Count} times.";
-      else
-        jobText += ".";
+    //  if (jobRecord.Duration > 1)
+    //    jobText += $" for {jobRecord.Duration.ToStringTicksToPeriod()}.";
+    //  else if (jobRecord.Count > 1)
+    //    jobText += $" {jobRecord.Count} times.";
+    //  else
+    //    jobText += ".";
 
-        return new ExpiringTemporalContextData(
-            jobText,
-            "job",
-            jobRecord.StartTick,
-            Settings.JobContextWeight.Value,
-            GenDate.TicksPerDay * 7,
-            jobRecord.Pawn);
-    }
+    //    return new ExpiringTemporalContextData(
+    //        jobText,
+    //        "job",
+    //        jobRecord.StartTick,
+    //        Settings.JobContextWeight.Value,
+    //        GenDate.TicksPerDay * 7,
+    //        jobRecord.Pawn);
+    //}
 
     public static TemporalContextData? Create(LogEntry entry)
     {

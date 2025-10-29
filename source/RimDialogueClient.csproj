@@ -180,6 +180,7 @@
     <Content Include="-\Common\StartingPawns\Seinfeld.xml" />
     <Content Include="-\Common\StartingPawns\TheOffice.xml" />
     <Content Include="-\Common\Textures\RimDialogue\caption_box.png" />
+    <Content Include="-\Common\Textures\RimDialogue\MainButtonDefIcon.png" />
     <Content Include="-\Common\Textures\Things\Mote\SpeechSymbols\thought_bubble.png" />
     <None Include="-\1.6\models\model.onnx" />
   </ItemGroup>

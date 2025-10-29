@@ -426,19 +426,7 @@
         </li>
         <li Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
-          <thingDef>ArchiteCapsule</thingDef>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
           <thingDef>Gun_ChargeRifle</thingDef>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
-          <thingDef>Gravcore</thingDef>
-        </li>
-        <li Class="ScenPart_StartingThing_Defined">
-          <def>StartingThing_Defined</def>
-          <thingDef>ShuttleEngine</thingDef>
         </li>
         <!-- Scatter supplies -->
         <li Class="ScenPart_ScatterThingsNearPlayerStart">

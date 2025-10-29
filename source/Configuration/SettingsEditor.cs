@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using static UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure;
 using static Verse.Widgets;
 
 namespace RimDialogue.Configuration
@@ -116,7 +117,7 @@ namespace RimDialogue.Configuration
 
         l.Gap();
 
-        var messageListing = l.BeginSection(30f * 7);
+        var messageListing = l.BeginSection(30f * 9);
         messageListing.ColumnWidth = listingRect.width - 50f;
         messageListing.Label("RimDialogue.DialogueMessages".Translate());
         messageListing.Gap();
@@ -142,6 +143,7 @@ namespace RimDialogue.Configuration
           messageListing.SliderLabeled("RimDialogue.DialogueMessageWidth".Translate(), ref Settings.DialogueMessageWidth.Value, 200, 1200);
           messageListing.SliderLabeled("RimDialogue.DialogueMessageLifetime".Translate(), ref Settings.DialogueMessageLifetime.Value, 1f, 100f, roundTo: 1f);
           messageListing.SliderLabeled("RimDialogue.MinDialogueMessageLifetime".Translate(), ref Settings.MinDialogueMessageLifetime.Value, 1f, 10f, roundTo: 1f);
+          messageListing.SliderLabeled("RimDialogue.DialogueFixedOffset".Translate(), ref Settings.DialogueFixedOffset.Value, 0, 100);
         }
         messageListing.Outdent();
         l.EndSection(messageListing);

@@ -82,9 +82,10 @@ namespace RimDialogue.Core
     public void LoadBasicContext()
     {
       List<ContextData> contextDatae = [];
-      contextDatae.AddRange(Canon.Select(canonItem => new BasicContextData(canonItem, "canon", 1f)));
 
-      Stopwatch watch = Stopwatch.StartNew();
+      if (Canon != null)
+        contextDatae.AddRange(Canon.Select(canonItem => new BasicContextData(canonItem, "canon", 1f)));
+
       foreach (Pawn pawn in Find.CurrentMap?.mapPawns.FreeColonists ?? [])
       {
         contextDatae.AddRange(BasicContextData.CreateRelations(pawn));
@@ -133,9 +134,8 @@ namespace RimDialogue.Core
 
       LoadAsync(contextDatae);
 
-      watch.Stop();
       if (Settings.VerboseLogging.Value)
-        Mod.Log($"Loaded {contextDatae.Count} basic context items in {watch.Elapsed.TotalSeconds} seconds.");
+        Mod.Log($"Loaded {contextDatae.Count} basic context items.");
     }
 
     public override void FinalizeInit()
@@ -324,25 +324,25 @@ namespace RimDialogue.Core
       if (Settings.VerboseLogging.Value)
         Mod.Log($"Loaded Hediffs in {watch.Elapsed.TotalSeconds} seconds.");
 
-      watch.Restart();
-      try
-      {
-        var jobContext = GameComponent_JobTracker.Instance.JobRecords
-            .SelectMany(keyPair => keyPair.Value)
-            .Select(record => TemporalContextCatalog.Create(record))
-            .Where(context => context != null)
-            .ToArray();
-        if (Settings.VerboseLogging.Value)
-          Mod.Log($"{jobContext.Length} jobs to be loaded into context.");
-        temporalContextDatae.AddRange(jobContext!);
-      }
-      catch (Exception ex)
-      {
-        Mod.Error($"Error loading JobRecords: {ex}");
-      }
-      watch.Stop();
-      if (Settings.VerboseLogging.Value)
-        Mod.Log($"Loaded JobRecords in {watch.Elapsed.TotalSeconds} seconds.");
+      //watch.Restart();
+      //try
+      //{
+      //  var jobContext = GameComponent_JobTracker.Instance.JobRecords
+      //      .SelectMany(keyPair => keyPair.Value)
+      //      .Select(record => TemporalContextCatalog.Create(record))
+      //      .Where(context => context != null)
+      //      .ToArray();
+      //  if (Settings.VerboseLogging.Value)
+      //    Mod.Log($"{jobContext.Length} jobs to be loaded into context.");
+      //  temporalContextDatae.AddRange(jobContext!);
+      //}
+      //catch (Exception ex)
+      //{
+      //  Mod.Error($"Error loading JobRecords: {ex}");
+      //}
+      //watch.Stop();
+      //if (Settings.VerboseLogging.Value)
+      //  Mod.Log($"Loaded JobRecords in {watch.Elapsed.TotalSeconds} seconds.");
 
       watch.Restart();
       try
@@ -439,6 +439,9 @@ namespace RimDialogue.Core
         LoadAsync(ExpiringContextData.CreateRooms(Find.CurrentMap));
         LoadAsync(ExpiringContextData.CreateWildlife(Find.CurrentMap));
         LoadAsync(ExpiringContextData.CreateAnimals(Find.CurrentMap));
+
+        if (Scribe.mode == LoadSaveMode.LoadingVars)
+          Canon = [];
       }
     }
 
